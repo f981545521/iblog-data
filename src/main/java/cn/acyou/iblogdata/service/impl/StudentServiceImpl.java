@@ -8,6 +8,8 @@ import cn.acyou.iblogdata.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author youfang
  * @date 2018-04-15 下午 09:38
@@ -25,7 +27,12 @@ public class StudentServiceImpl implements StudentService
         boss.setName(student.getName());
         boss.setAge(student.getAge());
         bossService.addBoss(boss);
-        studentMapper.addStudent(student);
+        studentMapper.insert(student);
         return 1;
+    }
+
+    @Override
+    public List<Student> getAllStudent() {
+        return studentMapper.selectAll();
     }
 }

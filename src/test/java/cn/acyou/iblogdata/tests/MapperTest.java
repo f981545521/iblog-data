@@ -19,7 +19,7 @@ public class MapperTest extends BaseTest{
 
     @Test
     public void test1(){
-        List<Student> bossList = bossMapper.getAllStudent();
+        List<Student> bossList = bossMapper.selectAll();
         System.out.println(bossList);
     }
 }

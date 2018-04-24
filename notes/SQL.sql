@@ -9,8 +9,10 @@ CREATE TABLE `t_boss` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci COMMENT='老板';
 
-
-
+INSERT INTO `student` (`id`, `name`, `age`) VALUES ('1', '刘备', '34');
+INSERT INTO `student` (`id`, `name`, `age`) VALUES ('2', '曹操', '45');
+INSERT INTO `student` (`id`, `name`, `age`) VALUES ('3', '孙权', '43');
+INSERT INTO `student` (`id`, `name`, `age`) VALUES ('4', '袁绍', '38');
 
 
 
