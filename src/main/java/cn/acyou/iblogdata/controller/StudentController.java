@@ -8,6 +8,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author youfang
  * @date 2018-04-15 下午 09:38
@@ -18,15 +20,22 @@ import org.springframework.web.bind.annotation.*;
 public class StudentController {
 
     @Autowired
-    private StudentService bossService;
+    private StudentService studentService;
 
-    @RequestMapping(value = "boss", method = {RequestMethod.POST})
-    @ApiOperation("增加一个老板")
+    @RequestMapping(value = "students", method = {RequestMethod.POST})
+    @ApiOperation("增加一个学生")
     @ResponseBody
     public ResultInfo addBoss(Student student){
-        bossService.addStudent(student);
+        studentService.addStudent(student);
         return new ResultInfo();
     }
 
+    @RequestMapping(value = "students", method = {RequestMethod.GET})
+    @ApiOperation("获取所有学生列表")
+    @ResponseBody
+    public ResultInfo getAllStudent(){
+        List<Student> data = studentService.getAllStudent();
+        return ResultInfo.generateSuccess(data);
+    }
 
 }
