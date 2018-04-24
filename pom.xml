@@ -164,6 +164,17 @@
             <artifactId>mapper</artifactId>
             <version>4.0.1</version>
         </dependency>
+        <!-- generator自动代码生成器 -->
+        <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+            <version>1.3.6</version>
+        </dependency>
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-generator</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
 	<build>
