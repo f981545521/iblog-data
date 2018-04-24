@@ -47,7 +47,7 @@ import org.springframework.web.context.WebApplicationContext;
  **ResultMatcher redirectedUrlPattern(final String expectedUrl)：验证处理完请求后重定向的url（Ant风格模式匹配，@since spring4）；
  **
  */
-@ActiveProfiles("unit-test")
+//@ActiveProfiles("unit-test")
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @WebAppConfiguration
