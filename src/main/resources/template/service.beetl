@@ -1,0 +1,9 @@
+package ${basePackage}.service${subPackage!};
+
+/**
+ * @author ${author}
+ * @date ${date}
+ **/
+public interface ${modelNameUpperCamel}Service {
+
+}

@@ -1,0 +1,20 @@
+package ${basePackage}.service.impl${subPackage!};
+
+import ${basePackage}.dao${subPackage!}.${modelNameUpperCamel}Mapper;
+import ${basePackage}.service${subPackage!}.${modelNameUpperCamel}Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
+import javax.annotation.Resource;
+
+/**
+ * @author ${author}
+ * @date ${date}
+ **/
+
+@Service
+@Transactional(rollbackFor = Exception.class, timeout = 1)
+public class ${modelNameUpperCamel}ServiceImpl implements ${modelNameUpperCamel}Service {
+    @Resource
+    private ${modelNameUpperCamel}Mapper ${modelNameLowerCamel}Mapper;
+
+}
