@@ -1,6 +1,7 @@
 package cn.acyou.iblogdata.entity;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -14,6 +15,7 @@ public class Student implements Serializable{
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(generator = "JDBC")
     private Integer id;
 
     @Column(name = "name")
