@@ -1,5 +1,6 @@
 package cn.acyou.iblogdata.conf;
 
+import cn.acyou.iblog.service.BossService;
 import cn.acyou.iblog.service.SortService;
 import com.alibaba.dubbo.config.*;
 import com.alibaba.dubbo.config.spring.ReferenceBean;
@@ -63,6 +64,10 @@ public class DubboConfigurer {
     @Bean
     public ReferenceBean<SortService> sortService(RegistryConfig registryConfig, ApplicationConfig applicationConfig, ConsumerConfig consumerConfig, Dubbo dubbo) {
         return registerReference(registryConfig, applicationConfig, consumerConfig, dubbo, SortService.class);
+    }
+    @Bean
+    public ReferenceBean<BossService> bossService(RegistryConfig registryConfig, ApplicationConfig applicationConfig, ConsumerConfig consumerConfig, Dubbo dubbo) {
+        return registerReference(registryConfig, applicationConfig, consumerConfig, dubbo, BossService.class);
     }
 
 
