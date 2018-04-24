@@ -16,10 +16,8 @@ import tk.mybatis.spring.mapper.MapperScannerConfigurer;
 import java.util.Properties;
 
 /**
- * MyBatis通用框架
- * @author  Mr Huang
- * @version  [1.0.0, 2017年11月23日]
- * @since  [爱自由/公用DAO]
+ * @author youfang
+ * @date 2018-04-24 13:21
  */
 @Configuration
 @AutoConfigureAfter(MyBatisConfigurer.class)
