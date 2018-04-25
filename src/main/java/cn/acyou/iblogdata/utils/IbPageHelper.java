@@ -1,5 +1,6 @@
 package cn.acyou.iblogdata.utils;
 
+import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.Intercepts;
@@ -12,7 +13,7 @@ import org.apache.ibatis.session.RowBounds;
  * @author youfang
  */
 @Intercepts(@Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}))
-public class IbPageHelper extends com.github.pagehelper.PageHelper {
+public class IbPageHelper extends PageHelper {
     @Override
     public Object plugin(Object target) {
         if (target instanceof Executor) {

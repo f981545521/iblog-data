@@ -3,4 +3,13 @@
 <!-- namespace:分类管理 -->
 <mapper namespace="cn.acyou.iblogdata.dao.StudentMapper">
 
+    <resultMap id="BaseResultMap" type="cn.acyou.iblogdata.entity.Student">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="age" jdbcType="INTEGER" property="age" />
+    </resultMap>
+
+    <select id="getStudentsByPage" resultMap="BaseResultMap">
+        SELECT * FROM student
+    </select>
 </mapper>

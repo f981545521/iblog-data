@@ -5,6 +5,8 @@ import cn.acyou.iblog.service.BossService;
 import cn.acyou.iblogdata.dao.StudentMapper;
 import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.service.StudentService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,5 +37,13 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> getAllStudent() {
         return studentMapper.selectAll();
+    }
+
+    @Override
+    public PageInfo<Student> getStudentsByPage() {
+        PageHelper.startPage(2,3);
+        List<Student> studentList = studentMapper.getStudentsByPage();
+        PageInfo<Student> page = new PageInfo<>(studentList);
+        return page;
     }
 }
