@@ -29,4 +29,7 @@ public class AppConstant {
     public static final String MAPPER_INTERFACE_REFERENCE = BASE_PACKAGE + ".dao.Mapper";
 
     public static final String UNDER_LINE = "_";
+
+
+    public static final String COMMA = ",";
 }

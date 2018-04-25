@@ -1,7 +1,8 @@
 package cn.acyou.iblogdata.conf;
 
+import cn.acyou.iblogdata.aop.PerformanceInterceptor;
+import cn.acyou.iblogdata.aop.SoInterceptor;
 import cn.acyou.iblogdata.utils.IbPageHelper;
-import cn.acyou.iblogdata.utils.PerformanceInterceptor;
 import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -55,7 +56,7 @@ public class MyBatisConfigurer {
         //支持通过 Mapper 接口参数来传递分页参数
         pageHelper.setProperties(properties);
         //添加插件
-        sqlsession.setPlugins(new Interceptor[]{ pageHelper, new PerformanceInterceptor()});
+        sqlsession.setPlugins(new Interceptor[]{ pageHelper,new SoInterceptor(), new PerformanceInterceptor()});
 
         //添加XML目录
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();

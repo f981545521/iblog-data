@@ -9,7 +9,10 @@
         <result column="age" jdbcType="INTEGER" property="age" />
     </resultMap>
 
-    <select id="getStudentsByPage" resultMap="BaseResultMap">
-        SELECT * FROM student
+    <select id="getStudentsByPage" resultMap="BaseResultMap" parameterType="cn.acyou.iblogdata.so.StudentSo">
+        SELECT p.* FROM student AS p
+        <where>
+            <if test="name!=null and name!=''">p.name LIKE "%"#{name}"%"</if>
+        </where>
     </select>
 </mapper>

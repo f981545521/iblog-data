@@ -1,4 +1,4 @@
-package cn.acyou.iblogdata.utils;
+package cn.acyou.iblogdata.aop;
 
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;

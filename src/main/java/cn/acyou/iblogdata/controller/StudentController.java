@@ -2,6 +2,7 @@ package cn.acyou.iblogdata.controller;
 
 import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.service.StudentService;
+import cn.acyou.iblogdata.so.StudentSo;
 import cn.acyou.iblogdata.utils.ResultInfo;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
@@ -42,8 +43,8 @@ public class StudentController {
     @RequestMapping(value = "student", method = {RequestMethod.GET})
     @ApiOperation("获取所有学生列表")
     @ResponseBody
-    public ResultInfo getStudentByPage(){
-        PageInfo<Student> data = studentService.getStudentsByPage();
+    public ResultInfo getStudentByPage(StudentSo studentSo){
+        PageInfo<Student> data = studentService.getStudentsByPage(studentSo);
         return ResultInfo.generateSuccess(data);
     }
 
