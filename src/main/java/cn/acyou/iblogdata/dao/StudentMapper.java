@@ -1,6 +1,7 @@
 package cn.acyou.iblogdata.dao;
 
 import cn.acyou.iblogdata.entity.Student;
+import cn.acyou.iblogdata.so.StudentSo;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -11,6 +12,6 @@ import java.util.List;
  **/
 public interface StudentMapper extends Mapper<Student>{
 
-    List<Student> getStudentsByPage();
+    List<Student> getStudentsByPage(StudentSo studentSo);
 
 }

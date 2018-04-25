@@ -5,6 +5,7 @@ import cn.acyou.iblog.service.BossService;
 import cn.acyou.iblogdata.dao.StudentMapper;
 import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.service.StudentService;
+import cn.acyou.iblogdata.so.StudentSo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +41,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public PageInfo<Student> getStudentsByPage() {
-        PageHelper.startPage(2,3);
-        List<Student> studentList = studentMapper.getStudentsByPage();
+    public PageInfo<Student> getStudentsByPage(StudentSo studentSo) {
+        PageHelper.startPage(studentSo.getCurrentPage(), studentSo.getPageSize());
+        List<Student> studentList = studentMapper.getStudentsByPage(studentSo);
         PageInfo<Student> page = new PageInfo<>(studentList);
         return page;
     }
