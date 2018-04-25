@@ -55,7 +55,7 @@ public class MyBatisConfigurer {
         //支持通过 Mapper 接口参数来传递分页参数
         pageHelper.setProperties(properties);
         //添加插件
-        sqlsession.setPlugins(new Interceptor[]{new PerformanceInterceptor()});
+        sqlsession.setPlugins(new Interceptor[]{ pageHelper, new PerformanceInterceptor()});
 
         //添加XML目录
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();

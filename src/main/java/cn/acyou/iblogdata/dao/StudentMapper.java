@@ -11,4 +11,6 @@ import java.util.List;
  **/
 public interface StudentMapper extends Mapper<Student>{
 
+    List<Student> getStudentsByPage();
+
 }
