@@ -15,12 +15,13 @@ import java.util.List;
  * @date 2018-04-15 下午 09:38
  **/
 @Service("studentService")
-public class StudentServiceImpl implements StudentService
-{
+public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentMapper studentMapper;
-    @Autowired
+
+    @Autowired(required = false)
     private BossService bossService;
+
     @Override
     public int addStudent(Student student) {
         Boss boss = new Boss();

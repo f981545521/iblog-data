@@ -21,7 +21,7 @@ import java.util.List;
 @Api
 public class HelloWorldController {
 
-    @Autowired
+    @Autowired(required = false)
     private SortService sortService;
 
     @ApiOperation(value = "first")
