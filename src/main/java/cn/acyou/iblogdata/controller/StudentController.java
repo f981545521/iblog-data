@@ -4,6 +4,7 @@ import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.service.StudentService;
 import cn.acyou.iblogdata.so.StudentSo;
 import cn.acyou.iblogdata.utils.ResultInfo;
+import cn.acyou.iblogdata.utils.ResultInfoGenerate;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,7 +38,7 @@ public class StudentController {
     @ResponseBody
     public ResultInfo getAllStudent(){
         List<Student> data = studentService.getAllStudent();
-        return ResultInfo.generateSuccess(data);
+        return ResultInfoGenerate.generateSuccess(data);
     }
 
     @RequestMapping(value = "student", method = {RequestMethod.GET})
@@ -45,7 +46,7 @@ public class StudentController {
     @ResponseBody
     public ResultInfo getStudentByPage(StudentSo studentSo){
         PageInfo<Student> data = studentService.getStudentsByPage(studentSo);
-        return ResultInfo.generateSuccess(data);
+        return ResultInfoGenerate.generateSuccess(data);
     }
 
 }
