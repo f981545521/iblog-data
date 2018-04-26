@@ -1,8 +1,12 @@
 package cn.acyou.iblogdata.controller;
 
+import cn.acyou.iblogdata.entity.Student;
+import cn.acyou.iblogdata.utils.ResultInfo;
+import cn.acyou.iblogdata.utils.ResultInfoGenerate;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -57,6 +61,23 @@ public class JsonpController {
         response.setContentType("text/html;charset=utf-8");
         PrintWriter printWriter = response.getWriter();
         printWriter.write(message);
+    }
+
+    @RequestMapping(value = "/category4",method = {RequestMethod.GET})
+    @ApiOperation(value = "测试跨域")
+    @ResponseBody
+    public ResultInfo category4(){
+        Student student = new Student();
+        student.setName("炸弹");
+        student.setAge(23);
+        return ResultInfoGenerate.generateSuccess(student);
+    }
+
+    @RequestMapping(value = "/category5", method = {RequestMethod.POST})
+    @ApiOperation(value = "测试跨域")
+    @ResponseBody
+    public ResultInfo category5(@RequestBody Student student){
+        return ResultInfoGenerate.generateSuccess(student);
     }
 
 

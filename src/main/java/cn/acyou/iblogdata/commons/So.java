@@ -70,7 +70,7 @@ public class So implements Serializable, Pagable, Sortable {
         this.orderByOnly = orderByOnly;
     }
 
-    public enum PAGESIZE {
+    private enum PAGESIZE {
         xs(5), s(10), m(20), l(30), xl(50), xxl(100), xxxl(1000);
         private int pageSize;
 

@@ -27,10 +27,6 @@ public class ResultInfo {
         this.message = message;
     }
 
-    public static ResultInfo generateSuccess(Object data){
-        return new ResultInfo(data);
-    }
-
     public int getCode() {
         return code;
     }
