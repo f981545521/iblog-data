@@ -10,6 +10,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,13 +27,17 @@ public class StudentServiceImpl implements StudentService {
     private BossService bossService;
 
     @Override
+    @Transactional
     public int addStudent(Student student) {
         Boss boss = new Boss();
         boss.setName(student.getName());
         boss.setAge(student.getAge());
-        bossService.addBoss(boss);
-        studentMapper.insert(student);
-        return 1;
+        //bossService.addBoss(boss);
+        int n = studentMapper.insert(student);
+/*        if (n == 1){
+            throw new RuntimeException();
+        }*/
+        return n;
     }
 
     @Override

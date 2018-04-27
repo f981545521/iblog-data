@@ -1,4 +1,4 @@
-package cn.acyou.iblogdata.dao;
+package cn.acyou.iblogdata.commons;
 
 import tk.mybatis.mapper.common.BaseMapper;
 import tk.mybatis.mapper.common.IdsMapper;
