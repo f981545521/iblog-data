@@ -1,5 +1,7 @@
 package cn.acyou.iblogdata.entity;
 
+import cn.acyou.iblogdata.commons.Po;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,7 +13,9 @@ import java.io.Serializable;
  * @date 2018-04-15 下午 07:36
  **/
 @Table(name = "student")
-public class Student implements Serializable{
+public class Student extends Po {
+
+    private static final long serialVersionUID = 5350645545628778721L;
 
     @Id
     @Column(name = "id")

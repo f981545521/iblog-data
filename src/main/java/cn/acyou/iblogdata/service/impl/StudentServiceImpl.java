@@ -2,6 +2,7 @@ package cn.acyou.iblogdata.service.impl;
 
 import cn.acyou.iblog.model.test.Boss;
 import cn.acyou.iblog.service.BossService;
+import cn.acyou.iblogdata.commons.AbstractService;
 import cn.acyou.iblogdata.dao.StudentMapper;
 import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.service.StudentService;
@@ -19,7 +20,7 @@ import java.util.List;
  * @date 2018-04-15 下午 09:38
  **/
 @Service("studentService")
-public class StudentServiceImpl implements StudentService {
+public class StudentServiceImpl extends AbstractService<Student, Integer> implements StudentService {
     @Autowired
     private StudentMapper studentMapper;
 

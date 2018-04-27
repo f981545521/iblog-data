@@ -41,6 +41,14 @@ public class StudentController {
         return ResultInfoGenerate.generateSuccess(data);
     }
 
+    @RequestMapping(value = "students2", method = {RequestMethod.GET})
+    @ApiOperation("获取所有学生列表")
+    @ResponseBody
+    public ResultInfo getAllStudent2(){
+        List<Student> data = studentService.findAll();
+        return ResultInfoGenerate.generateSuccess(data);
+    }
+
     @RequestMapping(value = "student", method = {RequestMethod.GET})
     @ApiOperation("获取所有学生列表")
     @ResponseBody
