@@ -1,11 +1,3 @@
-/*
- * 文 件 名:  MyBatisMapperScannerConfig.java
- * 版    权:  Copyright 2017 南京慕冉信息科技有限公司,  All rights reserved
- * 描    述:  通用框架
- * 版    本： <1.0.0> 
- * 创 建 人:  Mr Huang
- * 创建时间:  2017年11月23日
- */
 package cn.acyou.iblogdata.conf;
 
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
