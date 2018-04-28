@@ -14,4 +14,11 @@ public interface StudentMapper extends Mapper<Student, Integer> {
 
     List<Student> getStudentsByPage(StudentSo studentSo);
 
+    List<Student> getStudentListByIds(List<Integer> ids);
+
+    int updateList(List<Student> students);
+
+    int deleteByPrimaryKeyList(List<Integer> ids);
+
+
 }

@@ -9,10 +9,41 @@
         <result column="age" jdbcType="INTEGER" property="age" />
     </resultMap>
 
+    <sql id="Base_Column_List">
+        id, name, age
+    </sql>
+
     <select id="getStudentsByPage" resultMap="BaseResultMap" parameterType="cn.acyou.iblogdata.so.StudentSo">
         SELECT p.* FROM student AS p
         <where>
             <if test="name!=null and name!=''">p.name LIKE "%"#{name}"%"</if>
         </where>
     </select>
+
+    <select id="getStudentListByIds" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM student WHERE id IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <update id="updateList">
+        <foreach collection="list" item="student">
+            UPDATE student
+            <set>
+                <if test="student.name        != null">name      = #{student.name     },</if>
+                <if test="student.age         != null">age       = #{student.age      },</if>
+            </set>
+            WHERE id = #{student.id};
+        </foreach>
+    </update>
+
+    <delete id="deleteByPrimaryKeyList">
+        DELETE FROM student WHERE id IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>
