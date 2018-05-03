@@ -9,9 +9,38 @@
         <result column="age" jdbcType="INTEGER" property="age" />
     </resultMap>
 
+    <!-- collection的使用有两种resultMap和select，必须手动指定一种 -->
+    <resultMap id="hasTeachers" type="cn.acyou.iblogdata.vo.StudentVo" extends="BaseResultMap">
+        <collection property="teacherList" column="id" select="selectTeachers" ofType="cn.acyou.iblogdata.entity.Teacher" javaType="ArrayList" />
+    </resultMap>
+
+    <resultMap id="hasTeachers2" type="cn.acyou.iblogdata.vo.StudentVo" extends="BaseResultMap">
+       <collection property="teacherList" resultMap="TeacherMap"/>
+    </resultMap>
+
+    <resultMap id="TeacherMap" type="cn.acyou.iblogdata.entity.Teacher">
+        <id column="t_id" jdbcType="INTEGER" property="id" />
+        <result column="t_name" jdbcType="VARCHAR" property="name" />
+        <result column="t_age" jdbcType="INTEGER" property="age" />
+    </resultMap>
+
     <sql id="Base_Column_List">
         id, name, age
     </sql>
+
+    <select id="getStudentVo" resultMap="hasTeachers">
+        SELECT * FROM student WHERE id = #{id}
+    </select>
+
+    <select id="getStudentVo2"  resultMap="hasTeachers2">
+        SELECT s.id, s.name, s.age, t.id AS t_id, t.name AS t_name, t.age AS t_age FROM  student s
+        LEFT JOIN teacher t ON s.id = t.student_id
+        WHERE s.id = #{id}
+    </select>
+
+    <select id="selectTeachers" resultType="cn.acyou.iblogdata.entity.Teacher" parameterType="integer">
+        SELECT * FROM teacher WHERE student_id = #{id}
+    </select>
 
     <select id="getStudentsByPage" resultMap="BaseResultMap" parameterType="cn.acyou.iblogdata.so.StudentSo">
         SELECT p.* FROM student AS p
