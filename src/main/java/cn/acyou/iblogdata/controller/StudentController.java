@@ -1,10 +1,12 @@
 package cn.acyou.iblogdata.controller;
 
+import cn.acyou.iblogdata.dao.StudentMapper;
 import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.service.StudentService;
 import cn.acyou.iblogdata.so.StudentSo;
 import cn.acyou.iblogdata.utils.ResultInfo;
 import cn.acyou.iblogdata.utils.ResultInfoGenerate;
+import cn.acyou.iblogdata.vo.StudentVo;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,6 +26,9 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private StudentMapper studentMapper;
 
     @RequestMapping(value = "students", method = {RequestMethod.POST})
     @ApiOperation("增加一个学生")
@@ -55,6 +60,22 @@ public class StudentController {
     public ResultInfo getStudentByPage(StudentSo studentSo){
         PageInfo<Student> data = studentService.getStudentsByPage(studentSo);
         return ResultInfoGenerate.generateSuccess(data);
+    }
+
+    @RequestMapping(value = "studentVo", method = {RequestMethod.GET})
+    @ApiOperation("获取所有学生列表")
+    @ResponseBody
+    public ResultInfo getStudentVo(StudentSo studentSo){
+        StudentVo studentVo = studentMapper.getStudentVo(studentSo);
+        return ResultInfoGenerate.generateSuccess(studentVo);
+    }
+
+    @RequestMapping(value = "studentVo2", method = {RequestMethod.GET})
+    @ApiOperation("获取所有学生列表")
+    @ResponseBody
+    public ResultInfo getStudentVo2(StudentSo studentSo){
+        StudentVo studentVo = studentMapper.getStudentVo2(studentSo);
+        return ResultInfoGenerate.generateSuccess(studentVo);
     }
 
 }

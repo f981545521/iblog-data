@@ -3,6 +3,7 @@ package cn.acyou.iblogdata.dao;
 import cn.acyou.iblogdata.commons.Mapper;
 import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.so.StudentSo;
+import cn.acyou.iblogdata.vo.StudentVo;
 
 import java.util.List;
 
@@ -20,5 +21,7 @@ public interface StudentMapper extends Mapper<Student, Integer> {
 
     int deleteByPrimaryKeyList(List<Integer> ids);
 
+    StudentVo getStudentVo(StudentSo studentSo);
 
+    StudentVo getStudentVo2(StudentSo studentSo);
 }
