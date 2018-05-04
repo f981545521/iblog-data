@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author youfang
@@ -22,4 +23,5 @@ public class MapperTest extends BaseTest{
         List<Student> bossList = bossMapper.selectAll();
         System.out.println(bossList);
     }
+
 }
