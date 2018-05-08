@@ -1,6 +1,7 @@
 package cn.acyou.iblogdata.entity;
 
 import cn.acyou.iblogdata.commons.Po;
+import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import java.io.Serializable;
  * @author youfang
  * @date 2018-04-15 下午 07:36
  **/
+@Data
 @Table(name = "student")
 public class Student extends Po {
 
@@ -28,36 +30,4 @@ public class Student extends Po {
     @Column(name = "age")
     private Integer age;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    @Override
-    public String toString() {
-        return "Boss{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                '}';
-    }
 }
