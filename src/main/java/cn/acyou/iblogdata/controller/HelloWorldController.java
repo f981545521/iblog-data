@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -35,5 +36,12 @@ public class HelloWorldController {
     @ResponseBody
     public List<Sort> getSortList(){
         return sortService.listSorts(4);
+    }
+
+    @RequestMapping(value = "/greeting")
+    public ModelAndView test(ModelAndView mv) {
+        mv.setViewName("/greeting");
+        mv.addObject("title", "欢迎使用Thymeleaf!");
+        return mv;
     }
 }
