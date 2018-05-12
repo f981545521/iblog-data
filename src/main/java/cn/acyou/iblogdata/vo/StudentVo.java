@@ -18,7 +18,7 @@ public class StudentVo extends Po {
 
     private Integer age;
 
-    List<Teacher> teacherList;
+    private List<Teacher> teacherList;
 
     public Integer getId() {
         return id;

@@ -2,17 +2,17 @@ package cn.acyou.iblogdata.commons;
 
 public interface Pagable {
 
-    public int getCurrentPage();
+    int getCurrentPage();
 
-    public void setCurrentPage(int currentPage);
+    void setCurrentPage(int currentPage);
 
-    public int getPageSize();
+    int getPageSize();
 
-    public void setPageSize(int pagesize);
+    void setPageSize(int pagesize);
 
-    public boolean isEnableCount();
+    boolean isEnableCount();
 
-    public void setEnableCount(boolean enable);
+    void setEnableCount(boolean enable);
 
 
 }

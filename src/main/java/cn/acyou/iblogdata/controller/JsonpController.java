@@ -47,7 +47,7 @@ public class JsonpController {
     @RequestMapping(value = "/category2",method = {RequestMethod.GET})
     @ApiOperation(value = "测试JSONP2")
     @ResponseBody
-    public List<String> getcategoryList2(HttpServletResponse response){
+    public List<String> getcategoryList2(){
         List<String> categoryList = new ArrayList<>();
         categoryList.add("we coun't");
         categoryList.add("hava all");
