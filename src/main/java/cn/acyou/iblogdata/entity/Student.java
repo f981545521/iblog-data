@@ -2,17 +2,18 @@ package cn.acyou.iblogdata.entity;
 
 import cn.acyou.iblogdata.commons.Po;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 /**
  * @author youfang
  * @date 2018-04-15 下午 07:36
  **/
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Table(name = "student")
 public class Student extends Po {
