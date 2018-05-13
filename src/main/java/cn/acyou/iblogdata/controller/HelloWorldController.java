@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -24,6 +26,19 @@ public class HelloWorldController {
 
     @Autowired(required = false)
     private SortService sortService;
+
+    @RequestMapping(value = "/setSession",method = {RequestMethod.GET})
+    @ResponseBody
+    public String setSession(HttpSession session) {
+        session.setAttribute("user", "youfang");
+        return "设置成功";
+    }
+    @RequestMapping(value = "/getSession",method = {RequestMethod.GET})
+    @ResponseBody
+    public String getSession(HttpServletRequest request, HttpSession session) {
+        Object obj = session.getAttribute("user");
+        return (String) obj;
+    }
 
     @ApiOperation(value = "first")
     @RequestMapping(value = "/hello",method = {RequestMethod.GET})
