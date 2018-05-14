@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="/static/js/jquery.1.9.1.min.js"></script>
+<script src="/static/js/common.js"></script>
+<script>
+    ajaxPost({"name":"<script>3242<\/script>"}, "/xss/xss1", function (result) {
+        console.log(result);
+    })
+</script>
+<body>
+    <h1>XSS</h1>
+    <h1>XSS2</h1>
+    <h1>XSS3</h1>
+    <h1>XSS4</h1>
+</body>
+</html>
