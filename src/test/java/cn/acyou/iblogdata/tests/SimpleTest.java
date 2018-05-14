@@ -19,4 +19,14 @@ public class SimpleTest {
         BeanUtils.copyProperties(student, student2);
         System.out.println(student2);
     }
+
+    @Test
+    public void test22(){
+        String ss = "<script>alert(1)</script>";
+        String ss2 = "safsfafsfa";
+        String aa = ss2.replaceAll("<", ":lt;").replaceAll(">", ":gt;");
+        System.out.println(aa);
+        System.out.println(ss.replaceAll("<", ":lt;"));
+        System.out.println(ss.replaceAll(">", ":gt;"));
+    }
 }
