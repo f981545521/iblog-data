@@ -43,12 +43,15 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
             // value = ESAPI.encoder().canonicalize(value);
             // Avoid null characters
             value = value.replaceAll("", "");
+            //简单方法：直接replaceAll
+            //value = value.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+
             // Avoid anything between script tags
-            //Pattern scriptPattern = Pattern.compile("<script>(.*?)</script>", Pattern.CASE_INSENSITIVE);
-            //value = scriptPattern.matcher(value).replaceAll("");
+            Pattern scriptPattern = Pattern.compile("<script>(.*?)</script>", Pattern.CASE_INSENSITIVE);
+            value = scriptPattern.matcher(value).replaceAll("");
 
             // Avoid anything in a src="..." type of e­xpression
-            Pattern scriptPattern = Pattern.compile("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
+            scriptPattern = Pattern.compile("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
             value = scriptPattern.matcher(value).replaceAll("");
             scriptPattern = Pattern.compile("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
             value = scriptPattern.matcher(value).replaceAll("");
