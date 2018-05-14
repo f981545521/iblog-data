@@ -25,4 +25,11 @@ public class XSSController {
     public ResultInfo xss1(Student student){
         return new ResultInfo(student);
     }
+
+    @RequestMapping(value = "/xss2",method = {RequestMethod.POST, RequestMethod.GET})
+    @ApiOperation(value = "测试XSS2")
+    @ResponseBody
+    public ResultInfo xss2(Student student){
+        return new ResultInfo(student);
+    }
 }
