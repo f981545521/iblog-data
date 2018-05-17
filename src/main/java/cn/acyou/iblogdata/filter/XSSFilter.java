@@ -1,5 +1,7 @@
 package cn.acyou.iblogdata.filter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.*;
@@ -14,9 +16,11 @@ import java.io.IOException;
 @Configuration
 @WebFilter(urlPatterns = "/*")
 public class XSSFilter implements Filter {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        System.out.println("去瞧瞧");
+        logger.info("XSSFilter初始化");
     }
     @Override
     public void destroy() {
