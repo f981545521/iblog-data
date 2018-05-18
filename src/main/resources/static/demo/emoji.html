@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--the css for jquery.mCustomScrollbar-->
+    <link rel="stylesheet" href="/dist/emoji/lib/css/jquery.mCustomScrollbar.min.css"/>
+    <!--the css for this plugin-->
+    <link rel="stylesheet" href="/dist/emoji/src/css/jquery.emoji.css"/>
+</head>
+<script src="/static/js/jquery.1.9.1.min.js"></script>
+<script src="/static/js/common.js"></script>
+
+<!--(Optional) the js for jquery.mCustomScrollbar's addon-->
+<script src="/dist/emoji/lib/script/jquery.mousewheel-3.0.6.min.js"></script>
+<!--the js for jquery.mCustomScrollbar-->
+<script src="/dist/emoji/lib/script/jquery.mCustomScrollbar.min.js"></script>
+<!--the js for this plugin-->
+<script src="/dist/emoji/src/js/jquery.emoji.js"></script>
+
+<body>
+    <h1>XSS</h1>
+    ID : <input type="text" name="id"/>
+    姓名 : <input type="text" name="name"/>
+    年龄 : <input type="text" name="age"/>
+    <br>
+    <br>
+    <h4>文本框 textarea</h4>
+    <textarea class="form-control" id="content" rows="3" contenteditable="true"></textarea>
+
+    <div class="row m-t-20">
+        <div class="col-md-6">
+            <h4>可编辑div editable div</h4>
+            <div id="editor" contenteditable="true"></div>
+            <button id="btn" class="btn btn-sm btn-default">:)</button>
+            <div class="m-t-70">
+                <button class="btn btn-primary m-t-70" id="btnLoad2">加载表情 load emoji</button>
+            </div>
+        </div>
+
+
+    <button onclick="commit()">提交</button>
+</body>
+<script>
+    function commit() {
+        var postData = {"id":$('input[name="id"]').val(), "name": $('input[name="name"]').val(), "age" : $('input[name="age"]').val()};
+        ajaxPost(postData, "/student/directStudents", function (result) {
+            console.log(result);
+        });
+    }
+    $("#editor").emoji({
+        button: "#btn",
+        showTab: false,
+        animation: 'slide',
+        icons: [{
+            name: "QQ表情",
+            path: "/dist/emoji/dist/img/qq/",
+            maxNum: 91,
+            excludeNums: [41, 45, 54],
+            file: ".gif"
+        }]
+    });
+    $("#btnLoad2").click(function () {
+        $("#editor").emoji({
+            button: "#btn",
+            showTab: false,
+            animation: 'slide',
+            icons: [{
+                name: "QQ表情",
+                path: "/dist/emoji/dist/img/qq/",
+                maxNum: 91,
+                excludeNums: [41, 45, 54],
+                file: ".gif"
+            }]
+        });
+    });
+
+</script>
+</html>
