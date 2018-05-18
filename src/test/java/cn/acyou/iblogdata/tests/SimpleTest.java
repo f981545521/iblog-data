@@ -2,9 +2,12 @@ package cn.acyou.iblogdata.tests;
 
 import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.utils.BeanUtil;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Map;
 
 public class SimpleTest {
@@ -20,13 +23,22 @@ public class SimpleTest {
         System.out.println(student2);
     }
 
+    /**
+     * 转义<></> 防止XSS
+     */
     @Test
     public void test22(){
         String ss = "<script>alert(1)</script>";
         String ss2 = "safsfafsfa";
-        String aa = ss2.replaceAll("<", ":lt;").replaceAll(">", ":gt;");
+        String aa = ss.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
         System.out.println(aa);
-        System.out.println(ss.replaceAll("<", ":lt;"));
-        System.out.println(ss.replaceAll(">", ":gt;"));
+        System.out.println(ss.replaceAll("<", "&lt;"));
+        System.out.println(ss.replaceAll(">", "&gt;"));
+    }
+    @Test
+    public void test222() throws UnsupportedEncodingException {
+        String wxUrl = "http://www.qq.com/api/wx/verification";
+        String encodeURL = URLEncoder.encode(wxUrl, "UTF-8");
+        System.out.println(encodeURL);
     }
 }
