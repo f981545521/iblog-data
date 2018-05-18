@@ -20,7 +20,7 @@ import java.util.List;
  * @date 2018-04-15 下午 09:38
  **/
 @RestController
-@RequestMapping("/boss")
+@RequestMapping("/student")
 @Api
 public class StudentController {
 
@@ -33,9 +33,23 @@ public class StudentController {
     @RequestMapping(value = "students", method = {RequestMethod.POST})
     @ApiOperation("增加一个学生")
     @ResponseBody
-    public ResultInfo addBoss(Student student){
+    public ResultInfo addStudent(Student student){
         studentService.addStudent(student);
         return new ResultInfo();
+    }
+
+    @RequestMapping(value = "directStudents", method = {RequestMethod.POST})
+    @ApiOperation("增加一个学生")
+    @ResponseBody
+    public ResultInfo directStudents(Student student){
+        studentMapper.insert(student);
+        return new ResultInfo(student);
+    }
+    @RequestMapping(value = "directStudents", method = {RequestMethod.GET})
+    @ApiOperation("查看一个学生")
+    @ResponseBody
+    public ResultInfo directGetStudents(String id){
+        return new ResultInfo(studentMapper.selectByPrimaryKey(id));
     }
 
     @RequestMapping(value = "students", method = {RequestMethod.GET})
