@@ -43,12 +43,12 @@ public class WxController {
         list.add(Token);
         //字典序排序
         Collections.sort(list);
-        String encodStr = DigestUtils.sha1DigestAsHex(list.get(0) + list.get(1) + list.get(2));
-        log.info("生成的echostr：" + echostr + "计算得出的str：" + encodStr);
-        if (echostr.equals(signature)){
+        String encodeStr = DigestUtils.sha1DigestAsHex(list.get(0) + list.get(1) + list.get(2));
+        log.info("生成的签名：" + signature + "计算得出的签名：" + encodeStr);
+        if (encodeStr.equals(signature)){
             return echostr;
         }
-        return echostr;
+        return "";
     }
 
 }
