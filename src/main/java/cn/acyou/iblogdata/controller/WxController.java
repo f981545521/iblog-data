@@ -1,9 +1,9 @@
 package cn.acyou.iblogdata.controller;
 
 import io.swagger.annotations.Api;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.script.DigestUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,17 +36,15 @@ public class WxController {
         String timestamp = request.getParameter("timestamp");//时间戳
         String nonce = request.getParameter("nonce");//随机数
         String echostr = request.getParameter("echostr");//随机字符串
-
-        ArrayList<String> list=new ArrayList<String>();
+        log.warn("输入参数：" + signature + "|" + timestamp + "|" + nonce + "|" + echostr);
+        ArrayList<String> list = new ArrayList<>();
         list.add(nonce);
         list.add(timestamp);
         list.add(Token);
         //字典序排序
         Collections.sort(list);
-
-        byte[]  bytes = DigestUtils.sha1(list.get(0)+list.get(1)+list.get(2));
-        String encodStr = new String(bytes);
-        log.warn("生成的echostr：" + echostr + "计算得出的str：" + encodStr);
+        String encodStr = DigestUtils.sha1DigestAsHex(list.get(0) + list.get(1) + list.get(2));
+        log.info("生成的echostr：" + echostr + "计算得出的str：" + encodStr);
         if (echostr.equals(signature)){
             return echostr;
         }

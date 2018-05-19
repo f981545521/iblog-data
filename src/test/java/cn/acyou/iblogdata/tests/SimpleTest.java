@@ -5,6 +5,7 @@ import cn.acyou.iblogdata.utils.BeanUtil;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.redis.core.script.DigestUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -40,5 +41,12 @@ public class SimpleTest {
         String wxUrl = "http://www.qq.com/api/wx/verification";
         String encodeURL = URLEncoder.encode(wxUrl, "UTF-8");
         System.out.println(encodeURL);
+    }
+
+    @Test
+    public void testSHA1(){
+        String str = "youfang";
+        String ss = DigestUtils.sha1DigestAsHex(str);
+        System.out.println(ss);
     }
 }
