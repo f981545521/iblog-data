@@ -64,7 +64,7 @@ public class HelloWorldController {
 
     @RequestMapping(value = "/greeting", method = {RequestMethod.GET})
     public ModelAndView test(ModelAndView mv) {
-        mv.setViewName("/greeting");
+        mv.setViewName("greeting");
         mv.addObject("title", "欢迎使用Thymeleaf!");
         return mv;
     }
