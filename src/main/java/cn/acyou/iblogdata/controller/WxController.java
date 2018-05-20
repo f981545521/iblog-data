@@ -32,9 +32,9 @@ public class WxController {
 
     private static final Logger log = LoggerFactory.getLogger(WxController.class);
 
-    private final String APP_ID = "wxd02baafe70a6e8fa";
-    private final String APP_SECRET = "849e3724f3d75fa3b661cd75dd3dfa2a";
-    private final String TOKEN = "youfang";
+    private static final String APP_ID = "wxd02baafe70a6e8fa";
+    private static final String APP_SECRET = "849e3724f3d75fa3b661cd75dd3dfa2a";
+    private static final String TOKEN = "youfang";
 
     @RequestMapping(value = "/access",method = {RequestMethod.GET})
     @ResponseBody
@@ -80,16 +80,14 @@ public class WxController {
             userListUrl =  userListUrl + "&next_openid=" + nextOpenid;
         }
         String responseStr = HttpClientUtil.doGet(userListUrl);
-        UserList userList = JSON.parseObject(responseStr, UserList.class);
-        return userList;
+        return JSON.parseObject(responseStr, UserList.class);
     }
 
     public UserInfo getWxUserInfo(String openId){
         String accessToken = getAccessToken();
         String getUserInfoURL = AppConstant.WX_USER_INFO2 + "?access_token=" + accessToken + "&openid="+ openId +"&lang=zh_CN";
         String responseStr = HttpClientUtil.doGet(getUserInfoURL);
-        UserInfo userInfo = JSON.parseObject(responseStr, UserInfo.class);
-        return userInfo;
+        return JSON.parseObject(responseStr, UserInfo.class);
     }
 
 }
