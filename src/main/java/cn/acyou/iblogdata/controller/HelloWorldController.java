@@ -78,7 +78,7 @@ public class HelloWorldController {
     public ResultInfo doConfig2(){
         return new ResultInfo(studentConfig2);
     }
-    @RequestMapping(value = "/greetTo")
+    @RequestMapping(value = "/greetTo",  method = {RequestMethod.GET})
     public ModelAndView greetTo() {
         //重定向
         return new ModelAndView("redirect:/hello/greeting");
