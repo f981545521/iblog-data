@@ -129,7 +129,7 @@ public class GenEntityFromTable {
     private static void createPrtype(PrintWriter pw, String type, String name, String remark) {
         if (remark != null && !"".equals(remark)) {
             pw.write("\t/**\r\n");
-            pw.write("\t *" + remark + "\r\n");
+            pw.write("\t * " + remark + "\r\n");
             pw.write("\t */\r\n");
         } else {
             pw.write("\t//" + name + "\r\n");
