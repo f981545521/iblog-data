@@ -66,6 +66,8 @@ public class GenEntityFromTable {
                     PrintWriter pw = new PrintWriter(fw);
                     pw.write("package " + PACKAGE + ";\r\n");
                     pw.write("\r\n");
+                    pw.write("import java.io.Serializable;\r\n");
+                    pw.write("\r\n");
                     pw.write("/**\r\n");
                     pw.write(" * " + TABLE_NAME + " 实体类\r\n");
                     pw.write(" * " + getDate() + " " + tableRemark + "\r\n");
