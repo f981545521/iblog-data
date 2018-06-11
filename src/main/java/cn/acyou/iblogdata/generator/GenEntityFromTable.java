@@ -32,7 +32,34 @@ public class GenEntityFromTable {
     private static Connection connection = null;
 
     public static void main(String[] args) throws Exception{
-        generateEntity();
+        //generateEntity();
+        generateMapper(TABLE_NAME);
+    }
+
+
+    private static void generateMapper(String tableName) {
+        connection = getConnections();//获取连接
+        String sql = "select GROUP_CONCAT(COLUMN_NAME SEPARATOR ', ')  as cool from INFORMATION_SCHEMA.Columns where table_name='" + tableName + "'";//SQL语句
+        try {
+            Statement statement = connection.createStatement();//创建Statement
+            ResultSet resultSet = statement.executeQuery(sql);//执行SQL获取ResultSet
+            while (resultSet.next()){//遍历ResultSet获取结果
+                String result = resultSet.getString("cool");
+                System.out.println("    <sql id=\"Base_Column_List\">");
+                System.out.println("        " + result);
+                System.out.println("    </sql>");
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     private static void generateEntity(){
@@ -79,14 +106,16 @@ public class GenEntityFromTable {
                     System.out.println(TABLE_NAME + "表信息：");
                     System.out.println();
                     while (rs1.next()) {
-                        System.out.println("private " + sqlType2JavaType(rs1.getString("TYPE_NAME")) + "	" + rs1.getString("COLUMN_NAME") + ";");
+                        //System.out.println("private " + sqlType2JavaType(rs1.getString("TYPE_NAME")) + "	" + rs1.getString("COLUMN_NAME") + ";");
                         if (directory.exists()) {
                         } else {
                             directory.createNewFile();
                         }
-                        String type = sqlType2JavaType(rs1.getString("TYPE_NAME"));
+                        String typeName = rs1.getString("TYPE_NAME");
+                        String type = sqlType2JavaType(typeName);
                         String name = rs1.getString("COLUMN_NAME");
                         String remark = rs1.getString("REMARKS");
+                        System.out.println("<id column=\"" + name + "\" jdbcType=\"" + typeName.toUpperCase() + "\" property=\"" + convertcamelCase(name) + "\"/>");
                         createPrtype(pw, type, name, remark);
                     }
                     //提供Get和Set方法
@@ -135,6 +164,7 @@ public class GenEntityFromTable {
         } else {
             pw.write("\t//" + name + "\r\n");
         }
+        pw.write("    @Column(name = \"" + name + "\")\r\n");
         pw.write("    private " + type + "	" + convertcamelCase(name) + ";\r\n");
     }
 
