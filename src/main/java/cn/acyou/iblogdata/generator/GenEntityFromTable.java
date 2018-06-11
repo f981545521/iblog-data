@@ -67,6 +67,7 @@ public class GenEntityFromTable {
                     pw.write("package " + PACKAGE + ";\r\n");
                     pw.write("\r\n");
                     pw.write("import java.io.Serializable;\r\n");
+                    pw.write("import java.util.Date;\r\n");
                     pw.write("\r\n");
                     pw.write("/**\r\n");
                     pw.write(" * " + TABLE_NAME + " 实体类\r\n");
@@ -185,8 +186,8 @@ public class GenEntityFromTable {
                 || sqlType.equalsIgnoreCase("nvarchar") || sqlType.equalsIgnoreCase("nchar")
                 || sqlType.equalsIgnoreCase("text")) {
             str = "String";
-        } else if (sqlType.equalsIgnoreCase("datetime")) {
-            str = "String";
+        } else if (sqlType.equalsIgnoreCase("datetime") || sqlType.equalsIgnoreCase("timestamp")) {
+            str = "Date";
         } else if (sqlType.equalsIgnoreCase("image")) {
             str = "Blod";
         }
