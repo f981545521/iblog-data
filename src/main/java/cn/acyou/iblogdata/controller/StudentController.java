@@ -92,4 +92,15 @@ public class StudentController {
         return ResultInfoGenerate.generateSuccess(studentVo);
     }
 
+
+    @RequestMapping(value = "stu", method = {RequestMethod.GET})
+    @ApiOperation("CacheTest")
+    @ResponseBody
+    public ResultInfo stu(String id){
+        Student student = studentService.getStudentById(id);
+        return ResultInfoGenerate.generateSuccess(student);
+    }
+
+
+
 }

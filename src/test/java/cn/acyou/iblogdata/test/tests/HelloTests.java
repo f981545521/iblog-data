@@ -1,4 +1,4 @@
-package cn.acyou.iblogdata.tests;
+package cn.acyou.iblogdata.test.tests;
 
 import cn.acyou.iblogdata.controller.HelloWorldController;
 import org.junit.Before;
