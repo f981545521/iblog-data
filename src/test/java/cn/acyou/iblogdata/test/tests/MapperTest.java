@@ -1,13 +1,12 @@
-package cn.acyou.iblogdata.tests;
+package cn.acyou.iblogdata.test.tests;
 
-import cn.acyou.iblogdata.base.BaseTest;
+import cn.acyou.iblogdata.test.base.BaseTest;
 import cn.acyou.iblogdata.dao.StudentMapper;
 import cn.acyou.iblogdata.entity.Student;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author youfang

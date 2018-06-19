@@ -1,4 +1,4 @@
-package cn.acyou.iblogdata.tests;
+package cn.acyou.iblogdata.test.tests;
 
 import cn.acyou.iblogdata.controller.WxController;
 import org.junit.Test;
