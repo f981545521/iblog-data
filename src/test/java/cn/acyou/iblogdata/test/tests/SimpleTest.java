@@ -71,4 +71,17 @@ public class SimpleTest {
 
     }
 
+    @Test
+    public void test12(){
+        you23:{
+            System.out.println("helloword");
+            for (int i = 0;i<30;i++){
+                if (i == 20){
+                    break you23;
+                }
+                System.out.println(i);
+            }
+        }
+    }
+
 }
