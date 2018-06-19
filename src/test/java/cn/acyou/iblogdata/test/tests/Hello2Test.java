@@ -1,6 +1,6 @@
-package cn.acyou.iblogdata.tests;
+package cn.acyou.iblogdata.test.tests;
 
-import cn.acyou.iblogdata.base.BaseTest;
+import cn.acyou.iblogdata.test.base.BaseTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.RequestBuilder;

@@ -18,4 +18,6 @@ public interface StudentService extends Service<Student, Integer> {
     List<Student> getAllStudent();
 
     PageInfo<Student> getStudentsByPage(StudentSo studentSo);
+
+    Student getStudentById(String id);
 }

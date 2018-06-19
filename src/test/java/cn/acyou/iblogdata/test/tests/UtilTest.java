@@ -1,10 +1,9 @@
-package cn.acyou.iblogdata.tests;
+package cn.acyou.iblogdata.test.tests;
 
-import cn.acyou.iblogdata.base.BaseTest;
+import cn.acyou.iblogdata.test.base.BaseTest;
 import cn.acyou.iblogdata.utils.RedisUtil;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 
 /**
  * @author youfang
