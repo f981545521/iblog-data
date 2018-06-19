@@ -15,9 +15,9 @@ import com.aliyun.vod.upload.resp.UploadVideoResponse;
 public class VodUploadUtil {
 
     //账号AK信息请填写(必选)
-    private static final String accessKeyId = "";
+    private static final String accessKeyId = "LTAIj3FFkNpiPlT2";
     //账号AK信息请填写(必选)
-    private static final String accessKeySecret = "";
+    private static final String accessKeySecret = "AmoZIquLg4ih9YH6IxIBs6vVBc71I2";
     public static void main(String[] args) {
         //视频标题(必选)
         String title = "测试标题";
