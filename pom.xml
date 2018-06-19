@@ -164,7 +164,7 @@
         <dependency>
             <groupId>org.mybatis.generator</groupId>
             <artifactId>mybatis-generator-core</artifactId>
-            <version>1.3.5</version>
+            <version>1.3.6</version>
         </dependency>
         <dependency>
             <groupId>javax.persistence</groupId>
@@ -218,6 +218,41 @@
             <artifactId>spring-session</artifactId>
         </dependency>
 
+        <!-- 阿里云VOD视频点播 -->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-vod</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+<!--    已经存在
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.28</version>
+        </dependency>-->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20170516</version>
+        </dependency>
+        <!-- 依赖本地Jar包 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>aliyun-java-vod-upload</artifactId>
+            <version>1.3.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/aliyun-java-vod-upload-1.3.0.jar</systemPath>
+        </dependency>
     </dependencies>
 
 	<build>
@@ -227,6 +262,16 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+        <!-- 包含到资源文件中 -->
+        <resources>
+            <resource>
+                <directory>lib</directory>
+                <targetPath>BOOT-INF/lib/</targetPath>
+                <includes>
+                    <include>**/*.jar</include>
+                </includes>
+            </resource>
+        </resources>
 	</build>
 
 
