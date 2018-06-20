@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上传获取全路径</title>
+    <script src="../../static/js/jquery.1.9.1.min.js"></script>
+</head>
+<body>
+    请选择文件
+    <div id="imgContainer">
+
+    </div>
+    <input type="file" id="file"/>
+    <button type="button" onclick="gg">获取路径</button>
+
+    <br/>
+    <audio id="audio" src="http://vod.mransoft.com/f2d73c36b0d44fddbfb19a9092238cdf/62e957f0a3ab4f259dab10e1fcf7edce-f263e2db8ce409092001eeef50da0b3a-ld.mp4"></audio>
+<script>
+    function gg() {
+        console.log($('#file').val());
+    }
+
+    $('#file').on('change', function () {
+        //console.log(this.files[0]);
+        function getObjectURL(file) {
+            var url = null;
+            if (window.createObjcectURL != undefined) {
+                url = window.createOjcectURL(file);
+            } else if (window.URL != undefined) {
+                url = window.URL.createObjectURL(file);
+            } else if (window.webkitURL != undefined) {
+                url = window.webkitURL.createObjectURL(file);
+            }
+            return url;
+        }
+        var objURL = getObjectURL(this.files[0]);//这里的objURL就是input file的真实路径
+        console.log(objURL);
+        $('#imgContainer').html("<img src='" + objURL + "' alt='Alternate Text' width='640px' height='350px' id='target' />");
+    });
+
+
+
+</script>
+</body>
+</html>
