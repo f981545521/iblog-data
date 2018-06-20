@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>上传获取全路径</title>
+    <script th:src="@{/script/thirdPart/jquery.1.9.1.min.js}"></script>
+</head>
+<body>
+    请选择文件
+    <div id="imgContainer">
+
+    </div>
+    <form  enctype="multipart/form-data" >
+        <input type="file" id="FileUpload"/>
+        <button type="button" id="uploadIt">获取路径</button>
+    </form>
+
+    <br/>
+<!--
+    <audio id="audio" src="http://vod.mransoft.com/f2d73c36b0d44fddbfb19a9092238cdf/62e957f0a3ab4f259dab10e1fcf7edce-f263e2db8ce409092001eeef50da0b3a-ld.mp4"></audio>
+-->
+<script>
+    $('#uploadIt').click(function () {
+        var file = $('#FileUpload')[0].files[0];
+        if (typeof (file) === "undefined" || file.size <= 0) {
+            alert("请选择图片");
+            return;
+        }
+        var formFile = new FormData();
+        formFile.append("file", file); //加入文件对象
+        console.log($('#FileUpload').val());
+        console.log(getPath(document.getElementById("FileUpload")));
+        $.ajax({
+            url : "/api/uploadVod",
+            data: formFile,
+            type: "Post",
+            dataType: "json",
+            cache: false,//上传文件无需缓存
+            processData: false,//用于对data参数进行序列化处理 这里必须false
+            contentType: false, //必须
+            success: function (result) {
+                alert("上传完成!");
+            }
+        });
+    });
+
+/*    $('#file').on('change', function () {
+        //console.log(this.files[0]);
+        function getObjectURL(file) {
+            var url = null;
+            if (window.createObjcectURL != undefined) {
+                url = window.createOjcectURL(file);
+            } else if (window.URL != undefined) {
+                url = window.URL.createObjectURL(file);
+            } else if (window.webkitURL != undefined) {
+                url = window.webkitURL.createObjectURL(file);
+            }
+            return url;
+        }
+        var objURL = getObjectURL(this.files[0]);//这里的objURL就是input file的真实路径
+        console.log(objURL);
+        $('#imgContainer').html("<img src='" + objURL + "' alt='Alternate Text' width='640px' height='350px' id='target' />");
+    });*/
+
+
+    function getPath(obj) {
+        if (obj) {
+            if (window.navigator.userAgent.indexOf("MSIE") >= 1) {
+                obj.select();
+                return document.selection.createRange().text;
+            } else if (window.navigator.userAgent.indexOf("Firefox") >= 1) {
+                if (obj.files) {
+                    return obj.files.item(0).getAsDataURL();
+                }
+                return obj.value;
+            }
+            return obj.value;
+        }
+    }
+</script>
+</body>
+</html>
