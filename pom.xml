@@ -220,11 +220,11 @@
         </dependency>
 
         <!-- 阿里云VOD视频点播 -->
-        <dependency>
+<!--        <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>aliyun-java-sdk-core</artifactId>
             <version>3.7.1</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.aliyun.oss</groupId>
             <artifactId>aliyun-sdk-oss</artifactId>
