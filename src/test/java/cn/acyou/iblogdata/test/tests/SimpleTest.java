@@ -84,4 +84,13 @@ public class SimpleTest {
         }
     }
 
+
+    @Test
+    public void test3(){
+        String fileName = "D:\\tmp\\256.mp4";
+        System.out.println(fileName.substring(fileName.lastIndexOf("\\") + 1));
+        String fileName2 = "/user/56.mp4";
+        System.out.println(fileName2.lastIndexOf("\\"));
+    }
+
 }
