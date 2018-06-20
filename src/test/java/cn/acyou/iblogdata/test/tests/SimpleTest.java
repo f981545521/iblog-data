@@ -93,4 +93,22 @@ public class SimpleTest {
         System.out.println(fileName2.lastIndexOf("\\"));
     }
 
+    @Test
+    public void test4(){
+        List<String> videoIds = Lists.newArrayList();
+        videoIds.add("972ea857d9e84ed29e42b9818a922cdc");
+        videoIds.add("a7da73d3aa1345bcabd8da050604e634");
+        videoIds.add("9088f7516a4e4a7ea207de7d0d5e89b3");
+        videoIds.add("ef6a896c26244ca5b3731a3926da64b5");
+        videoIds.add("662221f1dfba4f9dadbdb6d7ec32d79e");
+        videoIds.add("ee0ac2ab89f64b2fb59105f0241d28b7");
+        videoIds.add("f2d73c36b0d44fddbfb19a9092238cdf");
+        videoIds.add("ff960911eecd4a5ba76976eaa8834e97");
+        videoIds.add("e5c720113850473e80e4a8c7c8a22208");
+        videoIds.add("83a8ded19c934029b4166eb4b37172f1");
+        Random random = new Random();
+        int index = random.nextInt(videoIds.size());
+        System.out.println(videoIds.get(index));
+    }
+
 }
