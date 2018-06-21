@@ -18,6 +18,10 @@ public class StaticTest {
 
     private static String client = getClient();
 
+    static {
+        System.out.println("静态代码块");
+    }
+
     private static String getClient(){
         System.out.println("获取客户端");
         return "SS";
@@ -29,6 +33,7 @@ public class StaticTest {
     }
 
     public static void main(String[] args) {
+        System.out.println(StaticTest.getInfo());
         System.out.println(StaticTest.getInfo());
         System.out.println(StaticTest.getInfo());
     }
