@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>上传获取全路径</title>
     <script th:src="@{/script/thirdPart/jquery.1.9.1.min.js}"></script>
+    <script src="jquery.1.9.1.min.js"></script>
 </head>
 <body>
     请选择文件
@@ -19,6 +20,12 @@
 <!--
     <audio id="audio" src="http://vod.mransoft.com/f2d73c36b0d44fddbfb19a9092238cdf/62e957f0a3ab4f259dab10e1fcf7edce-f263e2db8ce409092001eeef50da0b3a-ld.mp4"></audio>
 -->
+<!--
+    <audio controls="" name="media">
+        <source src="http://vod.mransoft.com/f2d73c36b0d44fddbfb19a9092238cdf/62e957f0a3ab4f259dab10e1fcf7edce-f263e2db8ce409092001eeef50da0b3a-ld.mp4" type="audio/mp3">
+    </audio>
+-->
+
 <script>
     $('#uploadIt').click(function () {
         var file = $('#FileUpload')[0].files[0];
