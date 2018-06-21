@@ -1,6 +1,7 @@
 package cn.acyou.iblogdata.upload;
 
 /**
+ * 阿里云上传
  * @author youfang
  * @version [1.0.0, 2018-06-19 下午 03:03]
  **/
@@ -17,6 +18,21 @@ public class UploadConstant {
      */
     public static final Long ACCESS_MAX_SIZE = 31457280L;
 
+    /**
+     * OSS Endpoint 地区
+     */
+    public static final String OSS_ENDPOINT = "http://oss-cn-beijing.aliyuncs.com";
+
+    /**
+     * OSS Bucket 名称
+     */
+    class BUCKETNAME {
+        public static final String IB_IMAGES = "ib-images";
+        public static final String IB_AUDIOS = "ib-audios";
+        public static final String IB_VIDEOS = "ib-videos";
+        public static final String IB_OTHERS = "ib-others";
+
+    }
 
 
 }
