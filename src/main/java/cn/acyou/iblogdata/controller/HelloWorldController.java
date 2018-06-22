@@ -7,6 +7,8 @@ import cn.acyou.iblogdata.utils.StudentConfig;
 import cn.acyou.iblogdata.utils.StudentConfig2;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,6 +25,8 @@ import java.util.List;
 @RequestMapping("/hello")
 @Api
 public class HelloWorldController {
+
+    private static final Logger logger = LoggerFactory.getLogger(HelloWorldController.class);
 
     @Autowired(required = false)
     private SortService sortService;
@@ -79,6 +83,7 @@ public class HelloWorldController {
     @RequestMapping(value = "/hello", method = {RequestMethod.GET})
     @ResponseBody
     public String index(@RequestParam String name) {
+        logger.warn("您输入的 name：" + name);
         return "hello ：" + name + "，producer 接收到了你的请求。";
     }
 }
