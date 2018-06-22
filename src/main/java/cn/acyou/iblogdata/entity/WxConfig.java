@@ -1,12 +1,3 @@
-/*
- * 文 件 名:  JsapiTicket
- * 版    权:  Copyright 2018 南京慕冉信息科技有限公司,  All rights reserved
- * 描    述:  <描述>
- * 版    本： <1.0.0>
- * 创 建 人:  youfang
- * 创建时间:   2018-05-23
-
- */
 package cn.acyou.iblogdata.entity;
 
 import io.swagger.annotations.ApiModel;
@@ -19,7 +10,6 @@ import java.util.List;
 /**
  * @author youfang
  * @version [1.0.0, 2018-05-23 上午 09:56]
- * @since [小倦鸟/远方模块]
  **/
 @Data
 @ApiModel(value="微信使用JSAPI先配置config", description="通过config接口注入权限验证配置。")
