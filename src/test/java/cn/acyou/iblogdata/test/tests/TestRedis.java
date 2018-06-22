@@ -1,12 +1,3 @@
-/*
- * 文 件 名:  TestRedis
- * 版    权:  Copyright 2018 南京慕冉信息科技有限公司,  All rights reserved
- * 描    述:  <描述>
- * 版    本： <1.0.0>
- * 创 建 人:  youfang
- * 创建时间:   2018-06-14
-
- */
 package cn.acyou.iblogdata.test.tests;
 
 import cn.acyou.iblogdata.test.base.BaseTest;
@@ -23,7 +14,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * @author youfang
  * @version [1.0.0, 2018-06-14 下午 02:28]
- * @since [小倦鸟/远方模块]
  **/
 public class TestRedis extends BaseTest {
     @Autowired

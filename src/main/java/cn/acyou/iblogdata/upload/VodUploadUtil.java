@@ -1,12 +1,3 @@
-/*
- * 文 件 名:  VodUploadUtil
- * 版    权:  Copyright 2018 南京慕冉信息科技有限公司,  All rights reserved
- * 描    述:  <描述>
- * 版    本： <1.0.0>
- * 创 建 人:  youfang
- * 创建时间:   2018-06-19
-
- */
 package cn.acyou.iblogdata.upload;
 
 import com.aliyun.vod.upload.impl.UploadVideoImpl;
@@ -30,7 +21,6 @@ import java.util.List;
  * 阿里云视频点播上传
  * @author youfang
  * @version [1.0.0, 2018-06-19 下午 03:02]
- * @since [小倦鸟/远方模块]
  **/
 public class VodUploadUtil {
 
