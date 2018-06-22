@@ -79,6 +79,6 @@ public class HelloWorldController {
     @RequestMapping(value = "/hello", method = {RequestMethod.GET})
     @ResponseBody
     public String index(@RequestParam String name) {
-        return "hello " + name + "，this is first messge";
+        return "hello ：" + name + "，producer 接收到了你的请求。";
     }
 }
