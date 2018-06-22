@@ -8,10 +8,7 @@ import cn.acyou.iblogdata.utils.StudentConfig2;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,12 +46,6 @@ public class HelloWorldController {
         return (String) obj;
     }
 
-    @ApiOperation(value = "first")
-    @RequestMapping(value = "/hello",method = {RequestMethod.GET})
-    @ResponseBody
-    public String index() {
-        return "Hello World";
-    }
     @ApiOperation(value = "sort")
     @RequestMapping(value = "/sortList",method = {RequestMethod.GET})
     @ResponseBody
@@ -82,5 +73,12 @@ public class HelloWorldController {
     public ModelAndView greetTo() {
         //重定向
         return new ModelAndView("redirect:/hello/greeting");
+    }
+
+    @ApiOperation(value = "Spring-cloud 调用测试")
+    @RequestMapping(value = "/hello", method = {RequestMethod.GET})
+    @ResponseBody
+    public String index(@RequestParam String name) {
+        return "hello " + name + "，this is first messge";
     }
 }

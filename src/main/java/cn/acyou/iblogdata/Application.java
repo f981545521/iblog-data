@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
-//@EnableDiscoveryClient
+@EnableDiscoveryClient(autoRegister = false)//如需要将服务注册到Eureka Server，需要设置为true
 public class Application {
 
 	public static void main(String[] args) {
