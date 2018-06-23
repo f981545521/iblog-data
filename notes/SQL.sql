@@ -256,6 +256,96 @@ CREATE TABLE druid_sql (
 );
 
 CREATE INDEX druid_sql_index ON druid_sql (collectTime, domain, app);
+
+CREATE TABLE druid_datasource (
+  id bigint(20) AUTO_INCREMENT NOT NULL,
+  domain varchar(45) NOT NULL,
+  app varchar(45) NOT NULL,
+  cluster varchar(45) NOT NULL,
+  host varchar(128),
+  pid int(10) NOT NULL,
+  collectTime datetime NOT NULL,
+  name varchar(256),
+  dbType varchar(256),
+  driverClassName varchar(256),
+  activeCount int(10),
+  activePeak int(10),
+  activePeakTime bigint(20),
+  poolingCount int(10),
+  poolingPeak int(10),
+  poolingPeakTime bigint(20),
+  connectCount bigint(20),
+  closeCount bigint(20),
+  waitThreadCount bigint(20),
+  notEmptyWaitCount bigint(20),
+  notEmptyWaitNanos bigint(20),
+  logicConnectErrorCount bigint(20),
+  physicalConnectCount bigint(20),
+  physicalCloseCount bigint(20),
+  physicalConnectErrorCount bigint(20),
+  executeCount bigint(20),
+  errorCount bigint(20),
+  commitCount bigint(20),
+  rollbackCount bigint(20),
+  pstmtCacheHitCount bigint(20),
+  pstmtCacheMissCount bigint(20),
+  startTransactionCount bigint(20),
+  txn_0_1 bigint(20),
+  txn_1_10 bigint(20),
+  txn_10_100 bigint(20),
+  txn_100_1000 bigint(20),
+  txn_1000_10000 bigint(20),
+  txn_10000_100000 bigint(20),
+  txn_more bigint(20),
+  clobOpenCount bigint(20),
+  blobOpenCount bigint(20),
+  sqlSkipCount bigint(20),
+  PRIMARY KEY (id)
+);
+
+CREATE INDEX druid_datasource_index ON druid_datasource (collectTime, domain, app);
+
+CREATE TABLE druid_weburi (
+  id bigint(20) AUTO_INCREMENT NOT NULL,
+  domain varchar(45) NOT NULL,
+  app varchar(45) NOT NULL,
+  cluster varchar(45) NOT NULL,
+  host varchar(128),
+  pid int(10) NOT NULL,
+  collectTime datetime NOT NULL,
+  uri varchar(256),
+  runningCount int(10),
+  concurrentMax int(10),
+  requestCount bigint(20),
+  requestTimeNano bigint(20),
+  jdbcFetchRowCount bigint(20),
+  jdbcFetchRowPeak bigint(20),
+  jdbcUpdateCount bigint(20),
+  jdbcUpdatePeak bigint(20),
+  jdbcExecuteCount bigint(20),
+  jdbcExecuteErrorCount bigint(20),
+  jdbcExecutePeak bigint(20),
+  jdbcExecuteTimeNano bigint(20),
+  jdbcCommitCount bigint(20),
+  jdbcRollbackCount bigint(20),
+  jdbcPoolConnectionOpenCount bigint(20),
+  jdbcPoolConnectionCloseCount bigint(20),
+  jdbcResultSetOpenCount bigint(20),
+  jdbcResultSetCloseCount bigint(20),
+  errorCount bigint(20),
+  lastAccessTime datetime,
+  h1 bigint(20),
+  h10 bigint(20),
+  h100 bigint(20),
+  h1000 bigint(20),
+  h10000 int(10),
+  h100000 int(10),
+  h1000000 int(10),
+  hmore int(10),
+  PRIMARY KEY (id)
+);
+
+CREATE INDEX druid_weburi_index ON druid_weburi (collectTime, domain, app);
 -- druid monitor 表结束
 
 
