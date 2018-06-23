@@ -22,6 +22,26 @@
         </filter>
     </appender>
 
+    <!-- 生成日志文件 -->
+<!--    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>./logs/iblog-web.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            &lt;!&ndash; rollover daily &ndash;&gt;
+            <FileNamePattern>./logs/iblog-web.%d{yyyy-MM-dd}.%i.log.gz
+            </FileNamePattern>
+            &lt;!&ndash; keep 30 days' worth of history &ndash;&gt;
+            <MaxHistory>30</MaxHistory>
+            &lt;!&ndash; or whenever the file size reaches 10MB &ndash;&gt;
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>50MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>-->
+
     <root level="debug">
         <appender-ref ref="CONSOLE"/>
     </root>
