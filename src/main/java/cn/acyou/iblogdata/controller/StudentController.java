@@ -4,14 +4,18 @@ import cn.acyou.iblogdata.dao.StudentMapper;
 import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.service.StudentService;
 import cn.acyou.iblogdata.so.StudentSo;
+import cn.acyou.iblogdata.upload.OSSUploadUtil;
+import cn.acyou.iblogdata.upload.UploadConstant;
 import cn.acyou.iblogdata.utils.ResultInfo;
 import cn.acyou.iblogdata.utils.ResultInfoGenerate;
 import cn.acyou.iblogdata.vo.StudentVo;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -92,7 +96,6 @@ public class StudentController {
         return ResultInfoGenerate.generateSuccess(studentVo);
     }
 
-
     @RequestMapping(value = "stu", method = {RequestMethod.GET})
     @ApiOperation("CacheTest")
     @ResponseBody
@@ -100,6 +103,16 @@ public class StudentController {
         Student student = studentService.getStudentById(id);
         return ResultInfoGenerate.generateSuccess(student);
     }
+
+    @RequestMapping(value = "upload", method = {RequestMethod.POST})
+    @ApiOperation("OSS上传，类型(type): 1-image,2-audio,3-video,4-other")
+    @ResponseBody
+    public ResultInfo upload(MultipartFile multipartFile, Integer type){
+        String result = OSSUploadUtil.uploadOssByStream(multipartFile, type);
+        return ResultInfoGenerate.generateSuccess(result);
+    }
+
+
 
 
 

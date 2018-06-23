@@ -1,10 +1,10 @@
 package cn.acyou.iblogdata.upload;
 
 import com.aliyun.oss.OSSClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -17,6 +17,8 @@ import java.util.UUID;
  **/
 public class OSSUploadUtil {
 
+    private static final Logger logger = LoggerFactory.getLogger(OSSUploadUtil.class);
+
     //OSSClient实例
     private static OSSClient ossClient = initOssClient();
 
@@ -25,17 +27,40 @@ public class OSSUploadUtil {
      * @param multipartFile file
      * @return URL
      */
-    public static String uploadOssByStream(MultipartFile multipartFile){
+    public static String uploadOssByStream(MultipartFile multipartFile, Integer type){
         InputStream inputStream = null;
+        String bucketName = null;
+        if (type == null){
+            bucketName = UploadConstant.BUCKETNAME.IB_OTHERS;
+        }else {
+            switch (type){
+                case 1 :
+                    bucketName = UploadConstant.BUCKETNAME.IB_IMAGES;
+                    break;
+                case 2 :
+                    bucketName = UploadConstant.BUCKETNAME.IB_AUDIOS;
+                    break;
+                case 3 :
+                    bucketName = UploadConstant.BUCKETNAME.IB_VIDEOS;
+                    break;
+                case 4 :
+                    bucketName = UploadConstant.BUCKETNAME.IB_OTHERS;
+                    break;
+                default:
+                    bucketName = UploadConstant.BUCKETNAME.IB_OTHERS;
+            }
+        }
         try {
             inputStream = multipartFile.getInputStream();
             String fileName = multipartFile.getOriginalFilename();
             String title = UUID.randomUUID().toString() + fileName.substring(fileName.lastIndexOf("."));
             // 上传文件流。
-            ossClient.putObject(UploadConstant.BUCKETNAME.IB_IMAGES, title, inputStream);
+            logger.warn("开始上传....");
+            ossClient.putObject(bucketName, title, inputStream);
+            logger.warn("上传结束。");
             // 关闭OSSClient。
             ossClient.shutdown();
-            return getUploadUrl(UploadConstant.BUCKETNAME.IB_IMAGES);
+            return getUploadUrl(bucketName, title);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -56,7 +81,7 @@ public class OSSUploadUtil {
             ossClient.putObject(UploadConstant.BUCKETNAME.IB_OTHERS, title, inputStream);
             // 关闭OSSClient。
             ossClient.shutdown();
-            return getUploadUrl(UploadConstant.BUCKETNAME.IB_OTHERS);
+            return getUploadUrl(UploadConstant.BUCKETNAME.IB_OTHERS, title);
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return null;
@@ -70,10 +95,10 @@ public class OSSUploadUtil {
      * @param bucketName bucketName
      * @return 返回路径
      */
-    private static String getUploadUrl(String bucketName){
+    private static String getUploadUrl(String bucketName, String title){
         String start = UploadConstant.OSS_ENDPOINT.substring(0, UploadConstant.OSS_ENDPOINT.lastIndexOf("/") + 1);
         String end = UploadConstant.OSS_ENDPOINT.substring(UploadConstant.OSS_ENDPOINT.lastIndexOf("/") + 1);
-        return start + bucketName + "." + end;
+        return start + bucketName + "." + end + "/" + title;
     }
 
     /**
