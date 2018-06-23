@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -58,9 +59,14 @@ public class HelloWorldController {
     }
 
     @RequestMapping(value = "/greeting", method = {RequestMethod.GET})
-    public ModelAndView test(ModelAndView mv) {
-        mv.setViewName("greeting");
-        mv.addObject("title", "欢迎使用Thymeleaf!");
+    public ModelAndView greeting(String name, RedirectAttributes attr) {
+        attr.addFlashAttribute("title", "欢迎使用Thymeleaf!");
+        attr.addFlashAttribute("name", name);
+        return new ModelAndView("redirect:/hello/greetingView");
+    }
+    @RequestMapping(value = "/greetingView", method = {RequestMethod.GET})
+    public ModelAndView greetingView(@ModelAttribute("name") String name) {
+        ModelAndView mv = new ModelAndView("/greeting");
         return mv;
     }
 
