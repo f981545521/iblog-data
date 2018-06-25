@@ -1,6 +1,7 @@
 package cn.acyou.iblogdata.generator;
 
 import com.google.common.base.CaseFormat;
+import org.springframework.util.StringUtils;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
@@ -19,21 +20,22 @@ import java.util.Random;
 public class GenEntityFromTable {
 
     private static final String driver = "com.mysql.jdbc.Driver";
-    private static final String pwd = "root123";
     private static final String user = "root";
+    private static final String pwd = "root123";
     /**
      * 正常情况下读取表注释时，是取不出来的。
      * 需要增加useInformationSchema=true配置
      */
     private static final String url = "jdbc:mysql://localhost:3306/admui?useInformationSchema=true&useUnicode=true&characterEncoding=UTF-8";
-    private static final String TABLE_NAME = "t_content_prop_info";// 表名
-    private static final String PACKAGE = "com.muran.ifree.domain.prop";//你的实体类所在的包的位置
+    private static final String TABLE_NAME = "t_content_habitat_statement";// 表名
+    private static final String PACKAGE = "com.muran.ifree.domain.habitat";//你的实体类所在的包的位置
+    private static final String CLASS_NAME = convertCamelCase("habitat_statement");// 类名文件名
 
     private static Connection connection = null;
 
     public static void main(String[] args) throws Exception{
-        //generateEntity();
-        generateMapper(TABLE_NAME);
+        generateEntity(CLASS_NAME);
+        //generateMapper(TABLE_NAME);
     }
 
 
@@ -62,7 +64,7 @@ public class GenEntityFromTable {
 
     }
 
-    private static void generateEntity(){
+    private static void generateEntity(String className){
         FileSystemView fsv = FileSystemView.getFileSystemView();
         String path = fsv.getHomeDirectory().toString();//获取当前用户桌面路径
         connection = getConnections();
@@ -87,12 +89,18 @@ public class GenEntityFromTable {
                         System.out.println(tableCat + " - " + tableSchemaName + " - " +tableName2 + " - " + tableType + " - " + remarks);
                         tableRemark = remarks;
                     }
-
-                    File directory = new File(path + "\\" + convertCamelCase(TABLE_NAME) + ".java");
+                    String fileName;//文件名
+                    if (!StringUtils.isEmpty(className)){
+                        fileName = className;
+                    }else {
+                        fileName = convertCamelCase(TABLE_NAME);
+                    }
+                    File directory = new File(path + "\\" + fileName + ".java");
                     FileWriter fw = new FileWriter(directory);
                     PrintWriter pw = new PrintWriter(fw);
                     pw.write("package " + PACKAGE + ";\r\n");
                     pw.write("\r\n");
+                    pw.write("import javax.persistence.Column;\r\n");
                     pw.write("import java.io.Serializable;\r\n");
                     pw.write("import java.util.Date;\r\n");
                     pw.write("\r\n");
@@ -100,7 +108,10 @@ public class GenEntityFromTable {
                     pw.write(" * " + TABLE_NAME + " 实体类\r\n");
                     pw.write(" * " + getDate() + " " + tableRemark + "\r\n");
                     pw.write(" */ \r\n");
-                    pw.write("public class " + convertCamelCase(TABLE_NAME) + " implements Serializable{\r\n");
+                    if (StringUtils.isEmpty(className)){
+                        className = convertCamelCase(TABLE_NAME);
+                    }
+                    pw.write("public class " + className  + " implements Serializable{\r\n");
                     pw.write("\r\n    private static final long serialVersionUID = "+ String.valueOf(new Random().nextLong()) +"L;\r\n");
                     System.out.println();
                     System.out.println(TABLE_NAME + "表信息：");
