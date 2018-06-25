@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author youfang
@@ -59,7 +60,8 @@ public class StudentController {
     @RequestMapping(value = "students", method = {RequestMethod.GET})
     @ApiOperation("获取所有学生列表")
     @ResponseBody
-    public ResultInfo getAllStudent(){
+    public ResultInfo getAllStudent(@RequestHeader Map<String, String> headerMap){
+        //headerMap可以获取请求头信息
         List<Student> data = studentService.getAllStudent();
         return ResultInfoGenerate.generateSuccess(data);
     }
