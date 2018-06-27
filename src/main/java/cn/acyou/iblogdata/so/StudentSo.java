@@ -13,6 +13,8 @@ public class StudentSo extends So {
     private Integer id;
     private String name;
 
+    private Boolean useNow;
+
     public Integer getId() {
         return id;
     }
@@ -27,5 +29,13 @@ public class StudentSo extends So {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean getUseNow() {
+        return useNow;
+    }
+
+    public void setUseNow(Boolean useNow) {
+        this.useNow = useNow;
     }
 }
