@@ -3,6 +3,8 @@ package cn.acyou.iblogdata.commons;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.reflect.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,9 +25,12 @@ public abstract class AbstractService<T extends Po, PK extends Serializable> imp
 
     protected Class<T> poClazz;
 
+    protected Logger logger;
+
     public AbstractService() {
         TypeToken<T> poType = new TypeToken<T>(getClass()) {
         };
+        logger = LoggerFactory.getLogger(getClass().getName());
         poClazz = (Class<T>) poType.getRawType();
     }
 

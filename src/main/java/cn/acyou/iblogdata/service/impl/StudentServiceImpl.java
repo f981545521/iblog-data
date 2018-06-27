@@ -47,7 +47,9 @@ public class StudentServiceImpl extends AbstractService<Student, Integer> implem
 
     @Override
     public List<Student> getAllStudent() {
-        return studentMapper.selectAll();
+        List<Student> allStudent = studentMapper.selectAll();
+        logger.info("allStudent : ", allStudent);
+        return allStudent;
     }
 
     @Override
