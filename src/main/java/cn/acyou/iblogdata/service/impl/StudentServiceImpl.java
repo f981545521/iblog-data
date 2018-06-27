@@ -9,6 +9,7 @@ import cn.acyou.iblogdata.service.StudentService;
 import cn.acyou.iblogdata.so.StudentSo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.List;
  * @author youfang
  * @date 2018-04-15 下午 09:38
  **/
+@Slf4j
 @Service("studentService")
 public class StudentServiceImpl extends AbstractService<Student, Integer> implements StudentService {
     @Autowired
@@ -34,6 +36,7 @@ public class StudentServiceImpl extends AbstractService<Student, Integer> implem
         Boss boss = new Boss();
         boss.setName(student.getName());
         boss.setAge(student.getAge());
+        log.debug(boss.toString());
         //bossService.addBoss(boss);
         int n = studentMapper.insert(student);
 /*        if (n == 1){
