@@ -10,19 +10,20 @@ CREATE TABLE `student` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(200) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
   `age` int(3) NOT NULL DEFAULT '0',
+  `birth` datetime not null default now(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='学生';
 
 -- ----------------------------
 -- Records of student
 -- ----------------------------
-INSERT INTO `student` VALUES ('1', '刘备', '34');
-INSERT INTO `student` VALUES ('2', '曹操', '45');
-INSERT INTO `student` VALUES ('3', '孙权', '43');
-INSERT INTO `student` VALUES ('4', '袁绍', '38');
-INSERT INTO `student` VALUES ('5', '马腾', '58');
-INSERT INTO `student` VALUES ('6', '关羽', '23');
-INSERT INTO `student` VALUES ('7', '史蒂夫', '27');
+INSERT INTO `student` VALUES ('1', '刘备', '34', now());
+INSERT INTO `student` VALUES ('2', '曹操', '45', now());
+INSERT INTO `student` VALUES ('3', '孙权', '43', now());
+INSERT INTO `student` VALUES ('4', '袁绍', '38', now());
+INSERT INTO `student` VALUES ('5', '马腾', '58', now());
+INSERT INTO `student` VALUES ('6', '关羽', '23', now());
+INSERT INTO `student` VALUES ('7', '史蒂夫', '27', now());
 
 -- ----------------------------
 -- Table structure for tb_user

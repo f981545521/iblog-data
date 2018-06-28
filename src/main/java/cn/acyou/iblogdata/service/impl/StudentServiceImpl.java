@@ -1,6 +1,7 @@
 package cn.acyou.iblogdata.service.impl;
 
 import cn.acyou.iblog.model.test.Boss;
+import cn.acyou.iblog.orika.OrikaMapper;
 import cn.acyou.iblog.service.BossService;
 import cn.acyou.iblogdata.commons.AbstractService;
 import cn.acyou.iblogdata.dao.StudentMapper;
@@ -57,6 +58,9 @@ public class StudentServiceImpl extends AbstractService<Student, Integer> implem
         PageHelper.startPage(studentSo.getCurrentPage(), studentSo.getPageSize());
         List<Student> studentList = studentMapper.getStudentsByPage(studentSo);
         PageInfo<Student> page = new PageInfo<>(studentList);
+        OrikaMapper orikaMapper = new OrikaMapper();
+        Student student = orikaMapper.convert(studentSo, Student.class);
+        logger.debug(student.toString());
         return page;
     }
 
