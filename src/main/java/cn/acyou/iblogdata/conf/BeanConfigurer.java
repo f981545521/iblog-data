@@ -1,5 +1,6 @@
 package cn.acyou.iblogdata.conf;
 
+import cn.acyou.iblog.orika.OrikaMapper;
 import cn.acyou.iblogdata.utils.StudentConfig;
 import cn.acyou.iblogdata.utils.StudentConfig2;
 import org.springframework.context.annotation.*;
@@ -25,6 +26,11 @@ public class BeanConfigurer {
     @Order(value = 1)
     public StudentConfig2 studentConfig2(){
         return new StudentConfig2(1, "看家的", 23);
+    }
+
+    @Bean
+    public OrikaMapper orikaMapper(){
+        return new OrikaMapper();
     }
 
 

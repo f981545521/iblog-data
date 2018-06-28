@@ -46,8 +46,8 @@ public class StudentController {
     @RequestMapping(value = "directStudents", method = {RequestMethod.POST})
     @ApiOperation("增加一个学生")
     @ResponseBody
-    public ResultInfo directStudents(Student student){
-        studentMapper.insert(student);
+    public ResultInfo directStudents(@RequestBody Student student){
+        studentMapper.insertSelective(student);
         return new ResultInfo(student);
     }
     @RequestMapping(value = "directStudents", method = {RequestMethod.GET})
