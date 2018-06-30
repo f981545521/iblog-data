@@ -126,7 +126,7 @@ public class GenEntityFromTable {
                         String type = sqlType2JavaType(typeName);
                         String name = rs1.getString("COLUMN_NAME");
                         String remark = rs1.getString("REMARKS");
-                        System.out.println("<id column=\"" + name + "\" jdbcType=\"" + typeName.toUpperCase() + "\" property=\"" + convertcamelCase(name) + "\"/>");
+                        System.out.println("<id column=\"" + name + "\" jdbcType=\"" + typeName2JDBCType(typeName) + "\" property=\"" + convertcamelCase(name) + "\"/>");
                         createPrtype(pw, type, name, remark);
                     }
                     //提供Get和Set方法
@@ -233,6 +233,23 @@ public class GenEntityFromTable {
             str = "Blod";
         }
         return str;
+    }
+
+
+    /**
+     * MySQL type -> mybatis jdbc type
+     * https://blog.csdn.net/benben683280/article/details/78798901
+     * @param typeName 类型名
+     * @return jdbc type
+     */
+    private static String typeName2JDBCType(String typeName) {
+        if (typeName.equalsIgnoreCase("DATETIME")){
+            return "TIMESTAMP";
+        }
+        if (typeName.equalsIgnoreCase("INT")){
+            return "INTEGER";
+        }
+        return typeName.toUpperCase();
     }
 
     // 获取格式化后的时间
