@@ -15,8 +15,11 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +50,9 @@ public class StudentController {
     @ApiOperation("增加一个学生")
     @ResponseBody
     public ResultInfo directStudents(@RequestBody Student student){
+        //获取Request
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+
         studentMapper.insertSelective(student);
         return new ResultInfo(student);
     }
