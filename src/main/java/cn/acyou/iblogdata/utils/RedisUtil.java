@@ -69,15 +69,22 @@ public class RedisUtil {
 
     /**
      * Hash put
-     * @param key
-     * @param hashKey
-     * @param value
-     * @return
+     * @param key IBLOGDATA:STUDENT:INFO 文件夹
+     * @param hashKey 文件夹下的key
+     * @param value key 的value
+     * @return RedisResp
      */
     public RedisResp hPut(String key, Object hashKey, Object value) {
         this.redisTemplate.opsForHash().put(key, hashKey, value);
         return new RedisResp(0, "SUCCESS");
     }
+
+    /**
+     * hash 删除
+     * @param key IBLOGDATA:STUDENT:INFO 文件夹
+     * @param hashKeys 文件夹下的key
+     * @return RedisResp
+     */
     public RedisResp hDel(String key, String... hashKeys) {
         Long counts = 0L;
         if (hashKeys.length > 1) {
