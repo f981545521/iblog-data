@@ -1,5 +1,6 @@
 package cn.acyou.iblogdata.utils;
 
+import cn.acyou.iblogdata.commons.RedisResp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -53,5 +54,43 @@ public class RedisUtil {
         }
         return null;
     }
+
+
+    /**
+     * Hash get
+     * @param key key
+     * @param hashKey result
+     * @return RedisResp
+     */
+    public RedisResp hGet(String key, String hashKey) {
+        String strValue = (String)this.redisTemplate.opsForHash().get(key, hashKey);
+        return new RedisResp(0, "SUCCESS", key, strValue);
+    }
+
+    /**
+     * Hash put
+     * @param key
+     * @param hashKey
+     * @param value
+     * @return
+     */
+    public RedisResp hPut(String key, Object hashKey, Object value) {
+        this.redisTemplate.opsForHash().put(key, hashKey, value);
+        return new RedisResp(0, "SUCCESS");
+    }
+    public RedisResp hDel(String key, String... hashKeys) {
+        Long counts = 0L;
+        if (hashKeys.length > 1) {
+            Object[] objKeys = new Object[hashKeys.length];
+            objKeys = (Object[])hashKeys.clone();
+            counts = this.redisTemplate.opsForHash().delete(key, objKeys);
+        } else {
+            counts = this.redisTemplate.opsForHash().delete(key, new Object[]{hashKeys[0]});
+        }
+
+        RedisResp resultBean = new RedisResp(0, "SUCCESS", counts, key);
+        return resultBean;
+    }
+
 
 }
