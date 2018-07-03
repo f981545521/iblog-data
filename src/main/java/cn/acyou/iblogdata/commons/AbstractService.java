@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author youfang
  */
-@Transactional(timeout = 1, rollbackFor = Exception.class)
+@Transactional(timeout = 120, rollbackFor = Exception.class)
 public abstract class AbstractService<T extends Po, PK extends Serializable> implements Service<T, PK> {
 
     @Autowired

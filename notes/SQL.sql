@@ -60,7 +60,7 @@ INSERT INTO `teacher` VALUES ('2', '扣扣', '45', '1');
 INSERT INTO `teacher` VALUES ('3', '范德萨', '43', '1');
 
 
-##### 使用Druid监控的时候需要创建以下的表信息  #####
+####################### 使用Druid监控的时候需要创建以下的表信息  #######################
 ##### 参考：https://github.com/alibaba/druid/tree/53c3f98bb2be11eae603b71691317d31d45c2dcf/src/main/resources/support/monitor/mysql
 -- druid monitor 表开始
 create table druid_domain (
@@ -347,7 +347,7 @@ CREATE TABLE druid_weburi (
 );
 
 CREATE INDEX druid_weburi_index ON druid_weburi (collectTime, domain, app);
--- druid monitor 表结束
+####################### 使用Druid监控的时候需要创建以上的表信息  #######################
 
 
 
