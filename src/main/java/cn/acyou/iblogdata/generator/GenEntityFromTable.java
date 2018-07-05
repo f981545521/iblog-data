@@ -27,15 +27,15 @@ public class GenEntityFromTable {
      * 需要增加useInformationSchema=true配置
      */
     private static final String url = "jdbc:mysql://localhost:3306/admui?useInformationSchema=true&useUnicode=true&characterEncoding=UTF-8";
-    private static final String TABLE_NAME = "t_content_habitat_statement";// 表名
+    private static final String TABLE_NAME = "t_content_img_info";// 表名
     private static final String PACKAGE = "com.muran.ifree.domain.habitat";//你的实体类所在的包的位置
-    private static final String CLASS_NAME = convertCamelCase("habitat_statement");// 类名文件名
+    private static final String CLASS_NAME = convertCamelCase("img_info");// 类名文件名
 
     private static Connection connection = null;
 
     public static void main(String[] args) throws Exception{
         generateEntity(CLASS_NAME);
-        //generateMapper(TABLE_NAME);
+        generateMapper(TABLE_NAME);
     }
 
 
@@ -116,6 +116,7 @@ public class GenEntityFromTable {
                     System.out.println();
                     System.out.println(TABLE_NAME + "表信息：");
                     System.out.println();
+                    System.out.println("<resultMap id=\"Base_Result_Map\" type=\"" + PACKAGE + "." + CLASS_NAME + "\">");
                     while (rs1.next()) {
                         //System.out.println("private " + sqlType2JavaType(rs1.getString("TYPE_NAME")) + "	" + rs1.getString("COLUMN_NAME") + ";");
                         if (directory.exists()) {
@@ -126,9 +127,10 @@ public class GenEntityFromTable {
                         String type = sqlType2JavaType(typeName);
                         String name = rs1.getString("COLUMN_NAME");
                         String remark = rs1.getString("REMARKS");
-                        System.out.println("<id column=\"" + name + "\" jdbcType=\"" + typeName2JDBCType(typeName) + "\" property=\"" + convertcamelCase(name) + "\"/>");
+                        System.out.println("    <id column=\"" + name + "\" jdbcType=\"" + typeName2JDBCType(typeName) + "\" property=\"" + convertcamelCase(name) + "\"/>");
                         createPrtype(pw, type, name, remark);
                     }
+                    System.out.println("</resultMap>");
                     //提供Get和Set方法
                     pw.write("\r\n");
                     while (rs2.next()) {
