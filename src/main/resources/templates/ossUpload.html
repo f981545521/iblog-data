@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>OSS上传</title>
+    <script src="../../static/js/jquery.1.9.1.min.js"></script>
+</head>
+<body>
+    <h1>上传到OSS</h1>
+    请选择文件
+    <div id="imgContainer">
+
+    </div>
+    <input type="file" id="file"/>
+    <select>
+        <option th:each="bucket:${bucketList}" th:text="${bucket}"></option>
+    </select>
+    <button type="button" id="start-upload">开始上传</button>
+
+<script>
+    $(function () {
+        $('#start-upload').on("click", function () {
+
+        });
+
+
+    });
+
+</script>
+</body>
+</html>

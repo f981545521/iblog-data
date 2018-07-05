@@ -48,7 +48,7 @@ public class TeacherServiceImpl  extends AbstractService<Teacher, Integer> imple
 
     @Override
     public Teacher getStudentById(Integer id) {
-        Teacher teacher = null;
+        Teacher teacher;
         RedisResp redisResp = redisUtil.hGet(AppRedisKey.IBLOGDATA_STUDENT_INFO, id.toString());
         String redisValue = redisResp.getData();
         if (StringUtils.isNotBlank(redisValue)) {

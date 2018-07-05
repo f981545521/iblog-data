@@ -1,6 +1,9 @@
 package cn.acyou.iblogdata.upload;
 
 import com.aliyun.oss.OSSClient;
+import com.aliyun.oss.model.Bucket;
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,7 +12,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * @author youfang
@@ -110,12 +115,32 @@ public class OSSUploadUtil {
         return new OSSClient(UploadConstant.OSS_ENDPOINT, UploadConstant.ACCESS_KEY_ID, UploadConstant.ACCESS_KEY_SECRET);
     }
 
+    /**
+     * 列举存储空间。
+     */
+    public static List<String> listBuckets(){
+        List<Bucket> bucketsbuckets = ossClient.listBuckets();
+        List<String> buckNameList = Lists.transform(bucketsbuckets, new Function<Bucket, String>() {
+            @Override
+            public String apply(Bucket input) {
+                return input.getName();
+            }
+        });
+        return buckNameList;
+        //下面这句比较高级，需要有时间研究一下
+        //return bucketsbuckets.stream().map(Bucket::getName).collect(Collectors.toList());
+    }
+
     public static void main(String[] args) throws Exception{
-        String str = "http://fs.w.kugou.com/201806211850/f215f44079296457af01356d640ec274/G123/M0A/1A/08/G4cBAFsp97WAMWxiAEURHVT3DRg816.mp3";
+/*        String str = "http://fs.w.kugou.com/201806211850/f215f44079296457af01356d640ec274/G123/M0A/1A/08/G4cBAFsp97WAMWxiAEURHVT3DRg816.mp3";
         String str2 = "http://fs.w.kugou.com/201806211905/0b18de10b99d2b6c52e90879140b2f97/G123/M0A/1A/08/G4cBAFsp97WAMWxiAEURHVT3DRg816.mp3";
         System.out.println(OSSUploadUtil.uploadOssByURLStream(str));
-        System.out.println(OSSUploadUtil.uploadOssByURLStream(str2));
+        System.out.println(OSSUploadUtil.uploadOssByURLStream(str2));*/
         //OSSUploadUtil.uploadOssByURLStream(str2);
+        List<String> buckets = OSSUploadUtil.listBuckets();
+        for (String s: buckets){
+            System.out.println(s);
+        }
     }
 
 
