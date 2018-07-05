@@ -34,19 +34,5 @@ public class BeanConfigurer {
         return new OrikaMapper();
     }
 
-    /**
-     *  spring mvc如果要接收 multipart/form-data 传输的数据，应该在spring上下文配置
-     *  此处有依赖commons-fileupload的包
-     * @return CommonsMultipartResolver
-     */
-    @Bean
-    public CommonsMultipartResolver loadMultipartResolver(){
-        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-        resolver.setDefaultEncoding("utf-8");
-        resolver.setMaxUploadSize(20971520);
-        resolver.setMaxInMemorySize(4096);
-        return resolver;
-    }
-
 
 }

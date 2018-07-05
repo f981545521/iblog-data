@@ -11,7 +11,17 @@ public class OssUploadSo extends So {
 
     private String bucketName;
 
-    private MultipartFile file;
+    private String fileName;
+
+    private MultipartFile myfile;
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 
     public String getBucketName() {
         return bucketName;
@@ -21,11 +31,11 @@ public class OssUploadSo extends So {
         this.bucketName = bucketName;
     }
 
-    public MultipartFile getFile() {
-        return file;
+    public MultipartFile getMyfile() {
+        return myfile;
     }
 
-    public void setFile(MultipartFile file) {
-        this.file = file;
+    public void setMyfile(MultipartFile myfile) {
+        this.myfile = myfile;
     }
 }

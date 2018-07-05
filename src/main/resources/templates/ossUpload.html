@@ -10,8 +10,9 @@
     <h1>上传到OSS</h1>
     请选择文件
     <div id="imgContainer"></div>
-    <form id="FormInfo">
-        <input name="file" type="file" id="file"/>
+    <form id="FormInfo" method="post" enctype="multipart/form-data" action="/oss/upload">
+        <input name="myfile" type="file" id="myfile" multiple="multiple"/>
+        <input name="fileName" type="text" />
         <select name="bucketName">
             <option th:each="bucket:${bucketList}" th:value="${bucket}" th:text="${bucket}"></option>
         </select>
@@ -21,8 +22,11 @@
 <script>
     $(function () {
         $('#start-upload').on("click", function () {
+            //var formData = new FormData();
+            //var file = $("#myfile")[0].files[0];
+            //formData.append("myfile", file);
             var formData = new FormData($('#FormInfo')[0]);
-            ajaxPost(formData, "/oss/upload", function (result) {
+            ajaxFormPost(formData, "/oss/upload", function (result) {
                 console.log(result);
             })
         });

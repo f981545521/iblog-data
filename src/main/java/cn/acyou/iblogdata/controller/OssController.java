@@ -30,7 +30,7 @@ public class OssController {
     @RequestMapping(value = "/upload", method = {RequestMethod.POST})
     @ResponseBody
     public ResultInfo greetingView(OssUploadSo ossUploadSo) {
-        String uploadUrl = OSSUploadUtil.uploadOssByStream(ossUploadSo.getFile(), ossUploadSo.getBucketName());
+        String uploadUrl = OSSUploadUtil.uploadOssByStream(ossUploadSo.getMyfile(), ossUploadSo.getBucketName());
         return new ResultInfo(uploadUrl);
     }
 
