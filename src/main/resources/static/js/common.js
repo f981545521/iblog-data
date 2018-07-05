@@ -13,6 +13,7 @@ function ajaxPost(ajaxdata, ajaxurl, successcallback, errorcallback) {
         url: ajaxurl,
         data: ajaxdata,
         async: true,
+        processData: false,
         success: function (data) {
             if ($.isFunction(successcallback)) {
                 successcallback.call(this, data);

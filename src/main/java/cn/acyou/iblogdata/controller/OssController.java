@@ -1,10 +1,12 @@
 package cn.acyou.iblogdata.controller;
 
+import cn.acyou.iblogdata.so.OssUploadSo;
 import cn.acyou.iblogdata.upload.OSSUploadUtil;
+import cn.acyou.iblogdata.utils.ResultInfo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -18,12 +20,21 @@ import java.util.List;
 public class OssController {
 
     @RequestMapping(value = "/upload", method = {RequestMethod.GET})
-    public ModelAndView greetingView() {
+    public ModelAndView toUpload() {
         ModelAndView mv = new ModelAndView("/ossUpload");
         List<String> bucketList = OSSUploadUtil.listBuckets();
         mv.addObject("bucketList", bucketList);
         return mv;
     }
+
+    @RequestMapping(value = "/upload", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResultInfo greetingView(OssUploadSo ossUploadSo) {
+        String uploadUrl = OSSUploadUtil.uploadOssByStream(ossUploadSo.getFile(), ossUploadSo.getBucketName());
+        return new ResultInfo(uploadUrl);
+    }
+
+
 
 
 }
