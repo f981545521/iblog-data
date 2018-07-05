@@ -32,29 +32,8 @@ public class OSSUploadUtil {
      * @param multipartFile file
      * @return URL
      */
-    public static String uploadOssByStream(MultipartFile multipartFile, Integer type){
+    public static String uploadOssByStream(MultipartFile multipartFile, String bucketName){
         InputStream inputStream = null;
-        String bucketName = null;
-        if (type == null){
-            bucketName = UploadConstant.BUCKETNAME.IB_OTHERS;
-        }else {
-            switch (type){
-                case 1 :
-                    bucketName = UploadConstant.BUCKETNAME.IB_IMAGES;
-                    break;
-                case 2 :
-                    bucketName = UploadConstant.BUCKETNAME.IB_AUDIOS;
-                    break;
-                case 3 :
-                    bucketName = UploadConstant.BUCKETNAME.IB_VIDEOS;
-                    break;
-                case 4 :
-                    bucketName = UploadConstant.BUCKETNAME.IB_OTHERS;
-                    break;
-                default:
-                    bucketName = UploadConstant.BUCKETNAME.IB_OTHERS;
-            }
-        }
         try {
             inputStream = multipartFile.getInputStream();
             String fileName = multipartFile.getOriginalFilename();

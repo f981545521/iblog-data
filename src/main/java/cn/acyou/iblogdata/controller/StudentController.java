@@ -112,16 +112,6 @@ public class StudentController {
         return ResultInfoGenerate.generateSuccess(student);
     }
 
-    @RequestMapping(value = "upload", method = {RequestMethod.POST})
-    @ApiOperation("OSS上传，类型(type): 1-image,2-audio,3-video,4-other")
-    @ResponseBody
-    public ResultInfo upload(MultipartFile multipartFile, Integer type){
-        String result = OSSUploadUtil.uploadOssByStream(multipartFile, type);
-        return ResultInfoGenerate.generateSuccess(result);
-    }
-
-
-
 
 
 }
