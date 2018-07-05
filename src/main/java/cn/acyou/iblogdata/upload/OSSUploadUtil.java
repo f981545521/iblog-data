@@ -1,9 +1,11 @@
 package cn.acyou.iblogdata.upload;
 
+import cn.acyou.iblogdata.vo.OSSUploadVo;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.Bucket;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,22 +31,27 @@ public class OSSUploadUtil {
 
     /**
      * 阿里云 文件流上传
-     * @param multipartFile file
+     * @param ossUploadVo file
      * @return URL
      */
-    public static String uploadOssByStream(MultipartFile multipartFile, String bucketName){
+    public static String uploadOssByStream(OSSUploadVo ossUploadVo){
         InputStream inputStream = null;
         try {
-            inputStream = multipartFile.getInputStream();
-            String fileName = multipartFile.getOriginalFilename();
-            String title = UUID.randomUUID().toString() + fileName.substring(fileName.lastIndexOf("."));
+            inputStream = ossUploadVo.getFile().getInputStream();
+            String fileName = ossUploadVo.getFile().getOriginalFilename();
+            String title;
+            if (StringUtils.isNotEmpty(ossUploadVo.getFileName())){
+                title = ossUploadVo.getFileName() + fileName.substring(fileName.lastIndexOf("."));
+            }else {
+                title = UUID.randomUUID().toString() + fileName.substring(fileName.lastIndexOf("."));
+            }
             // 上传文件流。
             logger.warn("开始上传....");
-            ossClient.putObject(bucketName, title, inputStream);
+            ossClient.putObject(ossUploadVo.getBucketName(), title, inputStream);
             logger.warn("上传结束。");
             // 关闭OSSClient。
             ossClient.shutdown();
-            return getUploadUrl(bucketName, title);
+            return getUploadUrl(ossUploadVo.getBucketName(), title);
         } catch (IOException e) {
             e.printStackTrace();
             return null;

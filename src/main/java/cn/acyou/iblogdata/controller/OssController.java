@@ -1,8 +1,8 @@
 package cn.acyou.iblogdata.controller;
 
-import cn.acyou.iblogdata.so.OssUploadSo;
 import cn.acyou.iblogdata.upload.OSSUploadUtil;
 import cn.acyou.iblogdata.utils.ResultInfo;
+import cn.acyou.iblogdata.vo.OSSUploadVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,8 +29,8 @@ public class OssController {
 
     @RequestMapping(value = "/upload", method = {RequestMethod.POST})
     @ResponseBody
-    public ResultInfo greetingView(OssUploadSo ossUploadSo) {
-        String uploadUrl = OSSUploadUtil.uploadOssByStream(ossUploadSo.getMyfile(), ossUploadSo.getBucketName());
+    public ResultInfo greetingView(OSSUploadVo ossUploadVo) {
+        String uploadUrl = OSSUploadUtil.uploadOssByStream(ossUploadVo);
         return new ResultInfo(uploadUrl);
     }
 

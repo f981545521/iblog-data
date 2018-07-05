@@ -11,7 +11,7 @@
     请选择文件
     <div id="imgContainer"></div>
     <form id="FormInfo" method="post" enctype="multipart/form-data" action="/oss/upload">
-        <input name="myfile" type="file" id="myfile" multiple="multiple"/>
+        <input name="file" type="file" id="file" multiple="multiple"/>
         <input name="fileName" type="text" />
         <select name="bucketName">
             <option th:each="bucket:${bucketList}" th:value="${bucket}" th:text="${bucket}"></option>
