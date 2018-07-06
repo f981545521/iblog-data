@@ -14,6 +14,8 @@ public interface StudentService extends Service<Student, Integer> {
 
     int addStudent(Student student);
 
+    int updateStudent(Student student);
+
     List<Student> getAllStudent();
 
     PageInfo<Student> getStudentsByPage(StudentSo studentSo);

@@ -12,7 +12,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,6 +46,17 @@ public class StudentServiceImpl extends AbstractService<Student, Integer> implem
             throw new RuntimeException();
         }*/
         return n;
+    }
+
+    @Override
+    //@CacheEvict(value="student", key="T(cn.acyou.iblogdata.entity.Student).id")
+    //@CacheEvict(value="student", key="#student.id")
+    //@CacheEvict(value="student", key="T(java.lang.String).valueOf(#student.id)")
+    @Caching(evict = {
+            @CacheEvict(value="student", key="T(java.lang.String).valueOf(#student.id)")
+    })
+    public int updateStudent(Student student) {
+        return studentMapper.updateByPrimaryKeySelective(student);
     }
 
     @Override
