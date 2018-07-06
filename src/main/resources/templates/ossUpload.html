@@ -9,8 +9,8 @@
 <body>
     <h1>上传到OSS</h1>
     请选择文件
-    <div id="imgContainer"></div>
-    <form id="FormInfo" method="post" enctype="multipart/form-data" action="/oss/upload">
+
+    <form id="FormInfo" enctype="multipart/form-data">
         <input name="file" type="file" id="file" multiple="multiple"/>
         <input name="fileName" type="text" />
         <select name="bucketName">
@@ -18,7 +18,9 @@
         </select>
     </form>
     <button type="button" id="start-upload">开始上传</button>
-
+    <div>
+        <img id="imgContainer"/>
+    </div>
 <script>
     $(function () {
         $('#start-upload').on("click", function () {
@@ -28,6 +30,7 @@
             var formData = new FormData($('#FormInfo')[0]);
             ajaxFormPost(formData, "/oss/upload", function (result) {
                 console.log(result);
+                $('#imgContainer').attr("src", result.data);
             })
         });
 
