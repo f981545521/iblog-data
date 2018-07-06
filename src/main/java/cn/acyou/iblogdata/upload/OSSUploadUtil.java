@@ -49,8 +49,8 @@ public class OSSUploadUtil {
             logger.warn("开始上传....");
             ossClient.putObject(ossUploadVo.getBucketName(), title, inputStream);
             logger.warn("上传结束。");
-            // 关闭OSSClient。
-            ossClient.shutdown();
+            // 关闭OSSClient。关闭之后就要重新实例化一个
+            //ossClient.shutdown();
             return getUploadUrl(ossUploadVo.getBucketName(), title);
         } catch (IOException e) {
             e.printStackTrace();
@@ -97,7 +97,7 @@ public class OSSUploadUtil {
      * @return OSSClient实例
      */
     private static OSSClient initOssClient(){
-        System.out.println("初始化OSSclient");
+        logger.warn("初始化OSSclient...");
         return new OSSClient(UploadConstant.OSS_ENDPOINT, UploadConstant.ACCESS_KEY_ID, UploadConstant.ACCESS_KEY_SECRET);
     }
 
