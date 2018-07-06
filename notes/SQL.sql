@@ -347,6 +347,142 @@ CREATE TABLE druid_weburi (
 );
 
 CREATE INDEX druid_weburi_index ON druid_weburi (collectTime, domain, app);
+
+CREATE TABLE druid_const (
+  id bigint(20) AUTO_INCREMENT NOT NULL,
+  domain varchar(45) NOT NULL,
+  app varchar(45) NOT NULL,
+  type varchar(45) NOT NULL,
+  hash bigint(20) NOT NULL,
+  value text,
+  PRIMARY KEY (id),
+  UNIQUE (domain, app, type, hash)
+)
+
+
+CREATE TABLE druid_springmethod (
+  id bigint(20) AUTO_INCREMENT NOT NULL,
+  domain varchar(45) NOT NULL,
+  app varchar(45) NOT NULL,
+  cluster varchar(45) NOT NULL,
+  host varchar(128),
+  pid int(10) NOT NULL,
+  collectTime datetime NOT NULL,
+  className varchar(256),
+  signature varchar(256),
+  runningCount int(10),
+  concurrentMax int(10),
+  executeCount bigint(20),
+  executeErrorCount bigint(20),
+  executeTimeNano bigint(20),
+  jdbcFetchRowCount bigint(20),
+  jdbcUpdateCount bigint(20),
+  jdbcExecuteCount bigint(20),
+  jdbcExecuteErrorCount bigint(20),
+  jdbcExecuteTimeNano bigint(20),
+  jdbcCommitCount bigint(20),
+  jdbcRollbackCount bigint(20),
+  jdbcPoolConnectionOpenCount bigint(20),
+  jdbcPoolConnectionCloseCount bigint(20),
+  jdbcResultSetOpenCount bigint(20),
+  jdbcResultSetCloseCount bigint(20),
+  lastErrorClass varchar(256),
+  lastErrorMessage varchar(256),
+  lastErrorStackTrace varchar(256),
+  lastErrorTimeMillis bigint(20),
+  h1 bigint(20),
+  h10 bigint(20),
+  h100 bigint(20),
+  h1000 bigint(20),
+  h10000 int(10),
+  h100000 int(10),
+  h1000000 int(10),
+  hmore int(10),
+  PRIMARY KEY (id)
+);
+
+CREATE INDEX druid_springmethod_index ON druid_springmethod (collectTime, domain, app);
+
+
+CREATE TABLE druid_wall(
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  domain varchar(45)  NOT NULL,
+  app varchar(45)  NOT NULL,
+  cluster varchar(45)  NOT NULL,
+  host varchar(128),
+  pid int(10)  NOT NULL,
+  collectTime datetime NOT NULL,
+  name varchar(256),
+  checkCount bigint(20),
+  hardCheckCount bigint(20),
+  violationCount bigint(20),
+  whiteListHitCount bigint(20),
+  blackListHitCount bigint(20),
+  syntaxErrorCount bigint(20),
+  violationEffectRowCount bigint(20),
+  PRIMARY KEY(id)
+);
+CREATE INDEX druid_wall_index ON druid_wall (collectTime, domain, app);
+
+CREATE TABLE druid_wall_sql(
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  domain varchar(45)  NOT NULL,
+  app varchar(45)  NOT NULL,
+  cluster varchar(45)  NOT NULL,
+  host varchar(128), pid int(10)  NOT NULL,
+  collectTime datetime NOT NULL,
+  sqlHash bigint(20),
+  sqlSHash bigint(20),
+  sqlSampleHash bigint(20),
+  executeCount bigint(20),
+  fetchRowCount bigint(20),
+  updateCount bigint(20),
+  syntaxError int(1),
+  violationMessage varchar(256),
+  PRIMARY KEY(id)
+);
+CREATE INDEX druid_wall_sql_index ON druid_wall_sql (collectTime, domain, app);
+
+CREATE TABLE druid_wall_table(
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  domain varchar(45)  NOT NULL,
+  app varchar(45)  NOT NULL,
+  cluster varchar(45)  NOT NULL,
+  host varchar(128),
+  pid int(10)  NOT NULL,
+  collectTime datetime NOT NULL,
+  name varchar(256),
+  selectCount bigint(20),
+  selectIntoCount bigint(20),
+  insertCount bigint(20),
+  updateCount bigint(20),
+  deleteCount bigint(20),
+  truncateCount bigint(20),
+  createCount bigint(20),
+  alterCount bigint(20),
+  dropCount bigint(20),
+  replaceCount bigint(20),
+  deleteDataCount bigint(20),
+  updateDataCount bigint(20),
+  insertDataCount bigint(20),
+  fetchRowCount bigint(20),
+  PRIMARY KEY(id)
+);
+CREATE INDEX druid_wall_table_index ON druid_wall_table (collectTime, domain, app);
+
+CREATE TABLE druid_wall_function(
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  domain varchar(45)  NOT NULL,
+  app varchar(45)  NOT NULL,
+  cluster varchar(45)  NOT NULL,
+  host varchar(128),
+  pid int(10)  NOT NULL,
+  collectTime datetime NOT NULL,
+  name varchar(256),
+  invokeCount bigint(20),
+  PRIMARY KEY(id)
+);
+CREATE INDEX druid_wall_function_index ON druid_wall_function (collectTime, domain, app);
 ####################### 使用Druid监控的时候需要创建以上的表信息  #######################
 
 
