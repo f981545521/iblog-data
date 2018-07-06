@@ -7,6 +7,13 @@ package cn.acyou.iblogdata.utils;
 public class AppRedisKey {
 
     /**
+     * spring cache
+     */
+    public final static String SPRING_CACHE = "SPRING:CACHE";
+    public final static Long SPRING_CACHE_DEFAULT_EXPIRETIME = 1200L;
+
+
+    /**
      * hash存储
      * hashkey-学生ID
      * hashValue - 学生信息

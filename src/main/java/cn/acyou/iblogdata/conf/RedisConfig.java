@@ -1,5 +1,6 @@
 package cn.acyou.iblogdata.conf;
 
+import cn.acyou.iblogdata.utils.AppRedisKey;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,7 +10,9 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.DefaultRedisCachePrefix;
 import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.cache.RedisCachePrefix;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -45,10 +48,14 @@ public class RedisConfig {
     @SuppressWarnings("rawtypes")
     @Bean
     public CacheManager cacheManager(RedisTemplate redisTemplate) {
-        RedisCacheManager rcm = new RedisCacheManager(redisTemplate);
+        RedisCacheManager manager = new RedisCacheManager(redisTemplate);
+        RedisCachePrefix cachePrefix = new DefaultRedisCachePrefix();
+        cachePrefix.prefix(AppRedisKey.SPRING_CACHE);
+        manager.setCachePrefix(cachePrefix);
         //设置缓存过期时间
-        //rcm.setDefaultExpiration(60);//秒
-        return rcm;
+        manager.setDefaultExpiration(AppRedisKey.SPRING_CACHE_DEFAULT_EXPIRETIME);//秒
+        manager.setUsePrefix(true);
+        return manager;
     }
 
     @Bean

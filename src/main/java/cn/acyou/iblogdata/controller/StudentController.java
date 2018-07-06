@@ -4,20 +4,16 @@ import cn.acyou.iblogdata.dao.StudentMapper;
 import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.service.StudentService;
 import cn.acyou.iblogdata.so.StudentSo;
-import cn.acyou.iblogdata.upload.OSSUploadUtil;
-import cn.acyou.iblogdata.upload.UploadConstant;
 import cn.acyou.iblogdata.utils.ResultInfo;
 import cn.acyou.iblogdata.utils.ResultInfoGenerate;
 import cn.acyou.iblogdata.vo.StudentVo;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -105,11 +101,19 @@ public class StudentController {
     }
 
     @RequestMapping(value = "stu", method = {RequestMethod.GET})
-    @ApiOperation("CacheTest")
+    @ApiOperation("CacheTest 查找")
     @ResponseBody
     public ResultInfo stu(String id){
         Student student = studentService.getStudentById(id);
         return ResultInfoGenerate.generateSuccess(student);
+    }
+
+    @RequestMapping(value = "stu", method = {RequestMethod.PUT})
+    @ApiOperation("CacheTest 更新")
+    @ResponseBody
+    public ResultInfo updateStudent(Student student){
+        studentService.updateStudent(student);
+        return ResultInfoGenerate.generateSuccess();
     }
 
 

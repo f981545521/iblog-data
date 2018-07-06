@@ -10,4 +10,9 @@ public class ResultInfoGenerate {
     public static ResultInfo generateSuccess(Object data){
         return new ResultInfo(data);
     }
+
+    public static ResultInfo generateSuccess(){
+        return new ResultInfo();
+    }
+
 }
