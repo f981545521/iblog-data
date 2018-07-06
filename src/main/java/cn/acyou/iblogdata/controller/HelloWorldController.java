@@ -6,6 +6,7 @@ import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.utils.ResultInfo;
 import cn.acyou.iblogdata.utils.StudentConfig;
 import cn.acyou.iblogdata.utils.StudentConfig2;
+import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -107,6 +108,16 @@ public class HelloWorldController {
         student.setAge(23);
         student.setBirth(DateUtils.create(2008, 8, 8, 8, 8, 8, 8).getTime());
         model.addAttribute("student", student);
+        List<Student> studentList = Lists.newLinkedList();
+        for (int i = 0; i < 10; i++){
+            Student stu = new Student();
+            stu.setId(i + 10);
+            stu.setName("小王" + i);
+            stu.setAge(23 + i);
+            stu.setBirth(DateUtils.create(2008 + i, 8, 8, 8, 8, 8, 8).getTime());
+            studentList.add(stu);
+        }
+        model.addAttribute("studentList", studentList);
         return "thymeleaf";
     }
 }
