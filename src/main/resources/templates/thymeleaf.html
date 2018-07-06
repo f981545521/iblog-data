@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h2 th:text="'Hello, ' + ${title}" ></h2><br/>
+<h4 th:if="${student.id eq 1} ? (${student.name eq '小王想'})">全正确才显示</h4>
+<h4 th:if="${student.id eq 1} ? (${student.name eq '小王'})">全正确才显示</h4>
+<h4 th:text="${#dates.format(student.birth,'yyyy-MM-dd HH:mm:ss')}"></h4>
+
+<script th:src="@{/static/js/jquery.1.9.1.min.js}"></script>
+<script>
+    $(function(){
+        console.log("page load finish.");
+    });
+</script>
+</body>
+</html>
