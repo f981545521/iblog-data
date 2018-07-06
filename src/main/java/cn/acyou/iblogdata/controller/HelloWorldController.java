@@ -2,6 +2,7 @@ package cn.acyou.iblogdata.controller;
 
 import cn.acyou.iblog.model.Sort;
 import cn.acyou.iblog.service.SortService;
+import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.utils.ResultInfo;
 import cn.acyou.iblogdata.utils.StudentConfig;
 import cn.acyou.iblogdata.utils.StudentConfig2;
@@ -10,9 +11,12 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.thymeleaf.util.DateUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,7 +26,7 @@ import java.util.List;
  * @author youfang
  * @date 2018-02-27 13:21
  **/
-@RestController
+@Controller
 @RequestMapping("/hello")
 @Api
 public class HelloWorldController {
@@ -91,5 +95,18 @@ public class HelloWorldController {
     public String index(@RequestParam String name) {
         logger.warn("您输入的 name：" + name);
         return "hello ：" + name + "，producer 接收到了你的请求。";
+    }
+
+    @ApiOperation(value = "Thymeleaf 测试")
+    @RequestMapping(value = "/thymeleaf", method = {RequestMethod.GET})
+    public String thymeleaf(Model model) {
+        model.addAttribute("title", "Thymeleaf 测试");
+        Student student = new Student();
+        student.setId(1);
+        student.setName("小王");
+        student.setAge(23);
+        student.setBirth(DateUtils.create(2008, 8, 8, 8, 8, 8, 8).getTime());
+        model.addAttribute("student", student);
+        return "thymeleaf";
     }
 }
