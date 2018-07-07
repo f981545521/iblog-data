@@ -1,8 +1,10 @@
 package cn.acyou.iblogdata.upload;
 
 import com.aliyun.vod.upload.impl.UploadVideoImpl;
+import com.aliyun.vod.upload.req.UploadURLStreamRequest;
 import com.aliyun.vod.upload.req.UploadVideoRequest;
 import com.aliyun.vod.upload.resp.UploadFileStreamResponse;
+import com.aliyun.vod.upload.resp.UploadURLStreamResponse;
 import com.aliyun.vod.upload.resp.UploadVideoResponse;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.exceptions.ClientException;
@@ -15,6 +17,7 @@ import com.aliyuncs.vod.model.v20170321.GetPlayInfoResponse;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.*;
 import java.util.List;
 
 /**
@@ -33,7 +36,51 @@ public class VodUploadUtil {
         System.out.println(response.getVideoBase().getCoverURL());
         System.out.println(response.getPlayInfoList().get(0).getPlayURL());*/
 
+        //String mediaUrl = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=11_tJuUDbvw-O8rstQi0upIBXVTWMHxm_EcWycCbCSqWjynYGAqXL-iCV5Lt2yB9YWPXFfwdUijwSs1oEHBN-PAPyDOKJW6VxWoc1isW3KfSiLf1eeDHo-2Cpl1WAs6U64IwdKgb_TjPlR5zz6qIQOeAIAMUS&media_id=3VBjlLTFBZpJ4zBWtrU3-aZ-YgNcrjIAbT2ToJYOJRAvO0y_i1XFCITmbavlh9H1";
+        String mediaId = "3VBjlLTFBZpJ4zBWtrU3-aZ-YgNcrjIAbT2ToJYOJRAvO0y_i1XFCITmbavlh9H1";
+        String accessToken = "11_y8dCeve0XbzV730ZgfICpTDQOzBGS_uUwNdVc19_5aLgvJ-AVxFFDjwVh_ohC17kJyefSlnyoNDNWEMSLVdO4Wv1FGDWA8eIu_nhHi9uxu_GBA6K31LXWQvlhbm2jfKJUkyrNggUHustj9eiTAWcAJAKRN";
+        String mediaUrl = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=" + accessToken + "&media_id=mF6rNQoanACiNik4L7Wlw6W9VGTqnrSrWZ_84JrYOBk5BZ-xlIsS0LQ0NWOtCIKk";
+        VodUploadUtil.uploadURLStream(mediaUrl, mediaId + ".mp3", null, null);
+    }
 
+    /**
+     * 网络流上传接口
+     */
+    public static String uploadURLStream(String url, String fileName, Long cateId, String templateGroupId) {
+        String title = fileName;//文件标题
+        UploadURLStreamRequest request = new UploadURLStreamRequest(UploadConstant.ACCESS_KEY_ID, UploadConstant.ACCESS_KEY_SECRET, title, fileName, url);
+        /* 是否使用默认水印(可选)，指定模板组ID时，根据模板组配置确定是否使用默认水印*/
+        //request.setIsShowWaterMark(true);
+        /* 设置上传完成后的回调URL(可选)，建议通过点播控制台配置消息监听事件，参见文档 https://help.aliyun.com/document_detail/57029.html */
+        //request.setCallback("http://callback.sample.com");
+        /* 视频分类ID(可选) */
+        if (cateId != null){
+            request.setCateId(cateId);
+        }
+        /* 视频标签,多个用逗号分隔(可选) */
+        //request.setTags("标签1,标签2");
+        /* 视频描述(可选) */
+        //request.setDescription("视频描述");
+        /* 封面图片(可选) */
+        //request.setCoverURL("http://cover.sample.com/sample.jpg");
+        /* 模板组ID(可选) */
+        if (!StringUtils.isEmpty(templateGroupId)){
+            request.setTemplateGroupId(templateGroupId);
+        }
+        /* 存储区域(可选) */
+        //request.setStorageLocation("in-201703232118266-5sejdln9o.oss-cn-shanghai.aliyuncs.com");
+        UploadVideoImpl uploader = new UploadVideoImpl();
+        UploadURLStreamResponse response = uploader.uploadURLStream(request);
+        System.out.print("RequestId=" + response.getRequestId() + "\n"); //请求视频点播服务的请求ID
+        if (response.isSuccess()) {
+            System.out.print("VideoId=" + response.getVideoId() + "\n");
+        } else {
+            /* 如果设置回调URL无效，不影响视频上传，可以返回VideoId同时会返回错误码。其他情况上传失败时，VideoId为空，此时需要根据返回错误码分析具体错误原因 */
+            System.out.print("VideoId=" + response.getVideoId() + "\n");
+            System.out.print("ErrorCode=" + response.getCode() + "\n");
+            System.out.print("ErrorMessage=" + response.getMessage() + "\n");
+        }
+        return response.getVideoId();
     }
 
     /**
