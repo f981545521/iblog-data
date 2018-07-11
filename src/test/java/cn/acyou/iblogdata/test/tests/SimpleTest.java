@@ -6,6 +6,8 @@ import com.google.common.collect.Lists;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class SimpleTest {
@@ -19,6 +21,16 @@ public class SimpleTest {
         Map<String, Object> map = BeanUtil.convertToMap(student);
         BeanUtils.copyProperties(student, student2);
         System.out.println(student2);
+    }
+
+    @Test
+    public void test212() throws IllegalAccessException, IntrospectionException, InvocationTargetException {
+        Student student = new Student();
+        student.setId(1223);
+        student.setName("张而非");
+        student.setAge(null);
+        Map<String, Object> map = BeanUtil.convertBean(student);
+        System.out.println(map);
     }
 
     /**

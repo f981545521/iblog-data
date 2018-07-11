@@ -37,10 +37,14 @@ public class VodUploadUtil {
         System.out.println(response.getPlayInfoList().get(0).getPlayURL());*/
 
         //String mediaUrl = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=11_tJuUDbvw-O8rstQi0upIBXVTWMHxm_EcWycCbCSqWjynYGAqXL-iCV5Lt2yB9YWPXFfwdUijwSs1oEHBN-PAPyDOKJW6VxWoc1isW3KfSiLf1eeDHo-2Cpl1WAs6U64IwdKgb_TjPlR5zz6qIQOeAIAMUS&media_id=3VBjlLTFBZpJ4zBWtrU3-aZ-YgNcrjIAbT2ToJYOJRAvO0y_i1XFCITmbavlh9H1";
-        String mediaId = "3VBjlLTFBZpJ4zBWtrU3-aZ-YgNcrjIAbT2ToJYOJRAvO0y_i1XFCITmbavlh9H1";
+/*        String mediaId = "3VBjlLTFBZpJ4zBWtrU3-aZ-YgNcrjIAbT2ToJYOJRAvO0y_i1XFCITmbavlh9H1";
         String accessToken = "11_y8dCeve0XbzV730ZgfICpTDQOzBGS_uUwNdVc19_5aLgvJ-AVxFFDjwVh_ohC17kJyefSlnyoNDNWEMSLVdO4Wv1FGDWA8eIu_nhHi9uxu_GBA6K31LXWQvlhbm2jfKJUkyrNggUHustj9eiTAWcAJAKRN";
         String mediaUrl = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=" + accessToken + "&media_id=mF6rNQoanACiNik4L7Wlw6W9VGTqnrSrWZ_84JrYOBk5BZ-xlIsS0LQ0NWOtCIKk";
-        VodUploadUtil.uploadURLStream(mediaUrl, mediaId + ".mp3", null, null);
+        VodUploadUtil.uploadURLStream(mediaUrl, mediaId + ".mp3", null, null);*/
+
+
+        VodUploadUtil.uploadURLStream("http://vod.mransoft.com/7cdcb40989cb43f18b085a19bd9e6db2/8999311b9ab443bb89685191ccd48d01-a35be31da77d9befcf902ca758773bda-ld.mp4",
+                "test1.mp3",null,null);
     }
 
     /**
