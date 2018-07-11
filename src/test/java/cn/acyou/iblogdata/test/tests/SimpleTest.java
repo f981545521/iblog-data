@@ -2,6 +2,7 @@ package cn.acyou.iblogdata.test.tests;
 
 import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.utils.BeanUtil;
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
@@ -31,6 +32,25 @@ public class SimpleTest {
         student.setAge(null);
         Map<String, Object> map = BeanUtil.convertBean(student);
         System.out.println(map);
+    }
+    @Test
+    public void test2121() throws IllegalAccessException, IntrospectionException, InvocationTargetException {
+        Student student = new Student();
+        student.setId(1223);
+        student.setName("张而非");
+        student.setAge(23);
+
+        Map<String, Object> objectMap = new HashMap<>();
+        objectMap.put("name", "王力宏");
+        objectMap.put("id", 1000);
+        objectMap.put("age", 33);
+        Student stu = BeanUtil.convertMapToBean(Student.class, objectMap);
+
+/*        String jsonStr = JSON.toJSONString(objectMap);
+        System.out.println(jsonStr);
+        Student stu = JSON.parseObject(jsonStr, Student.class);*/
+        System.out.println(stu);
+
     }
 
     /**
