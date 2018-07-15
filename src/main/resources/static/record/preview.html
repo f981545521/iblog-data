@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>预览测试</title>
+</head>
+<script src="../../static/js/jquery.1.9.1.min.js"></script>
+<body>
+
+
+<video id="video" width='300' height="300" src="" controls autoplay></video>
+<img id="previewImg" style=" width: 100%;">
+
+
+
+<script type="text/javascript">
+    window.onload = function(){
+        var url = getQueryString("url");
+        if (url){
+            alert(url);
+            document.getElementById("video").src = url;
+        }
+        var re = getQueryString("re");
+        if (re){
+            alert(re);
+            document.getElementById("previewImg").src = re;
+        }
+    };
+
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return decodeURIComponent(r[2]);
+        }
+        return null;
+    }
+
+
+
+</script>
+</body>
+
+</html>

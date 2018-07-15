@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>input上传页面</title>
+</head>
+<script src="../../static/js/jquery.1.9.1.min.js"></script>
+<script src="../../dist/vconsole/vconsole.min.js"></script>
+<script>
+    var vconsole = new VConsole();
+</script>
+<body>
+
+<input id="imageFile" type="file" name="file" accept="image/*" onprogress >
+
+<a href="preview.html">去预览</a>
+
+<input id="myfile" type="file" name="file" accept="image/*" capture="camera">
+
+<input type="file" name="video" id="video-input" accept="video/*" capture="user"  onchange="videoChange()" />
+<a href="preview.html">去视频预览</a>
+<span id='info'></span>
+</p>
+<img id="previewImg" style=" width: 100%;">
+<video id="video" width='300' height="300" controls autoplay></video>
+
+
+<h4>内容</h4>
+
+<p>
+    capture表示，可以捕获到系统默认的设备，比如：camera--照相机；camcorder--摄像机；microphone--录音。
+    accept表示，直接打开系统文件目录。
+</p>
+<p>
+    相机：
+    <input type="file" accept="image/*" capture="camera">
+</p>
+<p>
+    摄像机：
+    <input type="file" accept="video/*" capture="camcorder">
+</p>
+<p>
+    录音机：
+    <input type="file" accept="audio/*" capture="microphone">
+</p>
+<p>
+    相机：
+    <input type="file" accept="image/*">
+</p>
+<p>
+    摄像机：
+    <input type="file" accept="video/*" onprogress >
+</p>
+<p>
+    录音机：
+    <input type="file" accept="audio/*">
+</p>
+<p>
+    直接file：
+    <input type="file">
+</p>
+
+
+
+<script type="text/javascript">
+    function videoChange() {
+        var file = document.getElementById('video-input').files[0];
+        var fileSize = (Math.round(file.size / 1024)).toFixed();
+        document.getElementById('info').innerHTML += "所录视频大小约为：" + (fileSize / 1024).toFixed(2) + "Mb";
+
+        var url = URL.createObjectURL(file);
+
+        alert(url);
+        window.location.href = "preview.html?url=" + url;
+        //document.getElementById("video").src = url;
+    }
+
+
+    $("#imageFile").bind("change", function () {
+        var file = document.getElementById('imageFile').files[0];　　　　//选择的文件对象
+        if (file) {
+            var reader = new FileReader();　　　　//实例化
+            reader.readAsDataURL(file);　　　　　　//加载
+            reader.onload = function () {
+                var template = "<p>文件名" + file.name + "</p>";
+                $("#imageFile").after(template);
+                var re = this.result;
+                alert(re);
+                $("#previewImg").attr("src", re);　　//赋值img
+                //window.location.href = "preview.html?re=" + re;
+            };
+
+            reader.onprogress = function () {
+                console.log("读取中...");
+            }
+        }
+    })
+</script>
+</body>
+
+</html>
