@@ -345,6 +345,7 @@ CREATE TABLE druid_weburi (
   h100000 int(10),
   h1000000 int(10),
   hmore int(10),
+  requestTimeNanoMaxOccurTime datetime,
   PRIMARY KEY (id)
 );
 

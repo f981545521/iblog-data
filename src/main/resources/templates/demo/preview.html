@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>预览</title>
+    <script src="../../static/js/jquery.1.9.1.min.js"></script>
+    <script src="../../static/js/common.js"></script>
+</head>
+<script src="../../static/js/jquery.1.9.1.min.js"></script>
+<body>
+
+
+<img id="previewImg" style="width: 100%;"/>
+
+
+
+<script type="text/javascript">
+    window.onload = function(){
+        var url = getQueryString("url");
+        if (url){
+            alert(url);
+            document.getElementById("video").src = url;
+        }
+        var re = getQueryString("re");
+        if (re){
+            alert(re);
+            document.getElementById("previewImg").src = re;
+        }
+    };
+
+
+
+
+</script>
+</body>
+
+</html>
