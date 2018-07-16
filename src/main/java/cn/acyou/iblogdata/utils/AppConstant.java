@@ -61,8 +61,8 @@ public class AppConstant {
 
     public class BucketName{
         public final static String BUCKET_IMAGE = "iblog-image";
-        public final static String BUCKET_video = "iblog-video";
-        public final static String BUCKET_audio = "iblog-video";
+        public final static String BUCKET_VIDEO = "iblog-video";
+        public final static String BUCKET_AUDIO = "iblog-video";
 
     }
 
