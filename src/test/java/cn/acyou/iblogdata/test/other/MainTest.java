@@ -1,5 +1,7 @@
 package cn.acyou.iblogdata.test.other;
 
+import cn.acyou.iblogdata.utils.AppConstant;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,6 +35,12 @@ public class MainTest implements Cloneable{
 
         System.out.println("开始");
         logger.debug("哈哈哈哈！");
+    }
+
+    @Test
+    public void test2(){
+        String s = AppConstant.BucketName.BUCKET_IMAGE;
+        System.out.println(s);
     }
 
 
