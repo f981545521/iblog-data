@@ -11,12 +11,14 @@
 </head>
 <script src="../../static/js/jquery.1.9.1.min.js"></script>
 <script src="../../dist/vconsole/vconsole.min.js"></script>
+<script src="../../static/js/exif.js"></script>
 <script>
     var vconsole = new VConsole();
 </script>
 <body>
 
 <input id="imageFile" type="file" name="file" accept="image/*" onprogress >
+<input id="imageFile2" type="file" name="file" accept="image/*" onprogress >
 
 <a href="preview.html">去预览</a>
 
@@ -84,13 +86,17 @@
     $("#imageFile").bind("change", function () {
         var file = document.getElementById('imageFile').files[0];　　　　//选择的文件对象
         if (file) {
+
+            var image = new Image();
             var reader = new FileReader();　　　　//实例化
+            var Orientation;
             reader.readAsDataURL(file);　　　　　　//加载
             reader.onload = function () {
-                var template = "<p>文件名" + file.name + "</p>";
-                $("#imageFile").after(template);
+
+               // var template = "<p>文件名" + file.name + "</p>";
+                //$("#imageFile").after(template);
                 var re = this.result;
-                alert(re);
+                //alert(re);
                 $("#previewImg").attr("src", re);　　//赋值img
                 //window.location.href = "preview.html?re=" + re;
             };
@@ -100,6 +106,90 @@
             }
         }
     })
+
+
+
+
+
+
+    $("#imageFile2").bind("change", function () {
+        var Orientation = null;
+        var file = this.files[0],
+            reader = new FileReader(),
+            image = new Image();
+        if(file){
+            EXIF.getData(file, function() {
+                Orientation = EXIF.getTag(this, 'Orientation');
+            });
+            reader.onload = function (ev) {
+                image.src = ev.target.result;
+                image.onload = function () {
+                    var imgWidth = this.width,
+                        imgHeight = this.height;
+
+                    if(imgWidth > imgHeight && imgWidth > 750){
+                        imgWidth = 750;
+                        imgHeight = Math.ceil(750 * this.height / this.width);
+                    }else if(imgWidth < imgHeight && imgHeight > 1334){
+                        imgWidth = Math.ceil(1334 * this.width / this.height);
+                        imgHeight = 1334;
+                    }
+
+                    var canvas = document.createElement("canvas"),
+                        ctx = canvas.getContext('2d');
+                    canvas.width = imgWidth;
+                    canvas.height = imgHeight;
+                    if(Orientation && Orientation != 1){
+                        switch(Orientation){
+                            case 6:
+                                canvas.width = imgHeight;
+                                canvas.height = imgWidth;
+                                ctx.rotate(Math.PI / 2);
+                                ctx.drawImage(this, 0, -imgHeight, imgWidth, imgHeight);
+                                break;
+                            case 3:
+                                ctx.rotate(Math.PI);
+                                ctx.drawImage(this, -imgWidth, -imgHeight, imgWidth, imgHeight);
+                                break;
+                            case 8:
+                                canvas.width = imgHeight;
+                                canvas.height = imgWidth;
+                                ctx.rotate(3 * Math.PI / 2);
+                                ctx.drawImage(this, -imgWidth, 0, imgWidth, imgHeight);
+                                break;
+                        }
+                    }else{
+                        ctx.drawImage(this, 0, 0, imgWidth, imgHeight);
+                    }
+                    var base64 = canvas.toDataURL("image/jpeg", 1);
+
+                    var compressFile = new File([convertBase64UrlToBlob(base64)], file.name, {'type': file.type});
+                    var tmpurl = URL.createObjectURL(compressFile);
+
+                    $("#previewImg").attr("src", tmpurl);
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+
+    /**
+     * 将以base64的图片url数据转换为Blob
+     * @param urlData
+     *            用url方式表示的base64图片数据
+     */
+    function convertBase64UrlToBlob(urlData){
+        var arr = urlData.split(','), mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        while(n--){
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], {type:mime});
+    }
+
+
+
 </script>
 </body>
 
