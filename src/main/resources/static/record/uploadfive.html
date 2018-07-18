@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../static/js/jquery.1.9.1.min.js"></script>
+    <script src="../../static/js/jquery.uploadifive.js"></script>
+</head>
+<body>
+<div id="personImg"  style="display: none">
+
+</div>
+<div id="targetId" class="person-avatar-img">
+    <img id="personIco">
+</div>
+
+<script>
+    $("#targetId").bind('click', function () {
+        bindPersonEvent($('#personImg'),1);
+        $('#uploadifive-personImg').hide();
+
+    })
+</script>
+</body>
+</html>
