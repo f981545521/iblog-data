@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Constructor;
+import java.text.DecimalFormat;
 
 /**
  * @author youfang
@@ -41,6 +41,15 @@ public class MainTest implements Cloneable{
     public void test2(){
         String s = AppConstant.BucketName.BUCKET_IMAGE;
         System.out.println(s);
+    }
+
+    @Test
+    public void test3(){
+        Double d1 = 0.0;
+        DecimalFormat dFormat = new DecimalFormat("#.00");
+        dFormat.format(d1);
+        System.out.println(d1);
+        System.out.println();
     }
 
 
