@@ -4,6 +4,8 @@ import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.utils.BeanUtil;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
+import com.google.common.primitives.Doubles;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 
@@ -141,6 +143,16 @@ public class SimpleTest {
         Random random = new Random();
         int index = random.nextInt(videoIds.size());
         System.out.println(videoIds.get(index));
+    }
+
+
+    @Test
+    public void test23(){
+        String duration = "3.32425";
+        int index = duration.indexOf(".");
+        if (index != -1){
+            System.out.println(duration.substring(0, index));
+        }
     }
 
 }
