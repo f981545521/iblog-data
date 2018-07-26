@@ -52,5 +52,18 @@ public class MainTest implements Cloneable{
         System.out.println();
     }
 
+    @Test
+    public void test4(){
+        String wxCall = "http://acyou.cn/api/wx/verification";
+        System.out.println(wxCall.contains("/wx"));
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("q");
+        stringBuffer.append("w");
+        stringBuffer.append("e");
+        stringBuffer.append("r");
+        String sb = stringBuffer.toString();
+        System.out.println(sb.contains("r"));
+    }
+
 
 }
