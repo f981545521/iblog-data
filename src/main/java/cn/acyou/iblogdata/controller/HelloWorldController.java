@@ -67,7 +67,20 @@ public class HelloWorldController {
     public ModelAndView greeting(String name, RedirectAttributes attr) {
         attr.addFlashAttribute("title", "欢迎使用Thymeleaf!");
         attr.addFlashAttribute("name", name);
-        return new ModelAndView("redirect:/hello/greetingView");
+        return new ModelAndView("redirect:/hello/greetingView");//最终访问：http://localhost:8033/hello/greetingView
+    }
+
+    @RequestMapping(value = "/greeting2", method = {RequestMethod.GET})
+    public String greeting2(String name, RedirectAttributes attr) {
+        attr.addFlashAttribute("title", "欢迎使用Thymeleaf!");
+        attr.addFlashAttribute("name", name);
+        return "redirect:http://www.baidu.com";//最终访问：http://www.baidu.com
+    }
+    @RequestMapping(value = "/greeting3", method = {RequestMethod.GET})
+    public String greeting3(String name, RedirectAttributes attr) {
+        attr.addFlashAttribute("title", "欢迎使用Thymeleaf!");
+        attr.addFlashAttribute("name", name);
+        return "redirect:hello/greetingView";//最终访问：http://localhost:8033/hello/hello/greetingView
     }
     @RequestMapping(value = "/greetingView", method = {RequestMethod.GET})
     public ModelAndView greetingView(@ModelAttribute("name") String name) {
