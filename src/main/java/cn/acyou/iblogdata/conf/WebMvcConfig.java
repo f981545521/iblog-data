@@ -1,5 +1,6 @@
 package cn.acyou.iblogdata.conf;
 
+import cn.acyou.iblogdata.aop.SessionInterceptor;
 import cn.acyou.iblogdata.aop.SpringMvcInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +26,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        //registry.addInterceptor(springMvcInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(new SessionInterceptor()).addPathPatterns("/**");
         for (HandlerInterceptor handlerInterceptor : interceptorList){
             registry.addInterceptor(handlerInterceptor);
         }
