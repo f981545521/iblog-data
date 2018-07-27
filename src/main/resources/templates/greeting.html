@@ -6,6 +6,7 @@
     <link th:href="@{/css/1.css}" rel="stylesheet"/>
 </head>
 <body>
+<h2 th:text="'Hello, ' + ${T(cn.acyou.iblogdata.utils.ThymeleafUtil).sayHello()}" ></h2><br/>
 <h2 th:text="'Hello, ' + ${title}" ></h2><br/>
 <p th:text="'你好 ：' + ${name}"></p>
 
