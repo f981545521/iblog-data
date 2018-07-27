@@ -9,7 +9,9 @@
 <h2 th:text="'Hello, ' + ${T(cn.acyou.iblogdata.utils.ThymeleafUtil).sayHello()}" ></h2><br/>
 <h2 th:text="'Hello, ' + ${title}" ></h2><br/>
 <p th:text="'你好 ：' + ${name}"></p>
-
+<ul th:if="${studentList}">
+    <li th:each="student:${studentList}" th:text="${student.name}"></li>
+</ul>
 <script th:src="@{/static/js/jquery.1.9.1.min.js}"></script>
 <script>
     $(function(){

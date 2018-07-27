@@ -6,15 +6,21 @@ import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.utils.ResultInfo;
 import cn.acyou.iblogdata.utils.StudentConfig;
 import cn.acyou.iblogdata.utils.StudentConfig2;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.util.DateUtils;
@@ -42,6 +48,9 @@ public class HelloWorldController {
 
     @Autowired(required = false)
     private StudentConfig2 studentConfig2;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @RequestMapping(value = "/setSession",method = {RequestMethod.GET})
     @ResponseBody
@@ -136,7 +145,12 @@ public class HelloWorldController {
 
 
     @RequestMapping(value = "/doMethod", method = {RequestMethod.GET})
-    public ModelAndView doMethod() {
-        return new ModelAndView("/greeting");
+    public String doMethod(Model model) {
+        String url = "http://localhost:8033/student/students";
+        //JSONObject json = restTemplate.getForEntity(url, JSONObject.class).getBody();
+        ResponseEntity<ResultInfo> responseEntity = restTemplate.exchange(url, HttpMethod.GET, null, ResultInfo.class);
+        List<Student> studentList = JSON.parseArray(JSON.toJSONString(responseEntity.getBody().getData()), Student.class);
+        model.addAttribute("studentList", studentList);
+        return "/greeting";
     }
 }
