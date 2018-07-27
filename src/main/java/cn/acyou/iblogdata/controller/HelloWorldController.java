@@ -133,4 +133,10 @@ public class HelloWorldController {
         model.addAttribute("studentList", studentList);
         return "thymeleaf";
     }
+
+
+    @RequestMapping(value = "/doMethod", method = {RequestMethod.GET})
+    public ModelAndView doMethod() {
+        return new ModelAndView("/greeting");
+    }
 }
