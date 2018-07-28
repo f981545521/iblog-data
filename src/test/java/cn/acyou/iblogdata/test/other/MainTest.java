@@ -66,4 +66,24 @@ public class MainTest implements Cloneable{
     }
 
 
+    @Test
+    public void test5(){
+        if ( "a".equals(getStr())){
+            System.out.println(getStr());
+        }
+    }
+    @Test
+    public void test5_1(){
+        String s = getStr();
+        if ( "a".equals(s)){
+            System.out.println(s);
+        }
+    }
+
+    private String getStr(){
+        System.out.println("执行方法getStr");
+        return "a";
+    }
+
+
 }
