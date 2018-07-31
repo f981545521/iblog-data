@@ -133,7 +133,7 @@
         <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper</artifactId>
-            <version>3.4.2</version>
+            <version>4.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.github.pagehelper</groupId>
@@ -298,6 +298,9 @@
                 <includes>
                     <include>**/*.jar</include>
                 </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
             </resource>
         </resources>
 	</build>
