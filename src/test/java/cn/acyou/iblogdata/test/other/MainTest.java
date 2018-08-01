@@ -1,11 +1,13 @@
 package cn.acyou.iblogdata.test.other;
 
 import cn.acyou.iblogdata.utils.AppConstant;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.DecimalFormat;
+import java.util.Base64;
 
 /**
  * @author youfang
@@ -83,6 +85,16 @@ public class MainTest implements Cloneable{
     private String getStr(){
         System.out.println("执行方法getStr");
         return "a";
+    }
+
+    @Test
+    public void testmd5(){
+        String code = "MHBQI9";
+        String base64Code = "TUhCUUk5";
+        System.out.println(DigestUtils.md5Hex(code));
+        byte[] rest = Base64.getDecoder().decode(base64Code);
+        String restStr = new String(rest);
+        System.out.println(restStr);
     }
 
 
