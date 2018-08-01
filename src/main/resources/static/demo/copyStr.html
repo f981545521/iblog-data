@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../static/js/jquery.1.9.1.min.js"></script>
+    <script src="../../static/js/clipboard.min.js"></script>
+</head>
+<body>
+<input id="content" type="text" value="我就是一个值" readonly>
+<button id="copy" onclick="copyto()">拷贝到剪切板</button>
+<button id="copy2" data-clipboard-target="#content" data-clipboard-action="copy" onclick="copyto2()">拷贝到剪切板2</button>
+<button id="copy3">拷贝到剪切板3</button>
+</body>
+<script>
+    //方法3
+    var clipboard3 = new Clipboard('#copy3',{
+        target: function() {
+            return document.querySelector('#content');
+        }
+    });
+
+
+    //方法2
+    var clipboard = new Clipboard('#copy2');
+
+    clipboard.on('success', function(e) {
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        e.clearSelection();
+    });
+
+    clipboard.on('error', function(e) {
+        console.error('Action:', e.action);
+    });
+
+    //方法1
+    function copyto() {
+         var val = $("#content").val();
+         copyToClipboard(val);
+    }
+
+    /**
+     * 复制到剪切板
+     * @param str
+     */
+    function copyToClipboard(str){
+        var save = function (e){
+            e.clipboardData.setData('text/plain',str);
+            e.preventDefault();//阻止默认行为
+        };
+        document.addEventListener('copy',save);
+        document.execCommand("copy");//使文档处于可编辑状态，否则无效
+        console.log("复制成功");
+    }
+</script>
+</html>
