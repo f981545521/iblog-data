@@ -20,19 +20,22 @@ $(function () {
 
     function sendGetRequset() {
         var a = 1;
-        ajaxGET({}, "/student/students", function (result) {
+        ajaxGET({"c" : 1}, "/student/students", function (result) {
             console.log(result);
             $.each(result.data, function (index,item) {
                 var li = "<li>"+item.name+"</li>";
                 $("#stu-list").append(li);
                 if (index === result.data.length - 1){
                     alert(a + "b=" + b);
+                    a = item.name;
                 }
             });
         });
+        return a;
     }
 
-    sendGetRequset();
+    var k = sendGetRequset();
+    alert("k = " + k)
 });
 </script>
 
