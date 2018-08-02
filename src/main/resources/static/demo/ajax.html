@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../static/js/jquery.1.9.1.min.js"></script>
+    <script src="../../static/js/common.js"></script>
+</head>
+<body>
+
+    <h1>学生们</h1>
+    <ul id="stu-list">
+
+    </ul>
+
+<script>
+$(function () {
+
+    var b = 2;
+
+    function sendGetRequset() {
+        var a = 1;
+        ajaxGET({}, "/student/students", function (result) {
+            console.log(result);
+            $.each(result.data, function (index,item) {
+                var li = "<li>"+item.name+"</li>";
+                $("#stu-list").append(li);
+                if (index === result.data.length - 1){
+                    alert(a + "b=" + b);
+                }
+            });
+        });
+    }
+
+    sendGetRequset();
+});
+</script>
+
+</body>
+</html>
