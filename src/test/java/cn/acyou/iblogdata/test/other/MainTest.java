@@ -1,6 +1,8 @@
 package cn.acyou.iblogdata.test.other;
 
 import cn.acyou.iblogdata.utils.AppConstant;
+import cn.acyou.iblogdata.utils.ParamUtil;
+import com.google.common.collect.Maps;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -10,6 +12,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author youfang
@@ -104,6 +108,15 @@ public class MainTest implements Cloneable{
         String result = URLEncoder.encode("DFVG43", "utf-8");
         System.out.println(result);
     }
+
+    @Test
+    public void test7(){
+        String url = "http://localhost:8080/index?inviteCode=MHBQI9";
+        String url2 = "http://localhost:8080/index";
+        Map<String, String> map = ParamUtil.getQueryString(url);
+        System.out.println(map);
+    }
+
 
 
 }
