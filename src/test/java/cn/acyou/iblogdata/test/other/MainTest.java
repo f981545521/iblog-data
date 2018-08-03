@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.util.Base64;
 
@@ -95,6 +97,12 @@ public class MainTest implements Cloneable{
         byte[] rest = Base64.getDecoder().decode(base64Code);
         String restStr = new String(rest);
         System.out.println(restStr);
+    }
+
+    @Test
+    public void test6() throws UnsupportedEncodingException {
+        String result = URLEncoder.encode("DFVG43", "utf-8");
+        System.out.println(result);
     }
 
 
