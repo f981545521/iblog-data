@@ -17,6 +17,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Condition;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -64,6 +66,25 @@ public class StudentServiceImpl extends AbstractService<Student, Integer> implem
         List<Student> allStudent = studentMapper.selectAll();
         logger.info("allStudent : ", allStudent);
         return allStudent;
+    }
+
+    @Override
+    public List<Student> selectByCondition() {
+        //Condition方法和Example方法作用完全一样，只是为了避免Example带来的歧义，提供的的Condition方法
+
+
+        Condition condition = new Condition(Student.class);
+        condition.createCriteria().andCondition("name like '%范%'");
+        condition.setOrderByClause("age desc");
+        List<Student> students = studentMapper.selectByCondition(condition);
+
+        Example example = new Example(Student.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andCondition("name like '%范%'");
+        example.setOrderByClause("age desc");
+        List<Student> students2 = studentMapper.selectByExample(example);
+
+        return students2;
     }
 
     @Override

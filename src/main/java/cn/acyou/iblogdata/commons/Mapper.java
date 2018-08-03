@@ -1,6 +1,8 @@
 package cn.acyou.iblogdata.commons;
 
 import tk.mybatis.mapper.common.BaseMapper;
+import tk.mybatis.mapper.common.ConditionMapper;
+import tk.mybatis.mapper.common.ExampleMapper;
 import tk.mybatis.mapper.common.IdsMapper;
 import tk.mybatis.mapper.common.base.select.SelectCountMapper;
 import tk.mybatis.mapper.common.special.InsertListMapper;
@@ -12,10 +14,12 @@ import java.io.Serializable;
  * @author youfang
  * @date 2018-04-24 下午 07:03
  **/
-public interface Mapper<T,PK extends Serializable>
+public interface Mapper<T, PK extends Serializable>
         extends
         BaseMapper<T>,
         SelectCountMapper<T>,
         IdsMapper<T>,
-        InsertListMapper<T> {
+        InsertListMapper<T>,
+        ExampleMapper<T>,
+        ConditionMapper<T> {
 }
