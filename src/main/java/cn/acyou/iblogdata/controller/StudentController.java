@@ -116,6 +116,14 @@ public class StudentController {
         return ResultInfoGenerate.generateSuccess();
     }
 
+    @RequestMapping(value = "getCondition", method = {RequestMethod.GET})
+    @ApiOperation("Mapper Condition 查找")
+    @ResponseBody
+    public ResultInfo getCondition(){
+        List<Student> studentList = studentService.selectByCondition();
+        return ResultInfoGenerate.generateSuccess(studentList);
+    }
+
 
 
 }
