@@ -67,6 +67,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
+<!--    使用Spring Cloud config 自动刷新
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>-->
         <dependency>
             <groupId>cn.acyou</groupId>
             <artifactId>iblog-service</artifactId>
