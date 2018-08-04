@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -29,12 +30,15 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
+ * RefreshScope 注解：  使用该注解的类，会在接到SpringCloud配置中心配置刷新的时候，自动将新的配置更新到该类对应的字段中。
+ *                      然后以post请求的方式来访问http://localhost:8002/refresh 就会更新修改后的配置文件。
  * @author youfang
  * @date 2018-02-27 13:21
  **/
+@Api
 @Controller
 @RequestMapping("/hello")
-@Api
+@RefreshScope // 使用该注解的类，会在接到SpringCloud配置中心配置刷新的时候，自动将新的配置更新到该类对应的字段中。
 public class HelloWorldController {
 
     private static final Logger logger = LoggerFactory.getLogger(HelloWorldController.class);
