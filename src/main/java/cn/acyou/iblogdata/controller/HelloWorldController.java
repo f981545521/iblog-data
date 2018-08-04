@@ -7,14 +7,13 @@ import cn.acyou.iblogdata.utils.ResultInfo;
 import cn.acyou.iblogdata.utils.StudentConfig;
 import cn.acyou.iblogdata.utils.StudentConfig2;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -51,6 +50,9 @@ public class HelloWorldController {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Value("${name:nothing found}")
+    private String configName;//这个是Spring Cloud Config 中的值，默认值：nothing found
 
     @RequestMapping(value = "/setSession",method = {RequestMethod.GET})
     @ResponseBody
@@ -152,5 +154,11 @@ public class HelloWorldController {
         List<Student> studentList = JSON.parseArray(JSON.toJSONString(responseEntity.getBody().getData()), Student.class);
         model.addAttribute("studentList", studentList);
         return "/greeting";
+    }
+
+    @RequestMapping(value = "springConfig", method = {RequestMethod.GET})
+    @ResponseBody
+    public String springConfig(){
+        return configName;
     }
 }
