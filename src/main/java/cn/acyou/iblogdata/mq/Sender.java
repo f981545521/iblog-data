@@ -14,7 +14,7 @@ import java.util.Date;
  **/
 @Component
 public class Sender {
-    @Autowired
+    @Autowired(required = false)
     private AmqpTemplate rabbitTemplate;
 
     public void send() {
