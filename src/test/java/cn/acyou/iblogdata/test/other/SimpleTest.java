@@ -12,5 +12,8 @@ public class SimpleTest {
     public void test1(){
         Integer i1 = 1234;
         System.out.println(i1.toString());
+
+        Double d1 = 213D;
+        System.out.println(Math.round(d1));
     }
 }
