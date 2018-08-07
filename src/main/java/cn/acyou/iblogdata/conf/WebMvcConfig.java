@@ -105,7 +105,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
                 if (t instanceof ServiceException){
                     resultInfo.setCode(400);
                     resultInfo.setMessage(t.getMessage());
-                }
+                }else
                 if (t instanceof UnLoginException){
                     if("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))){
                         response.setHeader("REDIRECT", "REDIRECT");//告诉ajax我是重定向
@@ -119,6 +119,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
                             e1.printStackTrace();
                         }
                     }
+                }else{
+                    resultInfo.setCode(400);
+                    resultInfo.setMessage("喔呦，程序奔溃咯！");
                 }
                 responseResult(response, resultInfo);
                 return new ModelAndView();

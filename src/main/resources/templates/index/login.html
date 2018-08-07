@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<script src="../../static/js/jquery.1.9.1.min.js"></script>
+<script src="../../static/js/common.js"></script>
+<body>
+    <h1>个人信息</h1>
+    <form id="form-data" enctype="multipart/form-data">
+        <fieldset><!--在数据周围绘制一个带标题的框。-->
+            <legend>个人信息:</legend>
+
+            <input type="text" name="id" value="1"/>
+            <input type="text" name="name" value="张三"/>
+            <input type="text" name="age" value="23"/>
+            <input type="text" name="interest" value="篮球"/>
+            <input type="text" name="interest" value="足球"/>
+            <input type="text" name="interest" value="乒乓球"/>
+            <br/>
+            <select name="sex">
+                <option value="男">男</option>
+                <option value="女" selected="selected">女</option>
+            </select>
+            <br/>
+            <input type="radio" name="marriage" value="true"/>已婚
+            <input type="radio" checked="checked" name="marriage" value="false"/>未婚
+            <br/>
+            <input type="checkbox" checked="checked" name="vehicle" value="Bike"/>I have a bike
+            <input type="checkbox" checked="checked" name="vehicle" value="Car"/>I have a car
+            <br/>
+            <textarea name="content" rows="10" cols="30">我是一个文本框。</textarea>
+
+        </fieldset>
+    </form>
+
+<script>
+    var f = new FormData($('#form-data')[0]);
+    f.append("address", "nanjing");
+    f.forEach(v => console.log(v));
+
+    console.log("————————————————————————————————————");
+    console.log(f.get("name"));//get 使用来获取单个元素
+    console.log(f.getAll("interest"));//getAll 使用来获取多个元素（集合）
+    console.log(f.has("age"));//getAll has(key)来判断是否对应的key值
+    console.log(f.set("age", "25"));//通过set(key, value)来设置修改数据，如果指定的key不存在则会新增一条，如果存在，则会修改对应的value值。
+    f.delete("id");//通过delete(key)，来删除数据
+</script>
+</body>
+</html>
