@@ -7,7 +7,10 @@ package cn.acyou.iblogdata.conf;
  **/
 public enum  URLMappingEnums {
 
-    IND_0001("/","index/index","首页");
+    IND_0001("/","index/index","首页"),
+
+    LOGIN_PAGE("/login","index/login","登录页面");
+
 
     private String path;
     private String page;

@@ -6,6 +6,7 @@ import cn.acyou.iblog.service.BossService;
 import cn.acyou.iblogdata.commons.AbstractService;
 import cn.acyou.iblogdata.dao.StudentMapper;
 import cn.acyou.iblogdata.entity.Student;
+import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.service.StudentService;
 import cn.acyou.iblogdata.so.StudentSo;
 import com.github.pagehelper.PageHelper;
@@ -64,6 +65,9 @@ public class StudentServiceImpl extends AbstractService<Student, Integer> implem
     @Override
     public List<Student> getAllStudent() {
         List<Student> allStudent = studentMapper.selectAll();
+        if (true){
+            throw new ServiceException("抱歉，服务出错啦~");
+        }
         logger.info("allStudent : ", allStudent);
         return allStudent;
     }
