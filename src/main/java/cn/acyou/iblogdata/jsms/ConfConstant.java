@@ -12,9 +12,7 @@ public class ConfConstant {
     public static final String devKey = "5a5405f8fb7bd3a9cf3e3bf2";
     public static final String devSecret = "1215eab9381c261542417de4";
 
-
     public class JSMS{
         public static final int template = 1;
-
     }
 }

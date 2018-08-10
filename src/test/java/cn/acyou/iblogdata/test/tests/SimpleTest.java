@@ -155,4 +155,13 @@ public class SimpleTest {
         }
     }
 
+    @Test
+    public void test24(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(123);
+        sb.append("12345");
+        System.out.println(sb);
+
+    }
+
 }
