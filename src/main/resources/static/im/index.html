@@ -144,6 +144,21 @@
         });
     }
 
+    /**
+     * 会话未读数变更监听
+     * type	    3 单聊 ，4 群聊
+       gid	    群 id ，type=4 有效
+       appkey	目标用户 appkey，type=3 有效
+       username	目标用户 username，type=3 有效
+     */
+    JIM.onMutiUnreadMsgUpdate(function(data) {
+        console.log(data);
+        // data.type 会话类型
+        // data.gid 群 id
+        // data.appkey 所属 appkey
+        // data.username 会话 username
+    });
+
 
 
 

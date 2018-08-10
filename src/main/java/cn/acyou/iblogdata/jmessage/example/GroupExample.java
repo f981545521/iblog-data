@@ -12,6 +12,10 @@ import cn.jmessage.api.group.GroupListResult;
 import cn.jmessage.api.group.MemberListResult;
 import cn.jmessage.api.user.UserGroupsResult;
 
+
+/**
+ * 群组相关操作
+ */
 public class GroupExample {
 
     protected static final Logger LOG = LoggerFactory.getLogger(GroupExample.class);
