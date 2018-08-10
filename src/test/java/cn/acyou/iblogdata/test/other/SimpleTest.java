@@ -16,4 +16,11 @@ public class SimpleTest {
         Double d1 = 213D;
         System.out.println(Math.round(d1));
     }
+
+    @Test
+    public void test2(){
+        String ss = "aaa";
+        ss += 1234;
+        System.out.println(ss);
+    }
 }

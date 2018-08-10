@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Web Socket 演示</title>
+</head>
+<script src="../../static/js/jquery.1.9.1.min.js"></script>
+<script src="../../static/js/common.js"></script>
+<body>
+    <h1>Web Socket</h1>
+    <form id="form">
+        接受者ID
+        <input type="text" name="id"/>
+        <br/>
+        内容
+        <input type="text" name="message"/>
+        <br/>
+        <button id="send" type="button">提交</button>
+    </form>
+
+<script>
+    var ws = undefined;
+
+    var id = getQueryString("id");
+    if (id){
+        ajaxPost({"id": id}, "/ws/login", function () {
+
+            // 初始化一个 WebSocket 对象
+            ws = new WebSocket("ws://localhost:8033/myHandler");
+
+            // 建立 web socket 连接成功触发事件
+            ws.onopen = function () {
+                // 使用 send() 方法发送数据
+                ws.send("发送数据");
+                console.log("数据发送中...");
+            };
+
+            // 接收服务端数据时触发事件
+            ws.onmessage = function (evt) {
+                var received_msg = evt.data;
+                console.log(received_msg);
+            };
+
+            // 断开 web socket 连接成功触发事件
+            ws.onclose = function () {
+                console.error("连接已关闭...");
+            };
+        });
+    }
+    
+    $("#send").on("click", function () {
+        var postData = new FormData($("#form")[0]);
+        ajaxFormPost(postData, "/ws/message", function (result) {
+            console.log(result);
+        })
+    });
+
+
+</script>
+</body>
+</html>
