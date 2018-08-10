@@ -9,6 +9,9 @@ import cn.jmessage.api.reportv2.UserStatListResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 报表
+ */
 public class ReportExample {
 
     private static Logger LOG = LoggerFactory.getLogger(ReportExample.class);

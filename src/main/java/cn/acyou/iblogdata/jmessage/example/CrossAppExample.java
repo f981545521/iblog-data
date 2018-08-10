@@ -16,6 +16,9 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 跨应用
+ */
 public class CrossAppExample {
 
     private static Logger LOG = LoggerFactory.getLogger(CrossAppExample.class);

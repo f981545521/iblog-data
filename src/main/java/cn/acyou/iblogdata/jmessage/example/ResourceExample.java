@@ -8,6 +8,11 @@ import cn.jmessage.api.resource.UploadResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 资源操作
+ *
+ * 上传/下载
+ */
 public class ResourceExample {
 
     protected static final Logger LOG = LoggerFactory.getLogger(ResourceExample.class);

@@ -9,6 +9,9 @@ import cn.jmessage.api.common.model.chatroom.ChatRoomPayload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 聊天室相关操作
+ */
 public class ChatRoomExample {
 
     private static Logger LOG = LoggerFactory.getLogger(ChatRoomExample.class);

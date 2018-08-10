@@ -9,6 +9,9 @@ import cn.jmessage.api.sensitiveword.SensitiveWordStatusResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 敏感文字操作
+ */
 public class SensitiveWordExample {
 
     protected static final Logger LOG = LoggerFactory.getLogger(SensitiveWordExample.class);

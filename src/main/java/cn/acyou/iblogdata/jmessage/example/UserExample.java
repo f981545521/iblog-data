@@ -23,6 +23,9 @@ import cn.jmessage.api.common.model.RegisterInfo;
 import cn.jmessage.api.user.UserInfoResult;
 import cn.jmessage.api.user.UserListResult;
 
+/**
+ * 用户相关操作
+ */
 public class UserExample {
 
     protected static final Logger LOG = LoggerFactory.getLogger(UserExample.class);

@@ -15,6 +15,10 @@ import cn.jmessage.api.JMessageClient;
 import cn.jmessage.api.common.model.message.MessageBody;
 import cn.jmessage.api.message.SendMessageResult;
 
+/**
+ * 消息
+ * rest API发消息需要管理员身份的用户去发
+ */
 public class MessageExample {
 
     protected static final Logger LOG = LoggerFactory.getLogger(MessageExample.class);
