@@ -1,26 +1,53 @@
 package cn.acyou.iblogdata.jmessage.example;
 
+import cn.acyou.iblogdata.jsms.ConfConstant;
 import cn.jiguang.common.resp.APIConnectionException;
 import cn.jiguang.common.resp.APIRequestException;
+import cn.jmessage.api.message.MessageListResult;
 import cn.jmessage.api.reportv2.GroupStatListResult;
 import cn.jmessage.api.reportv2.MessageStatListResult;
 import cn.jmessage.api.reportv2.ReportClient;
 import cn.jmessage.api.reportv2.UserStatListResult;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
+import java.util.Date;
+
 /**
- * 报表
+ * IM REST Report V2
+ * 消息历史
  */
 public class ReportExample {
 
     private static Logger LOG = LoggerFactory.getLogger(ReportExample.class);
-    private static final String appkey = "242780bfdd7315dc1989fe2b";
-    private static final String masterSecret = "2f5ced2bef64167950e63d13";
-    private ReportClient mClient = new ReportClient(appkey, masterSecret);
+    private static final String appkey = ConfConstant.appkey;
+    private static final String masterSecret = ConfConstant.masterSecret;
+    private static ReportClient mClient = new ReportClient(appkey, masterSecret);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws APIConnectionException, APIRequestException {
+        getMessageHistory("youfang1");
+    }
 
+    /**
+     * 目前只保存最近60天消息
+     * @param userName
+     */
+    public static void getMessageHistory(String userName){
+        DateTime nowTime = new DateTime();
+        DateTime nowAgo = new DateTime().minusDays(7);
+        try {
+            MessageListResult messageList = mClient.v2GetUserMessages("youfang1", 100, nowAgo.toString("yyyy-MM-dd HH:mm:ss"), nowTime.toString("yyyy-MM-dd HH:mm:ss"));
+            System.out.println(Arrays.toString(messageList.getMessages()));
+        } catch (APIConnectionException e) {
+            e.printStackTrace();
+            LOG.error("Connection error. Should retry later. ", e);
+        } catch (APIRequestException e) {
+            LOG.error("Error response from JPush server. Should review and fix it. ", e);
+            LOG.info("HTTP Status: " + e.getStatus());
+            LOG.info("Error Message: " + e.getMessage());
+        }
     }
 
     public void testGetUserStat() {

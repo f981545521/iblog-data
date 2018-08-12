@@ -11,7 +11,7 @@
     <h1>JMessage</h1>
 
 <script>
-    var JIM = new JMessage({debug:true});//开启debug模式，若想屏蔽去掉即可
+    var JIM = new JMessage({debug: true});//开启debug模式，若想屏蔽去掉即可
 
     ajaxGET({},"/im/auth", function (result) {
         JIM.init({
@@ -19,21 +19,17 @@
             "random_str" : result.random_str,
             "signature" : result.signature,
             "timestamp" : result.timestamp,
-            "flag" : 0 //是否启用消息记录漫游，默认 0 否，1 是
+            "flag" : 1 //是否启用消息记录漫游，默认 0 否，1 是
         }).onSuccess(function(data) {
-            console.log("初始化成功");
-            //data.code 返回码
-            //data.message 描述
+            console.log("初始化成功" + JSON.stringify(data));
         }).onFail(function(data) {
-            // 同上
+            console.error("初始化失败" + JSON.stringify(data));
         });
     });
 
     JIM.onDisconnect(function(){
-        alert("断线处理");
+        console.error("失去连接，请刷新重试");
     });
-
-
 
     function register(name, password){
         JIM.register({
@@ -43,10 +39,9 @@
             'extras' : {'key1':'val1','key2':'val2'},
             'address' : '深圳'
         }).onSuccess(function(data) {
-            //data.code 返回码
-            //data.message 描述
+            console.log("请求成功" + JSON.stringify(data));
         }).onFail(function(data) {
-            // 同上
+            console.log("请求失败" + JSON.stringify(data));
         });
     }
 
@@ -55,6 +50,7 @@
             'username' : username ,
             'password' : password
         }).onSuccess(function(data) {
+            console.log("请求成功" + JSON.stringify(data));
             //data.code 返回码
             //data.message 描述
             //data.online_list[] 在线设备列表
@@ -64,7 +60,7 @@
             //data.online_list[].isLogin 是否登录 true or false
             //data.online_list[].flag 该设备是否被当前登录设备踢出 true or false
         }).onFail(function(data){
-            //同上
+            console.log("请求失败" + JSON.stringify(data));
         });
     }
     
@@ -158,6 +154,56 @@
         // data.appkey 所属 appkey
         // data.username 会话 username
     });
+
+    /**
+     * 获取会话列表
+     */
+    function getConversation() {
+        JIM.getConversation().onSuccess(function(data) {
+            console.log("请求成功" + JSON.stringify(data));
+            //data.code 返回码
+            //data.message 描述
+            //data.conversations[] 会话列表，属性如下示例
+            //data.conversations[0].extras 附加字段
+            //data.conversations[0].unread_msg_count 消息未读数
+            //data.conversations[0].name  会话名称
+            //data.conversations[0].appkey  appkey(单聊)
+            //data.conversations[0].username  用户名(单聊)
+            //data.conversations[0].nickname  用户昵称(单聊)
+            //data.conversations[0].avatar  头像 media_id
+            //data.conversations[0].mtime 会话最后的消息时间戳
+            //data.conversations[0].gid 群 id(群聊)
+            //data.conversations[0].type  会话类型(3 代表单聊会话类型，4 代表群聊会话类型)
+        }).onFail(function(data) {
+            //data.code 返回码
+            //data.message 描述
+        });
+    }
+
+
+    function sendSingleMsg(username, content) {
+        // 发送消息
+        JIM.sendSingleMsg({
+            'target_username' : username,
+            'target_nickname' : '',//接收者的展示名
+            'content' : content,
+            'appkey' : '',//跨应用查询时必填，目标应用的 appkey
+            'extras' : '',//附加字段,字典类型
+            'need_receipt': true
+        }).onSuccess(function(data , msg) {
+            console.log("请求成功" + JSON.stringify(data));
+            //data.code 返回码
+            //data.message 描述
+            //data.msg_id 发送成功后的消息 id
+            //data.ctime_ms 消息生成时间,毫秒
+            //data.appkey 用户所属 appkey
+            //data.target_username 用户名
+            //msg.content 发送成功消息体,见下面消息体详情
+        }).onFail(function(data) {
+            //data.code 返回码
+            //data.message 描述
+        });
+    }
 
 
 
