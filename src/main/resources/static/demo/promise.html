@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promise的使用</title>
+</head>
+<script src="../../static/js/jquery.1.9.1.min.js"></script>
+<script src="../../static/js/common.js"></script>
+<body>
+    <h1>Promise的使用</h1>
+    <p>这种“承诺将来会执行”的对象在JavaScript中称为Promise对象。</p>
+<script>
+    'use strict';
+
+    new Promise(function () {});
+    // 直接运行测试:
+    console.log('支持Promise!');
+
+    function test(resolve, reject) {
+        var timeOut = Math.random() * 2;
+        log('set timeout to: ' + timeOut + ' seconds.');
+        setTimeout(function () {
+            if (timeOut < 1) {
+                log('call resolve()...');
+                resolve('200 OK');
+            }
+            else {
+                log('call reject()...');
+                reject('timeout in ' + timeOut + ' seconds.');
+            }
+        }, timeOut * 1000);
+    }
+
+    var p1 = new Promise(test);
+    var p2 = p1.then(function (result) {//变量p1是一个Promise对象，它负责执行test函数。由于test函数在内部是异步执行的，当test函数执行成功时，我们告诉Promise对象：
+        console.log('成功：' + result);
+    });
+    var p3 = p2.catch(function (reason) {//当test函数执行失败时，我们告诉Promise对象：
+        console.log('失败：' + reason);
+    });
+
+
+
+
+
+</script>
+</body>
+</html>
