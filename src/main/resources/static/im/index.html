@@ -50,7 +50,7 @@
             'username' : username ,
             'password' : password
         }).onSuccess(function(data) {
-            console.log("请求成功" + JSON.stringify(data));
+            console.log("登录成功" + JSON.stringify(data));
             //data.code 返回码
             //data.message 描述
             //data.online_list[] 在线设备列表
@@ -130,6 +130,21 @@
     }
 
     /**
+     * 会话未读数变更监听（多端在线）
+     *  type	        3 单聊 ，4 群聊
+     *  gid	            群 id ，type=4 有效
+     *  appkey	        目标用户 appkey，type=3 有效
+     *  username	    目标用户 username，type=3 有效
+     */
+    JIM.onMutiUnreadMsgUpdate(function(data) {
+        console.log("您有未读消息" + data)
+        // data.type 会话类型
+        // data.gid 群 id
+        // data.appkey 所属 appkey
+        // data.username 会话 username
+    });
+
+    /**
      * 重置会话未读数
      * @param username
      */
@@ -141,26 +156,11 @@
     }
 
     /**
-     * 会话未读数变更监听
-     * type	    3 单聊 ，4 群聊
-       gid	    群 id ，type=4 有效
-       appkey	目标用户 appkey，type=3 有效
-       username	目标用户 username，type=3 有效
-     */
-    JIM.onMutiUnreadMsgUpdate(function(data) {
-        console.log(data);
-        // data.type 会话类型
-        // data.gid 群 id
-        // data.appkey 所属 appkey
-        // data.username 会话 username
-    });
-
-    /**
      * 获取会话列表
      */
     function getConversation() {
         JIM.getConversation().onSuccess(function(data) {
-            console.log("请求成功" + JSON.stringify(data));
+            console.log("获取会话列表" + JSON.stringify(data));
             //data.code 返回码
             //data.message 描述
             //data.conversations[] 会话列表，属性如下示例
@@ -191,7 +191,7 @@
             'extras' : '',//附加字段,字典类型
             'need_receipt': true
         }).onSuccess(function(data , msg) {
-            console.log("请求成功" + JSON.stringify(data));
+            console.log("发送消息" + JSON.stringify(data));
             //data.code 返回码
             //data.message 描述
             //data.msg_id 发送成功后的消息 id
@@ -206,7 +206,30 @@
     }
 
 
-
+    /**
+     * 消息已读数变更事件实时监听
+     */
+    JIM.onMsgReceiptChange(function(data) {
+        console.log("未读消息" + data)
+    });
+    /**
+     * 离线消息同步监听
+     */
+    JIM.onSyncConversation(function(data) {
+        console.log("离线消息" + JSON.stringify(data))
+    });
+    /**
+     * 消息已读数变更事件实时监听
+     */
+    JIM.onMsgReceiptChange(function(data) {
+        console.log("消息已读数" + data)
+    });
+    /**
+     * 聊天消息实时监听
+     */
+    JIM.onMsgReceive(function(data) {
+        console.log("聊天消息实时监听" + data)
+    });
 
 </script>
 </body>
