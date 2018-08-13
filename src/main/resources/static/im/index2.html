@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JMessage 演示</title>
+</head>
+<script src="../../static/js/jquery.1.9.1.min.js"></script>
+<script src="../../static/js/common.js"></script>
+<script src="../../dist/jmessage/jmessage-sdk-web.2.6.0.min.js"></script>
+<body>
+    <h1>JMessage</h1>
+
+<script>
+    var JIM = new JMessage({debug: true});//开启debug模式，若想send屏蔽去掉即可
+
+    ajaxGET({},"/im/auth", function (result) {
+        JIM.init({
+            "appkey" : result.appkey,
+            "random_str" : result.random_str,
+            "signature" : result.signature,
+            "timestamp" : result.timestamp,
+            "flag" : 1 //是否启用消息记录漫游，默认 0 否，1 是
+        }).onSuccess(function(data) {
+            console.log("初始化成功" + JSON.stringify(data));
+        }).onFail(function(data) {
+            console.error("初始化失败" + JSON.stringify(data));
+        });
+    });
+
+    JIM.onDisconnect(function(){
+        console.error("失去连接，请刷新重试");
+    });
+
+    function login(username, password) {
+        JIM.login({
+            'username' : username ,
+            'password' : password
+        }).onSuccess(function(data) {
+            console.log("登录成功" + JSON.stringify(data));
+            //data.code 返回码
+            //data.message 描述
+            //data.online_list[] 在线设备列表
+            //data.online_list[].platform  Android,ios,pc,web
+            //data.online_list[].mtime 最近一次登录时间
+            //data.online_list[].isOnline 是否在线 true or false
+            //data.online_list[].isLogin 是否登录 true or false
+            //data.online_list[].flag 该设备是否被当前登录设备踢出 true or false
+        }).onFail(function(data){
+            console.log("请求失败" + JSON.stringify(data));
+        });
+    }
+
+    /**
+     * 获取会话列表
+     */
+    function getConversation() {
+        JIM.getConversation().onSuccess(function(data) {
+            console.log("获取会话列表" + JSON.stringify(data));
+        }).onFail(function(data) {
+        });
+    }
+
+</script>
+</body>
+</html>
