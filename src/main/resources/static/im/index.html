@@ -11,7 +11,7 @@
     <h1>JMessage</h1>
 
 <script>
-    var JIM = new JMessage({debug: true});//开启debug模式，若想屏蔽去掉即可
+    var JIM = new JMessage({debug: true});//开启debug模式，若想send屏蔽去掉即可
 
     ajaxGET({},"/im/auth", function (result) {
         JIM.init({
@@ -137,7 +137,7 @@
      *  username	    目标用户 username，type=3 有效
      */
     JIM.onMutiUnreadMsgUpdate(function(data) {
-        console.log("您有未读消息" + data)
+        console.log("会话未读数变更监听" + JSON.stringify(data));
         // data.type 会话类型
         // data.gid 群 id
         // data.appkey 所属 appkey
@@ -205,31 +205,82 @@
         });
     }
 
-
-    /**
-     * 消息已读数变更事件实时监听
-     */
-    JIM.onMsgReceiptChange(function(data) {
-        console.log("未读消息" + data)
-    });
     /**
      * 离线消息同步监听
      */
     JIM.onSyncConversation(function(data) {
-        console.log("离线消息" + JSON.stringify(data))
+        console.log("离线消息同步监听" + JSON.stringify(data))
     });
     /**
      * 消息已读数变更事件实时监听
      */
     JIM.onMsgReceiptChange(function(data) {
-        console.log("消息已读数" + data)
+        console.log("消息已读数变更事件实时监听" + JSON.stringify(data))
     });
     /**
      * 聊天消息实时监听
      */
     JIM.onMsgReceive(function(data) {
-        console.log("聊天消息实时监听" + data)
+        console.log("聊天消息实时监听" + JSON.stringify(data))
     });
+    /**
+     * 消息已读数变更事件同步监听
+     */
+    JIM.onSyncMsgReceipt(function(data) {
+        console.log("消息已读数变更事件同步监听" + JSON.stringify(data))
+        // data 为已读数变更事件数组 [receiptChange1,...]
+    });
+
+    //已读未读
+
+    /**
+     * 消息未读用户列表
+     */
+    function msgUnreadList(msg_id) {
+        // 消息发送设置了需要回执的时候,可以查看消息的已读未读用户列表
+        // 消息接收方收到需要回执的消息的时候,阅读后需要通过消息已读回执接口通知后台消息已读
+        JIM.msgUnreadList({
+            'msg_id' : msg_id
+        }).onSuccess(function(data) {
+            console.log("消息未读用户列表" + JSON.stringify(data))
+            //data.code 返回码
+            //data.message 描述
+            // 未读用户列表
+            //data.msg_unread_list.unread_list[].appkey
+            //data.msg_unread_list.unread_list[].username
+            //data.msg_unread_list.read_list[].nickname
+            // 已读用户列表
+            //data.msg_unread_list.read_list[].appkey
+            //data.msg_unread_list.read_list[].username
+            //data.msg_unread_list.read_list[].nickname
+        }).onFail(function(data) {
+            //data.code 返回码
+            //data.message 描述
+        });
+    }
+
+    /**
+     * 单聊消息已读回执
+     * username	TRUE	用户 name
+     * msg_ids	TRUE	已经阅读过的消息的 id 列表,数组类型
+     * appkey	FALSE	默认本应用 appkey
+     */
+    function addSingleReceiptReport(username, msg_id) {
+        // 接收方收到需要消息回执的消息，阅读后进行消息回执操作
+        JIM.addSingleReceiptReport({
+            'username' : username,
+            'msg_id' : msg_id
+        }).onSuccess(function(data,msg_ids){
+            console.log("单聊消息已读回执" + JSON.stringify(data))
+
+            // data.code 返回码
+            // data.appkey 目标 appkey
+            // data.username 目标 username
+            // msg_ids 消息数组
+        }).onFail(function(data,msg_ids){
+
+        })
+    }
 
 </script>
 </body>
