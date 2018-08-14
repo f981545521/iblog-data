@@ -68,10 +68,11 @@ public class JMessageHelper {
         }
     }
 
-    public static void getUserInfo(String username) {
+    public static UserInfoResult getUserInfo(String username) {
+        UserInfoResult userInfo = null;
         try {
-            UserInfoResult res = client.getUserInfo(username);
-            log.info(res.getUsername());
+            userInfo = client.getUserInfo(username);
+            log.info(userInfo.toString());
         } catch (APIConnectionException e) {
             log.error("Connection error. Should retry later. ", e);
         } catch (APIRequestException e) {
@@ -79,6 +80,7 @@ public class JMessageHelper {
             log.info("HTTP Status: " + e.getStatus());
             log.info("Error Message: " + e.getMessage());
         }
+        return userInfo;
     }
 
     public static void getUsers() {
