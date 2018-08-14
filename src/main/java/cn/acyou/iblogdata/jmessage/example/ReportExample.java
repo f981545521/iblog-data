@@ -35,12 +35,12 @@ public class ReportExample {
      * 目前只保存最近60天消息
      * @param userName
      */
-    public static void getMessageHistory(String userName){
+    public static MessageListResult getMessageHistory(String userName){
+        MessageListResult result = null;
         DateTime nowTime = new DateTime();
         DateTime nowAgo = new DateTime().minusDays(7);
         try {
-            MessageListResult messageList = mClient.v2GetUserMessages(userName, 100, nowAgo.toString("yyyy-MM-dd HH:mm:ss"), nowTime.toString("yyyy-MM-dd HH:mm:ss"));
-            System.out.println(Arrays.toString(messageList.getMessages()));
+            result = mClient.v2GetUserMessages(userName, 100, nowAgo.toString("yyyy-MM-dd HH:mm:ss"), nowTime.toString("yyyy-MM-dd HH:mm:ss"));
         } catch (APIConnectionException e) {
             e.printStackTrace();
             LOG.error("Connection error. Should retry later. ", e);
@@ -49,6 +49,7 @@ public class ReportExample {
             LOG.info("HTTP Status: " + e.getStatus());
             LOG.info("Error Message: " + e.getMessage());
         }
+        return result;
     }
     /**
      * 获取消息

@@ -8,9 +8,12 @@ import cn.jiguang.common.resp.APIConnectionException;
 import cn.jiguang.common.resp.APIRequestException;
 import cn.jmessage.api.JMessageClient;
 import cn.jmessage.api.common.model.RegisterInfo;
+import cn.jmessage.api.message.MessageListResult;
+import cn.jmessage.api.reportv2.ReportClient;
 import cn.jmessage.api.user.UserInfoResult;
 import cn.jmessage.api.user.UserListResult;
 import lombok.extern.slf4j.Slf4j;
+import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,5 +97,28 @@ public class JMessageHelper {
             log.info("HTTP Status: " + e.getStatus());
             log.info("Error Message: " + e.getMessage());
         }
+    }
+
+    /**
+     * 获取用户消息
+     * 目前只保存最近60天消息
+     * @param userName
+     */
+    public static MessageListResult getMessageHistory(String userName){
+        ReportClient mClient = new ReportClient(appkey, masterSecret);
+        MessageListResult result = null;
+        DateTime nowTime = new DateTime();
+        DateTime nowAgo = new DateTime().minusDays(7);
+        try {
+            result = mClient.v2GetUserMessages(userName, 100, nowAgo.toString("yyyy-MM-dd HH:mm:ss"), nowTime.toString("yyyy-MM-dd HH:mm:ss"));
+        } catch (APIConnectionException e) {
+            e.printStackTrace();
+            log.error("Connection error. Should retry later. ", e);
+        } catch (APIRequestException e) {
+            log.error("Error response from JPush server. Should review and fix it. ", e);
+            log.info("HTTP Status: " + e.getStatus());
+            log.info("Error Message: " + e.getMessage());
+        }
+        return result;
     }
 }

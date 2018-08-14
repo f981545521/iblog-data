@@ -1,7 +1,10 @@
 package cn.acyou.iblogdata.controller;
 
 import cn.acyou.iblogdata.entity.jmessage.Auth;
+import cn.acyou.iblogdata.jmessage.JMessageHelper;
+import cn.jmessage.api.message.MessageListResult;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,4 +25,11 @@ public class JmessageController {
     public Auth authPlayload(){
         return new Auth();
     }
+
+    @RequestMapping("history/{name}")
+    @ResponseBody
+    public MessageListResult history(@PathVariable String name){
+        return JMessageHelper.getMessageHistory(name);
+    }
+
 }
