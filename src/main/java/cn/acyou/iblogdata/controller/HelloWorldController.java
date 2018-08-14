@@ -2,6 +2,7 @@ package cn.acyou.iblogdata.controller;
 
 import cn.acyou.iblog.model.Sort;
 import cn.acyou.iblog.service.SortService;
+import cn.acyou.iblogdata.conf.properties.WxProperties;
 import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.utils.ResultInfo;
 import cn.acyou.iblogdata.utils.StudentConfig;
@@ -54,6 +55,9 @@ public class HelloWorldController {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private WxProperties wxProperties;
 
     @Value("${name:nothing found}")
     private String configName;//这个是Spring Cloud Config 中的值，默认值：nothing found
@@ -165,4 +169,13 @@ public class HelloWorldController {
     public String springConfig(){
         return configName;
     }
+
+
+    @RequestMapping(value = "wxConfig", method = {RequestMethod.GET})
+    @ResponseBody
+    public ResultInfo wxConfig(){
+        return new ResultInfo(wxProperties);
+    }
+
+
 }

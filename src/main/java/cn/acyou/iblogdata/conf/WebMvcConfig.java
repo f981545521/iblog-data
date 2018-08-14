@@ -120,6 +120,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
                         }
                     }
                 }else{
+                    e.printStackTrace();
                     resultInfo.setCode(400);
                     resultInfo.setMessage("喔呦，程序奔溃咯！");
                 }
