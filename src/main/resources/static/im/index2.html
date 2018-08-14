@@ -21,9 +21,11 @@
             "timestamp" : result.timestamp,
             "flag" : 1 //是否启用消息记录漫游，默认 0 否，1 是
         }).onSuccess(function(data) {
-            console.log("初始化成功" + JSON.stringify(data));
+            console.log("初始化成功");
+            console.log(data);
         }).onFail(function(data) {
-            console.error("初始化失败" + JSON.stringify(data));
+            console.error("初始化失败");
+            console.log(data);
         });
     });
 
@@ -36,9 +38,11 @@
             'username' : username ,
             'password' : password
         }).onSuccess(function(data) {
-            console.log("登录成功" + JSON.stringify(data));
+            console.log("登录成功");
+            console.log(data);
         }).onFail(function(data){
-            console.log("请求失败" + JSON.stringify(data));
+            console.log("请求失败");
+            console.log(data);
         });
     }
 
@@ -47,9 +51,11 @@
      */
     function getConversation() {
         JIM.getConversation().onSuccess(function(data) {
-            console.log("获取会话列表" + JSON.stringify(data));
+            console.log("获取会话列表");
+            console.log(data);
         }).onFail(function(data) {
-            console.log("获取会话列表" + JSON.stringify(data));
+            console.log("获取会话列表");
+            console.log(data);
         });
     }
 
