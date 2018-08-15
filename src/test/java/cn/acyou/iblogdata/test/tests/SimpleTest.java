@@ -2,10 +2,8 @@ package cn.acyou.iblogdata.test.tests;
 
 import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.utils.BeanUtil;
-import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
-import com.google.common.primitives.Doubles;
-import org.apache.commons.lang3.math.NumberUtils;
+import org.assertj.core.util.Maps;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 
@@ -162,6 +160,12 @@ public class SimpleTest {
         sb.append("12345");
         System.out.println(sb);
 
+    }
+
+    @Test
+    public void test25(){
+        Map<String, Object> memberIdMap = Maps.newHashMap("memberId","100032");
+        System.out.println(memberIdMap);
     }
 
 }

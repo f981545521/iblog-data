@@ -15,6 +15,39 @@
     var con = str.split("").reduce((x,y)=>((x[y]++) || (x[y]=1),x) ,{});
     console.log(con);
 
+    var arrStr = ['123','234','567'];
+/*    ajaxPost({"ids": arrStr}, "/hello/arrayParam", function (result) {
+        console.log(result)
+    });*/
+    var postData = {"ids": ["124","3245"]};
+    var postArray = new Array();
+    postArray.push("123");
+    postArray.push("1234");
+
+/*    ajaxPost(JSON.stringify(postArray), "/hello/arrayParam2", function (result) {
+        console.log(result)
+    });*/
+
+    var postArray3 = new Array();
+    postArray3.push({"ids":"1234"});
+    postArray3.push({"ids":"3256"});
+/*    ajaxPost(JSON.stringify({"name": "小三", "ids": postArray}), "/hello/arrayParam3", function (result) {
+        console.log(result)
+    });*/
+    var postArray4 = new Array();
+    postArray4.push({"ids":"1234"});
+    postArray4.push({"ids":"3256"});
+    var formData = new FormData();
+    formData.append("name","小三");
+    formData.append("ids", arrStr);
+/*    ajaxFormPost(formData, "/hello/arrayParam4", function (result) {
+        console.log(result)
+    });*/
+    ajaxPost({"name":"小三"}, "/hello/arrayParam4", function (result) {
+        console.log(result)
+    });
+
+
 </script>
 
 </body>

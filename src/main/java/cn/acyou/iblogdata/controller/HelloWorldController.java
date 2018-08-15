@@ -5,6 +5,7 @@ import cn.acyou.iblog.service.SortService;
 import cn.acyou.iblogdata.conf.properties.WxProperties;
 import cn.acyou.iblogdata.conf.properties.WxProperties2;
 import cn.acyou.iblogdata.entity.Student;
+import cn.acyou.iblogdata.so.ArrayParamReq;
 import cn.acyou.iblogdata.utils.ResultInfo;
 import cn.acyou.iblogdata.utils.StudentConfig;
 import cn.acyou.iblogdata.utils.StudentConfig2;
@@ -185,5 +186,28 @@ public class HelloWorldController {
         return new ResultInfo(wxProperties2);
     }
 
+
+
+    @RequestMapping(value = "arrayParam", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResultInfo arrayParam(@RequestParam("ids[]") String[] ids){
+        return new ResultInfo(ids);
+    }
+
+    @RequestMapping(value = "arrayParam2", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResultInfo arrayParam2(@RequestBody List<String> ids){
+        return new ResultInfo(ids);
+    }
+    @RequestMapping(value = "arrayParam3", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResultInfo arrayParam3(@RequestBody ArrayParamReq req){
+         return new ResultInfo(req);
+    }
+    @RequestMapping(value = "arrayParam4", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResultInfo arrayParam4(ArrayParamReq req){
+         return new ResultInfo(req);
+    }
 
 }
