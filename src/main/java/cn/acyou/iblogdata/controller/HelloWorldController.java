@@ -210,4 +210,10 @@ public class HelloWorldController {
          return new ResultInfo(req);
     }
 
+    @RequestMapping(value = "paramStr", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResultInfo arrayParam4(@RequestBody String memberId){
+         return new ResultInfo(memberId);
+    }
+
 }

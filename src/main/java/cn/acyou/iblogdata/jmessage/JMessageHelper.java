@@ -1,6 +1,7 @@
 package cn.acyou.iblogdata.jmessage;
 
 import cn.acyou.iblogdata.jsms.ConfConstant;
+import cn.acyou.iblogdata.utils.Md5Util;
 import cn.jiguang.common.ClientConfig;
 import cn.jiguang.common.ServiceHelper;
 import cn.jiguang.common.connection.ApacheHttpClient;
@@ -38,16 +39,19 @@ public class JMessageHelper {
     public static void main(String[] args) {
         //getUserInfo("youfang");
         //getUserInfo("acyou1");
-
-        //List<RegisterInfo> users = new ArrayList<RegisterInfo>();
-        //RegisterInfo user = RegisterInfo.newBuilder().setUsername("youfang1").setPassword("youfang1").build();
+        String memberId = "100034";
+        String secret = memberId + "***";
+        String password = Md5Util.getMD5(secret);
+        System.out.println("密码：" + password);
+        List<RegisterInfo> users = new ArrayList<RegisterInfo>();
+        RegisterInfo user = RegisterInfo.newBuilder().setUsername(memberId).setPassword(password).build();
         //RegisterInfo user1 = RegisterInfo.newBuilder().setUsername("youfang2").setPassword("youfang2").build();
-        //users.add(user);
+        users.add(user);
         //users.add(user1);
-        //registerUsers(users);
+        registerUsers(users);
 
 
-        getUsers();
+        //getUsers();
     }
 
     /**
