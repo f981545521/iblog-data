@@ -38,6 +38,7 @@ function ajaxPost(ajaxdata, ajaxurl, successcallback, errorcallback) {
     $.ajax({
         cache: true,
         type: "post",
+        //contentType : 'application/json;charset=utf-8', //设置请求头信息 会造成request payload
         dataType: "json",
         url: ajaxurl,
         data: ajaxdata,
