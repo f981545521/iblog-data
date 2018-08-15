@@ -302,14 +302,16 @@
      * username	TRUE	用户 name
      * msg_ids	TRUE	已经阅读过的消息的 id 列表,数组类型
      * appkey	FALSE	默认本应用 appkey
+     * @param username 目标用户
+     * @param msg_ids 已经阅读过的消息的 id 列表,数组类型
      */
-    function addSingleReceiptReport(username, msg_id) {
+    function addSingleReceiptReport(username, msg_ids) {
         // 接收方收到需要消息回执的消息，阅读后进行消息回执操作
         JIM.addSingleReceiptReport({
             'username' : username,
-            'msg_id' : msg_id
+            'msg_ids' : msg_id
         }).onSuccess(function(data,msg_ids){
-            console.log("单聊消息已读回执")
+            console.log("单聊消息已读回执");
             console.log(data);
             // data.code 返回码
             // data.appkey 目标 appkey
