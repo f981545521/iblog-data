@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,7 +44,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/hello")
 @RefreshScope // 使用该注解的类，会在接到SpringCloud配置中心配置刷新的时候，自动将新的配置更新到该类对应的字段中。
-public class HelloWorldController {
+public class HelloWorldController extends BaseController{
 
     private static final Logger logger = LoggerFactory.getLogger(HelloWorldController.class);
 
@@ -223,8 +224,21 @@ public class HelloWorldController {
 
     @RequestMapping(value = "paramStr", method = {RequestMethod.POST})
     @ResponseBody
-    public ResultInfo arrayParam4(@RequestBody String memberId){
+    public ResultInfo paramStr(@RequestBody String memberId){
          return new ResultInfo(memberId);
+    }
+
+    /**
+     * produces 第一种使用，返回json数据，下边的代码可以省略produces属性，因为我们已经使用了注解@responseBody就是返回值是json数据
+     * consumes （支持的content-Type 类型）方法仅处理request Content-Type为“application/json”类型的请求。
+     * @param memberId memberId
+     * @return json
+     */
+    @RequestMapping(value = "paramStr2", method = {RequestMethod.POST}, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResultInfo arrayParam2(String memberId){
+        logger.info(request.getContentType());
+        return new ResultInfo(memberId);
     }
 
 }
