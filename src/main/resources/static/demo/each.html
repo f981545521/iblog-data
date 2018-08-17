@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="../../static/js/jquery.1.9.1.min.js"></script>
+<script src="../../static/js/common.js"></script>
+<body>
+
+    <h1>JS数组测试</h1>
+<script>
+    var arr = ['aaa','bbb','ccc','ddd','eee','fff','ggg','hhh','iii','jjj'];
+    $.each(arr, function (index, item) {
+        if (item === 'fff'){
+            return true; //相当于continue
+        }
+        if (item === 'iii'){
+            return false;//相当与break
+        }
+        console.log(item);
+    })
+
+
+</script>
+
+</body>
+</html>
