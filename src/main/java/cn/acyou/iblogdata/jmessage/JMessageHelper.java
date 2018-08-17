@@ -9,7 +9,9 @@ import cn.jiguang.common.resp.APIConnectionException;
 import cn.jiguang.common.resp.APIRequestException;
 import cn.jmessage.api.JMessageClient;
 import cn.jmessage.api.common.model.RegisterInfo;
+import cn.jmessage.api.common.model.message.MessageBody;
 import cn.jmessage.api.message.MessageListResult;
+import cn.jmessage.api.message.SendMessageResult;
 import cn.jmessage.api.reportv2.ReportClient;
 import cn.jmessage.api.user.UserInfoResult;
 import cn.jmessage.api.user.UserListResult;
@@ -36,21 +38,21 @@ public class JMessageHelper {
         log.info("Client ----> 初始化完成");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws APIConnectionException, APIRequestException {
         //getUserInfo("youfang");
         //getUserInfo("acyou1");
-        String memberId = "100034";
-        String secret = memberId + "***";
+        String memberId = "10001";
+        String secret = memberId + "xiaojuanniao";
         String password = Md5Util.getMD5(secret);
         System.out.println("密码：" + password);
         List<RegisterInfo> users = new ArrayList<RegisterInfo>();
         RegisterInfo user = RegisterInfo.newBuilder().setUsername(memberId).setPassword(password).build();
-        //RegisterInfo user1 = RegisterInfo.newBuilder().setUsername("youfang2").setPassword("youfang2").build();
+        RegisterInfo user1 = RegisterInfo.newBuilder().setUsername("youfang2").setPassword("youfang2").build();
         users.add(user);
         //users.add(user1);
-        registerUsers(users);
+        //registerUsers(users);
 
-
+        sendSingleTextByAdmin("100032", "<span class='green'>伊小姐</span>刚刚发布了一条位于背景的啾啾 <a href='#'>立即查看 &gt;</a>");
         //getUsers();
     }
 
@@ -124,5 +126,24 @@ public class JMessageHelper {
             log.info("Error Message: " + e.getMessage());
         }
         return result;
+    }
+
+
+    /**
+     * 通过管理员发送消息
+     *
+     */
+    public static void sendSingleTextByAdmin(String targetId, String content) {
+        try {
+            MessageBody body = MessageBody.text(content);
+            SendMessageResult result = client.sendSingleTextByAdmin(targetId, "10001", body);
+            log.info(String.valueOf(result.getMsg_id()));
+        } catch (APIConnectionException e) {
+            log.error("Connection error. Should retry later. ", e);
+        } catch (APIRequestException e) {
+            log.error("Error response from JPush server. Should review and fix it. ", e);
+            log.info("HTTP Status: " + e.getStatus());
+            log.info("Error Message: " + e.getMessage());
+        }
     }
 }
