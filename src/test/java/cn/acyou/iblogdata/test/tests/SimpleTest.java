@@ -168,4 +168,11 @@ public class SimpleTest {
         System.out.println(memberIdMap);
     }
 
+    @Test
+    public void test26(){
+        String url = "<p>亲爱的{{targetNickName}}：</p><p>欢迎您加入小倦鸟！</p>";
+        String res = url.replace("{{targetNickName}}", "小三");
+        System.out.println(res);
+    }
+
 }
