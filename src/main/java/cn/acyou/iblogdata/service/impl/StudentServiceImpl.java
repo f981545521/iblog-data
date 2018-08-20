@@ -65,9 +65,9 @@ public class StudentServiceImpl extends AbstractService<Student, Integer> implem
     @Override
     public List<Student> getAllStudent() {
         List<Student> allStudent = studentMapper.selectAll();
-        if (true){
+/*        if (true){
             throw new ServiceException("抱歉，服务出错啦~");
-        }
+        }*/
         logger.info("allStudent : ", allStudent);
         return allStudent;
     }
