@@ -17,7 +17,9 @@ import cn.jmessage.api.user.UserInfoResult;
 import cn.jmessage.api.user.UserListResult;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
+import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,7 @@ import java.util.List;
  * @version [1.0.0, 2018-08-10 上午 11:58]
  **/
 @Slf4j
+@Component
 public class JMessageHelper {
 
     private static final String appkey = ConfConstant.appkey;
@@ -59,7 +62,7 @@ public class JMessageHelper {
     /**
      * 新增用户
      */
-    public static void registerUsers(List<RegisterInfo> registerInfoList) {
+    public void registerUsers(HttpServletRequest request, List<RegisterInfo> registerInfoList) {
         String authCode = ServiceHelper.getBasicAuthorization(appkey, masterSecret);
         ApacheHttpClient httpClient = new ApacheHttpClient(authCode, null, ClientConfig.getInstance());
         // 用 ApacheHttpClient 代替默认的 NativeHttpClient
