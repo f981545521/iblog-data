@@ -175,4 +175,14 @@ public class SimpleTest {
         System.out.println(res);
     }
 
+    @Test
+    public void test27(){
+        Long memberId = 1032L;
+        System.out.println(String.format("%05d", memberId));
+
+        //String m2 = "10";
+        //System.out.println(String.format("%05d", m2));
+
+    }
+
 }
