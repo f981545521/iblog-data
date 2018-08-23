@@ -3,14 +3,17 @@
 <head>
     <title>WEB2APP</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/css/public.css"/>
     <!--H5+ 定位-->
     <script th:src="@{/h5Plus/geolocation/plusGeolocation.js}"></script>
 </head>
 <div th:include="/common/onload::onloadJsBefore"></div>
 <body>
     <h1>我就是WEB2APP首页了</h1>
-    <h2>我就是WEB2APP首页了</h2>
+    <h2 class="html5plus-hide">你在5+上就看不到我了！</h2>
     <button id="getLocation">调用原生定位</button>
+    <br/>
+    <button onclick="window.location.reload()">刷新</button>
 </body>
 <script>
     $("#getLocation").click(function () {
