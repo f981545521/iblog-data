@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <div th:fragment="onloadJsBefore">
-  <script th:src="@{/static/js/jquery.1.9.1.min.js}"></script>
+  <script th:src="@{/js/jquery.1.9.1.min.js}"></script><!-- /static 目录下的文件可以不加/static，不过加上也可以-->
   <script th:src="@{/dist/vconsole/vconsole.min.js}"></script>
   <script>
       // 移动端适配代码
@@ -28,8 +28,12 @@
           doc.addEventListener('DOMContentLoaded', recalc, false);
       })(document, window);
 
-      //var vc = new VConsole();
+      var vc = new VConsole();
 
+
+      if(navigator.userAgent.indexOf("Html5Plus") > -1 ){
+          document.body.classList.add("html5plus");
+      }
   </script>
 
 </div>
