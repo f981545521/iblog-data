@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <title>WEB2APP</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!--H5+ 定位-->
+    <script th:src="@{/h5Plus/geolocation/plusGeolocation.js}"></script>
+</head>
+<div th:include="/common/onload::onloadJsBefore"></div>
+<body>
+    <h1>我就是WEB2APP首页了</h1>
+    <h2>我就是WEB2APP首页了</h2>
+    <button id="getLocation">调用原生定位</button>
+</body>
+<script>
+    $("#getLocation").click(function () {
+        navigator.geolocation.getCurrentPosition(function (result) {
+            console.log(JSON.stringify(result));
+            alert(JSON.stringify(result));
+        });
+
+        // {"coordsType":"WGS84","address":{"country":"中国","province":"江苏省","city":"南京市","district":"秦淮区","street":"厅后街","streetNum":"9号","poiName":"万里商务中心","cityCode":"025"},"addresses":"江苏省南京市秦淮区厅后街靠近万里商务中心","coords":{"latitude":32.03217972572494,"longitude":118.77987191950554,"accuracy":31,"altitude":0,"heading":null,"speed":0,"altitudeAccuracy":0},"timestamp":1535013964618}
+    });
+
+</script>
+</html>
