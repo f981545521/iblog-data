@@ -30,7 +30,7 @@ import java.util.*;
 import static cn.acyou.iblogdata.utils.AppConstant.*;
 
 /**
- * @author qixiaobo
+ * @author youfang
  */
 public class CodeGenerator2 {
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/iblog_data";
