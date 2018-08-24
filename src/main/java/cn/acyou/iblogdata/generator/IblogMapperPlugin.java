@@ -115,6 +115,7 @@ public class IblogMapperPlugin extends MapperPlugin {
             FullyQualifiedJavaType pkType = primaryKeyColumns.get(0).getFullyQualifiedJavaType();
             interfaze.addImportedType(new FullyQualifiedJavaType(mapper));
             interfaze.addImportedType(pkType);
+            interfaze.addImportedType(new FullyQualifiedJavaType("cn.acyou.iblogdata.commons.Mapper"));
             interfaze.addSuperInterface(new FullyQualifiedJavaType(mapper + "<" + entityType.getShortName() + "," + pkType.getShortName() + ">"));
             PK_TYPE.set(pkType);
         }
