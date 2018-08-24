@@ -1,23 +1,16 @@
 package cn.acyou.iblogdata.controller;
 
+import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.exception.ServiceException;
-import cn.acyou.iblogdata.jmessage.JMessageHelper;
-import cn.acyou.iblogdata.utils.Md5Util;
-import cn.jmessage.api.common.model.RegisterInfo;
+import cn.acyou.iblogdata.utils.ResultInfo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author youfang
@@ -45,6 +38,13 @@ public class UserController extends BaseController{
             throw new ServiceException();
         }
         return "demo/demoPage";
+    }
+
+    @RequestMapping(value = "user", method = {RequestMethod.GET})
+    @ResponseBody
+    public ResultInfo userInfo(Student student){
+        ResultInfo rs = new ResultInfo(student);
+        return new ResultInfo(rs);
     }
 
 

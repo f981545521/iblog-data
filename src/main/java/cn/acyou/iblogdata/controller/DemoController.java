@@ -22,7 +22,6 @@ public class DemoController extends BaseController{
     }
     @RequestMapping(value = "demoPage", method = {RequestMethod.GET})
     public String demoPage(){
-        System.out.println(request.getRequestURI());
         String flag = request.getParameter("flag");
         if ("1".equals(flag)){
             throw new ServiceException();
