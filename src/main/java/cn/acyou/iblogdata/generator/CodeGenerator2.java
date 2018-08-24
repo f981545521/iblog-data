@@ -68,7 +68,7 @@ public class CodeGenerator2 {
     }
 
     public static void main(String[] args) throws IOException {
-        genCode("tb_user");
+        genCode("druid_app");
     }
 
     /**
