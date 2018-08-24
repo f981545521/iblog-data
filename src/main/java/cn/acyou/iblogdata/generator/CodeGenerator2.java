@@ -30,14 +30,22 @@ import java.util.*;
 import static cn.acyou.iblogdata.utils.AppConstant.*;
 
 /**
+ * 只需3步骤
  * @author youfang
  */
 public class CodeGenerator2 {
+    //step 1 : 配置数据库连接
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/iblog_data";
     private static final String JDBC_USERNAME = "root";
     private static final String JDBC_PASSWORD = "root123";
-    private static final String JDBC_DIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
+    //step 2 : 这里写你要生成的数据库表名
+    private static final String[] toGeneratorTableNames = new String[]{"druid_app"};
+    //step 3 : 运行Main方法
+    public static void main(String[] args) throws IOException {
+        genCode(toGeneratorTableNames);
+    }
 
+    private static final String JDBC_DIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
     public static final ThreadLocal<List<IntrospectedColumn>> PO_FIELDS = new ThreadLocal<>();
     public static final ThreadLocal<FullyQualifiedJavaType> PK_TYPE = new ThreadLocal<>();
     private static final String PROJECT_PATH = System.getProperty("user.dir");
@@ -67,9 +75,7 @@ public class CodeGenerator2 {
         gt = new GroupTemplate(resourceLoader, cfg);
     }
 
-    public static void main(String[] args) throws IOException {
-        genCode("druid_app");
-    }
+
 
     /**
      * 通过数据表名称生成代码，Model 名称通过解析数据表名称获得，下划线转大驼峰的形式。
