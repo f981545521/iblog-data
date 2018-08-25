@@ -55,6 +55,8 @@ public class LogInterceptor {
      * 定义一个方法, 用于声明切入点表达式. 一般地, 该方法中再不需要添入其他的代码.
      * 使用 @Pointcut 来声明切入点表达式.
      * 后面的其他通知直接使用方法名来引用当前的切入点表达式.
+     *
+     * Controller 的rest 请求
      */
     @Pointcut("execution(* cn.acyou.iblogdata.controller.*.*(..)) && (@annotation(org.springframework.web.bind.annotation.ResponseBody) || @target(org.springframework.web.bind.annotation.RestController) )")
     public void performance(){
