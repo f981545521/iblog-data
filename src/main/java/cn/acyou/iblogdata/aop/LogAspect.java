@@ -49,7 +49,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Aspect
 @Component
-public class LogInterceptor {
+public class LogAspect {
 
     /**
      * 定义一个方法, 用于声明切入点表达式. 一般地, 该方法中再不需要添入其他的代码.
