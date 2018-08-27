@@ -9,6 +9,7 @@ public enum  URLMappingEnums {
 
     IND_0001("/","index/index", "首页"),
     WEB2APP_INDEX("/web2app/index","web2app/index", "web2app首页"),
+    WEB2APP_TAKE_VIDEO("/web2app/takeVideo","web2app/takeVideo", "web2app拍视频"),
 
     LOGIN_PAGE("/login","index/login", "登录页面"),
     WS_CLIENT("/client","ws/client", "Web Socket 客户端");
