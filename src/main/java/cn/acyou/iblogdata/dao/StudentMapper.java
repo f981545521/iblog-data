@@ -24,4 +24,6 @@ public interface StudentMapper extends Mapper<Student, Integer> {
     StudentVo getStudentVo(StudentSo studentSo);
 
     StudentVo getStudentVo2(StudentSo studentSo);
+
+    Student getStudentById(Integer id);
 }

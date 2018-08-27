@@ -145,5 +145,14 @@ public class StudentController {
     }
 
 
+    @RequestMapping(value = "student/{id}", method = {RequestMethod.GET})
+    @ApiOperation("MyBatis 缓存测试")
+    @ResponseBody
+    public ResultInfo getStudentById(@PathVariable String id){
+        Student student = studentService.getStudent4MybatisCache(id);
+        return ResultInfoGenerate.generateSuccess(student);
+    }
+
+
 
 }

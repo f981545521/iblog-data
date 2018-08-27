@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace:分类管理 -->
 <mapper namespace="cn.acyou.iblogdata.dao.StudentMapper">
+    <cache eviction="LRU" flushInterval="60000" size="512" readOnly="true"/>
 
     <resultMap id="BaseResultMap" type="cn.acyou.iblogdata.entity.Student">
         <id column="id" jdbcType="INTEGER" property="id" />
@@ -27,6 +28,10 @@
     <sql id="Base_Column_List">
         id, name, age
     </sql>
+
+    <select id="getStudentById" resultType="cn.acyou.iblogdata.entity.Student">
+        SELECT * FROM student WHERE id = #{id}
+    </select>
 
     <select id="getStudentVo" resultMap="hasTeachers">
         SELECT * FROM student WHERE id = #{id}
