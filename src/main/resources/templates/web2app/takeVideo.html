@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <title>WEB2APP</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/static/css/public.css"/>
+    <!--H5+ 定位-->
+    <script th:src="@{/h5Plus/geolocation/plusGeolocation.js}"></script>
+</head>
+<div th:include="/common/onload::onloadJsBefore"></div>
+<body>
+    <h1>录像</h1>
+    <button id="take-video">调用录像机</button>
+    <br/>
+    <button id="select-photo">选择照片</button>
+    <br/>
+    <button onclick="window.location.reload()">刷新</button>
+</body>
+<script>
+    var videoCmr = null;
+    $("#take-video").click(function () {
+        videoCmr = plus.camera.getCamera();
+        var res = videoCmr.supportedVideoResolutions[0];//视频分辨率
+        var fmt = videoCmr.supportedVideoFormats[0];//视频格式
+        videoCmr.startVideoCapture(function (result) {
+            console.log("录像成功");
+            console.log(JSON.stringify(result))
+        }, function (result) {
+            console.log("录像失败");
+            console.log(JSON.stringify(result))
+        }, {resolution:res,format:fmt});
+        // 拍摄10s后自动完成
+        setTimeout( stopCapture, 6000 );//这个方法还停不掉
+    });
+
+    $('#select-photo').on("click", function () {
+        plus.gallery.pick(function (result) {
+            plus.io.resolveLocalFileSystemURL( result, function( entry ) {
+                // 可通过entry对象操作test.html文件
+                entry.file( function(file){
+                    alert(file.size);
+                } );
+            }, function ( e ) {
+                alert( "Resolve file URL failed: " + e.message );
+            } );
+
+            plus.zip.compressImage({//压缩图片
+                    src: result,
+                    dst: "_doc/temp.jpg",
+                    quality: 20,
+                    overwrite: true
+                },
+                function(event) {
+                    var target = event.target; // 压缩转换后的图片url路径，以"file://"开头
+                    var size = event.size; // 压缩转换后图片的大小，单位为字节（Byte）
+                    console.log(target + " - " + size);
+                    alert("Compress success!");
+                }, function(error) {
+                    alert("Compress error!");
+                });
+        }, function (result) {
+            error(result)
+        }, {filter:"image",system:false});
+    });
+
+    // 停止摄像
+    function stopCapture(){
+        console.log("stopCapture:" + JSON.stringify(videoCmr));
+        videoCmr.stopVideoCapture();
+    }
+
+</script>
+</html>
