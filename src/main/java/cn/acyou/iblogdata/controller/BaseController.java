@@ -26,6 +26,13 @@ public class BaseController {
     @Autowired
     private JMessageHelper jMessageHelper;
 
+    /**
+     * 1. 服务器在接收到客户端的请求之后，会创建request对象和response对象
+     * 2.服务器会通过request对象把客户的数据，包括请求信息都封装到这个对象里面
+     * 3.所以我们在控制层，servlet里面就是service方法里面通过request得到很多数据，并对信息进行相应的业务处理，最后反馈给用户结果
+     * 4.这个结果我们是通过response来封装的，并带到用户面前
+     * 5.当这整个过程结束之后，request和response对象的周期也就结束了，他们的生命范围就是用户的一次请求和得到的一次结果的反馈。
+     */
     protected void registerJiGuangAccount(final HttpServletRequest request, HttpSession session, String username){
 
         //不能在多线程中直接使用request，request会在主线程完成后销毁。这里传递的是一个副本，无法通过它获取session
