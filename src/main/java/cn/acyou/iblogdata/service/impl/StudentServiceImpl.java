@@ -107,4 +107,13 @@ public class StudentServiceImpl extends AbstractService<Student, Integer> implem
     public Student getStudentById(String id) {
         return studentMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public Student getStudent4MybatisCache(String id) {
+        log.info("第一次查询");
+        Student stu1 = studentMapper.selectByPrimaryKey(id);
+        log.info("第二次查询");
+        Student stu2 = studentMapper.selectByPrimaryKey(id);
+        return stu1;
+    }
 }

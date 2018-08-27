@@ -22,5 +22,7 @@ public interface StudentService extends Service<Student, Integer> {
 
     Student getStudentById(String id);
 
+    Student getStudent4MybatisCache(String id);
+
     List<Student> selectByCondition();
 }
