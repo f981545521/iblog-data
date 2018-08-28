@@ -46,9 +46,31 @@ public class VideoSnippet {
 
     @Test
     public void test1() throws EncoderException {
-        File source = new File("F:\\iotest\\44.mp4");
+        File source = new File("F:\\iotest\\123.mp4");
         Encoder encoder = new Encoder();
         MultimediaInfo mediaInfo = encoder.getInfo(source);
         System.out.println(mediaInfo.getVideo().getSize());
+    }
+
+    @Test
+    public void test2() throws EncoderException {
+        File source = new File("F:\\iotest\\123.mp4");
+        File target = new File("F:\\iotest\\1234.mp4");
+        AudioAttributes audio = new AudioAttributes();
+        audio.setCodec("libfaac");
+        audio.setBitRate(new Integer(128000));
+        audio.setSamplingRate(new Integer(44100));
+        audio.setChannels(new Integer(2));
+        VideoAttributes video = new VideoAttributes();
+        video.setCodec("mpeg4");
+        video.setBitRate(new Integer(160000));
+        video.setFrameRate(new Integer(15));
+        video.setSize(new VideoSize(176, 144));
+        EncodingAttributes attrs = new EncodingAttributes();
+        attrs.setFormat("3gp");
+        attrs.setAudioAttributes(audio);
+        attrs.setVideoAttributes(video);
+        Encoder encoder = new Encoder();
+        encoder.encode(source, target, attrs);
     }
 }
