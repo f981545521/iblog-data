@@ -12,6 +12,7 @@ import cn.acyou.iblogdata.so.StudentSo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
+import net.oschina.j2cache.CacheChannel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -35,6 +36,9 @@ public class StudentServiceImpl extends AbstractService<Student, Integer> implem
 
     @Autowired(required = false)
     private BossService bossService;
+
+    @Autowired
+    private CacheChannel cacheChannel;
 
     @Override
     @Transactional
