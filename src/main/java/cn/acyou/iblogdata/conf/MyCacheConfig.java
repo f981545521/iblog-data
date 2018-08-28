@@ -11,6 +11,7 @@ import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 
 import java.io.IOException;
 
@@ -41,8 +42,10 @@ public class MyCacheConfig extends CachingConfigurerSupport {
     }
 
     @Bean
+    @Order(value = 1)//controller中依赖，早点创建
     public CacheChannel initCacheChannel(){
         log.info("初始化：j2cache ————————————————>");
         return J2Cache.getChannel();
     }
+
 }
