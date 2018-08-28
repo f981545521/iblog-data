@@ -23,4 +23,11 @@ public class SimpleTest {
         ss += 1234;
         System.out.println(ss);
     }
+
+    @Test
+    public void test3(){
+        String audioname = "2132142325435.amr";
+        audioname = audioname.substring(0, audioname.lastIndexOf(".")) + ".mp4";
+        System.out.println(audioname);
+    }
 }
