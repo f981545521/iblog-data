@@ -31,7 +31,7 @@
             <id>dev</id>
             <properties>
                 <profiles.active>dev</profiles.active>
-                <ab.name>develop</ab.name>
+                <app.fullname>develop</app.fullname>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -41,7 +41,7 @@
             <id>prod</id>
             <properties>
                 <profiles.active>prod</profiles.active>
-                <ab.name>product</ab.name>
+                <app.fullname>product</app.fullname>
             </properties>
         </profile>
     </profiles>
@@ -434,6 +434,14 @@
                     </compilerArguments>
                 </configuration>
             </plugin>
+            <!--spring-boot为了保护application.yml和application.properties，修改了默认的占位符${...}为@...@，然后发现resources插件有一个配置项-->
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>utf-8</encoding>
+                    <useDefaultDelimiters>true</useDefaultDelimiters>
+                </configuration>
+            </plugin>
 		</plugins>
         <!-- 包含到资源文件中 -->
         <resources>
@@ -444,8 +452,9 @@
                     <include>**/*.jar</include>
                 </includes>
             </resource>
+            <!--默认情况下，Maven属性只有在POM中才会被解析。资源过滤就是指让Maven属性在资源文件(src/main/resources、src/test/resources)中也能被解析。-->
             <resource>
-                <directory>src/main/resources</directory>
+                <directory>${project.basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
         </resources>
