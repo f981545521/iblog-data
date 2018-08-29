@@ -21,9 +21,7 @@ public class Hello implements HelloMBean {
     }
 
     public String print() {
-        String result = "Hello," + name + "!!";
-        System.out.println(result);
-        return result;
+        return "Hello," + name + "!!";
     }
 
     public static void main(String args[]) throws Exception {
