@@ -25,8 +25,8 @@ import java.net.UnknownHostException;
  * @author youfang
  * @date 2018-05-24 下午 09:18
  */
-@Configuration
-@EnableCaching
+//@Configuration
+//@EnableCaching
 public class RedisConfig {
 
     @Bean
@@ -45,6 +45,11 @@ public class RedisConfig {
         };
     }
 
+    /**
+     * spring cahce
+     * @param redisTemplate
+     * @return
+     */
     @SuppressWarnings("rawtypes")
     @Bean
     public CacheManager cacheManager(RedisTemplate redisTemplate) {
