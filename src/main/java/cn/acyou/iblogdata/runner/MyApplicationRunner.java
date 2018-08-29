@@ -33,7 +33,7 @@ public class MyApplicationRunner implements ApplicationRunner {
         MBeanServer mbs = ManagementFactory.getPlatformMBeanServer(); // 获取MBeanServer
         ObjectName name = null; // 构造一个名字
         try {
-            name = new ObjectName("iblog:type=cacheClean");
+            name = new ObjectName("iblog:type=hello");
             Hello hello = new Hello(); // 创建需要注册的对象
             mbs.registerMBean(hello, name); // 注册这个对象
             mbs.setAttribute(name, new Attribute("Name", "MBean的属性"));//属性首字母必须大写
