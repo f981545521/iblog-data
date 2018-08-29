@@ -386,6 +386,12 @@
             <artifactId>j2cache-core</artifactId>
             <version>2.5.0-release</version>
         </dependency>
+        <!--图片处理-->
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>0.4.8</version>
+        </dependency>
 
 
     </dependencies>
