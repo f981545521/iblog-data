@@ -25,4 +25,6 @@ public interface StudentService extends Service<Student, Integer> {
     Student getStudent4MybatisCache(String id);
 
     List<Student> selectByCondition();
+
+    int updateStudentWithTransaction(Student student);
 }

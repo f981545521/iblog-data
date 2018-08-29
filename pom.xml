@@ -31,6 +31,7 @@
             <id>dev</id>
             <properties>
                 <profiles.active>dev</profiles.active>
+                <ab.name>develop</ab.name>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -40,6 +41,7 @@
             <id>prod</id>
             <properties>
                 <profiles.active>prod</profiles.active>
+                <ab.name>product</ab.name>
             </properties>
         </profile>
     </profiles>
@@ -422,6 +424,14 @@
                     <source>1.8</source>
                     <target>1.8</target>
                     <encoding>UTF-8</encoding>
+                    <optimize>false</optimize>
+                    <debug>false</debug>
+                    <showDeprecation>false</showDeprecation>
+                    <showWarnings>false</showWarnings>
+                    <compilerArguments>
+                        <verbose />
+                        <bootclasspath>${java.home}/lib/rt.jar;${java.home}/lib/jce.jar</bootclasspath>
+                    </compilerArguments>
                 </configuration>
             </plugin>
 		</plugins>
@@ -436,6 +446,7 @@
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
+                <filtering>true</filtering>
             </resource>
         </resources>
 	</build>
