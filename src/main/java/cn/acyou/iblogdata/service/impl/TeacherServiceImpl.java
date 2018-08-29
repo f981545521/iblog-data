@@ -3,14 +3,21 @@ package cn.acyou.iblogdata.service.impl;
 import cn.acyou.iblogdata.commons.AbstractService;
 import cn.acyou.iblogdata.commons.RedisResp;
 import cn.acyou.iblogdata.dao.TeacherMapper;
+import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.entity.Teacher;
+import cn.acyou.iblogdata.exception.ServiceException;
+import cn.acyou.iblogdata.service.StudentService;
 import cn.acyou.iblogdata.service.TeacherService;
 import cn.acyou.iblogdata.utils.AppRedisKey;
 import cn.acyou.iblogdata.utils.JsonUtil;
 import cn.acyou.iblogdata.utils.RedisUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,6 +30,9 @@ public class TeacherServiceImpl  extends AbstractService<Teacher, Integer> imple
 
     @Autowired
     private TeacherMapper teacherMapper;
+
+    @Autowired
+    private StudentService studentService;
 
     @Autowired
     private RedisUtil redisUtil;
@@ -70,4 +80,19 @@ public class TeacherServiceImpl  extends AbstractService<Teacher, Integer> imple
         }
         return count;
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED,
+            isolation = Isolation.DEFAULT, timeout = 30, readOnly = false, rollbackFor = ServiceException.class,
+            noRollbackFor = NullPointerException.class)
+    public int addTeacherWithTransaction(Teacher teacher) {
+        int n = teacherMapper.insertSelective(teacher);
+        Student student = studentService.getStudentById("1");
+        student.setAge(33);
+        logger.info(student.toString());
+        //studentService.updateStudentWithTransaction(student);
+        return n;
+    }
+
+
 }

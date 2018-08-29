@@ -1,9 +1,11 @@
 package cn.acyou.iblogdata.controller;
 
 import cn.acyou.iblogdata.exception.ServiceException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -14,12 +16,16 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/demo")
 public class DemoController extends BaseController{
 
+    @Value("${ab.name: none found}")
+    private String pomName;
+
     @RequestMapping(value = "toPreview", method = {RequestMethod.POST})
     public String toPreview(MultipartFile file){
         System.out.println(file.getOriginalFilename());
 
         return "demo/preview";
     }
+
     @RequestMapping(value = "demoPage", method = {RequestMethod.GET})
     public String demoPage(){
         String flag = request.getParameter("flag");
@@ -28,5 +34,14 @@ public class DemoController extends BaseController{
         }
         return "demo/demoPage";
     }
+
+    @RequestMapping(value = "pom", method = {RequestMethod.GET})
+    @ResponseBody
+    public String pomName(){
+        return pomName;
+    }
+
+
+
 
 }

@@ -120,4 +120,13 @@ public class StudentServiceImpl extends AbstractService<Student, Integer> implem
         Student stu2 = studentMapper.selectByPrimaryKey(id);
         return stu1;
     }
+
+    @Override
+    @Transactional
+    public int updateStudentWithTransaction(Student student) {
+        if (student.getId().equals(1)){
+            throw new ServiceException();
+        }
+        return studentMapper.updateByPrimaryKeySelective(student);
+    }
 }

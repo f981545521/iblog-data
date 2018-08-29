@@ -19,4 +19,6 @@ public interface TeacherService extends Service<Teacher, Integer> {
     Teacher getStudentById(Integer id);
 
     int deleteStudentById(Integer id);
+
+    int addTeacherWithTransaction(Teacher teacher);
 }

@@ -14,9 +14,9 @@ import java.util.List;
  * @author youfang
  * @version [1.0.0, 2018-07-03 上午 10:30]
  **/
+@Api
 @RestController
 @RequestMapping("/teacher")
-@Api
 public class TeacherController {
 
     @Autowired
@@ -54,6 +54,13 @@ public class TeacherController {
     @ApiOperation("删除一个老师")
     public ResultInfo deleteTeacher(Integer id){
         teacherService.deleteStudentById(id);
+        return new ResultInfo();
+    }
+
+    @RequestMapping(value = "teacher2", method = {RequestMethod.POST})
+    @ApiOperation("spring 事物测试")
+    public ResultInfo addTeacherWithTransaction(Teacher teacher){
+        teacherService.addTeacherWithTransaction(teacher);
         return new ResultInfo();
     }
 
