@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="commonHeader(title)">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" th:href="@{/css/public.css}"/>
+</head>
+
+<div th:fragment="referrer">
+    <meta name="referrer" content="never"/>
+</div>
+
+
+</html>
