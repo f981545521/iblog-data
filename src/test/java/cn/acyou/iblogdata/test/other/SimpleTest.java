@@ -1,6 +1,9 @@
 package cn.acyou.iblogdata.test.other;
 
+import cn.acyou.iblogdata.exception.ServiceException;
 import org.junit.Test;
+
+import java.util.Scanner;
 
 /**
  * @author youfang
@@ -29,5 +32,20 @@ public class SimpleTest {
         String audioname = "2132142325435.amr";
         audioname = audioname.substring(0, audioname.lastIndexOf(".")) + ".mp4";
         System.out.println(audioname);
+    }
+
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        try {
+            if (n == 2){
+                throw new ServiceException();
+            }
+        }catch (Exception e){
+            System.out.println("exception was happend");
+            throw new RuntimeException();
+        }
+        System.out.println("运行结束");
     }
 }

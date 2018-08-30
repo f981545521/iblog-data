@@ -20,7 +20,7 @@ public interface StudentService extends Service<Student, Integer> {
 
     PageInfo<Student> getStudentsByPage(StudentSo studentSo);
 
-    Student getStudentById(String id);
+    Student getStudentById(Integer id);
 
     Student getStudent4MybatisCache(String id);
 
