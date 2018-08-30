@@ -12,6 +12,12 @@ https://docs.spring.io/spring/docs/4.3.13.RELEASE/spring-framework-reference/htm
 当所有的步骤像一个操作一样被完整地执行，我们称该事务被提交。
 由于其中的一部分或多步执行失败，导致没有步骤被提交，则事务必须回滚到最初的系统状态。
 
+#### 事务特性（4种）: 
+-  原子性 （atomicity）:强调事务的不可分割. 
+-  一致性 （consistency）:事务的执行的前后数据的完整性保持一致. 
+-  隔离性 （isolation）:一个事务执行的过程中,不应该受到其他事务的干扰 
+-  持久性（durability） :事务一旦结束,数据就持久到数据库
+
 
 #### spring七个事务传播属性：
 

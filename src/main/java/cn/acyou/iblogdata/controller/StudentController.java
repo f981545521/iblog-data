@@ -10,6 +10,7 @@ import cn.acyou.iblogdata.vo.StudentVo;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -107,7 +108,7 @@ public class StudentController {
     @RequestMapping(value = "stu", method = {RequestMethod.GET})
     @ApiOperation("CacheTest 查找")
     @ResponseBody
-    public ResultInfo stu(String id){
+    public ResultInfo stu(Integer id){
         Student student = studentService.getStudentById(id);
         return ResultInfoGenerate.generateSuccess(student);
     }

@@ -87,10 +87,18 @@ public class TeacherServiceImpl  extends AbstractService<Teacher, Integer> imple
             noRollbackFor = NullPointerException.class)
     public int addTeacherWithTransaction(Teacher teacher) {
         int n = teacherMapper.insertSelective(teacher);
-        Student student = studentService.getStudentById("1");
+        Student student = studentService.getStudentById(teacher.getStudentId());
         student.setAge(33);
         logger.info(student.toString());
-        //studentService.updateStudentWithTransaction(student);
+        try {
+            //为了让更新发生异常后可以继续执行，需要try
+            studentService.updateStudentWithTransaction(student);
+        }catch (RuntimeException e){
+            logger.info("更新失败");
+        }
+        if (student.getId() == 2){
+            throw new ServiceException();//父事务发生异常
+        }
         return n;
     }
 
