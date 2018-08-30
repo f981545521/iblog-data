@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../static/js/jquery.1.9.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../dist/webuploader/css/webuploader.css">
+    <script type="text/javascript" src="../../dist/webuploader/js/webuploader.js"></script>
+</head>
+
+<body>
+    <div id="uploader" class="wu-example">
+        <!--用来存放文件信息-->
+        <div id="thelist" class="uploader-list"></div>
+        <div class="btns">
+            <div id="picker">选择文件</div>
+            <button id="ctlBtn" class="btn btn-default">开始上传</button>
+        </div>
+    </div>
+<script>
+
+    var uploader = WebUploader.create({
+        // swf文件路径
+        swf: '../../dist/webuploader/Uploader.swf',
+        // 文件接收服务端。
+        server: '/upload/image',
+        auto: true,
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#picker',
+        resize: false,// 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+        formData: {
+            imageType: 1,
+            uploadType: "file"
+        },
+        thumb: {//配置生成缩略图的选项。
+            width: 160,
+            height: 90,
+            crop: false
+        },
+        accept: {// 只允许选择图片文件。
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/*'
+        }
+
+    });
+
+    uploader.on('fileQueued', function (file) {
+        var html = '<div id="' + file.id + '" class="file-item thumbnail">' +
+            '<img style="width: 100%"/>' +
+            '<div class="file-progress">等待上传</div>' +
+            '</div>';
+
+        $("#thelist").html(html);
+        var width = $("#thelist").width() * 0.5;
+        $("#thelist").find('div.file-progress').css('width', width - 10);
+        uploader.makeThumb(file, function (error, src) {
+            $("#" + file.id).find("img").attr("src", src);
+        }, width);
+
+    });
+
+
+    //上传过程中触发，携带上传进度。
+    uploader.on('uploadProgress', function (file, percentage) {
+        console.log((percentage * 100) + '%');
+    });
+    //上传成功
+    uploader.on('uploadSuccess', function (file, response) {
+        $('#' + file.id).find('div.file-progress').text('已上传');
+        console.log("上传成功");
+        console.log(response);
+    });
+    //上传失败
+    uploader.on('uploadError', function (file) {
+        $('#' + file.id).find('div.file-progress').text('上传失败');
+    });
+
+</script>
+</body>
+</html>

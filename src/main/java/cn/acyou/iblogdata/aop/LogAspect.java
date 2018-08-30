@@ -58,7 +58,9 @@ public class LogAspect {
      *
      * Controller 的rest 请求
      */
-    @Pointcut("execution(* cn.acyou.iblogdata.controller.*.*(..)) && (@annotation(org.springframework.web.bind.annotation.ResponseBody) || @target(org.springframework.web.bind.annotation.RestController) )")
+    @Pointcut("execution(* cn.acyou.iblogdata.controller.*.*(..)) " +
+            "&& (@annotation(org.springframework.web.bind.annotation.ResponseBody) || @target(org.springframework.web.bind.annotation.RestController)) " +
+            "&& !(@annotation(cn.acyou.iblogdata.annotation.WithoutLog) || @target(cn.acyou.iblogdata.annotation.WithoutLog))")
     public void performance(){
 
     }
