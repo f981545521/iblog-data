@@ -115,6 +115,11 @@ public class StudentServiceImpl extends AbstractService<Student, Integer> implem
     }
 
     @Override
+    public Student getStudentByIdForUpdate(Integer id) {
+        return studentMapper.getStudentById(id);
+    }
+
+    @Override
     public Student getStudent4MybatisCache(String id) {
         log.info("第一次查询");
         Student stu1 = studentMapper.selectByPrimaryKey(id);
@@ -159,5 +164,12 @@ public class StudentServiceImpl extends AbstractService<Student, Integer> implem
             throw new ServiceException();
         }
         return n;
+    }
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW,
+            isolation = Isolation.REPEATABLE_READ, timeout = 30, readOnly = false, rollbackFor = ServiceException.class)
+    public int updateStudentWithTransaction2(Student student) {
+        log.info("transaction2 - 执行更新操作 ");
+        return studentMapper.updateByPrimaryKeySelective(student);
     }
 }
