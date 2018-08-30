@@ -58,9 +58,16 @@ public class TeacherController {
     }
 
     @RequestMapping(value = "teacher2", method = {RequestMethod.POST})
-    @ApiOperation("spring 事物测试")
-    public ResultInfo addTeacherWithTransaction(Teacher teacher){
+    @ApiOperation("spring 事务测试 事务的传播性")
+    public ResultInfo propagation(Teacher teacher){
         teacherService.addTeacherWithTransaction(teacher);
+        return new ResultInfo();
+    }
+
+    @RequestMapping(value = "teacher3", method = {RequestMethod.POST})
+    @ApiOperation("spring 事务测试 事务的隔离级别")
+    public ResultInfo isolation(Teacher teacher){
+        teacherService.addTeacherWithTransaction2(teacher);
         return new ResultInfo();
     }
 

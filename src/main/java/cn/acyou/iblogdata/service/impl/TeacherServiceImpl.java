@@ -101,6 +101,30 @@ public class TeacherServiceImpl  extends AbstractService<Teacher, Integer> imple
         }
         return n;
     }
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED,
+            isolation = Isolation.REPEATABLE_READ, timeout = 30, readOnly = false, rollbackFor = ServiceException.class,
+            noRollbackFor = NullPointerException.class)
+    public int addTeacherWithTransaction2(Teacher teacher) {
+        /* 事务隔离级别
+         *
+         * Isolation.SERIALIZABLE  最严格的级别，事务串行执行，资源消耗最大；(可以避免幻读, 脏读, 不可重复读)
+         * Isolation.REPEATABLE_READ  保证了一个事务不会修改已经由另一个事务读取但未提交（回滚）的数据。 for update
+         *     避免了“脏读取”和“不可重复读取”的情况，(会出现幻读)但是带来了更多的性能损失。
+         * Isolation.READ_COMMITTED  大多数主流数据库的默认事务等级，保证了一个事务不会读到另一个并行事务已修改但未提交的数据，
+         *     避免了“脏读取”(会出现不可重复读和幻读)
+         * Isolation.READ_UNCOMMITTED  读取未提交数据(会出现幻读, 脏读, 不可重复读) 基本不使用
+         *
+         * TODO：测试未成功
+         *
+         */
+        int n = teacherMapper.insertSelective(teacher);
+        //Isolation.REPEATABLE_READ 读取数据
+        Student student = studentService.getStudentByIdForUpdate(teacher.getStudentId());
+        student.setAge(66);
+        studentService.updateStudentWithTransaction2(student);
+        return n;
+    }
 
 
 }

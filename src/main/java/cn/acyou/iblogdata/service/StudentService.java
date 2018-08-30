@@ -22,9 +22,13 @@ public interface StudentService extends Service<Student, Integer> {
 
     Student getStudentById(Integer id);
 
+    Student getStudentByIdForUpdate(Integer id);
+
     Student getStudent4MybatisCache(String id);
 
     List<Student> selectByCondition();
 
     int updateStudentWithTransaction(Student student);
+
+    int updateStudentWithTransaction2(Student student);
 }
