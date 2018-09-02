@@ -64,8 +64,9 @@ https://docs.spring.io/spring/docs/4.3.13.RELEASE/spring-framework-reference/htm
 虚读(幻读)：在一个事务内读取了别的事务插入的数据，导致前后读取不一致(insert)
 
 
-### 分布式事物的解决方案
+### 分布式事务的解决方案
 
+BASE理论
 
 
 
@@ -73,7 +74,7 @@ https://github.com/codingapi/tx-lcn
 
 https://github.com/liuyangming/ByteTCC
 
-#### 两阶段提交
+#### 两阶段提交（基于XA协议的两阶段提交方案）
 
 1. 第一阶段，所有事务参与者将执行结果的成功与否反馈给事务协调者，但是不提交。
 

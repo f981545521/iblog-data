@@ -34,6 +34,11 @@ public class SimpleTest {
         System.out.println(audioname);
     }
 
+    @Test
+    public void test4(){
+        System.out.println(100/0);
+    }
+
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
