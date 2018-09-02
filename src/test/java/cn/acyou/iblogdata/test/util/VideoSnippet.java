@@ -13,8 +13,8 @@ import java.nio.file.Files;
 public class VideoSnippet {
 
     public static void main(String[] args) throws IOException {
-        File source = new File("F:\\iotest\\123.mp4");
-        File target = new File("F:\\iotest\\44.mp4");
+        File source = new File("F:\\iotest\\1234.mp4");
+        File target = new File("F:\\iotest\\t44.mp4");
 /*      Files.copy(source.toPath(), target.toPath());*/
         try {
             Encoder encoder = new Encoder();
@@ -54,8 +54,8 @@ public class VideoSnippet {
 
     @Test
     public void test2() throws EncoderException {
-        File source = new File("F:\\iotest\\123.mp4");
-        File target = new File("F:\\iotest\\1234.mp4");
+        File source = new File("F:\\iotest\\1234.mp4");
+        File target = new File("F:\\iotest\\t1234.mp4");
         AudioAttributes audio = new AudioAttributes();
         audio.setCodec("libfaac");
         audio.setBitRate(new Integer(128000));
@@ -67,10 +67,25 @@ public class VideoSnippet {
         video.setFrameRate(new Integer(15));
         video.setSize(new VideoSize(176, 144));
         EncodingAttributes attrs = new EncodingAttributes();
-        attrs.setFormat("3gp");
+        attrs.setFormat("mp4");
         attrs.setAudioAttributes(audio);
         attrs.setVideoAttributes(video);
         Encoder encoder = new Encoder();
+        encoder.encode(source, target, attrs);
+    }
+    @Test
+    public void testAmr2mp3() throws EncoderException {
+        File source = new File("F:\\iotest\\zt.amr");
+        File target = new File("F:\\iotest\\98k.mp3");
+        Encoder encoder = new Encoder();
+        AudioAttributes audio = new AudioAttributes();
+        audio.setCodec("libmp3lame");
+        audio.setBitRate(128000);
+        audio.setSamplingRate(44100);
+        audio.setChannels(2);
+        EncodingAttributes attrs = new EncodingAttributes();
+        attrs.setFormat("mp3");
+        attrs.setAudioAttributes(audio);
         encoder.encode(source, target, attrs);
     }
 }
