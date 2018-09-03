@@ -1,9 +1,11 @@
 package cn.acyou.iblogdata.test.util;
 
+import com.google.common.collect.Maps;
 import it.sauronsoftware.jave.*;
 import org.junit.Test;
 
 import java.io.*;
+import java.util.Map;
 
 /**
  * @author youfang
@@ -12,7 +14,7 @@ import java.io.*;
 public class VideoSnippet {
 
     public static void main(String[] args) throws IOException {
-        File source = new File("F:\\iotest\\123.mp4");
+        File source = new File("F:\\iotest\\vid.mp4");
         File target = new File("F:\\iotest\\t444.mp4");
 /*      Files.copy(source.toPath(), target.toPath());*/
         try {
@@ -27,6 +29,9 @@ public class VideoSnippet {
             audio.setChannels(2);// 声道
             audio.setSamplingRate(22050);// 采样率
             VideoAttributes video = new VideoAttributes();
+            Map<String, String> extraParam = Maps.newHashMap();
+            extraParam.put("-metadata:s:v", "rotate=\"0\"");
+            video.setExtraParam(extraParam);
             //VideoSize vss = new VideoSize(1080, 1920);
             //video.setSize(vss);
             video.setCodec("mpeg4");// 视频编码
@@ -48,7 +53,7 @@ public class VideoSnippet {
         File source = new File("F:\\iotest\\123.mp4");
         Encoder encoder = new Encoder();
         MultimediaInfo mediaInfo = encoder.getInfo(source);
-        System.out.println(mediaInfo.getVideo().getSize());
+        System.out.println(mediaInfo);
     }
 
     @Test

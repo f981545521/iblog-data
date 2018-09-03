@@ -19,6 +19,7 @@
 package it.sauronsoftware.jave;
 
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * Attributes controlling the video encoding process.
@@ -63,6 +64,11 @@ public class VideoAttributes implements Serializable {
 	 * source video size will not be modified.
 	 */
 	private VideoSize size = null;
+
+	/**
+	 * 需要执行的扩展参数
+	 */
+	private Map<String, String> extraParam = null;
 
 	/**
 	 * Returns the codec name for the encoding process.
@@ -169,9 +175,17 @@ public class VideoAttributes implements Serializable {
 		this.size = size;
 	}
 
+	public Map<String, String> getExtraParam() {
+		return extraParam;
+	}
+
+	public void setExtraParam(Map<String, String> extraParam) {
+		this.extraParam = extraParam;
+	}
+
 	public String toString() {
 		return getClass().getName() + "(codec=" + codec + ", bitRate="
-				+ bitRate + ", frameRate=" + frameRate + ", size=" + size + ")";
+				+ bitRate + ", frameRate=" + frameRate + ", size=" + size + ", extraParam=" + extraParam + ")";
 	}
 
 }
