@@ -278,13 +278,14 @@
         </dependency>
 
         <!-- 官网http://www.sauronsoftware.it/projects/jave/index.php -->
-        <dependency>
+        <!-- 弃用：由于官方早已不维护改项目，所以使用源码改造 -->
+<!--    <dependency>
             <groupId>it.sauronsoftware</groupId>
             <artifactId>jave</artifactId>
             <scope>system</scope>
             <version>1.0.2</version>
             <systemPath>${basedir}/lib/jave-1.0.2.jar</systemPath>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -451,6 +452,16 @@
                 <includes>
                     <include>**/*.jar</include>
                 </includes>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/java/it/sauronsoftware/jave</directory>
+                <targetPath>it/sauronsoftware/jave/</targetPath>
+                <excludes>
+                    <exclude>*.java</exclude>
+                </excludes>
             </resource>
             <!--默认情况下，Maven属性只有在POM中才会被解析。资源过滤就是指让Maven属性在资源文件(src/main/resources、src/test/resources)中也能被解析。-->
             <resource>

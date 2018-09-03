@@ -4,7 +4,6 @@ import it.sauronsoftware.jave.*;
 import org.junit.Test;
 
 import java.io.*;
-import java.nio.file.Files;
 
 /**
  * @author youfang
@@ -13,15 +12,15 @@ import java.nio.file.Files;
 public class VideoSnippet {
 
     public static void main(String[] args) throws IOException {
-        File source = new File("F:\\iotest\\1234.mp4");
-        File target = new File("F:\\iotest\\t44.mp4");
+        File source = new File("F:\\iotest\\123.mp4");
+        File target = new File("F:\\iotest\\t444.mp4");
 /*      Files.copy(source.toPath(), target.toPath());*/
         try {
             Encoder encoder = new Encoder();
-            MultimediaInfo mediaInfo = encoder.getInfo(source);
-            VideoSize vs = mediaInfo.getVideo().getSize();
-            System.out.println(vs);
-            System.out.println(mediaInfo.getFormat());
+            //MultimediaInfo mediaInfo = encoder.getInfo(source);
+           // VideoSize vs = mediaInfo.getVideo().getSize();
+            //System.out.println(vs);
+            //System.out.println(mediaInfo.getFormat());
             AudioAttributes audio = new AudioAttributes();
             audio.setCodec("libmp3lame");// libfaac PGM编码
             audio.setBitRate(56000);// 音频比特率
