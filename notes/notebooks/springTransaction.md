@@ -66,8 +66,17 @@ https://docs.spring.io/spring/docs/4.3.13.RELEASE/spring-framework-reference/htm
 
 ### 分布式事务的解决方案
 
-BASE理论
+#### BASE理论
+- Basically Available（基本可用） 
+- Soft state（软状态） 
+- Eventually consistent（最终一致性） 
+> BASE理论是对CAP中的一致性和可用性进行一个权衡的结果，理论的核心思想就是：我们无法做到强一致，但每个应用都可以根据自身的业务特点，采用适当的方式来使系统达到最终一致性（Eventual consistency）。
 
+####  CAP（帽子理论） 
+- C：Consistency，一致性, 数据一致更新，所有数据变动都是同步的
+- A：Availability，可用性, 好的响应性能，完全的可用性指的是在任何故障模型下，服务都会在有限的时间处理响应
+- P：Partition tolerance，分区容错性，可靠性
+> 帽子理论证明，任何分布式系统只可同时满足二点，没法三者兼顾。关系型数据库由于关系型数据库是单节点的，因此，不具有分区容错性，但是具有一致性和可用性，而分布式的服务化系统都需要满足分区容错性，那么我们必须在一致性和可用性中进行权衡，具体表现在服务化系统处理的异常请求在某一个时间段内可能是不完全的，但是经过自动的或者手工的补偿后，达到了最终的一致性。 
 
 
 https://github.com/codingapi/tx-lcn
