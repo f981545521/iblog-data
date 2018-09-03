@@ -22,9 +22,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -781,8 +779,13 @@ public class Encoder {
 				ffmpeg.addArgument("-b");
 				ffmpeg.addArgument(String.valueOf(bitRate.intValue()));
 			}
-			ffmpeg.addArgument("-metadata:s:v");
-			ffmpeg.addArgument("rotate=\"0\"");
+			if (!videoAttributes.getExtraParam().isEmpty()){
+                Set<Map.Entry<String, String>> entrySet = videoAttributes.getExtraParam().entrySet();
+                for (Map.Entry<String, String> entry : entrySet){
+                    ffmpeg.addArgument(entry.getKey());
+                    ffmpeg.addArgument(entry.getValue());
+                }
+            }
 			Integer frameRate = videoAttributes.getFrameRate();
 			if (frameRate != null) {
 				ffmpeg.addArgument("-r");
