@@ -1,6 +1,9 @@
 package cn.acyou.iblogdata.test.util;
 
+import org.apache.http.entity.ContentType;
 import org.junit.Test;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 
@@ -28,6 +31,22 @@ public class TempFileTest {
         objOut.flush();
         objOut.close();
         outputStream.close();
+    }
+
+    @Test
+    public void convertMultipartFile() throws IOException {
+        File file = new File("F:\\iotest\\123.mp4");
+        InputStream inputStream = new FileInputStream(file);
+        MultipartFile targetFile = new MockMultipartFile(file.getName(), inputStream);
+        //                                                 文件名          原始文件名      文件类型                               文件流
+        //MultipartFile targetFile = new MockMultipartFile(file.getName(), file.getName(), ContentType.TEXT_PLAIN.getMimeType(), inputStream);
+        System.out.println(targetFile.getSize());
+
+    }
+
+    @Test
+    public void testContentType(){
+        System.out.println(ContentType.TEXT_PLAIN.getMimeType());
     }
 
 
