@@ -876,7 +876,7 @@ public class Encoder {
 						listener.message(line);
 				} else {
 					if (!line.startsWith("Output #0")) {
-						throw new EncoderException(line);
+						//throw new EncoderException(line);
 					}
 					step++;
 				}
@@ -887,7 +887,7 @@ public class Encoder {
 
 			if (step == 2) {
 				if (!line.startsWith("Stream mapping:")) {
-					throw new EncoderException(line);
+					//throw new EncoderException(line);
 				}
 				step++;
 			}

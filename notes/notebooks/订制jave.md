@@ -14,9 +14,11 @@
 
 2. 在Linux上无法使用
 
+存在问题：
+1. 由于版本变化，输出信息需要重写！
 
 
-
+``` 
 PS F:\iotest> .\ffmpeg.exe -i 123.mp4
 FFmpeg version SVN-r11143, Copyright (c) 2000-2007 Fabrice Bellard, et al.
   configuration: --enable-gpl --enable-pp --enable-swscaler --enable-pthreads --enable-liba52 --enable-avisynth --enable-libamr-nb --enable-libamr-wb --enable-libfaac --enable-libfaad --enable-libgsm --enable-libmp3lame --enable-libnut --enable-libtheora --enable-libvorbis --enable-libx264 --enable-libxvid --cpu=i686 --enable-memalign-hack --extra-ldflags=-static
@@ -113,3 +115,9 @@ Input #0, mp3, from 'xtr.mp3':
       replaygain: track gain - -7.900000, track peak - unknown, album gain - unknown, album peak - unknown,
 At least one output file must be specified
 PS F:\iotest>
+
+
+
+C:\Users\youfang\AppData\Local\Temp\jave-1\ffmpeg.exe -i F:\iotest\vid.mp4 -vcodec mpeg4 -b 800000 -metadata:s:v rotate="0" -r 15 -acodec libmp3lame -ab 56000 -ac 2 -ar 22050 -f mp4 -y F:\iotest\t444.mp4 
+
+```
