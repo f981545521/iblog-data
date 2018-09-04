@@ -64,5 +64,14 @@ public class BeanConfigurer {
         return new OrikaMapper();
     }
 
+    @Bean
+    public CommonsMultipartResolver multipartResolver(){
+        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+        resolver.setDefaultEncoding("utf-8");
+        resolver.setMaxUploadSize(30*1024*1024);//30Mb
+        resolver.setMaxInMemorySize(40960);
+        return resolver;
+    }
+
 
 }
