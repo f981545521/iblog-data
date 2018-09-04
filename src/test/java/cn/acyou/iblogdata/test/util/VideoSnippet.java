@@ -51,12 +51,12 @@ public class VideoSnippet {
 
     @Test
     public void test1() throws EncoderException {
-        File source = new File("F:\\iotest\\123.mp4");
+        File source = new File("F:\\iotest\\vid.mp4");
         Encoder encoder = new Encoder();
-        //MultimediaInfo mediaInfo = encoder.getInfo(source);
-        //ystem.out.println(mediaInfo);
-        String[] decf = encoder.getSupportedDecodingFormats();
-        System.out.println(Arrays.toString(decf));
+        MultimediaInfo mediaInfo = encoder.getInfo(source);
+        System.out.println(mediaInfo);
+        //String[] decf = encoder.getSupportedDecodingFormats();
+        //System.out.println(Arrays.toString(decf));
     }
 
     @Test
