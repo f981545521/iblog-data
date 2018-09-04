@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A ffmpeg process wrapper.
@@ -29,6 +31,8 @@ import java.util.ArrayList;
  * @author Carlo Pelliccia
  */
 class FFMPEGExecutor {
+
+	private Logger logger = Logger.getLogger(FFMPEGExecutor.class.getName());
 
 	/**
 	 * The path of the ffmpeg executable.
@@ -99,6 +103,11 @@ class FFMPEGExecutor {
 		for (int i = 0; i < argsSize; i++) {
 			cmd[i + 1] = (String) args.get(i);
 		}
+		StringBuilder sb = new StringBuilder();
+		for (String s : cmd){
+			sb.append(s).append(" ");
+		}
+		logger.info("ffmpeg exec ————————> " + sb.toString());
 		Runtime runtime = Runtime.getRuntime();
 		ffmpeg = runtime.exec(cmd);
 		ffmpegKiller = new ProcessKiller(ffmpeg);

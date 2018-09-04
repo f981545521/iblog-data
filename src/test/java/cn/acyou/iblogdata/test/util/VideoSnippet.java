@@ -5,6 +5,7 @@ import it.sauronsoftware.jave.*;
 import org.junit.Test;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -52,13 +53,15 @@ public class VideoSnippet {
     public void test1() throws EncoderException {
         File source = new File("F:\\iotest\\123.mp4");
         Encoder encoder = new Encoder();
-        MultimediaInfo mediaInfo = encoder.getInfo(source);
-        System.out.println(mediaInfo);
+        //MultimediaInfo mediaInfo = encoder.getInfo(source);
+        //ystem.out.println(mediaInfo);
+        String[] decf = encoder.getSupportedDecodingFormats();
+        System.out.println(Arrays.toString(decf));
     }
 
     @Test
     public void test2() throws EncoderException {
-        File source = new File("F:\\iotest\\1234.mp4");
+        File source = new File("F:\\iotest\\123.mp4");
         File target = new File("F:\\iotest\\t1234.mp4");
         AudioAttributes audio = new AudioAttributes();
         audio.setCodec("libfaac");

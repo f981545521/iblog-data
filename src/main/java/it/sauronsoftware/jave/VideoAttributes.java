@@ -19,6 +19,7 @@
 package it.sauronsoftware.jave;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -68,7 +69,7 @@ public class VideoAttributes implements Serializable {
 	/**
 	 * 需要执行的扩展参数
 	 */
-	private Map<String, String> extraParam = null;
+	private Map<String, String> extraParam = new HashMap<>();
 
 	/**
 	 * Returns the codec name for the encoding process.
