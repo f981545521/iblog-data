@@ -783,8 +783,8 @@ public class Encoder {
 				ffmpeg.addArgument("-b");
 				ffmpeg.addArgument(String.valueOf(bitRate.intValue()));
 			}
-			if (!videoAttributes.getExtraParam().isEmpty()){
-                Set<Map.Entry<String, String>> entrySet = videoAttributes.getExtraParam().entrySet();
+			if (!attributes.getExtraParam().isEmpty()){
+                Set<Map.Entry<String, String>> entrySet = attributes.getExtraParam().entrySet();
                 for (Map.Entry<String, String> entry : entrySet){
                     ffmpeg.addArgument(entry.getKey());
                     ffmpeg.addArgument(entry.getValue());

@@ -30,18 +30,18 @@ public class VideoSnippet {
             audio.setChannels(2);// 声道
             audio.setSamplingRate(22050);// 采样率
             VideoAttributes video = new VideoAttributes();
-            Map<String, String> extraParam = Maps.newHashMap();
-            extraParam.put("-metadata:s:v", "rotate=\"0\"");
-            video.setExtraParam(extraParam);
             //VideoSize vss = new VideoSize(1080, 1920);
             //video.setSize(vss);
             video.setCodec("mpeg4");// 视频编码
             video.setBitRate(800000);// 视频比特率
-            video.setFrameRate(15);// 帧率
+            video.setFrameRate(25);// 帧率
             EncodingAttributes attrs = new EncodingAttributes();
             attrs.setFormat("mp4");
             attrs.setAudioAttributes(audio);
             attrs.setVideoAttributes(video);
+            Map<String, String> extraParam = Maps.newHashMap();
+            extraParam.put("-metadata:s:v", "rotate=\"0\"");
+            attrs.setExtraParam(extraParam);
             encoder.encode(source, target, attrs);
         } catch (EncoderException e) {
             e.printStackTrace();
