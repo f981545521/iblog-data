@@ -67,11 +67,6 @@ public class VideoAttributes implements Serializable {
 	private VideoSize size = null;
 
 	/**
-	 * 需要执行的扩展参数
-	 */
-	private Map<String, String> extraParam = new HashMap<>();
-
-	/**
 	 * Returns the codec name for the encoding process.
 	 * 
 	 * @return The codec name for the encoding process.
@@ -176,17 +171,10 @@ public class VideoAttributes implements Serializable {
 		this.size = size;
 	}
 
-	public Map<String, String> getExtraParam() {
-		return extraParam;
-	}
-
-	public void setExtraParam(Map<String, String> extraParam) {
-		this.extraParam = extraParam;
-	}
 
 	public String toString() {
 		return getClass().getName() + "(codec=" + codec + ", bitRate="
-				+ bitRate + ", frameRate=" + frameRate + ", size=" + size + ", extraParam=" + extraParam + ")";
+				+ bitRate + ", frameRate=" + frameRate + ", size=" + size + ")";
 	}
 
 }

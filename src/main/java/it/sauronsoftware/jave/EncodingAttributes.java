@@ -19,6 +19,8 @@
 package it.sauronsoftware.jave;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Attributes controlling the encoding process.
@@ -61,6 +63,12 @@ public class EncodingAttributes implements Serializable {
 	 * encoded. It cannot be null if also the audio field is null.
 	 */
 	private VideoAttributes videoAttributes = null;
+
+
+	/**
+	 * 需要执行的扩展参数
+	 */
+	private Map<String, String> extraParam = new HashMap<>();
 
 	/**
 	 * Returns the format name for the encoded target multimedia file.
@@ -171,6 +179,13 @@ public class EncodingAttributes implements Serializable {
 		this.videoAttributes = videoAttributes;
 	}
 
+	public Map<String, String> getExtraParam() {
+		return extraParam;
+	}
+
+	public void setExtraParam(Map<String, String> extraParam) {
+		this.extraParam = extraParam;
+	}
 	public String toString() {
 		return getClass().getName() + "(format=" + format + ", offset="
 				+ offset + ", duration=" + duration + ", audioAttributes="
