@@ -1,12 +1,18 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
 <head>
-    <title>WEB2APP</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <th:block th:include="/common/header::commonHeader('WEB2APP')"/>
     <link rel="stylesheet" type="text/css" href="/static/css/public.css"/>
     <!--H5+ 定位-->
     <script th:src="@{/h5Plus/geolocation/plusGeolocation.js}"></script>
+    <style type="text/css">
+        img {
+            width: 70%;
+            border:  1px solid;
+        }
+    </style>
 </head>
+
 <div th:include="/common/onload::onloadJsBefore"></div>
 <body>
     <h1>录像</h1>
@@ -15,6 +21,9 @@
     <button id="select-photo">选择照片</button>
     <br/>
     <button onclick="window.location.reload()">刷新</button>
+    <div id="img-container">
+        <img id="touchHere" src="https://i8.mifile.cn/a1/pms_1472609961.95298675!560x560.jpg"/>
+    </div>
 </body>
 <script>
     var videoCmr = null;
@@ -99,6 +108,20 @@
             postData.append("moodType", 1);
             upload2Oss(postData)
         };
+    })
+
+    var touchHere = $("#touchHere");
+    touchHere.on("touchstart", function (ev) {
+        ev.preventDefault();
+        console.log("触摸开始")
+    });
+    touchHere.on("touchmove", function (ev) {
+        ev.preventDefault();
+        console.log("触摸移动")
+    });
+    touchHere.on("touchend", function (ev) {
+        ev.preventDefault();
+        console.log("触摸结束")
     })
 
 </script>
