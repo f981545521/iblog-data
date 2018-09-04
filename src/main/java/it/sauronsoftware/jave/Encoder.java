@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,6 +33,9 @@ import java.util.regex.Pattern;
  * @author Carlo Pelliccia
  */
 public class Encoder {
+
+	private Logger logger = Logger.getLogger(Encoder.class.getName());
+
 
 	/**
 	 * This regexp is used to parse the ffmpeg output about the supported
@@ -838,7 +842,7 @@ public class Encoder {
 		}
 		try {
 			RBufferedReader reader = new RBufferedReader(new InputStreamReader(ffmpeg.getErrorStream()));
-			processErrorOutput(attributes, reader, source, listener);
+			processErrorOutputNew(attributes, reader, source, listener);
 		} catch (IOException e) {
 			throw new EncoderException(e);
 		} finally {
@@ -846,7 +850,28 @@ public class Encoder {
 		}
 	}
 
+	/**
+	 * 采用新ffmpeg 处理输出信息
+	 * @param attributes
+	 * @param errorReader
+	 * @param source
+	 * @param listener
+	 * @throws EncoderException
+	 * @throws IOException
+	 */
+	protected void processErrorOutputNew(EncodingAttributes attributes, BufferedReader errorReader, File source, EncoderProgressListener listener) throws EncoderException, IOException {
+		// 错误处理
+		String line;
+		String lastMessage = null;//最后一条消息
+		while ((line = errorReader.readLine()) != null) {
+			lastMessage = line;
+		}
+		logger.info(lastMessage);
+	}
 
+	/**
+	 * encoder 信息处理 Old
+	 */
 	protected void processErrorOutput(EncodingAttributes attributes, BufferedReader errorReader, File source, EncoderProgressListener listener) throws EncoderException, IOException {
 		String lastWarning = null;
 		long progress = 0L;
