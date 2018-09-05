@@ -32,6 +32,7 @@
             <properties>
                 <profiles.active>dev</profiles.active>
                 <app.fullname>develop</app.fullname>
+                <skip.compress>true</skip.compress>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -42,6 +43,7 @@
             <properties>
                 <profiles.active>prod</profiles.active>
                 <app.fullname>product</app.fullname>
+                <skip.compress>false</skip.compress>
             </properties>
         </profile>
     </profiles>
@@ -441,6 +443,32 @@
                 <configuration>
                     <encoding>utf-8</encoding>
                     <useDefaultDelimiters>true</useDefaultDelimiters>
+                </configuration>
+            </plugin>
+
+            <!-- yuicompressor JS/CSS压缩 -->
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>yuicompressor-maven-plugin</artifactId>
+                <version>1.3.0</version>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>compress</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <skip>${skip.compress}</skip>
+                    <encoding>UTF-8</encoding>
+                    <jswarn>false</jswarn>
+                    <nosuffix>true</nosuffix>
+                    <linebreakpos>-1</linebreakpos>
+                    <sourceDirectory>src/main/resources</sourceDirectory>
+                    <includes>
+                        <include>static/script/mood/*.js</include>
+                    </includes>
                 </configuration>
             </plugin>
 		</plugins>
