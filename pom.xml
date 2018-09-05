@@ -467,7 +467,7 @@
                     <linebreakpos>-1</linebreakpos>
                     <sourceDirectory>src/main/resources</sourceDirectory>
                     <includes>
-                        <include>static/script/mood/*.js</include>
+                        <include>static/js/common.js</include>
                     </includes>
                 </configuration>
             </plugin>
