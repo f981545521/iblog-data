@@ -17,6 +17,8 @@
 存在问题：
 1. 由于版本变化，输出信息需要重写！
 
+官方参考手册：
+http://www.sauronsoftware.it/projects/jave/manual.php?PHPSESSID=0m013dv1ahsrhvkvp688slkd82
 
 ``` 
 PS F:\iotest> .\ffmpeg.exe -i 123.mp4
