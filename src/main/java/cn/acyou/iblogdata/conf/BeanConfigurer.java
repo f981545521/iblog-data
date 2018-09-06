@@ -3,9 +3,11 @@ package cn.acyou.iblogdata.conf;
 import cn.acyou.iblog.orika.OrikaMapper;
 import cn.acyou.iblogdata.utils.StudentConfig;
 import cn.acyou.iblogdata.utils.StudentConfig2;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.*;
 import org.springframework.core.annotation.Order;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
+import javax.servlet.MultipartConfigElement;
 
 /**
  * @author youfang
@@ -65,12 +67,11 @@ public class BeanConfigurer {
     }
 
     @Bean
-    public CommonsMultipartResolver multipartResolver(){
-        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-        resolver.setDefaultEncoding("utf-8");
-        resolver.setMaxUploadSize(30*1024*1024);//30Mb
-        resolver.setMaxInMemorySize(40960);
-        return resolver;
+    public MultipartConfigElement configElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        factory.setMaxFileSize("2048MB");
+        factory.setMaxRequestSize("2048MB");
+        return factory.createMultipartConfig();
     }
 
 

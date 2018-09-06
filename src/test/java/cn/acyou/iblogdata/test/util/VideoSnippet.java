@@ -15,8 +15,8 @@ import java.util.Map;
 public class VideoSnippet {
 
     public static void main(String[] args) throws IOException {
-        File source = new File("F:\\iotest\\vid.mp4");
-        File target = new File("F:\\iotest\\t444.mp4");
+        File source = new File("F:\\iotest\\123.mp4");
+        File target = new File("F:\\iotest\\te123.mp4");
 /*      Files.copy(source.toPath(), target.toPath());*/
         try {
             Encoder encoder = new Encoder();
