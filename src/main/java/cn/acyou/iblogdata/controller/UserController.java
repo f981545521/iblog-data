@@ -4,6 +4,7 @@ import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.utils.ResultInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,7 +48,17 @@ public class UserController extends BaseController{
         return new ResultInfo(rs);
     }
 
+    @RequestMapping(value = "login-error", method = {RequestMethod.GET})
+    public String loginErrorPage(){
+        return "index/login-error";
+    }
 
+
+    @RequestMapping("/whoim")
+    @ResponseBody
+    public Object whoIm() {
+        return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
 
 
 }

@@ -34,6 +34,17 @@
 
         </fieldset>
     </form>
+    <h1>登录</h1>
+    <form id="form-data-login" action="/login/form" method="post">
+        <fieldset><!--在数据周围绘制一个带标题的框。-->
+            <legend>登录信息:</legend>
+
+            <input type="text" name="username" />
+            <input type="password" name="password"/>
+            <button type="submit" class="btn btn-lg btn-primary btn-block" >登录</button>
+
+        </fieldset>
+    </form>
 
 <script>
     var f = new FormData($('#form-data')[0]);
