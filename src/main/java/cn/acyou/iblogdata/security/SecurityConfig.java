@@ -1,6 +1,5 @@
 package cn.acyou.iblogdata.security;
 
-import cn.acyou.iblogdata.security.MemberAuthProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,14 +7,16 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+import javax.servlet.Filter;
 import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * spring security
@@ -65,6 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll()
                 .and()
+                    .addFilterBefore(ipFilter(), FilterSecurityInterceptor.class)
                     .csrf().disable();
     }
 
@@ -73,6 +75,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authProvider);
 
     }
+
+    private Filter ipFilter() {
+        List<String> ipAddresses = new ArrayList<>();
+        ipAddresses.add("0:0:0:0:0:0:0:1");//localhost
+        SecurityIpFilter ipFilter = new SecurityIpFilter();
+        ipFilter.setTargetRole("ROLE_ADMIN");
+        ipFilter.setAuthorizedIpAddresses(ipAddresses);
+        return ipFilter;
+    }
+
 
 
     /**
