@@ -21,6 +21,7 @@ import javax.sql.DataSource;
  * spring security
  * https://docs.spring.io/spring-security/site/docs/current/reference/html/jc.html
  * https://docs.spring.io/spring-security/site/docs/current/guides/html5//helloworld-boot.html#creating-your-spring-security-configuration
+ * https://github.com/wexgundam/spring.security
  * @author youfang
  * @version [1.0.0, 2018-9-6 下午 08:53]
  **/
@@ -61,6 +62,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .antMatchers("/static/**", "/static").permitAll()
                         .antMatchers("/student/students").hasRole("ADMIN") //表示这个资源需要有ROLE_ADMIN的这个角色才能访问。不然就会提示拒绝访问
                         .anyRequest().authenticated() //任何没有匹配上的其他的url请求，只需要用户被验证
+                .and()
+                    .logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll()
                 .and()
                     .csrf().disable();
     }
