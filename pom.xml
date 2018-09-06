@@ -32,7 +32,7 @@
             <properties>
                 <profiles.active>dev</profiles.active>
                 <app.fullname>develop</app.fullname>
-                <skip.compress>true</skip.compress>
+                <skip.compress>false</skip.compress>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -432,7 +432,7 @@
                     <showDeprecation>false</showDeprecation>
                     <showWarnings>false</showWarnings>
                     <compilerArguments>
-                        <verbose />
+                        <!--<verbose />-->
                         <bootclasspath>${java.home}/lib/rt.jar;${java.home}/lib/jce.jar</bootclasspath>
                     </compilerArguments>
                 </configuration>
