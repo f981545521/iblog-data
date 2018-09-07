@@ -63,7 +63,7 @@ public class RedisConfig {
         return manager;
     }
 
-    @Bean
+/*    @Bean
     @ConditionalOnMissingBean(name = "redisTemplate")
     public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory) {
         StringRedisTemplate template = new StringRedisTemplate(factory);
@@ -75,7 +75,7 @@ public class RedisConfig {
         template.setValueSerializer(jackson2JsonRedisSerializer);
         template.afterPropertiesSet();
         return template;
-    }
+    }*/
 
     @Bean
     @ConditionalOnMissingBean(StringRedisTemplate.class)
