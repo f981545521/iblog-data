@@ -11,7 +11,7 @@ SET FOREIGN_KEY_CHECKS=1;
 
 -- 存储过程
 
--- 创建存储过程(查询得到男性或女性的数量, 如果传入的是0就女性否则是男性)
+-- 创建存储过程(查询小于指定Age的人数)
 DELIMITER $
 CREATE PROCEDURE iblog_data.ges_user_count(IN stu_age INT, OUT user_count INT)
   BEGIN
