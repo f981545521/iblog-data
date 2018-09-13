@@ -6,12 +6,15 @@ import cn.acyou.iblogdata.test.base.BaseTest;
 import cn.acyou.iblogdata.dao.StudentMapper;
 import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.utils.RandomValue;
+import cn.acyou.iblogdata.vo.StudentCallVo;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author youfang
@@ -109,5 +112,13 @@ public class MapperTest extends BaseTest{
 
         System.out.println(tea == tea2);//false
         session1.close();
+    }
+
+    @Test
+    public void testCall(){
+        StudentCallVo callVo = new StudentCallVo();
+        callVo.setAge(50);
+        studentMapper.getCallCountLessAge(callVo);
+        System.out.println(callVo);
     }
 }
