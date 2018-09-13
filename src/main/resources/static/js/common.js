@@ -57,6 +57,35 @@ function ajaxPost(ajaxdata, ajaxurl, successcallback, errorcallback) {
 }
 
 /**
+ * ajax post提交 以contentType: "application/json"方式，后端使用@RequestBody 接收参数
+ * @param ajaxdata 提交数据
+ * @param ajaxurl 提交路径
+ * @param successcallback 成功回调
+ * @param errorcallback 失败回调
+ */
+function ajaxPostJSON(ajaxdata, ajaxurl, successcallback, errorcallback) {
+    $.ajax({
+        cache: true,
+        type: "post",
+        contentType: "application/json",//"application/json;charset=UTF-8"
+        dataType: "json",
+        url: ajaxurl,
+        data: ajaxdata,
+        async: true,
+        success: function (data) {
+            if ($.isFunction(successcallback)) {
+                successcallback.call(this, data);
+            }
+        },
+        error: function (data) {
+            if ($.isFunction(errorcallback)) {
+                errorcallback.call(this, data);
+            }
+        }
+    });
+}
+
+/**
  * processData设置为false。因为data值是FormData对象，不需要对数据做处理。
  * <form>标签添加enctype="multipart/form-data"属性。
  * cache设置为false，上传文件不需要缓存。
