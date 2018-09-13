@@ -80,4 +80,14 @@
             #{id}
         </foreach>
     </delete>
+
+    <!-- 调用存储过程 -->
+    <select id="getCallCountLessAge" parameterType="cn.acyou.iblogdata.vo.StudentCallVo" useCache="false" statementType="CALLABLE">
+        <![CDATA[
+            call iblog_data.ges_user_count(
+            #{age, mode=IN, jdbcType=INTEGER},
+            #{total, mode=OUT, jdbcType=INTEGER});
+        ]]>
+    </select>
+
 </mapper>
