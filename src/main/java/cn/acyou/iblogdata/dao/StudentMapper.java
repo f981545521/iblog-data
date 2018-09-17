@@ -3,9 +3,11 @@ package cn.acyou.iblogdata.dao;
 import cn.acyou.iblogdata.commons.Mapper;
 import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.so.StudentSo;
+import cn.acyou.iblogdata.vo.StudentCallVo;
 import cn.acyou.iblogdata.vo.StudentVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author youfang
@@ -26,4 +28,6 @@ public interface StudentMapper extends Mapper<Student, Integer> {
     StudentVo getStudentVo2(StudentSo studentSo);
 
     Student getStudentById(Integer id);
+
+    void getCallCountLessAge(StudentCallVo studentCallVo);
 }
