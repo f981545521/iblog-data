@@ -1,5 +1,7 @@
 package cn.acyou.iblogdata.utils;
 
+import com.google.common.base.CharMatcher;
+
 /**
  * @author youfang
  * @date 2018-04-15 下午 09:42
@@ -66,7 +68,12 @@ public class AppConstant {
 
     }
 
-
+    /**
+     * 过滤掉31以下的ascii码以及双引号和反斜扛
+     */
+    public static final CharMatcher DANGER_CHAR_MATCHER = CharMatcher.inRange('\0', '\u001F')
+            .or(CharMatcher.is('"'))
+            .or(CharMatcher.is('\\'));
 
 
 

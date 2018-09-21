@@ -1,5 +1,7 @@
 package cn.acyou.iblogdata.utils;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -43,6 +45,16 @@ public class ParamUtil {
             result = m.replaceAll("");
         }
         return result;
+    }
+
+    /**
+     * 过滤掉31以下的ascii码以及双引号和反斜扛
+     */
+    public static String removeDangerStr(String str) {
+        if (StringUtils.isEmpty(str)) {
+            return "";
+        }
+        return AppConstant.DANGER_CHAR_MATCHER.removeFrom(str);
     }
 
 }

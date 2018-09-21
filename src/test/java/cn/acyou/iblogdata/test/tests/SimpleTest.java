@@ -2,6 +2,7 @@ package cn.acyou.iblogdata.test.tests;
 
 import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.utils.BeanUtil;
+import cn.acyou.iblogdata.utils.ParamUtil;
 import com.google.common.collect.Lists;
 import org.assertj.core.util.Maps;
 import org.junit.Test;
@@ -191,6 +192,12 @@ public class SimpleTest {
     public void test28(){
         String str = "<p><br/></p>";
         System.out.println(replaceSpecialStr(str));
+    }
+
+    @Test
+    public void test29(){
+        String str = "<p>\r\n<br/></p>";
+        System.out.println(ParamUtil.removeDangerStr(str));
     }
 
 
