@@ -10,4 +10,8 @@ public class ThymeleafUtil {
         return "你好";
     }
 
+    public static String sayHelloTo(String name){
+        return "你好：" + name;
+    }
+
 }
