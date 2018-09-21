@@ -3,6 +3,7 @@
 <head th:include="/common/header::commonHeader('欢迎您')"></head>
 <body>
 <h2 th:text="'Hello, ' + ${T(cn.acyou.iblogdata.utils.ThymeleafUtil).sayHello()}" ></h2><br/>
+<h2 th:text="'Say Hello To ----> , ' + ${T(cn.acyou.iblogdata.utils.ThymeleafUtil).sayHelloTo(name)}" ></h2><br/>
 <h2 th:text="'Hello, ' + ${title}" ></h2><br/>
 <p th:text="'你好 ：' + ${name}"></p>
 <ul th:if="${studentList}">
