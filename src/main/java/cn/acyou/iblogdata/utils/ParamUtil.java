@@ -2,6 +2,8 @@ package cn.acyou.iblogdata.utils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author youfang
@@ -27,4 +29,20 @@ public class ParamUtil {
         }
         return map;
     }
+
+    /**
+     * 去除字符串中的空格、回车、换行符、制表符等
+     * @param str 待替换的Str
+     * @return 替换后的str
+     */
+    public static String replaceSpecialStr(String str) {
+        String result = "";
+        if (str!=null) {
+            Pattern p = Pattern.compile("\\s*|\t|\r|\n");
+            Matcher m = p.matcher(str);
+            result = m.replaceAll("");
+        }
+        return result;
+    }
+
 }

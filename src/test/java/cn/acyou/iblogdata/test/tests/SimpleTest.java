@@ -11,6 +11,8 @@ import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
+import static cn.acyou.iblogdata.utils.ParamUtil.replaceSpecialStr;
+
 public class SimpleTest {
     @Test
     public void test21(){
@@ -184,5 +186,12 @@ public class SimpleTest {
         //System.out.println(String.format("%05d", m2));
 
     }
+
+    @Test
+    public void test28(){
+        String str = "<p><br/></p>";
+        System.out.println(replaceSpecialStr(str));
+    }
+
 
 }
