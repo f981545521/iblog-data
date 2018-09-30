@@ -10,6 +10,8 @@ import org.springframework.beans.BeanUtils;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.*;
 
 import static cn.acyou.iblogdata.utils.ParamUtil.replaceSpecialStr;
@@ -198,6 +200,23 @@ public class SimpleTest {
     public void test29(){
         String str = "<p>\r\n<br/></p>";
         System.out.println(ParamUtil.removeDangerStr(str));
+    }
+
+    @Test
+    public void test30() throws Exception{
+        String s = "1. 阿萨德\r\n 2. 水电费";
+        String result = URLEncoder.encode(s, "utf-8");
+        System.out.println(result);
+        String res = "1.%20%E9%98%BF%E8%90%A8%E5%BE%B7%0D%0A%202.%20%E6%B0%B4%E7%94%B5%E8%B4%B9";
+        System.out.println(URLDecoder.decode(res, "utf-8"));
+
+        //var b = "1. 阿萨德\r\n 2. 水电费";
+        //encodeURI(b)
+        //"1.%20%E9%98%BF%E8%90%A8%E5%BE%B7%0D%0A%202.%20%E6%B0%B4%E7%94%B5%E8%B4%B9"
+        //var c = "1.%20%E9%98%BF%E8%90%A8%E5%BE%B7%0D%0A%202.%20%E6%B0%B4%E7%94%B5%E8%B4%B9";
+        //decodeURI(c)
+        //"1. 阿萨德
+        // 2. 水电费"
     }
 
 
