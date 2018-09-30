@@ -6,8 +6,10 @@ import cn.acyou.iblogdata.conf.properties.ThirdProperties;
 import cn.acyou.iblogdata.conf.properties.WxProperties;
 import cn.acyou.iblogdata.conf.properties.WxProperties2;
 import cn.acyou.iblogdata.entity.Student;
+import cn.acyou.iblogdata.service.StudentService;
 import cn.acyou.iblogdata.so.ArrayParamReq;
 import cn.acyou.iblogdata.utils.ResultInfo;
+import cn.acyou.iblogdata.utils.SpringHelper;
 import cn.acyou.iblogdata.utils.StudentConfig;
 import cn.acyou.iblogdata.utils.StudentConfig2;
 import com.alibaba.fastjson.JSON;
@@ -92,6 +94,7 @@ public class HelloWorldController extends BaseController{
 
     @RequestMapping(value = "/greeting", method = {RequestMethod.GET})
     public ModelAndView greeting(String name, RedirectAttributes attr) {
+        StudentService service = SpringHelper.getBean("studentService");
         attr.addFlashAttribute("title", "欢迎使用Thymeleaf!");
         attr.addFlashAttribute("name", name);
         return new ModelAndView("redirect:/hello/greetingView");//最终访问：http://localhost:8033/hello/greetingView
