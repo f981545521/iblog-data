@@ -26,10 +26,10 @@ public class GenEntityFromTable {
      * 正常情况下读取表注释时，是取不出来的。
      * 需要增加useInformationSchema=true配置
      */
-    private static final String url = "jdbc:mysql://localhost:3306/admui?useInformationSchema=true&useUnicode=true&characterEncoding=UTF-8";
-    private static final String TABLE_NAME = "t_content_img_info";// 表名
-    private static final String PACKAGE = "com.muran.ifree.domain.habitat";//你的实体类所在的包的位置
-    private static final String CLASS_NAME = convertCamelCase("img_info");// 类名文件名
+    private static final String url = "jdbc:mysql://localhost:3306/service_member?useInformationSchema=true&useUnicode=true&characterEncoding=UTF-8";
+    private static final String TABLE_NAME = "t_member_plus_rights_group";// 表名
+    private static final String PACKAGE = "com.suizhi.ares.domain.point.rights";//你的实体类所在的包的位置
+    private static final String CLASS_NAME = convertCamelCase("member_plus_rights_group");// 类名文件名
 
     private static Connection connection = null;
 
@@ -227,7 +227,7 @@ public class GenEntityFromTable {
             str = "Double";
         } else if (sqlType.equalsIgnoreCase("varchar") || sqlType.equalsIgnoreCase("char")
                 || sqlType.equalsIgnoreCase("nvarchar") || sqlType.equalsIgnoreCase("nchar")
-                || sqlType.equalsIgnoreCase("text")) {
+                || sqlType.equalsIgnoreCase("text")  || sqlType.equalsIgnoreCase("longtext")) {
             str = "String";
         } else if (sqlType.equalsIgnoreCase("datetime") || sqlType.equalsIgnoreCase("timestamp")) {
             str = "Date";
@@ -250,6 +250,9 @@ public class GenEntityFromTable {
         }
         if (typeName.equalsIgnoreCase("INT")){
             return "INTEGER";
+        }
+        if (typeName.equalsIgnoreCase("LONGTEXT")){
+            return "VARCHAR";
         }
         return typeName.toUpperCase();
     }
