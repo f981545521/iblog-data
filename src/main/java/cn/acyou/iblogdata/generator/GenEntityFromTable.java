@@ -101,6 +101,7 @@ public class GenEntityFromTable {
                     pw.write("package " + PACKAGE + ";\r\n");
                     pw.write("\r\n");
                     pw.write("import javax.persistence.Column;\r\n");
+                    pw.write("import javax.persistence.Table;\r\n");
                     pw.write("import java.io.Serializable;\r\n");
                     pw.write("import java.util.Date;\r\n");
                     pw.write("\r\n");
@@ -111,6 +112,7 @@ public class GenEntityFromTable {
                     if (StringUtils.isEmpty(className)){
                         className = convertCamelCase(TABLE_NAME);
                     }
+                    pw.write("@Table(name = " + TABLE_NAME + ")");
                     pw.write("public class " + className  + " implements Serializable{\r\n");
                     pw.write("\r\n    private static final long serialVersionUID = "+ String.valueOf(new Random().nextLong()) +"L;\r\n");
                     System.out.println();
