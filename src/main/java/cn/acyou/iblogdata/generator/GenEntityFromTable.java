@@ -27,9 +27,9 @@ public class GenEntityFromTable {
      * 需要增加useInformationSchema=true配置
      */
     private static final String url = "jdbc:mysql://localhost:3306/service_member?useInformationSchema=true&useUnicode=true&characterEncoding=UTF-8";
-    private static final String TABLE_NAME = "t_member_plus_rights_group";// 表名
-    private static final String PACKAGE = "com.suizhi.ares.domain.point.rights";//你的实体类所在的包的位置
-    private static final String CLASS_NAME = convertCamelCase("member_plus_rights_group");// 类名文件名
+    private static final String TABLE_NAME = "t_member_coach_photos";// 表名
+    private static final String PACKAGE = "com.suizhi.ares.domain.coach";//你的实体类所在的包的位置
+    private static final String CLASS_NAME = convertCamelCase("member_coach_photos");// 类名文件名
 
     private static Connection connection = null;
 
@@ -112,7 +112,7 @@ public class GenEntityFromTable {
                     if (StringUtils.isEmpty(className)){
                         className = convertCamelCase(TABLE_NAME);
                     }
-                    pw.write("@Table(name = " + TABLE_NAME + ")");
+                    pw.write("@Table(name = \"" + TABLE_NAME + "\")\r\n");
                     pw.write("public class " + className  + " implements Serializable{\r\n");
                     pw.write("\r\n    private static final long serialVersionUID = "+ String.valueOf(new Random().nextLong()) +"L;\r\n");
                     System.out.println();
@@ -225,13 +225,13 @@ public class GenEntityFromTable {
             str = "float";
         } else if (sqlType.equalsIgnoreCase("decimal") || sqlType.equalsIgnoreCase("numeric")
                 || sqlType.equalsIgnoreCase("real") || sqlType.equalsIgnoreCase("money")
-                || sqlType.equalsIgnoreCase("smallmoney")) {
+                || sqlType.equalsIgnoreCase("smallmoney")|| sqlType.equalsIgnoreCase("double")) {
             str = "Double";
         } else if (sqlType.equalsIgnoreCase("varchar") || sqlType.equalsIgnoreCase("char")
                 || sqlType.equalsIgnoreCase("nvarchar") || sqlType.equalsIgnoreCase("nchar")
                 || sqlType.equalsIgnoreCase("text")  || sqlType.equalsIgnoreCase("longtext")) {
             str = "String";
-        } else if (sqlType.equalsIgnoreCase("datetime") || sqlType.equalsIgnoreCase("timestamp")) {
+        } else if (sqlType.equalsIgnoreCase("date") || sqlType.equalsIgnoreCase("datetime") || sqlType.equalsIgnoreCase("timestamp")) {
             str = "Date";
         } else if (sqlType.equalsIgnoreCase("image")) {
             str = "Blod";
