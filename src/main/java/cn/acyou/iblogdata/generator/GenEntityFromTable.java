@@ -26,10 +26,10 @@ public class GenEntityFromTable {
      * 正常情况下读取表注释时，是取不出来的。
      * 需要增加useInformationSchema=true配置
      */
-    private static final String url = "jdbc:mysql://localhost:3306/service_member?useInformationSchema=true&useUnicode=true&characterEncoding=UTF-8";
-    private static final String TABLE_NAME = "t_member_coach_photos";// 表名
-    private static final String PACKAGE = "com.suizhi.ares.domain.coach";//你的实体类所在的包的位置
-    private static final String CLASS_NAME = convertCamelCase("member_coach_photos");// 类名文件名
+    private static final String url = "jdbc:mysql://localhost:3306/service_sport?useInformationSchema=true&useUnicode=true&characterEncoding=UTF-8";
+    private static final String TABLE_NAME = "t_sport_room";// 表名
+    private static final String PACKAGE = "com.suizhi.ares.domain.room";//你的实体类所在的包的位置
+    private static final String CLASS_NAME = convertCamelCase("sport_room");// 类名文件名
 
     private static Connection connection = null;
 
