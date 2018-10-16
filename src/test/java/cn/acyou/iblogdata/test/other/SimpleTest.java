@@ -3,6 +3,7 @@ package cn.acyou.iblogdata.test.other;
 import cn.acyou.iblogdata.exception.ServiceException;
 import org.junit.Test;
 
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -52,5 +53,26 @@ public class SimpleTest {
             throw new RuntimeException();
         }
         System.out.println("运行结束");
+    }
+
+    @Test
+    public void randomValue(){
+        String[] rooms = new String[]{"123","345","456","3245"};
+        for (int i=0;i<100;i++){
+            System.out.println(rooms[new Random().nextInt(rooms.length)]);
+        }
+    }
+
+    @Test
+    public void test23s(){
+        String[] rooms = new String[]{"123","345","456","3245"};
+        Random random = new Random();
+        System.out.println(rooms[random.nextInt(rooms.length)]);
+        System.out.println(random.nextInt(rooms.length));
+    }
+
+    @Test
+    public void test3445(){
+
     }
 }
