@@ -73,6 +73,16 @@ public class SimpleTest {
 
     @Test
     public void test3445(){
+        int i = 100;
+        int j = 102;
+        int k = i - j;
+        System.out.println(k<0?0:k);
+    }
 
+    @Test
+    public void test222(){
+        double d1 = 3455.5;
+        int i1 = new Double(d1).intValue();
+        System.out.println(i1);
     }
 }
