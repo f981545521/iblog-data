@@ -1,5 +1,6 @@
 package cn.acyou.iblogdata.utils;
 
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -51,6 +52,16 @@ public class RandomUtil {
             return str.substring(str.length() - length);
         }
         return str + createRandomStr(length - str.length());
+    }
+
+    /**
+     * 随机 0 or 1
+     * @return  0 or 1
+     */
+    public static int random01(){
+        Random r = new Random();
+        return r.nextInt(1);
+        //return Math.random() > 0.5 ? 1 : 0;
     }
 
     public static void main(String[] args){
