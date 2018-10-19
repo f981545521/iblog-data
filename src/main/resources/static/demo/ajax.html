@@ -34,8 +34,12 @@ $(function () {
         return a;
     }
 
-    var k = sendGetRequset();
-    alert("k = " + k)
+    ajaxGET({}, "/demo/export", function (result) {
+        console.log(result)
+    })
+
+/*    var k = sendGetRequset();
+    alert("k = " + k)*/
 });
 </script>
 
