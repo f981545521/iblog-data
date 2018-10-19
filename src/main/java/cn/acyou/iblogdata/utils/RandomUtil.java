@@ -60,13 +60,16 @@ public class RandomUtil {
      */
     public static int random01(){
         Random r = new Random();
-        return r.nextInt(1);
+        return r.nextInt(2);
         //return Math.random() > 0.5 ? 1 : 0;
     }
 
     public static void main(String[] args){
+        for (int i = 0; i< 100;i++){
+            System.out.println(random01());
+        }
         //System.out.println(UUID.randomUUID().toString().replace("-","").length());
-        String result = createRandomStr(180);
-        System.out.println(result + ":" + result.length());
+        //String result = createRandomStr(180);
+        //System.out.println(result + ":" + result.length());
     }
 }

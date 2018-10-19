@@ -1,9 +1,13 @@
 package cn.acyou.iblogdata.controller;
 
+import cn.acyou.iblog.utility.DateUtil;
 import cn.acyou.iblogdata.entity.StudentExportEntity;
+import cn.acyou.iblogdata.entity.StudentExportEntityGroup;
 import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.export.StudentEntityExportServer;
+import cn.acyou.iblogdata.utils.RandomUtil;
 import cn.afterturn.easypoi.entity.vo.BigExcelConstants;
+import cn.afterturn.easypoi.entity.vo.NormalExcelConstants;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
 import cn.afterturn.easypoi.view.PoiBaseView;
@@ -19,7 +23,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author youfang
@@ -58,7 +65,7 @@ public class DemoController extends BaseController{
     }
 
 
-    @RequestMapping(value = "export", method = {RequestMethod.GET})
+    @RequestMapping(value = "bigDataExport", method = {RequestMethod.GET})
     @ApiOperation("easy poi 大数据导出")
     public void downloadByPoiBaseView(ModelMap map, HttpServletRequest request,
                                       HttpServletResponse response, String name) {
@@ -71,6 +78,32 @@ public class DemoController extends BaseController{
         map.put(BigExcelConstants.DATA_PARAMS, name);
         map.put(BigExcelConstants.DATA_INTER, studentEntityExportServer);
         PoiBaseView.render(map, request, response, BigExcelConstants.EASYPOI_BIG_EXCEL_VIEW);
+    }
+
+    @RequestMapping(value = "simpleExport", method = {RequestMethod.GET})
+    @ApiOperation("easy poi 简单List导出")
+    public void simpleExport(ModelMap map, HttpServletResponse response) {
+        List<StudentExportEntity> list = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            StudentExportEntity client = new StudentExportEntity();
+            client.setId("2" + i);
+            client.setName("小明" + i);
+            client.setBirthday(new Date());
+            client.setRegistrationDate(DateUtil.parseDate("2010-12-08"));
+            client.setSex(RandomUtil.random01());
+            StudentExportEntityGroup group = new StudentExportEntityGroup();
+            group.setGroupName("测试" + i);
+            client.setGroup(group);
+            list.add(client);
+        }
+        ExportParams params = new ExportParams("2412312", "测试", ExcelType.XSSF);
+        params.setFreezeCol(2);
+        map.put(NormalExcelConstants.DATA_LIST, list); // 数据集合
+        map.put(NormalExcelConstants.CLASS, StudentExportEntity.class);//导出实体
+        map.put(NormalExcelConstants.PARAMS, params);//参数
+        map.put(NormalExcelConstants.FILE_NAME, "测试文件");//文件名称
+        PoiBaseView.render(map, request, response, NormalExcelConstants.EASYPOI_EXCEL_VIEW);
+        //return NormalExcelConstants.EASYPOI_EXCEL_VIEW;//View名称
     }
 
 
