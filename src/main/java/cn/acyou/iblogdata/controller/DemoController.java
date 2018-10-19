@@ -32,7 +32,6 @@ public class DemoController extends BaseController{
     @Value("${ab.name: none found}")
     private String pomName;
 
-
     @Autowired
     private StudentEntityExportServer studentEntityExportServer;
 
@@ -62,13 +61,14 @@ public class DemoController extends BaseController{
     @RequestMapping(value = "export", method = {RequestMethod.GET})
     @ApiOperation("easy poi 大数据导出")
     public void downloadByPoiBaseView(ModelMap map, HttpServletRequest request,
-                                      HttpServletResponse response) {
+                                      HttpServletResponse response, String name) {
+        System.out.println(name);
         ExportParams params = new ExportParams("2412312", "测试", ExcelType.XSSF);
         params.setFreezeCol(2);
         map.put(BigExcelConstants.CLASS, StudentExportEntity.class);
         map.put(BigExcelConstants.PARAMS, params);
         //就是我们的查询参数,会带到接口中,供接口查询使用
-        map.put(BigExcelConstants.DATA_PARAMS, new HashMap<String,String>());
+        map.put(BigExcelConstants.DATA_PARAMS, name);
         map.put(BigExcelConstants.DATA_INTER, studentEntityExportServer);
         PoiBaseView.render(map, request, response, BigExcelConstants.EASYPOI_BIG_EXCEL_VIEW);
     }
