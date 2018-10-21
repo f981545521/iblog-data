@@ -1,6 +1,6 @@
 package cn.acyou.iblogdata.upload;
 
-import cn.acyou.iblogdata.vo.OSSUploadVo;
+import cn.acyou.iblogdata.vo.OSSVo;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.*;
 import com.google.common.base.Function;
@@ -30,7 +30,7 @@ public class OSSUploadUtil {
      * @param ossUploadVo file
      * @return URL
      */
-    public static String uploadOssByStream(OSSUploadVo ossUploadVo){
+    public static String uploadOssByStream(OSSVo ossUploadVo){
         InputStream inputStream = null;
         try {
             inputStream = ossUploadVo.getFile().getInputStream();

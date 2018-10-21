@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @date 2018-07-05 下午 10:23
  */
 @Data
-public class OSSUploadVo implements Serializable{
+public class OSSVo implements Serializable{
 
     private static final long serialVersionUID = -7937518394909244526L;
 
