@@ -34,5 +34,10 @@ public class UploadConstant {
 
     }
 
+    /**
+     * 分片文件大小
+     */
+    public static final long MULTIPART_PART_SIZE = 1024 * 1024L;
+
 
 }
