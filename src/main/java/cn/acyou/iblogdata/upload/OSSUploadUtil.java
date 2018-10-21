@@ -2,22 +2,17 @@ package cn.acyou.iblogdata.upload;
 
 import cn.acyou.iblogdata.vo.OSSUploadVo;
 import com.aliyun.oss.OSSClient;
-import com.aliyun.oss.model.Bucket;
-import com.aliyun.oss.model.PutObjectRequest;
+import com.aliyun.oss.model.*;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author youfang
@@ -109,6 +104,71 @@ public class OSSUploadUtil {
         ossClient.putObject(putObjectRequest);
         return getUploadUrl(UploadConstant.BUCKETNAME.IB_OTHERS, objectName);
     }
+
+    /**
+     * 分片上传
+     * @param localPath localPath 本地文件路径
+     * @param objectName objectName 文件名称
+     */
+    public static String uploadWithMultipart(String localPath, String objectName) throws IOException {
+        // 创建OSSClient实例。
+
+        String bucketName = UploadConstant.BUCKETNAME.IB_OTHERS;
+        /* 步骤1：初始化一个分片上传事件。
+         */
+        InitiateMultipartUploadRequest request = new InitiateMultipartUploadRequest(bucketName, objectName);
+        InitiateMultipartUploadResult result = ossClient.initiateMultipartUpload(request);
+        // 返回uploadId，它是分片上传事件的唯一标识，您可以根据这个ID来发起相关的操作，如取消分片上传、查询分片上传等。
+        String uploadId = result.getUploadId();
+
+        /* 步骤2：上传分片。
+         */
+        // partETags是PartETag的集合。PartETag由分片的ETag和分片号组成。
+        List<PartETag> partETags =  new ArrayList<PartETag>();
+        // 计算文件有多少个分片。
+        final long partSize = UploadConstant.MULTIPART_PART_SIZE;   // 1MB
+        final File sampleFile = new File(localPath);
+        long fileLength = sampleFile.length();
+        int partCount = (int) (fileLength / partSize);
+        if (fileLength % partSize != 0) {
+            partCount++;
+        }
+        // 遍历分片上传。
+        for (int i = 0; i < partCount; i++) {
+            long startPos = i * partSize;
+            long curPartSize = (i + 1 == partCount) ? (fileLength - startPos) : partSize;
+            InputStream instream = new FileInputStream(sampleFile);
+            // 跳过已经上传的分片。
+            instream.skip(startPos);
+            UploadPartRequest uploadPartRequest = new UploadPartRequest();
+            uploadPartRequest.setBucketName(bucketName);
+            uploadPartRequest.setKey(objectName);
+            uploadPartRequest.setUploadId(uploadId);
+            uploadPartRequest.setInputStream(instream);
+            // 设置分片大小。除了最后一个分片没有大小限制，其他的分片最小为100KB。
+            uploadPartRequest.setPartSize(curPartSize);
+            // 设置分片号。每一个上传的分片都有一个分片号，取值范围是1~10000，如果超出这个范围，OSS将返回InvalidArgument的错误码。
+            uploadPartRequest.setPartNumber( i + 1);
+            // 每个分片不需要按顺序上传，甚至可以在不同客户端上传，OSS会按照分片号排序组成完整的文件。
+            UploadPartResult uploadPartResult = ossClient.uploadPart(uploadPartRequest);
+            // 每次上传分片之后，OSS的返回结果会包含一个PartETag。PartETag将被保存到partETags中。
+            partETags.add(uploadPartResult.getPartETag());
+        }
+
+        /* 步骤3：完成分片上传。
+         */
+        // 排序。partETags必须按分片号升序排列。
+        Collections.sort(partETags, new Comparator<PartETag>() {
+            public int compare(PartETag p1, PartETag p2) {
+                return p1.getPartNumber() - p2.getPartNumber();
+            }
+        });
+        // 在执行该操作时，需要提供所有有效的partETags。OSS收到提交的partETags后，会逐一验证每个分片的有效性。当所有的数据分片验证通过后，OSS将把这些分片组合成一个完整的文件。
+        CompleteMultipartUploadRequest completeMultipartUploadRequest =
+                new CompleteMultipartUploadRequest(bucketName, objectName, uploadId, partETags);
+        ossClient.completeMultipartUpload(completeMultipartUploadRequest);
+        return getUploadUrl(bucketName, objectName);
+    }
     /**
      * 拼接成返回路径
      * @param bucketName bucketName
@@ -160,9 +220,14 @@ public class OSSUploadUtil {
         String result = OSSUploadUtil.uploadOssByLocalFile(localPath);
         System.out.println(result);*/
         //进度条
-        String localPath = "F:\\iotest\\images\\2.jpg";
+/*        String localPath = "F:\\iotest\\images\\2.jpg";
         File file = new File(localPath);
         String result = OSSUploadUtil.uploadWithProgress(file.getName(), new FileInputStream(file));
+        System.out.println(result);*/
+        //分片上传
+        String localPath = "F:\\iotest\\321.mp4";
+        File file = new File(localPath);
+        String result = OSSUploadUtil.uploadWithMultipart(localPath, file.getName());
         System.out.println(result);
 
     }
