@@ -3,20 +3,21 @@ package cn.acyou.iblogdata.upload;
 import cn.acyou.iblogdata.vo.OSSUploadVo;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.Bucket;
+import com.aliyun.oss.model.PutObjectRequest;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * @author youfang
@@ -81,6 +82,33 @@ public class OSSUploadUtil {
             return null;
         }
     }
+
+
+    /**
+     * 阿里云 本地文件上传
+     * @param localPath localPath 本地路径
+     * @return URL
+     */
+    public static String uploadOssByLocalFile(String localPath){
+        File file = new File(localPath);
+        String title = file.getName();
+        ossClient.putObject(UploadConstant.BUCKETNAME.IB_OTHERS, title, file );
+        // 关闭OSSClient。
+        ossClient.shutdown();
+        return getUploadUrl(UploadConstant.BUCKETNAME.IB_OTHERS, title);
+    }
+
+    /**
+     * 带进度条的上传
+     * @param objectName objectName 文件名称
+     * @return URL
+     */
+    public static String uploadWithProgress(String objectName, InputStream is){
+        PutObjectRequest putObjectRequest = new PutObjectRequest(UploadConstant.BUCKETNAME.IB_OTHERS, objectName, is).
+                withProgressListener(new PutObjectProgressListener());
+        ossClient.putObject(putObjectRequest);
+        return getUploadUrl(UploadConstant.BUCKETNAME.IB_OTHERS, objectName);
+    }
     /**
      * 拼接成返回路径
      * @param bucketName bucketName
@@ -123,10 +151,20 @@ public class OSSUploadUtil {
         System.out.println(OSSUploadUtil.uploadOssByURLStream(str));
         System.out.println(OSSUploadUtil.uploadOssByURLStream(str2));*/
         //OSSUploadUtil.uploadOssByURLStream(str2);
-        List<String> buckets = OSSUploadUtil.listBuckets();
+/*        List<String> buckets = OSSUploadUtil.listBuckets();
         for (String s: buckets){
             System.out.println(s);
-        }
+        }*/
+        //本地文件上传
+/*        String localPath = "F:\\iotest\\images\\123.jpg";
+        String result = OSSUploadUtil.uploadOssByLocalFile(localPath);
+        System.out.println(result);*/
+        //进度条
+        String localPath = "F:\\iotest\\images\\2.jpg";
+        File file = new File(localPath);
+        String result = OSSUploadUtil.uploadWithProgress(file.getName(), new FileInputStream(file));
+        System.out.println(result);
+
     }
 
 
