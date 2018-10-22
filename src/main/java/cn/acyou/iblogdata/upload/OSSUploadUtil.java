@@ -1,6 +1,8 @@
 package cn.acyou.iblogdata.upload;
 
+import cn.acyou.iblog.utility.DateUtil;
 import cn.acyou.iblogdata.vo.OSSVo;
+import com.aliyun.oss.HttpMethod;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.*;
 import com.google.common.base.Function;
@@ -9,7 +11,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
@@ -24,6 +29,9 @@ public class OSSUploadUtil {
 
     //OSSClient实例
     private static OSSClient ossClient = initOssClient();
+
+    //默认bucket name
+    private static String DEFAULT_BUCKET_NAME = UploadConstant.BUCKETNAME.IB_OTHERS;
 
     /**
      * 阿里云 multiPartFile文件上传
@@ -119,6 +127,16 @@ public class OSSUploadUtil {
     }
 
     /**
+     * 判断文件是否存在
+     * @param objectName objectName
+     * @return true 存在/false 不存在
+     */
+    public static boolean existFile(String objectName){
+        // 判断文件是否存在。
+        return ossClient.doesObjectExist(DEFAULT_BUCKET_NAME, objectName);
+    }
+
+    /**
      * 分片上传
      * @param localPath localPath 本地文件路径
      * @param objectName objectName 文件名称
@@ -194,6 +212,17 @@ public class OSSUploadUtil {
     }
 
     /**
+     * 私有bucket 获取授权
+     * @param key key
+     * @return url
+     */
+    private static String generateAuthUrl(String key){
+        Date expiration = DateUtil.addSeconds(new Date(), 60 * 5);
+        URL url = ossClient.generatePresignedUrl(DEFAULT_BUCKET_NAME, key, expiration, HttpMethod.GET);
+        return url.toString();
+    }
+
+    /**
      * 创建OSSClient实例。
      * @return OSSClient实例
      */
@@ -238,10 +267,16 @@ public class OSSUploadUtil {
         String result = OSSUploadUtil.uploadWithProgress(file.getName(), new FileInputStream(file));
         System.out.println(result);*/
         //分片上传
-        String localPath = "F:\\iotest\\321.mp4";
+/*        String localPath = "F:\\iotest\\321.mp4";
         File file = new File(localPath);
         String result = OSSUploadUtil.uploadWithMultipart(localPath, file.getName());
-        System.out.println(result);
+        System.out.println(result);*/
+        //判断文件是否存在
+/*        boolean found = existFile("测试.xlsx");
+        System.out.println(found);*/
+        //获取权限
+        String url = OSSUploadUtil.generateAuthUrl("测试.xlsx");
+        System.out.println(url);
 
     }
 
