@@ -26,11 +26,11 @@ public class OSSUploadUtil {
     private static OSSClient ossClient = initOssClient();
 
     /**
-     * 阿里云 文件流上传
+     * 阿里云 multiPartFile文件上传
      * @param ossUploadVo file
      * @return URL
      */
-    public static String uploadOssByStream(OSSVo ossUploadVo){
+    public static String uploadOssByVo(OSSVo ossUploadVo){
         InputStream inputStream = null;
         try {
             inputStream = ossUploadVo.getFile().getInputStream();
@@ -52,6 +52,19 @@ public class OSSUploadUtil {
             e.printStackTrace();
             return null;
         }
+    }
+    /**
+     * 阿里云 流上传
+     * @param title title 文件名
+     * @param inputStream stream
+     * @return URL
+     */
+    public static String uploadOssStream(String title, InputStream inputStream){
+        // 上传文件流。
+        logger.warn("开始上传....");
+        ossClient.putObject(UploadConstant.BUCKETNAME.IB_OTHERS, title, inputStream);
+        logger.warn("上传结束。");
+        return getUploadUrl(UploadConstant.BUCKETNAME.IB_OTHERS, title);
     }
     /**
      * 阿里云 URL上传
