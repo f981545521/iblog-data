@@ -119,9 +119,9 @@ public class DemoController extends BaseController{
         //os.close();
         //方式3 ： 保存到OSS
         Workbook workbook = ExcelExportUtil.exportExcel(params, StudentExportEntity.class, list );
-        OutputStream os = new ByteArrayOutputStream();
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
         workbook.write(os);
-        InputStream is = StreamConvertUtil.parse(os);
+        InputStream is = new ByteArrayInputStream(os.toByteArray());
         String result = OSSUploadUtil.uploadWithProgress("测试.xlsx", is);
         System.out.println(result);
         //return NormalExcelConstants.EASYPOI_EXCEL_VIEW;//View名称
