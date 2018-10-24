@@ -1,6 +1,7 @@
 package cn.acyou.iblogdata.test.other;
 
 import cn.acyou.iblogdata.exception.ServiceException;
+import cn.acyou.iblogdata.vo.StudentLogTestVo;
 import org.junit.Test;
 
 import java.util.Random;
@@ -84,5 +85,14 @@ public class SimpleTest {
         double d1 = 3455.5;
         int i1 = new Double(d1).intValue();
         System.out.println(i1);
+    }
+
+    @Test
+    public void test21(){
+        StudentLogTestVo logTestVo = new StudentLogTestVo();
+        logTestVo.setName("等等");
+        logTestVo.setAge(12);
+        Object[] obj = new Object[]{logTestVo};
+        System.out.println(obj[0]);
     }
 }
