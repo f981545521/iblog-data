@@ -6,11 +6,14 @@ import cn.acyou.iblogdata.service.StudentService;
 import cn.acyou.iblogdata.so.StudentSo;
 import cn.acyou.iblogdata.utils.ResultInfo;
 import cn.acyou.iblogdata.utils.ResultInfoGenerate;
+import cn.acyou.iblogdata.vo.StudentLogTestVo;
 import cn.acyou.iblogdata.vo.StudentVo;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -32,6 +35,8 @@ import java.util.Map;
 @RequestMapping("/student")
 @Api
 public class StudentController {
+
+    private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
 
     @Autowired
     private StudentService studentService;
@@ -154,6 +159,14 @@ public class StudentController {
         return ResultInfoGenerate.generateSuccess(student);
     }
 
+
+    @RequestMapping(value = "aopLog", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResultInfo aopLog(StudentLogTestVo logTestVo){
+        Student student = studentService.getStudentById(1);
+        logger.info("日志测试：" + logTestVo.getName());
+        return ResultInfoGenerate.generateSuccess(student);
+    }
 
 
 }

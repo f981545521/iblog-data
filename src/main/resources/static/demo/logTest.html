@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上传获取全路径</title>
+    <script src="../../static/js/jquery.1.9.1.min.js"></script>
+    <script src="../../static/js/common.js"></script>
+</head>
+<body>
+    请选择文件
+    <input type="file" id="file"/>
+    <button type="button" onclick="gg()">获取路径</button>
+<script>
+    function gg() {
+        console.log("1234");
+        var file = $("#file")[0].files[0];
+        var postData = new FormData();
+        postData.append("name", "小三");
+        postData.append("age", 12);
+        postData.append("headPic", file);
+        ajaxFormPost(postData, "/student/aopLog", function (result) {
+            console.log(result)
+        });
+    }
+
+</script>
+</body>
+</html>

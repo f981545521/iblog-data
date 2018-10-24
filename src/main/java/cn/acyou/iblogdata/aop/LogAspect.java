@@ -5,7 +5,9 @@ import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.reflect.CodeSignature;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 针对Controller 作日志记录，输入与输出
@@ -69,8 +71,16 @@ public class LogAspect {
     public void before(JoinPoint jp){
         String clazzName = jp.getSignature().getDeclaringType().getSimpleName();
         String methodName = jp.getSignature().getName();
-        Object[] args = jp.getArgs();
-        log.info("[{}]|{}|{}", "begin\t", clazzName + "." + methodName, JSON.toJSONString(args));
+        Object[] paramValues = jp.getArgs();
+        String[] paramNames = ((CodeSignature) jp.getSignature()).getParameterNames();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < paramNames.length; i++) {
+            if (paramValues[i] instanceof MultipartFile){
+                continue;
+            }
+            sb.append("{").append(paramNames[i]).append(":").append(paramValues[i]).append("}");
+        }
+        log.info("[{}]|{}|{}", " --->begin\t", clazzName + "." + methodName, sb.toString());
     }
 
     @AfterReturning(pointcut = "performance()", returning = "result")
@@ -79,7 +89,7 @@ public class LogAspect {
             ResultInfo resultInfo = (ResultInfo) result;
             String clazzName = jp.getSignature().getDeclaringType().getSimpleName();
             String methodName = jp.getSignature().getName();
-            log.info("[{}]|{}|{}", "end\t",  clazzName + "." + methodName, JSON.toJSONString(resultInfo.getData()));
+            log.info("[{}]|{}|{}", "<---end\t",  clazzName + "." + methodName, JSON.toJSONString(resultInfo.getData()));
         }
     }
 
@@ -87,7 +97,7 @@ public class LogAspect {
     public void afterReturn(JoinPoint jp, Throwable t){
         String clazzName = jp.getSignature().getDeclaringType().getSimpleName();
         String methodName = jp.getSignature().getName();
-        log.info("[{}]|{}|{}", "error",  clazzName + "." + methodName, t.getMessage());
+        log.info("[{}]|{}|{}", "<---error\t",  clazzName + "." + methodName, t.getMessage());
         t.printStackTrace();
     }
 
