@@ -11,6 +11,7 @@ import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.google.common.base.Throwables;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.http.fileupload.FileUploadBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,11 +23,11 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.List;
@@ -103,10 +104,16 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
             public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object o, Exception e) {
                 ResultInfo resultInfo = new ResultInfo();
                 Throwable t = Throwables.getRootCause(e);
+                log.error("统一异常处理，" + e.getMessage());
+                e.printStackTrace();
                 if (t instanceof ServiceException){
                     resultInfo.setCode(400);
                     resultInfo.setMessage(t.getMessage());
                 }else
+                if (t instanceof FileUploadBase.SizeLimitExceededException){
+                    resultInfo.setCode(503);
+                    resultInfo.setMessage("文件大小超过限制");
+                } else
                 if (t instanceof UnLoginException){
                     if("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))){
                         response.setHeader("REDIRECT", "REDIRECT");//告诉ajax我是重定向
@@ -136,7 +143,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.toString());
         response.setStatus(200);
         try {
-            response.getWriter().write(JSON.toJSONString(result));
+            PrintWriter pw = response.getWriter();
+            pw.write(JSON.toJSONString(result));
+            pw.flush();
+            pw.close();
         } catch (IOException ex) {
             log.error(ex.getMessage(), ex);
         }

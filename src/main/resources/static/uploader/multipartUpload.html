@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>multipart上传</title>
+    <script src="../../static/js/jquery.1.9.1.min.js"></script>
+    <script src="../../static/js/common.js"></script>
+</head>
+<body>
+    请选择文件
+    <input type="file" id="file"/>
+    <button type="button" onclick="gg()">获取路径</button>
+<script>
+    function gg() {
+        var file = $("#file")[0].files[0];
+        var postData = new FormData();
+        postData.append("imageType", 12);
+        postData.append("file", file);
+        ajaxFormPost(postData, "/upload/image", function (result) {
+            console.log(result)
+        });
+    }
+
+</script>
+</body>
+</html>
