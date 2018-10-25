@@ -4,8 +4,7 @@ import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.vo.StudentLogTestVo;
 import org.junit.Test;
 
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * @author youfang
@@ -94,5 +93,17 @@ public class SimpleTest {
         logTestVo.setAge(12);
         Object[] obj = new Object[]{logTestVo};
         System.out.println(obj[0]);
+    }
+
+    @Test
+    public void test31(){
+        int i =1/0;
+        System.out.println(i);
+    }
+
+    @Test
+    public void testw34(){
+        Map<String, String> stringMap = new HashMap<String, String>();
+
     }
 }
