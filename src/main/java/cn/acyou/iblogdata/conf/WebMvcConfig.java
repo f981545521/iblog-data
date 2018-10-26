@@ -26,6 +26,7 @@ import org.springframework.web.servlet.config.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
@@ -103,6 +104,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
             @Override
             public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object o, Exception e) {
                 ResultInfo resultInfo = new ResultInfo();
+                ModelAndView mv = new ModelAndView("error");
                 Throwable t = Throwables.getRootCause(e);
                 log.error("统一异常处理，" + e.getMessage());
                 e.printStackTrace();
@@ -132,8 +134,26 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
                     resultInfo.setCode(400);
                     resultInfo.setMessage("喔呦，程序奔溃咯！");
                 }
-                responseResult(response, resultInfo);
-                return new ModelAndView();
+                //响应Ajax请求
+                if("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))){
+                    responseResult(response, resultInfo);
+                }
+                mv.addObject("code", resultInfo.getCode());
+                mv.addObject("message", resultInfo.getMessage());
+                String requestUrl = request.getRequestURL().toString();
+                mv.addObject("requestUrl", requestUrl);
+                //打印堆栈日志到字符串
+                ByteArrayOutputStream buf = new ByteArrayOutputStream();
+                e.printStackTrace(new java.io.PrintWriter(buf, true));
+                String expMessage = buf.toString();
+                String expSimpleMessage =  (expMessage.length() > 500) ? expMessage.substring(0, 500):expMessage;
+                try {
+                    buf.close();
+                } catch (IOException ex) {
+                    e.printStackTrace();
+                }
+                mv.addObject("expMessage", expSimpleMessage);
+                return mv;//响应ModelAndView请求
             }
         });
     }

@@ -1,0 +1,11 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head th:include="/common/header::commonHeader('欢迎您')"></head>
+<body>
+    <h1>程序奔溃啦</h1>
+    <h3 th:text="${code}"></h3>
+    <h3 th:text="${message}"></h3>
+    <h3 th:text="${requestUrl}"></h3>
+    <h3 th:text="${expMessage}"></h3>
+</body>
+</html>

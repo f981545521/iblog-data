@@ -3,7 +3,6 @@ package cn.acyou.iblogdata.controller;
 import cn.acyou.iblogdata.jmessage.JMessageHelper;
 import cn.acyou.iblogdata.utils.Md5Util;
 import cn.jmessage.api.common.model.RegisterInfo;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
