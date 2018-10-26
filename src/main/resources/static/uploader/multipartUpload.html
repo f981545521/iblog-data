@@ -10,6 +10,10 @@
     请选择文件
     <input type="file" id="file"/>
     <button type="button" onclick="gg()">获取路径</button>
+
+    <h3>Excel导入</h3>
+    <button type="button" onclick="upload()">上传文件</button>
+
 <script>
     function gg() {
         var file = $("#file")[0].files[0];
@@ -17,6 +21,14 @@
         postData.append("imageType", 12);
         postData.append("file", file);
         ajaxFormPost(postData, "/upload/image", function (result) {
+            console.log(result)
+        });
+    }
+    function upload() {
+        var file = $("#file")[0].files[0];
+        var postData = new FormData();
+        postData.append("file", file);
+        ajaxFormPost(postData, "/poi/import", function (result) {
             console.log(result)
         });
     }
