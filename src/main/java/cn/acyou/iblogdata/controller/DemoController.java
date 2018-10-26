@@ -60,7 +60,7 @@ public class DemoController extends BaseController{
     public String demoPage(){
         String flag = request.getParameter("flag");
         if ("1".equals(flag)){
-            throw new ServiceException();
+            throw new ServiceException("FLAG 不能是1呦！");
         }
         return "demo/demoPage";
     }
