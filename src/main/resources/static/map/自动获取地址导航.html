@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>位置经纬度 + 驾车规划路线</title>
+    <style type="text/css">
+    html,
+    body,
+    #container {
+      width: 100%;
+      height: 100%;
+    }
+    </style>
+    <style type="text/css">
+        #panel {
+            position: fixed;
+            background-color: white;
+            max-height: 90%;
+            overflow-y: auto;
+            top: 10px;
+            right: 10px;
+            width: 280px;
+        }
+        #panel .amap-call {
+            background-color: #009cf9;
+            border-top-left-radius: 4px;
+   	        border-top-right-radius: 4px;
+        }
+        #panel .amap-lib-driving {
+	        border-bottom-left-radius: 4px;
+   	        border-bottom-right-radius: 4px;
+            overflow: hidden;
+        }
+    </style>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.10&key=90c22a4e1570af59f0591922528980cf&plugin=AMap.Driving"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+</head>
+<body>
+<div id="container"></div>
+<div id="panel"></div>
+<script type="text/javascript">
+
+    var targetPost = {"lat":31.951658,"lng":118.832451};
+    //基本地图加载
+    var map = new AMap.Map("container", {
+        resizeEnable: true
+    });
+    
+    //定位
+    map.plugin('AMap.Geolocation', function() {
+      var geolocation = new AMap.Geolocation({
+        // 是否使用高精度定位，默认：true
+        enableHighAccuracy: true,
+        // 设置定位超时时间，默认：无穷大
+        timeout: 10000,
+        // 定位按钮的停靠位置的偏移量，默认：Pixel(10, 20)
+        buttonOffset: new AMap.Pixel(10, 20),
+        //  定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+        zoomToAccuracy: true,     
+        //  定位按钮的排放位置,  RB表示右下
+        buttonPosition: 'RB'
+      })
+
+      geolocation.getCurrentPosition()
+      AMap.event.addListener(geolocation, 'complete', onComplete)
+      AMap.event.addListener(geolocation, 'error', onError)
+
+      function onComplete (data) {
+         console.log(data);
+         var lat = data.position.lat;
+         var lng = data.position.lng;
+         
+        //构造路线导航类
+        var driving = new AMap.Driving({
+            map: map
+            //,panel: "panel"
+        }); 
+        // 根据起终点经纬度规划驾车导航路线
+        driving.search(new AMap.LngLat(lng, lat), new AMap.LngLat(targetPost.lng, targetPost.lat), function(status, result) {
+            // result 即是对应的驾车导航信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingResult
+            if (status === 'complete') {
+                log.success('绘制驾车路线完成')
+            } else {
+                log.error('获取驾车数据失败：' + result)
+            }
+        });
+        
+
+        var marker = new AMap.Marker({
+            position: new AMap.LngLat(targetPost.lng, targetPost.lat),// 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+            icon: ''
+        });
+        marker.setMap(map);
+
+        // 设置label标签
+        // label默认蓝框白底左上角显示，样式className为：amap-marker-label
+        marker.setLabel({
+            //修改label相对于maker的位置
+            offset: new AMap.Pixel(20, 20),
+            content: "北京站"
+        });
+      }
+
+      function onError (data) {
+        console.log(data);// 定位出错
+      }
+    })
+    
+
+
+</script>
+</body>
+</html>
