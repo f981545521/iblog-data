@@ -1,10 +1,14 @@
 package cn.acyou.iblogdata.test.other;
 
+import cn.acyou.iblog.entity.Teacher;
 import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.vo.StudentLogTestVo;
+import cn.acyou.iblogdata.vo.StudentVo;
 import org.junit.Test;
+import org.springframework.util.Assert;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * @author youfang
@@ -104,6 +108,94 @@ public class SimpleTest {
     @Test
     public void testw34(){
         Map<String, String> stringMap = new HashMap<String, String>();
+        stringMap.put("12", "1230");
+        stringMap.put("13", "1230");
+        stringMap.put("14", "1230");
+        stringMap.put("15", "1230");
+        stringMap = new HashMap<>();
+        System.out.println(stringMap);
+    }
+
+    @Test
+    public void test44(){
+        StudentVo studentVo = new StudentVo();
+        if (studentVo != null && studentVo.getTeacherList() != null && studentVo.getTeacherList().get(1) != null){
+            System.out.println(studentVo.getTeacherList().get(1));
+        }
+        Optional.of(studentVo).map(StudentVo::getTeacherList).ifPresent(System.out::println);
 
     }
+    @Test
+    public void test51(){
+        //调用工厂方法创建Optional实例
+        StudentVo studentVo = new StudentVo();
+        studentVo.setName("ass");
+        System.out.println(studentVo);
+        Optional<List<Teacher>> teachers = Optional.of(studentVo).map(StudentVo::getTeacherList);
+        System.out.println(studentVo.getTeacherList().size());
+    }
+    @Test
+    public void test52(){
+        //调用工厂方法创建Optional实例
+        Optional empty = Optional.ofNullable(null);
+    }
+
+
+    @Test
+    public void test54(){
+        //调用工厂方法创建Optional实例
+        StudentVo studentVo = new StudentVo();
+        studentVo.setName("ass");
+        System.out.println(studentVo);
+        Optional<StudentVo> stuOpt = Optional.of(studentVo);
+        stuOpt.map(StudentVo::getAge).orElse(1);
+        System.out.println(studentVo);
+        System.out.println(studentVo.getTeacherList().size());
+    }
+    @Test
+    public void test55(){
+        //调用工厂方法创建Optional实例
+        StudentVo studentVo = new StudentVo();
+        Assert.notNull(studentVo.getName(), "不能为空");
+    }
+    @Test
+    public void test56(){
+        StudentVo studentVo = new StudentVo();
+        Optional<StudentVo> stuOpt = Optional.of(studentVo);
+        Optional<String> nameOpt = stuOpt.map(StudentVo::getName);
+        String a = nameOpt.orElse("默认你是小明");
+        // nameOpt.orElseThrow(() -> new ServiceException("不能为空"));
+        System.out.println("好的");
+        System.out.println(studentVo);
+        Optional.of(studentVo).orElseThrow(() -> new ServiceException("不能为空"));
+        //Optional.of(studentVo.getName()).orElseThrow(() -> new ServiceException("不能为空"));
+    }
+
+    @Test
+    public void test57(){
+        StudentVo studentVo = new StudentVo();
+        studentVo.setName("小花");
+        Optional<StudentVo> stuOpt = Optional.of(studentVo);
+        stuOpt.map(StudentVo::getName).ifPresent(new Consumer<String>() {
+            @Override
+            public void accept(String s) {
+                System.out.println("--------------");
+                s = "哈里斯";
+                System.out.println(s);
+            }
+        });
+        //stuOpt.map(StudentVo::getTeacherList).orElseThrow(() -> new ServiceException("不能为空"));
+        System.out.println(studentVo);
+    }
+    @Test
+    public void test58(){
+        StudentVo studentVo = new StudentVo();
+        Optional<StudentVo> stuOpt = Optional.of(studentVo);
+        stuOpt.map(StudentVo::getName);
+        System.out.println(studentVo);
+    }
+
+
+
+
 }

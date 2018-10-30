@@ -51,4 +51,15 @@ public class StudentVo extends Po {
     public void setTeacherList(List<Teacher> teacherList) {
         this.teacherList = teacherList;
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("StudentVo{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", age=").append(age);
+        sb.append(", teacherList=").append(teacherList);
+        sb.append('}');
+        return sb.toString();
+    }
 }
