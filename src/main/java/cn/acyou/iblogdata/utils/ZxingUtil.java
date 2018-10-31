@@ -64,15 +64,10 @@ public class ZxingUtil {
      * @throws NotFoundException
      */
     public static String readZxing(String qrcodeUrl) throws IOException, NotFoundException {
-        MultiFormatReader read = new MultiFormatReader();
         URL url = new URL(qrcodeUrl);
         HttpURLConnection httpUrl = (HttpURLConnection) url.openConnection();
         httpUrl.connect();
-        BufferedImage image = ImageIO.read(httpUrl.getInputStream());
-        Binarizer binarizer = new HybridBinarizer(new BufferedImageLuminanceSource(image));
-        BinaryBitmap binaryBitmap = new BinaryBitmap(binarizer);
-        Result res = read.decode(binaryBitmap);
-        return res.toString();
+        return readZxing(httpUrl.getInputStream());
     }
 
     /**
