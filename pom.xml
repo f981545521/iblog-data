@@ -419,8 +419,17 @@
             <artifactId>easypoi-annotation</artifactId>
             <version>3.2.0</version>
         </dependency>
-
-
+        <!-- Qr二维码生成工具 -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>3.0.0</version>
+        </dependency>
     </dependencies>
 
     <!--依赖管理，用于管理spring-cloud的依赖，其中Camden.SR3是版本号-->
