@@ -4,11 +4,13 @@ import cn.acyou.iblog.entity.Teacher;
 import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.vo.StudentLogTestVo;
 import cn.acyou.iblogdata.vo.StudentVo;
+import org.apache.commons.lang3.SystemUtils;
 import org.junit.Test;
 import org.springframework.util.Assert;
 
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 /**
  * @author youfang
@@ -195,7 +197,34 @@ public class SimpleTest {
         System.out.println(studentVo);
     }
 
+    @Test
+    public void test588(){
+        String path = SystemUtils.getUserHome().getPath();
+        System.out.println(path);
+    }
 
+    @Test
+    public void test61(){
+        Logger logger = Logger.getLogger("ad");
+        logger.info("好的");
+    }
 
+    @Test
+    public void test62(){
+        int sum = 0;
+        for (int j=0;j<=100;j++){
+            sum+=j;
+        }
+        System.out.println(sum);
+    }
+
+    @Test
+    public void test63(){
+        Integer i = 128;
+        Integer b = 128;
+        System.out.println(i == 128);//true
+        System.out.println(i == b);//false
+        System.out.println(i.equals(128));//true
+    }
 
 }
