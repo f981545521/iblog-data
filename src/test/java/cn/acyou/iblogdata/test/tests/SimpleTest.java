@@ -219,5 +219,19 @@ public class SimpleTest {
         // 2. 水电费"
     }
 
+    @Test
+    public void test31(){
+        String word = "Pneumonoultramicroscopicsilicovolcanoconiosis";
+        System.out.println(word.length());
+    }
+
+    @Test
+    public void test32(){
+        //int valueTen = 305419896;
+        int valueTen = 1412569788;
+        String strHex = Integer.toHexString(valueTen);
+        System.out.println(strHex);//12345678
+    }
+
 
 }
