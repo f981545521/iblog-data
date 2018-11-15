@@ -4,10 +4,15 @@ import cn.acyou.iblog.entity.Teacher;
 import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.vo.StudentLogTestVo;
 import cn.acyou.iblogdata.vo.StudentVo;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.junit.Test;
 import org.springframework.util.Assert;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
+import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
@@ -225,6 +230,31 @@ public class SimpleTest {
         System.out.println(i == 128);//true
         System.out.println(i == b);//false
         System.out.println(i.equals(128));//true
+    }
+
+    @Test
+    public void testDistance(){
+        Integer dis = 3456;
+        Double d = Math.round(dis/100d)/10d;
+        System.out.println(d);
+
+
+        DecimalFormat df = new DecimalFormat("######0.00");
+        String s = df.format(Double.parseDouble(String.valueOf(dis)));
+        System.out.println(s);
+    }
+
+
+    @Test
+    public void testEncoder() throws IOException {
+        String waitStr = "youfang";
+        System.out.println(DigestUtils.md5Hex(waitStr));//MD5加密
+        System.out.println(DigestUtils.sha1Hex(waitStr));//sha1加密
+        //BASE64加密与解密
+        String baseCode = (new BASE64Encoder()).encodeBuffer(waitStr.getBytes());
+        System.out.println(baseCode);
+        System.out.println(new String((new BASE64Decoder()).decodeBuffer(baseCode)));
+
     }
 
 }
