@@ -2,13 +2,18 @@ package cn.acyou.iblogdata.controller;
 
 import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.export.StudentEntityExportServer;
+import cn.acyou.iblogdata.utils.ResultInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author youfang
@@ -42,5 +47,20 @@ public class DemoController extends BaseController{
     public String pomName(){
         return pomName;
     }
+
+    @RequestMapping(value = "setCookie", method = {RequestMethod.GET})
+    @ResponseBody
+    public ResultInfo setCookie(HttpServletResponse response){
+        Cookie cookie = new Cookie("name", "小三");
+        response.addCookie(cookie);
+        return new ResultInfo();
+    }
+    @RequestMapping(value = "getCookie", method = {RequestMethod.GET})
+    @ResponseBody
+    public ResultInfo getCookie(@CookieValue String name){
+        return new ResultInfo(name);
+    }
+
+
 
 }

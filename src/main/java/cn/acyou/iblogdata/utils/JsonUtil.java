@@ -1,5 +1,6 @@
 package cn.acyou.iblogdata.utils;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +37,27 @@ public class JsonUtil {
         }
     }
 
-
+    /**
+     * 获取Json字符串的某个节点内容
+     *
+     * @param jsonString：字符串
+     * @param key：节点key
+     * @return
+     * @see [类、类#方法、类#成员]
+     */
+    public static String readTree(String jsonString, String key) {
+        try {
+            JsonNode node = objectMapper.readTree(jsonString);
+            if (node == null) {
+                return "";
+            }
+            return node.get(key).toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error(e.getMessage());
+        }
+        return null;
+    }
 
 
 }
