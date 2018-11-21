@@ -2,6 +2,7 @@ package cn.acyou.iblogdata.test.other;
 
 import cn.acyou.iblog.entity.Teacher;
 import cn.acyou.iblogdata.exception.ServiceException;
+import cn.acyou.iblogdata.utils.JsonUtil;
 import cn.acyou.iblogdata.vo.StudentLogTestVo;
 import cn.acyou.iblogdata.vo.StudentVo;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -255,6 +256,51 @@ public class SimpleTest {
         System.out.println(baseCode);
         System.out.println(new String((new BASE64Decoder()).decodeBuffer(baseCode)));
 
+    }
+
+    @Test
+    public void test66(){
+        double d1 = 0.1;
+        double d2 = 0.1;
+        System.out.println(d1 + d2);
+    }
+
+    @Test
+    public void test67(){
+        String jsonStr = "{\"packageId\":6}";
+        String jsonStr2 = "{&quot;packageId&quot;:12}";
+        System.out.println(JsonUtil.readTree(jsonStr, "packageId"));
+    }
+    @Test
+    public void test68(){
+        String jsonStr = "packageId-123+dfsf-3fds+";
+        String[] s = jsonStr.split("\\+");
+        Map<String, String> result = new HashMap<>();
+        for (String ss:s){
+            if (ss.indexOf("-") > 0){
+                String key = ss.substring(0, ss.indexOf("-"));
+                String val = ss.substring(ss.indexOf("-") + 1);
+                System.out.println(key + ":" + val);
+            }
+        }
+    }
+
+    @Test
+    public void test69(){
+        String ss = "天天健身-购卡";
+        System.out.println(ss);
+    }
+
+    @Test
+    public void test70(){
+        Double fee = 0.21;
+        System.out.println(wxFee(fee));
+        System.out.println((fee * 100d));
+    }
+
+    public static String wxFee(double money) {
+        Double f = money * 100d;
+        return f.intValue() + "";
     }
 
 }
