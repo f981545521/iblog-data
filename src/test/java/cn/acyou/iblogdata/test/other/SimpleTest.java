@@ -1,6 +1,7 @@
 package cn.acyou.iblogdata.test.other;
 
 import cn.acyou.iblog.entity.Teacher;
+import cn.acyou.iblog.utility.DateUtil;
 import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.utils.JsonUtil;
 import cn.acyou.iblogdata.vo.StudentLogTestVo;
@@ -13,6 +14,7 @@ import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.function.Consumer;
@@ -301,6 +303,20 @@ public class SimpleTest {
     public static String wxFee(double money) {
         Double f = money * 100d;
         return f.intValue() + "";
+    }
+
+    @Test
+    public void test123(){
+        String birth = "1992 13 31";
+        DateUtil.parseDate(birth, "yyyy MM dd");
+        System.out.println(birth.matches("\\d[4] \\d[2] \\d[2]"));
+    }
+
+    @Test
+    public void test124(){
+        BigDecimal decimalA = new BigDecimal(12.00);
+        BigDecimal decimalResult = decimalA.pow(2);
+        System.out.println(decimalResult);
     }
 
 }
