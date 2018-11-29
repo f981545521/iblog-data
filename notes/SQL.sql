@@ -59,6 +59,18 @@ INSERT INTO `teacher` VALUES ('1', '吴菲菲', '34', '1');
 INSERT INTO `teacher` VALUES ('2', '扣扣', '45', '1');
 INSERT INTO `teacher` VALUES ('3', '范德萨', '43', '1');
 
+CREATE TABLE `auditor` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT '元素名称',
+  `description` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '描述信息',
+  `deleted` int(1) NOT NULL DEFAULT '1' COMMENT '是否删除: 0-否 1-是，默认0-否',
+  `version` int(1) NOT NULL DEFAULT '1' COMMENT '版本号',
+  `create_user` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间,默认当前时间',
+  `last_update_user` bigint(20) DEFAULT NULL COMMENT '最后修改人',
+  `last_update_time` datetime DEFAULT NULL COMMENT '最后修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='审计员';
 
 ####################### 使用Druid监控的时候需要创建以下的表信息  #######################
 ##### 参考：https://github.com/alibaba/druid/tree/53c3f98bb2be11eae603b71691317d31d45c2dcf/src/main/resources/support/monitor/mysql
