@@ -4,6 +4,7 @@ import cn.acyou.iblog.entity.Teacher;
 import cn.acyou.iblog.utility.DateUtil;
 import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.utils.JsonUtil;
+import cn.acyou.iblogdata.utils.RandomUtil;
 import cn.acyou.iblogdata.vo.StudentLogTestVo;
 import cn.acyou.iblogdata.vo.StudentVo;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -317,6 +318,18 @@ public class SimpleTest {
         BigDecimal decimalA = new BigDecimal(12.00);
         BigDecimal decimalResult = decimalA.pow(2);
         System.out.println(decimalResult);
+    }
+
+    @Test
+    public void test125(){
+        String no = "PL201811211759224482505";
+        String randomStr = RandomUtil.createRandom(true, 5);
+        String noBak = no + "_" + randomStr;
+        System.out.println(noBak);
+        if (no.lastIndexOf("_") > 1){
+            System.out.println(no.substring(0, no.lastIndexOf("_")));
+        }
+        System.out.println(noBak.substring(0, noBak.lastIndexOf("_")));
     }
 
 }
