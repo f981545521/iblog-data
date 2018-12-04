@@ -19,5 +19,8 @@ public class MyCommandLineRunner implements CommandLineRunner {
     @Override
     public void run(String... var1) throws Exception{
         log.info("MyCommandLineRunner was started!");
+
+        log.warn("测试 ----------- 警告日志");
+        log.error("测试 ----------- 错误日志");
     }
 }
