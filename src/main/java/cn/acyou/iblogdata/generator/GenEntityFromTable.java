@@ -26,10 +26,10 @@ public class GenEntityFromTable {
      * 正常情况下读取表注释时，是取不出来的。
      * 需要增加useInformationSchema=true配置
      */
-    private static final String url = "jdbc:mysql://localhost:3306/service_sport?useInformationSchema=true&useUnicode=true&characterEncoding=UTF-8";
-    private static final String TABLE_NAME = "t_sport_record";// 表名
-    private static final String PACKAGE = "com.suizhi.ares.domain.record";//你的实体类所在的包的位置
-    private static final String CLASS_NAME = convertCamelCase("sport_record");// 类名文件名
+    private static final String url = "jdbc:mysql://localhost:3306/service_promotion?useInformationSchema=true&useUnicode=true&characterEncoding=UTF-8";
+    private static final String TABLE_NAME = "t_bargain_rule_config";// 表名
+    private static final String PACKAGE = "com.suizhi.ares.domain.bargain";//你的实体类所在的包的位置
+    private static final String CLASS_NAME = convertCamelCase("bargain_rule_config");// 类名文件名
 
     private static Connection connection = null;
 
@@ -64,12 +64,20 @@ public class GenEntityFromTable {
 
     }
 
+    private static String pkName = "";
+
     private static void generateEntity(String className){
         FileSystemView fsv = FileSystemView.getFileSystemView();
         String path = fsv.getHomeDirectory().toString();//获取当前用户桌面路径
         connection = getConnections();
         try {
             DatabaseMetaData dbmd = connection.getMetaData();
+            //获取主键
+            ResultSet pkRs = dbmd.getPrimaryKeys(null, null, TABLE_NAME);
+            while (pkRs.next()) {
+                pkName = (String) pkRs.getObject(4);
+            }
+
             ResultSet resultSet = dbmd.getTables(null, "%", "%", new String[]{"TABLE"});
             while (resultSet.next()) {
                 String tableName = resultSet.getString("TABLE_NAME");
@@ -129,7 +137,11 @@ public class GenEntityFromTable {
                         String type = sqlType2JavaType(typeName);
                         String name = rs1.getString("COLUMN_NAME");
                         String remark = rs1.getString("REMARKS");
-                        System.out.println("    <id column=\"" + name + "\" jdbcType=\"" + typeName2JDBCType(typeName) + "\" property=\"" + convertcamelCase(name) + "\"/>");
+                        String result = "result";
+                        if (remark.contains("主键")){
+                            result = "id";
+                        }
+                        System.out.println("    <"+result+" column=\"" + name + "\" jdbcType=\"" + typeName2JDBCType(typeName) + "\" property=\"" + convertcamelCase(name) + "\"/>");
                         createPrtype(pw, type, name, remark);
                     }
                     System.out.println("</resultMap>");
@@ -179,7 +191,15 @@ public class GenEntityFromTable {
         } else {
             pw.write("\t//" + name + "\r\n");
         }
+
+        if (!pkName.equals("") && name.equals(pkName)){
+            pw.write("    @Id\r\n");
+            pw.write("    @GeneratedValue(generator = \"JDBC\")\r\n");
+        }
         pw.write("    @Column(name = \"" + name + "\")\r\n");
+        if ("Date".equals(type)){
+            pw.write("    @JsonFormat(pattern = \"yyyy-MM-dd HH:mm:ss\", timezone = \"GMT+8\")\r\n");
+        }
         pw.write("    private " + type + "	" + convertcamelCase(name) + ";\r\n");
     }
 
@@ -223,10 +243,12 @@ public class GenEntityFromTable {
             str = "Long";
         } else if (sqlType.equalsIgnoreCase("float")) {
             str = "float";
-        } else if (sqlType.equalsIgnoreCase("decimal") || sqlType.equalsIgnoreCase("numeric")
+        } else if (sqlType.equalsIgnoreCase("numeric")
                 || sqlType.equalsIgnoreCase("real") || sqlType.equalsIgnoreCase("money")
                 || sqlType.equalsIgnoreCase("smallmoney")|| sqlType.equalsIgnoreCase("double")) {
             str = "Double";
+        } else if(sqlType.equalsIgnoreCase("decimal") ){
+            str = "BigDecimal";
         } else if (sqlType.equalsIgnoreCase("varchar") || sqlType.equalsIgnoreCase("char")
                 || sqlType.equalsIgnoreCase("nvarchar") || sqlType.equalsIgnoreCase("nchar")
                 || sqlType.equalsIgnoreCase("text")  || sqlType.equalsIgnoreCase("longtext")) {
