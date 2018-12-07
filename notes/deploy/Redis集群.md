@@ -14,6 +14,7 @@ redis> get foo
 
 - 集群检查
 [root@acyou src]# ./redis-cli --cluster info
+[root@acyou redis-cluster]# vi 7001/nodes-7001.conf 
 - 千万要注意
 创建集群的时候不能以127.0.0.1创建，这个问题折腾了半天！！！
 
