@@ -10,7 +10,13 @@ OK
 redis> get foo
 "bar"
 ### 集群安装
-[root@acyou src]# ./redis-cli --cluster create 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 127.0.0.1:7006 --cluster-replicas 1
+[root@acyou src]# ./redis-cli --cluster create **127.0.0.1:7001** 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 127.0.0.1:7006 --cluster-replicas 1
+
+- 集群检查
+[root@acyou src]# ./redis-cli --cluster info
+- 千万要注意
+创建集群的时候不能以127.0.0.1创建，这个问题折腾了半天！！！
+
 参考：https://www.cnblogs.com/zwcry/p/9174233.html
 1.redis安装
 　　安装教程：https://www.cnblogs.com/zwcry/p/9505949.html
