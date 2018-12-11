@@ -1,5 +1,6 @@
 package cn.acyou.iblogdata.test.other;
 
+import cn.acyou.iblog.entity.Student;
 import cn.acyou.iblog.entity.Teacher;
 import cn.acyou.iblog.utility.DateUtil;
 import cn.acyou.iblogdata.exception.ServiceException;
@@ -330,6 +331,13 @@ public class SimpleTest {
             System.out.println(no.substring(0, no.lastIndexOf("_")));
         }
         System.out.println(noBak.substring(0, noBak.lastIndexOf("_")));
+    }
+
+    @Test
+    public void testToString(){
+        cn.acyou.iblogdata.entity.Teacher teacher = new cn.acyou.iblogdata.entity.Teacher();
+        teacher.setName("xxx");
+        System.out.println(teacher);
     }
 
 }
