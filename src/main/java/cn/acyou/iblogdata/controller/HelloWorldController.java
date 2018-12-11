@@ -1,5 +1,6 @@
 package cn.acyou.iblogdata.controller;
 
+import cn.acyou.iblog.constant.AppConstant;
 import cn.acyou.iblog.model.Sort;
 import cn.acyou.iblog.service.SortService;
 import cn.acyou.iblogdata.conf.properties.ThirdProperties;
@@ -8,10 +9,8 @@ import cn.acyou.iblogdata.conf.properties.WxProperties2;
 import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.service.StudentService;
 import cn.acyou.iblogdata.so.ArrayParamReq;
-import cn.acyou.iblogdata.utils.ResultInfo;
-import cn.acyou.iblogdata.utils.SpringHelper;
-import cn.acyou.iblogdata.utils.StudentConfig;
-import cn.acyou.iblogdata.utils.StudentConfig2;
+import cn.acyou.iblogdata.so.StudentArrayReq;
+import cn.acyou.iblogdata.utils.*;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
@@ -20,12 +19,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,6 +35,9 @@ import org.thymeleaf.util.DateUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -224,6 +228,40 @@ public class HelloWorldController extends BaseController{
     public ResultInfo arrayParam4(ArrayParamReq req){
          return new ResultInfo(req);
     }
+
+
+    @RequestMapping(value = "arrayParam5", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResultInfo arrayParam5(@RequestBody StudentArrayReq req){
+         return new ResultInfo(req);
+    }
+
+    @RequestMapping(value = "arrayParam6", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResultInfo arrayParam6(StudentArrayReq req){
+         return new ResultInfo(req);
+    }
+
+
+    /**
+     * 为了解决 日期不匹配问题
+     * Failed to convert from type [java.lang.String] to type [@com.fasterxml.jackson.annotation.JsonFormat  @javax.persistence.Column java.util.Date]
+     *
+     *  为了干好的解决这个问题采用注解：https://qq466862016.iteye.com/blog/2249974
+     *  DateParser
+     *
+     * @param binder
+     */
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        DateFormat dateFormat = new SimpleDateFormat(AppConstant.SPECIFIC_DATE_FORMAT_PATTERN);
+        dateFormat.setLenient(true);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
+
+
+
 
     @RequestMapping(value = "paramStr", method = {RequestMethod.POST})
     @ResponseBody
