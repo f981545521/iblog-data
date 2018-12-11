@@ -17,7 +17,7 @@ import java.util.Random;
  * @author youfang
  * @version [1.0.0, 2018-06-11 下午 02:52]
  **/
-public class GenEntityFromTable {
+public class GenEntityFromTable2XPN {
 
     private static final String driver = "com.mysql.jdbc.Driver";
     private static final String user = "root";
@@ -27,44 +27,17 @@ public class GenEntityFromTable {
      * 需要增加useInformationSchema=true配置
      */
     private static final String url = "jdbc:mysql://localhost:3306/service_promotion?useInformationSchema=true&useUnicode=true&characterEncoding=UTF-8";
-    private static final String TABLE_NAME = "t_bargain_order";// 表名
+    private static final String TABLE_NAME = "t_bargain_order_record";// 表名
     private static final String PACKAGE = "com.suizhi.ares.domain.bargain";//你的实体类所在的包的位置
-    private static final String CLASS_NAME = convertCamelCase("bargain_order");// 类名文件名
+    private static final String CLASS_NAME = convertCamelCase("bargain_order_record");// 类名文件名
 
     private static Connection connection = null;
-
+    private static final String MAPPER_PACKAGE = PACKAGE.replace("domain", "mapper");
     public static void main(String[] args) throws Exception{
         generateEntity(CLASS_NAME);
-        generateMapper(TABLE_NAME);
     }
 
-
-    private static void generateMapper(String tableName) {
-        connection = getConnections();//获取连接
-        String sql = "select GROUP_CONCAT(COLUMN_NAME SEPARATOR ', ')  as cool from INFORMATION_SCHEMA.Columns where table_name='" + tableName + "'";//SQL语句
-        try {
-            Statement statement = connection.createStatement();//创建Statement
-            ResultSet resultSet = statement.executeQuery(sql);//执行SQL获取ResultSet
-            while (resultSet.next()){//遍历ResultSet获取结果
-                String result = resultSet.getString("cool");
-                System.out.println("    <sql id=\"Base_Column_List\">");
-                System.out.println("        " + result);
-                System.out.println("    </sql>");
-
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-    private static String pkName = "";
+    private static String PK_NAME = "";
 
     private static void generateEntity(String className){
         FileSystemView fsv = FileSystemView.getFileSystemView();
@@ -75,7 +48,7 @@ public class GenEntityFromTable {
             //获取主键
             ResultSet pkRs = dbmd.getPrimaryKeys(null, null, TABLE_NAME);
             while (pkRs.next()) {
-                pkName = (String) pkRs.getObject(4);
+                PK_NAME = (String) pkRs.getObject(4);
             }
 
             ResultSet resultSet = dbmd.getTables(null, "%", "%", new String[]{"TABLE"});
@@ -103,35 +76,60 @@ public class GenEntityFromTable {
                     }else {
                         fileName = convertCamelCase(TABLE_NAME);
                     }
-                    File directory = new File(path + "\\" + fileName + ".java");
-                    FileWriter fw = new FileWriter(directory);
-                    PrintWriter pw = new PrintWriter(fw);
-                    pw.write("package " + PACKAGE + ";\r\n");
-                    pw.write("\r\n");
-                    pw.write("import javax.persistence.Column;\r\n");
-                    pw.write("import javax.persistence.Table;\r\n");
-                    pw.write("import java.io.Serializable;\r\n");
-                    pw.write("import java.util.Date;\r\n");
-                    pw.write("\r\n");
-                    pw.write("/**\r\n");
-                    pw.write(" * " + TABLE_NAME + " 实体类\r\n");
-                    pw.write(" * " + getDate() + " " + tableRemark + "\r\n");
-                    pw.write(" */ \r\n");
+                    //Mapper文件
+                    File mapperDirectory = new File(path + "\\" + fileName + "Mapper" + ".java");
+                    FileWriter mapperFw = new FileWriter(mapperDirectory);
+                    PrintWriter mapperPw = new PrintWriter(mapperFw);
+                    mapperPw.write("package " + MAPPER_PACKAGE + ";\r\n");
+                    mapperPw.write("\r\n");
+                    mapperPw.write("import tk.mybatis.mapper.common.Mapper;\r\n");
+                    mapperPw.write("import " + PACKAGE + "." + CLASS_NAME + ";\r\n");
+                    mapperPw.write("\r\n");
+                    mapperPw.write("public interface " + CLASS_NAME + "Mapper"  + " extends Mapper<"+CLASS_NAME+"> {\r\n");
+                    mapperPw.write("\r\n");
+                    mapperPw.write("}\r\n");
+                    mapperPw.flush();
+                    mapperPw.close();
+                    //XML 文件
+                    File xmlDirectory = new File(path + "\\" + fileName + "Mapper" + ".xml");
+                    FileWriter xmlFw = new FileWriter(xmlDirectory);
+                    PrintWriter xmlPw = new PrintWriter(xmlFw);
+                    xmlPw.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
+                    xmlPw.write("<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">\r\n");
+                    xmlPw.write("<mapper namespace=\""+MAPPER_PACKAGE +"."+fileName + "Mapper"+"\">\r\n");
+
+
+
+                    //实体类
+                    File javaDirectory = new File(path + "\\" + fileName + ".java");
+                    FileWriter javaFw = new FileWriter(javaDirectory);
+                    PrintWriter javaPw = new PrintWriter(javaFw);
+                    javaPw.write("package " + PACKAGE + ";\r\n");
+                    javaPw.write("\r\n");
+                    javaPw.write("import javax.persistence.Column;\r\n");
+                    javaPw.write("import javax.persistence.Table;\r\n");
+                    javaPw.write("import java.io.Serializable;\r\n");
+                    javaPw.write("import java.util.Date;\r\n");
+                    javaPw.write("\r\n");
+                    javaPw.write("/**\r\n");
+                    javaPw.write(" * " + TABLE_NAME + " 实体类\r\n");
+                    javaPw.write(" * " + getDate() + " " + tableRemark + "\r\n");
+                    javaPw.write(" */ \r\n");
                     if (StringUtils.isEmpty(className)){
                         className = convertCamelCase(TABLE_NAME);
                     }
-                    pw.write("@Table(name = \"" + TABLE_NAME + "\")\r\n");
-                    pw.write("public class " + className  + " implements Serializable{\r\n");
-                    pw.write("\r\n    private static final long serialVersionUID = "+ String.valueOf(new Random().nextLong()) +"L;\r\n");
+                    javaPw.write("@Table(name = \"" + TABLE_NAME + "\")\r\n");
+                    javaPw.write("public class " + className  + " implements Serializable{\r\n");
+                    javaPw.write("\r\n    private static final long serialVersionUID = "+ String.valueOf(new Random().nextLong()) +"L;\r\n");
                     System.out.println();
                     System.out.println(TABLE_NAME + "表信息：");
                     System.out.println();
-                    System.out.println("<resultMap id=\"Base_Result_Map\" type=\"" + PACKAGE + "." + CLASS_NAME + "\">");
+                    xmlPw.write("\r\n    <resultMap id=\"Base_Result_Map\" type=\"" + PACKAGE + "." + CLASS_NAME + "\">");
                     while (rs1.next()) {
                         //System.out.println("private " + sqlType2JavaType(rs1.getString("TYPE_NAME")) + "	" + rs1.getString("COLUMN_NAME") + ";");
-                        if (directory.exists()) {
+                        if (javaDirectory.exists()) {
                         } else {
-                            directory.createNewFile();
+                            javaDirectory.createNewFile();
                         }
                         String typeName = rs1.getString("TYPE_NAME");
                         String type = sqlType2JavaType(typeName);
@@ -141,21 +139,47 @@ public class GenEntityFromTable {
                         if (remark.contains("主键")){
                             result = "id";
                         }
-                        System.out.println("    <"+result+" column=\"" + name + "\" jdbcType=\"" + typeName2JDBCType(typeName) + "\" property=\"" + convertcamelCase(name) + "\"/>");
-                        createPrtype(pw, type, name, remark);
+                        xmlPw.write("\r\n        <"+result+" column=\"" + name + "\" jdbcType=\"" + typeName2JDBCType(typeName) + "\" property=\"" + convertcamelCase(name) + "\"/>");
+                        createPrtype(javaPw, type, name, remark);
                     }
-                    System.out.println("</resultMap>");
+                    xmlPw.write("\r\n    </resultMap>");
                     //提供Get和Set方法
-                    pw.write("\r\n");
+                    javaPw.write("\r\n");
                     while (rs2.next()) {
                         String name = rs2.getString("COLUMN_NAME");
                         String type = rs2.getString("TYPE_NAME");
-                        createMethod(pw, type, name);
+                        createMethod(javaPw, type, name);
                     }
-                    pw.write("}\r\n");
+                    javaPw.write("}\r\n");
+                    //获取所有字段
+                    String sql = "select GROUP_CONCAT(COLUMN_NAME SEPARATOR ', ')  as cool from INFORMATION_SCHEMA.Columns where table_name='" + tableName + "'";//SQL语句
+                    try {
+                        Statement statement = connection.createStatement();//创建Statement
+                        ResultSet resultSet2 = statement.executeQuery(sql);//执行SQL获取ResultSet
+                        while (resultSet2.next()){//遍历ResultSet获取结果
+                            String result = resultSet2.getString("cool");
+                            xmlPw.write("\r\n    <sql id=\"Base_Column_List\">");
+                            xmlPw.write("\r\n        " + result);
+                            xmlPw.write("\r\n    </sql>");
 
-                    pw.flush();
-                    pw.close();
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }finally {
+                        try {
+                            connection.close();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    xmlPw.write("\r\n");
+                    xmlPw.write("</mapper>");
+                    javaPw.flush();
+                    javaPw.close();
+                    xmlPw.flush();
+                    xmlPw.close();
+
                     System.out.println("=====操作结果=====");
                     System.out.println("生成成功！文件在你的桌面。");
                 }
@@ -192,7 +216,7 @@ public class GenEntityFromTable {
             pw.write("\t//" + name + "\r\n");
         }
 
-        if (!pkName.equals("") && name.equals(pkName)){
+        if (!PK_NAME.equals("") && name.equals(PK_NAME)){
             pw.write("    @Id\r\n");
             pw.write("    @GeneratedValue(generator = \"JDBC\")\r\n");
         }
