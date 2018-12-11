@@ -43,9 +43,59 @@
 /*    ajaxFormPost(formData, "/hello/arrayParam4", function (result) {
         console.log(result)
     });*/
-    ajaxPost({"name":"小三"}, "/hello/arrayParam4", function (result) {
+/*    ajaxPost({"name":"小三"}, "/hello/arrayParam4", function (result) {
         console.log(result)
-    });
+    });*/
+
+    var postData5 = {"name":"消散","age":"23"};
+    var studentList = new Array();
+    for (var i = 0; i < 10; i++) {
+        var student = {};
+        student.id = i;
+        student.name = "小明" + i;
+        student.age = 20 + i;
+        student.birth = "2011-11-11 11:11:11";
+        studentList.push(student);
+    }
+    if (studentList.length > 0) {
+        postData5.studentList = studentList;
+    }
+/*    ajaxPostJSON(JSON.stringify(postData5), "/hello/arrayParam5", function (result) {
+        console.log(result)
+    })*/
+
+    var postData6 = {"name":"消散","age":"23"};
+    var studentList2 = [];
+    for (var j = 0; j < 10; j++) {
+        /**
+         * JQuery 会将你的参数映射成这样：
+         * beans[0][agreementId]=1
+         beans[0][answerId]=2
+
+         问题是Spring MVC需要这种的参数格式：
+         beans[0].agreementId=1
+         beans[0].answerId=2
+
+         * @type {{}}
+         */
+        var student = {};
+        student.id = j;
+        student.name = "小明" + j;
+        student.age = 20 + j;
+        student.birth = "2011-11-11 11:11:11";
+        //studentList2.push(student);
+        var d = new Date('2011-11-11 11:11:11');
+        postData6['studentList[' + j +'].id'] = j;
+        postData6['studentList[' + j +'].name'] = "小明" + j;
+        postData6['studentList[' + j +'].age'] = 20 + j;
+        postData6['studentList[' + j +'].birth'] = "2011-11-11 11:11:11";
+    }
+    if (studentList2.length > 0) {
+        //postData6.studentList = studentList2;
+    }
+    ajaxPost(postData6, "/hello/arrayParam6", function (result) {
+        console.log(result)
+    })
 
 
 </script>

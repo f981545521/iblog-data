@@ -57,7 +57,7 @@ function ajaxPost(ajaxdata, ajaxurl, successcallback, errorcallback) {
 }
 
 /**
- * ajax post提交 以contentType: "application/json"方式，后端使用@RequestBody 接收参数
+ * ajax post提交 以contentType: "application/json"方式，**后端使用@RequestBody 接收参数**
  * @param ajaxdata 提交数据
  * @param ajaxurl 提交路径
  * @param successcallback 成功回调
@@ -67,8 +67,8 @@ function ajaxPostJSON(ajaxdata, ajaxurl, successcallback, errorcallback) {
     $.ajax({
         cache: true,
         type: "post",
-        contentType: "application/json",//"application/json;charset=UTF-8"
-        dataType: "json",
+        contentType: "application/json;charset=UTF-8",//"application/json;charset=UTF-8" 必须 后台需要根据这个确定使用jsonhttpmessageconvert
+        dataType: "json",//后台返回的数据类型
         url: ajaxurl,
         data: ajaxdata,
         async: true,
@@ -161,3 +161,13 @@ function getQueryString(name) {
     }
     return null;
 }
+
+/**
+ * 将FormData类型转换为JSON对象
+ * @param formData
+ */
+function convertFormData2JSONObject(formData) {
+    var objData = {};
+    formData.forEach((value, key) => objData[key] = value);
+    return objData;
+};
