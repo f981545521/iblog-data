@@ -1,9 +1,11 @@
 package cn.acyou.iblogdata.controller;
 
+import cn.acyou.iblog.utility.DateUtil;
 import cn.acyou.iblogdata.dao.StudentMapper;
 import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.service.StudentService;
 import cn.acyou.iblogdata.so.StudentSo;
+import cn.acyou.iblogdata.utils.RandomUtil;
 import cn.acyou.iblogdata.utils.ResultInfo;
 import cn.acyou.iblogdata.utils.ResultInfoGenerate;
 import cn.acyou.iblogdata.vo.StudentLogTestVo;
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.thymeleaf.util.DateUtils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,6 +51,17 @@ public class StudentController {
     @ApiOperation("增加一个学生")
     @ResponseBody
     public ResultInfo addStudent(Student student){
+        studentService.addStudent(student);
+        return new ResultInfo();
+    }
+    @RequestMapping(value = "addStudent", method = {RequestMethod.GET})
+    @ApiOperation("增加一个学生")
+    @ResponseBody
+    public ResultInfo addStudent(){
+        Student student = new Student();
+        student.setName(RandomUtil.randomUserName());
+        student.setAge(Integer.valueOf(RandomUtil.createRandom(true, 2)));
+        student.setBirth(DateUtil.randomDate());
         studentService.addStudent(student);
         return new ResultInfo();
     }

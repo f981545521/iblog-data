@@ -1,20 +1,18 @@
 package cn.acyou.iblogdata.test.tests;
 
+import cn.acyou.iblogdata.dao.StudentMapper;
 import cn.acyou.iblogdata.dao.TeacherMapper;
+import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.entity.Teacher;
 import cn.acyou.iblogdata.test.base.BaseTest;
-import cn.acyou.iblogdata.dao.StudentMapper;
-import cn.acyou.iblogdata.entity.Student;
-import cn.acyou.iblogdata.utils.RandomValue;
+import cn.acyou.iblogdata.utils.RandomUtil;
 import cn.acyou.iblogdata.vo.StudentCallVo;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author youfang
@@ -102,8 +100,8 @@ public class MapperTest extends BaseTest{
         Teacher tea = mapper.getTeacherById(1);
         System.out.println(tea);
         Teacher teacher = new Teacher();
-        teacher.setName(RandomValue.getName());
-        teacher.setAge(RandomValue.getAge());
+        teacher.setName(RandomUtil.randomUserName());
+        teacher.setAge(RandomUtil.getAge());
         teacher.setStudentId(1);
         mapper.insertSelective(teacher);//执行insert操作
         //使用session1  查询
