@@ -172,4 +172,10 @@ public class StudentServiceImpl extends AbstractService<Student, Integer> implem
         log.info("transaction2 - 执行更新操作 ");
         return studentMapper.updateByPrimaryKeySelective(student);
     }
+
+    @Override
+    public String sayThanks() {
+        log.info("调用StudentService 的sayThanks方法");
+        return "Thank You !!!";
+    }
 }
