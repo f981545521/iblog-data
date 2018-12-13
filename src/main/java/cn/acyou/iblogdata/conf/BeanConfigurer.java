@@ -1,8 +1,11 @@
 package cn.acyou.iblogdata.conf;
 
 import cn.acyou.iblog.orika.OrikaMapper;
+import cn.acyou.iblogdata.service.StudentService;
+import cn.acyou.iblogdata.spring.MyFactoryBean;
 import cn.acyou.iblogdata.utils.StudentConfig;
 import cn.acyou.iblogdata.utils.StudentConfig2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.*;
 import org.springframework.core.annotation.Order;
@@ -15,6 +18,9 @@ import javax.servlet.MultipartConfigElement;
  */
 @Configuration
 public class BeanConfigurer {
+
+    @Autowired
+    private StudentService studentService;
 
     /**
      *一，单一Bean
@@ -74,5 +80,13 @@ public class BeanConfigurer {
         return factory.createMultipartConfig();
     }
 
+
+    @Bean(name = "fbStudentService")
+    public MyFactoryBean myFactoryBean(){
+        MyFactoryBean factoryBean = new MyFactoryBean();
+        factoryBean.setInterfaceName("cn.acyou.iblogdata.service.StudentService");
+        factoryBean.setTarget(studentService);
+        return factoryBean;
+    }
 
 }
