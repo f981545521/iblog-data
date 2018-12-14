@@ -6,6 +6,8 @@ import cn.acyou.iblogdata.utils.RedisLock;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
+
 /**
  * @author youfang
  * @version [1.0.0, 2018-09-07 下午 03:38]
@@ -17,7 +19,7 @@ public class RedisLockTest1 extends BaseTest {
 
     @Test
     public void test21(){
-        Product product = new Product(10001L, "气球", 1000);
+        Product product = new Product(10001L, "气球", 1000, new BigDecimal(34.3));
         String key = RedisLock.LOCK_PREFIX + product.getId();
         try {
             if (redisLock.lock(key)) {
@@ -29,5 +31,12 @@ public class RedisLockTest1 extends BaseTest {
         }finally {
             redisLock.unlock(key);
         }
+    }
+
+    @Test
+    public void tes22(){
+        Double d = 34.3;
+        Product product = new Product(10001L, "气球", 1000, new BigDecimal(String.valueOf(d)));
+        System.out.println(product);
     }
 }

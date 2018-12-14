@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * @author youfang
@@ -20,6 +21,7 @@ public class Product implements Serializable {
     private Long id;//主键
     private String name;//材料名称
     private Integer stockNumber;//库存数量
+    private BigDecimal price;//售价
 
     /**
      * 入库
