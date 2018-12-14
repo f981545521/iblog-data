@@ -21,6 +21,15 @@ public class Product implements Serializable {
     private Long id;//主键
     private String name;//材料名称
     private Integer stockNumber;//库存数量
+    /**
+     * 关于BigDecimal:
+     * [强制] 小数类型为 decimal，禁止使用 float 和 double。
+     * 说明：float 和 double 在存储的时候，存在精度损失的问题，很可能在值的比较时，得到不
+     * 正确的结果。如果存储的数据范围超过 decimal 的范围，建议将数据拆成整数和小数分开存储。
+     *
+     * 此外：
+     * <strong>不要用 Double 初始化一个 BigDecimal 对象</strong>
+     */
     private BigDecimal price;//售价
 
     /**
