@@ -21,6 +21,8 @@ public interface StudentMapper extends Mapper<Student, Integer> {
 
     int updateList(List<Student> students);
 
+    int insertList(List<Student> students);
+
     int deleteByPrimaryKeyList(List<Integer> ids);
 
     StudentVo getStudentVo(StudentSo studentSo);

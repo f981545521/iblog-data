@@ -340,4 +340,11 @@ public class SimpleTest {
         System.out.println(teacher);
     }
 
+    @Test
+    public void testIntegerEquals(){
+        Integer type = 2111;
+        System.out.println(new Integer(2111).equals(type));
+        System.out.println(211 == type);
+    }
+
 }

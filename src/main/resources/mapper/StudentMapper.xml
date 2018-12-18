@@ -29,6 +29,15 @@
         id, name, age
     </sql>
 
+    <insert id="insertList" parameterType="java.util.List">
+      insert into student (name, birth) values
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item.name},
+            #{item.age},
+            #{item.birth}
+        </foreach>
+    </insert>
+
     <select id="getStudentById" resultType="cn.acyou.iblogdata.entity.Student">
         SELECT * FROM student WHERE id = #{id}
     </select>
