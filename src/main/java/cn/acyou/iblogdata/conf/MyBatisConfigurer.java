@@ -42,7 +42,9 @@ public class MyBatisConfigurer implements TransactionManagementConfigurer {
         org.apache.ibatis.session.Configuration configuration=new org.apache.ibatis.session.Configuration();
         configuration.setUseGeneratedKeys(true);//使用jdbc的getGeneratedKeys获取数据库自增主键值
         configuration.setUseColumnLabel(true);//使用列别名替换列名 select user as User
-        configuration.setMapUnderscoreToCamelCase(true);//-自动使用驼峰命名属性映射字段   userId    user_id
+        //-自动使用驼峰命名属性映射字段   userId    user_id  **这样使用resultType也会自动映射了**
+        //sqlsession.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);
+        configuration.setMapUnderscoreToCamelCase(true);
         sqlsession.setConfiguration(configuration);
         sqlsession.setFailFast(true);
 
