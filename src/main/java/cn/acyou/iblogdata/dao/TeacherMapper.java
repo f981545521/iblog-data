@@ -13,6 +13,8 @@ public interface TeacherMapper extends Mapper<Teacher, Integer> {
 
     List<Teacher> getAllTeacher();
 
+    List<Teacher> getAllTeacher2();
+
     int updateTeacher(Teacher teacher);
 
     int addTeacher(Teacher teacher);
