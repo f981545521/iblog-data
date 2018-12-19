@@ -26,6 +26,9 @@ public class MapperTest extends BaseTest{
     @Autowired
     private SqlSessionFactory sqlSessionFactory;
 
+    @Autowired
+    private TeacherMapper teacherMapper;
+
     @Test
     public void test1(){
         List<Student> bossList = studentMapper.selectAll();
@@ -118,5 +121,11 @@ public class MapperTest extends BaseTest{
         callVo.setAge(50);
         studentMapper.getCallCountLessAge(callVo);
         System.out.println(callVo);
+    }
+
+    @Test
+    public void testT1(){
+        List<Teacher> teachers = teacherMapper.getAllTeacher2();
+        teachers.forEach(x-> System.out.println(x.toString()));
     }
 }

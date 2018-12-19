@@ -23,6 +23,10 @@
         where id = #{id}
     </select>
 
+    <select id="getAllTeacher2" resultType="cn.acyou.iblogdata.entity.Teacher">
+        select <include refid="Base_Column_List"/> from teacher
+    </select>
+
     <insert id="addTeacher">
         insert into teacher (name, age) values (#{name}, #{age});
     </insert>
