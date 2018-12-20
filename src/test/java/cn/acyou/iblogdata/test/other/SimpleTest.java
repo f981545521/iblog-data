@@ -347,4 +347,10 @@ public class SimpleTest {
         System.out.println(211 == type);
     }
 
+    @Test
+    public void testBigDecimal(){
+        Double d1 = 1.1;
+        System.out.println(new BigDecimal(d1));
+    }
+
 }

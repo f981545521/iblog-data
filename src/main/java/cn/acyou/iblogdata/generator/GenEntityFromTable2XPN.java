@@ -114,6 +114,7 @@ public class GenEntityFromTable2XPN {
                     javaPw.write("/**\r\n");
                     javaPw.write(" * " + TABLE_NAME + " 实体类\r\n");
                     javaPw.write(" * " + getDate() + " " + tableRemark + "\r\n");
+                    javaPw.write(" * @author youfang\r\n");
                     javaPw.write(" */ \r\n");
                     if (StringUtils.isEmpty(className)){
                         className = convertCamelCase(TABLE_NAME);
