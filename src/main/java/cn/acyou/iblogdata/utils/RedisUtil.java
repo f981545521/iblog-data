@@ -100,4 +100,18 @@ public class RedisUtil {
     }
 
 
+    public void print() {
+        int sum = 0;
+        for (int i = 0; i <= 100; i++) {
+            System.out.println(Thread.currentThread().getName() + "step :" + i);
+            sum += i;
+        }
+        if (sum != 5050) {
+            System.err.println("Thread error!");
+            System.exit(0);
+        }
+        System.out.println(Thread.currentThread().getName() + " - sum is " + sum);
+    }
+
+
 }
