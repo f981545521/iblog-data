@@ -1,9 +1,11 @@
 package cn.acyou.iblogdata.runner;
 
 import cn.acyou.iblogdata.service.StudentService;
+import cn.acyou.iblogdata.spring.UniqueBean;
 import cn.acyou.iblogdata.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -28,6 +30,10 @@ public class MyCommandLineRunner implements CommandLineRunner {
     @Autowired
     private RedisUtil redisUtil;
 
+    @Autowired
+    @Qualifier("zhuUniqueBean")
+    private UniqueBean uniqueBean;
+
     @Override
     public void run(String... var1) {
         log.info("MyCommandLineRunner was started!");
@@ -39,7 +45,21 @@ public class MyCommandLineRunner implements CommandLineRunner {
         StudentService studentService = (StudentService) context.getBean("fbStudentService");
         studentService.sayThanks();
 
-        //testSingletonThread();
+        testSingletonThread();
+
+        //testUniqueBean();
+
+
+
+    }
+
+    /**
+     * 测试 Spring Bean的唯一性
+     */
+    public void testUniqueBean(){
+        UniqueBean bean = new UniqueBean("李思");
+        bean.print();
+        uniqueBean.print();
     }
 
     /**
