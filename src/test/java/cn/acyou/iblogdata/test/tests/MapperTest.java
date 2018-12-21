@@ -1,5 +1,6 @@
 package cn.acyou.iblogdata.test.tests;
 
+import cn.acyou.iblogdata.dao.BaseMapper;
 import cn.acyou.iblogdata.dao.StudentMapper;
 import cn.acyou.iblogdata.dao.TeacherMapper;
 import cn.acyou.iblogdata.entity.Student;
@@ -28,6 +29,9 @@ public class MapperTest extends BaseTest{
 
     @Autowired
     private TeacherMapper teacherMapper;
+
+    @Autowired
+    private BaseMapper baseMapper;
 
     @Test
     public void test1(){
@@ -127,5 +131,11 @@ public class MapperTest extends BaseTest{
     public void testT1(){
         List<Teacher> teachers = teacherMapper.getAllTeacher2();
         teachers.forEach(x-> System.out.println(x.toString()));
+    }
+
+    @Test
+    public void testM1(){
+        String uuid = baseMapper.getUUid();
+        System.out.println(uuid);
     }
 }
