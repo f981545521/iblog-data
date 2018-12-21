@@ -3,6 +3,7 @@ package cn.acyou.iblogdata.conf;
 import cn.acyou.iblog.orika.OrikaMapper;
 import cn.acyou.iblogdata.service.StudentService;
 import cn.acyou.iblogdata.spring.MyFactoryBean;
+import cn.acyou.iblogdata.spring.UniqueBean;
 import cn.acyou.iblogdata.utils.StudentConfig;
 import cn.acyou.iblogdata.utils.StudentConfig2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +88,30 @@ public class BeanConfigurer {
         factoryBean.setInterfaceName("cn.acyou.iblogdata.service.StudentService");
         factoryBean.setTarget(studentService);
         return factoryBean;
+    }
+
+
+
+    @Bean(name = "siUniqueBean")
+    public UniqueBean uniqueBean(){
+        return new UniqueBean("司马懿");
+    }
+
+    /**
+     * expected single matching bean but found 2
+     *
+     * 方法1 ：@Primary 提高优先级
+     *
+     * 方法2 ：使用
+     *     `@Autowired
+     *     `@Qualifier("zhuUniqueBean")
+     * 方法3 ：使用
+     *     `@Resource(name = "siUniqueBean")
+     * @return UniqueBean
+     */
+    @Bean(name = "zhuUniqueBean")
+    public UniqueBean uniqueBean2(){
+        return new UniqueBean("诸葛亮");
     }
 
 }

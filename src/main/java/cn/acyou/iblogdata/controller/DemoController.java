@@ -1,9 +1,8 @@
 package cn.acyou.iblogdata.controller;
 
 import cn.acyou.iblogdata.exception.ServiceException;
-import cn.acyou.iblogdata.export.StudentEntityExportServer;
+import cn.acyou.iblogdata.spring.UniqueBean;
 import cn.acyou.iblogdata.utils.ResultInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,6 +25,9 @@ public class DemoController extends BaseController{
 
     @Value("${ab.name: none found}")
     private String pomName;
+
+    @Resource(name = "siUniqueBean")
+    private UniqueBean uniqueBean;
 
     @RequestMapping(value = "toPreview", method = {RequestMethod.POST})
     public String toPreview(MultipartFile file){
