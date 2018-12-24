@@ -5,6 +5,7 @@ import cn.acyou.iblogdata.dao.StudentMapper;
 import cn.acyou.iblogdata.dao.TeacherMapper;
 import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.entity.Teacher;
+import cn.acyou.iblogdata.so.StudentSo;
 import cn.acyou.iblogdata.test.base.BaseTest;
 import cn.acyou.iblogdata.utils.RandomUtil;
 import cn.acyou.iblogdata.vo.StudentCallVo;
@@ -137,5 +138,13 @@ public class MapperTest extends BaseTest{
     public void testM1(){
         String uuid = baseMapper.getUUid();
         System.out.println(uuid);
+    }
+
+    @Test
+    public void testM3(){
+        StudentSo so = new StudentSo();
+        so.setId(1);
+        so.setName("小");
+        studentMapper.getStudentsByPage(so);
     }
 }
