@@ -6,4 +6,10 @@
     <select id="getUUid" resultType="java.lang.String">
         SELECT UUID_SHORT() UUID
     </select>
+
+    <select id="getBillNo" resultType="java.lang.String" flushCache="true">
+  	 	<![CDATA[
+        select genatorBillNo(#{billType}, #{billDate})
+        ]]>
+  	 </select>
 </mapper>
