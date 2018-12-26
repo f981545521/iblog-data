@@ -33,11 +33,12 @@ public class GenEntityFromTable2XPN {
 
     private static Connection connection = null;
     private static final String MAPPER_PACKAGE = PACKAGE.replace("domain", "mapper");
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) {
         generateEntity(CLASS_NAME);
     }
 
     private static String PK_NAME = "";
+    private static StringBuilder ALL_FILED = new StringBuilder();
 
     private static void generateEntity(String className){
         FileSystemView fsv = FileSystemView.getFileSystemView();
@@ -54,7 +55,6 @@ public class GenEntityFromTable2XPN {
             ResultSet resultSet = dbmd.getTables(null, "%", "%", new String[]{"TABLE"});
             while (resultSet.next()) {
                 String tableName = resultSet.getString("TABLE_NAME");
-                //System.out.println(tableName);
                 if (TABLE_NAME.equals(tableName)) {//这里干掉IF可对库里面所有表直接生成
                     ResultSet rs1 = dbmd.getColumns(null, "%", tableName, "%");
                     ResultSet rs2 = dbmd.getColumns(null, "%", tableName, "%");
@@ -135,6 +135,11 @@ public class GenEntityFromTable2XPN {
                         String typeName = rs1.getString("TYPE_NAME");
                         String type = sqlType2JavaType(typeName);
                         String name = rs1.getString("COLUMN_NAME");
+                        if (ALL_FILED.length() <= 0){
+                            ALL_FILED.append(name);
+                        }else {
+                            ALL_FILED.append(",").append(name);
+                        }
                         String remark = rs1.getString("REMARKS");
                         String result = "result";
                         if (remark.contains("主键")){
@@ -153,27 +158,9 @@ public class GenEntityFromTable2XPN {
                     }
                     javaPw.write("}\r\n");
                     //获取所有字段
-                    String sql = "select GROUP_CONCAT(COLUMN_NAME SEPARATOR ', ')  as cool from INFORMATION_SCHEMA.Columns where table_name='" + tableName + "'";//SQL语句
-                    try {
-                        Statement statement = connection.createStatement();//创建Statement
-                        ResultSet resultSet2 = statement.executeQuery(sql);//执行SQL获取ResultSet
-                        while (resultSet2.next()){//遍历ResultSet获取结果
-                            String result = resultSet2.getString("cool");
-                            xmlPw.write("\r\n    <sql id=\"Base_Column_List\">");
-                            xmlPw.write("\r\n        " + result);
-                            xmlPw.write("\r\n    </sql>");
-
-                        }
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }finally {
-                        try {
-                            connection.close();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
+                    xmlPw.write("\r\n    <sql id=\"Base_Column_List\">");
+                    xmlPw.write("\r\n        " + ALL_FILED.toString());
+                    xmlPw.write("\r\n    </sql>");
                     xmlPw.write("\r\n");
                     xmlPw.write("</mapper>");
                     javaPw.flush();
