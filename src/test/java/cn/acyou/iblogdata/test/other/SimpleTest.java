@@ -353,4 +353,10 @@ public class SimpleTest {
         System.out.println(new BigDecimal(d1));
     }
 
+    @Test
+    public void test34(){
+        String url = "/1mkt/bargain/BA201812270950471538258";
+        System.out.println(url.indexOf("/mkt/bargain/"));
+    }
+
 }
