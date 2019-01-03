@@ -58,12 +58,24 @@ public class CommonUtil {
         return idCard.replaceAll("(\\d{4})\\d{10}(\\w{4})","$1****$2");
     }
 
-    public static void main(String[] args) {
-        String url = "http://localhost:8080/mkt/bargain/BA201812270950471538258?id=123";
-        System.out.println(getQueryStringFromPath(url));
-        String url2 = "http://localhost:8080/mkt/bargain/BA201812270950471538258";
-        System.out.println(getQueryStringFromPath(url2));
+    /**
+     * 自动补0到满足指定位数
+     * @param code 待补0的数字
+     * @param num 保留的位数
+     * @return 结果
+     */
+    public static String autoGenericZero(String code, int num) {
+        String result = "";
+        result = String.format("%0" + num + "d", Integer.parseInt(code));
+        return result;
+    }
 
+    public static void main(String[] args) {
+        //String url = "http://localhost:8080/mkt/bargain/BA201812270950471538258?id=123";
+        //System.out.println(getQueryStringFromPath(url));
+        //String url2 = "http://localhost:8080/mkt/bargain/BA201812270950471538258";
+        //System.out.println(getQueryStringFromPath(url2));
+        System.out.println(autoGenericZero("778899", 8));
     }
 
 }
