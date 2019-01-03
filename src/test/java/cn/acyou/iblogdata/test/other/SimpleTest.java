@@ -4,12 +4,16 @@ import cn.acyou.iblog.entity.Student;
 import cn.acyou.iblog.entity.Teacher;
 import cn.acyou.iblog.utility.DateUtil;
 import cn.acyou.iblogdata.exception.ServiceException;
+import cn.acyou.iblogdata.test.entity.Animal;
+import cn.acyou.iblogdata.utils.AppConstant;
 import cn.acyou.iblogdata.utils.JsonUtil;
 import cn.acyou.iblogdata.utils.RandomUtil;
 import cn.acyou.iblogdata.vo.StudentLogTestVo;
 import cn.acyou.iblogdata.vo.StudentVo;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Minutes;
 import org.junit.Test;
 import org.springframework.util.Assert;
 import sun.misc.BASE64Decoder;
@@ -357,6 +361,74 @@ public class SimpleTest {
     public void test34(){
         String url = "/1mkt/bargain/BA201812270950471538258";
         System.out.println(url.indexOf("/mkt/bargain/"));
+        System.out.println(url.contains("/mkt/bargain/"));
+        System.out.println(url.contains("/1mkt/bargain/"));
+    }
+
+    @Test
+    public void testBoolean(){
+        Animal animal = new Animal();
+        System.out.println(animal.isHut());
+    }
+
+    @Test
+    public void testMinutes(){
+        DateTime currentDate = new DateTime();
+        DateTime tenBefore = currentDate.plusMinutes(10);
+        System.out.println(tenBefore.toString(AppConstant.SPECIFIC_DATE_FORMAT_PATTERN));
+        int diffMinutes = Minutes.minutesBetween(tenBefore, currentDate).getMinutes();//前小 后大
+        System.out.println(diffMinutes);
+    }
+    @Test
+    public void testMinutes2(){
+        Date currentDate1 = DateUtil.parseDate("2018-12-27 14:31:41", AppConstant.SPECIFIC_DATE_FORMAT_PATTERN);
+        DateTime currentDate = new DateTime(currentDate1);//指定日期
+        DateTime tenBefore = currentDate.plusMinutes(10);//10分钟后
+        System.out.println(currentDate.toString(AppConstant.SPECIFIC_DATE_FORMAT_PATTERN));
+        System.out.println(tenBefore.toString(AppConstant.SPECIFIC_DATE_FORMAT_PATTERN));
+        if (tenBefore.isAfterNow()){//在现在前
+            System.out.println("YES");
+        }else {
+            System.out.println("NO");
+        }
+    }
+
+    /**
+     * 　Integer 的源码中，对传入参数i做了一个if判断。在-128<=i<=127的时候是直接用的int原始数据类型，
+     * 而超出了这个范围则是new了一个对象。我们知道 == 符号在比较对象的时候是比较的内存地址，而对于原始数据类型是直接比对的数据值。
+     */
+    @Test
+    public void testInteger(){
+        int a = 1000;
+        int b = 1000;
+        Integer wa = a;
+        Integer wb = 1000;
+        System.out.println(wa.equals(wb));//true
+        System.out.println(wa==wb);//false
+        System.out.println(a == wb);
+    }
+
+    @Test
+    public void testst(){
+        int a = 1000;
+        Integer b = 1000;
+        System.out.println(a == b);
+        System.out.println(b.equals(a));
+    }
+
+    @Test
+    public void testfgd(){
+        BigDecimal b1 = new BigDecimal(String.valueOf("0.00"));
+        System.out.println(b1.compareTo(BigDecimal.ZERO) == 0);
+    }
+
+
+    @Test
+    public void testddgf(){
+        String code = "8766225";
+        System.out.println(code.length());
+        code = String.format("%0" + 8 + "d", Integer.parseInt(code));
+        System.out.println(code);
     }
 
 }

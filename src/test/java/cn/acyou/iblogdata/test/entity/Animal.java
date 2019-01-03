@@ -18,6 +18,16 @@ public class Animal implements Serializable {
     @Transient
     public String color;
 
+    private boolean hut;
+
+    public boolean isHut() {
+        return hut;
+    }
+
+    public void setHut(boolean hut) {
+        this.hut = hut;
+    }
+
     public String getName() {
         return name;
     }
