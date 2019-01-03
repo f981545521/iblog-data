@@ -409,11 +409,36 @@ public class SimpleTest {
     }
 
     @Test
-    public void testst(){
+    public void testInteger2(){
         int a = 1000;
         Integer b = 1000;
+        Integer bb = 1000;
         System.out.println(a == b);
+        System.out.println(a == bb);
+        System.out.println(b == bb);
         System.out.println(b.equals(a));
+
+    }
+
+    @Test
+    public void testInteger3(){
+        int a = 129;
+        Integer b = 129;
+        Student student = new Student();
+        System.out.println(student.getAge());
+        System.out.println(b.equals(student.getAge()));
+        System.out.println(a == student.getAge());
+    }
+    @Test
+    public void testInteger4(){
+        int a = 129;
+        Integer b = 129;
+        Student student = new Student();
+        student.setAge(129);
+        System.out.println(student.getAge());
+        System.out.println(b.equals(student.getAge()));
+        System.out.println(a == student.getAge());//true
+        System.out.println(b == student.getAge());//false
     }
 
     @Test
@@ -429,6 +454,7 @@ public class SimpleTest {
         System.out.println(code.length());
         code = String.format("%0" + 8 + "d", Integer.parseInt(code));
         System.out.println(code);
+
     }
 
 }
