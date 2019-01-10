@@ -21,6 +21,7 @@ import sun.misc.BASE64Encoder;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.function.Consumer;
@@ -455,6 +456,25 @@ public class SimpleTest {
         code = String.format("%0" + 8 + "d", Integer.parseInt(code));
         System.out.println(code);
 
+    }
+
+    private static final BigDecimal PERCENT_HUNDRED = BigDecimal.valueOf(100);
+
+    @Test
+    public void testPrecent(){
+        BigDecimal bigDecimal = new BigDecimal(655);
+        BigDecimal price = new BigDecimal(365);
+        BigDecimal smallMun = bigDecimal.divide(PERCENT_HUNDRED,2,BigDecimal.ROUND_HALF_DOWN);
+        System.out.println(price.multiply(smallMun, MathContext.UNLIMITED));
+    }
+    @Test
+    public void testPrecent2(){
+        BigDecimal bigDecimal = new BigDecimal("0.32");
+        BigDecimal price = new BigDecimal("0.33");
+        System.out.println(price.multiply(bigDecimal));
+        System.out.println(price.multiply(bigDecimal, MathContext.DECIMAL32));
+        System.out.println(price.multiply(bigDecimal, MathContext.DECIMAL64));
+        System.out.println(price.multiply(bigDecimal, MathContext.DECIMAL128));
     }
 
 }
