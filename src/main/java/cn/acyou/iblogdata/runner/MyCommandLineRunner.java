@@ -1,5 +1,6 @@
 package cn.acyou.iblogdata.runner;
 
+import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.service.StudentService;
 import cn.acyou.iblogdata.spring.UniqueBean;
 import cn.acyou.iblogdata.utils.RedisUtil;
@@ -37,9 +38,11 @@ public class MyCommandLineRunner implements CommandLineRunner {
     @Override
     public void run(String... var1) {
         log.info("MyCommandLineRunner was started!");
-
-        log.warn("测试 ----------- 警告日志");
+        Student student = new Student();
+        student.setName("雄安");
+        log.warn("测试 ----------- 警告日志{}", student);
         log.error("测试 ----------- 错误日志");
+
 
         //测试MyFactoryBean
         StudentService studentService = (StudentService) context.getBean("fbStudentService");
