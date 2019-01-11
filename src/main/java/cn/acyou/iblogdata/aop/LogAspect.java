@@ -74,11 +74,13 @@ public class LogAspect {
         Object[] paramValues = jp.getArgs();
         String[] paramNames = ((CodeSignature) jp.getSignature()).getParameterNames();
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < paramNames.length; i++) {
-            if (paramValues[i] instanceof MultipartFile){
-                continue;
+        if (paramNames != null){
+            for (int i = 0; i < paramNames.length; i++) {
+                if (paramValues[i] instanceof MultipartFile){
+                    continue;
+                }
+                sb.append("{").append(paramNames[i]).append(":").append(paramValues[i]).append("}");
             }
-            sb.append("{").append(paramNames[i]).append(":").append(paramValues[i]).append("}");
         }
         log.info("[{}]|{}|{}", " --->begin\t", clazzName + "." + methodName, sb.toString());
     }
