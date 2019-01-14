@@ -7,12 +7,14 @@ import com.google.common.collect.Lists;
 import org.assertj.core.util.Maps;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.redis.core.TimeoutUtils;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import static cn.acyou.iblogdata.utils.ParamUtil.replaceSpecialStr;
 
@@ -231,6 +233,23 @@ public class SimpleTest {
         int valueTen = 1412569788;
         String strHex = Integer.toHexString(valueTen);
         System.out.println(strHex);//12345678
+    }
+
+    @Test
+    public void test33(){
+        Long duration = TimeUnit.DAYS.toDays(1);
+        System.out.println(duration);
+        System.out.println(TimeUnit.HOURS.convert(duration, TimeUnit.DAYS));
+
+        long seconds = TimeoutUtils.toSeconds(1L, TimeUnit.DAYS);
+        System.out.println(seconds);
+    }
+
+    @Test
+    public void test34(){
+        Map<String, String> stringMap = new HashMap<>();
+        stringMap.put("sa", "fdsff");
+        System.out.println(stringMap);
     }
 
 

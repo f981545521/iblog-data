@@ -9,10 +9,16 @@
 <body>
     请选择文件
     <input type="file" id="file"/>
+
+    <h3>获取路径</h3>
     <button type="button" onclick="gg()">获取路径</button>
 
     <h3>Excel导入</h3>
     <button type="button" onclick="upload()">上传文件</button>
+
+
+    <h3>上传文件测试：1</h3>
+    <button type="button" onclick="upload1()">上传文件</button>
 
 <script>
     function gg() {
@@ -29,6 +35,18 @@
         var postData = new FormData();
         postData.append("file", file);
         ajaxFormPost(postData, "/poi/import", function (result) {
+            console.log(result)
+        });
+    }
+    function upload1() {
+        var file = $("#file")[0].files[0];
+        var postData = new FormData();
+        postData.append("file", file);
+        postData.append("path", "other/");
+        postData.append("type", 1);
+        //var url = "http://localhost:7179/upload/uploadOss";
+        var url = "http://api.lidifilm.com/tool/upload/uploadOss";
+        ajaxFormPost(postData, url, function (result) {
             console.log(result)
         });
     }
