@@ -48,7 +48,7 @@ public class MyCommandLineRunner implements CommandLineRunner {
         StudentService studentService = (StudentService) context.getBean("fbStudentService");
         studentService.sayThanks();
 
-        testSingletonThread();
+        //testSingletonThread();
 
         //testUniqueBean();
 

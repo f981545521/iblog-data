@@ -19,12 +19,14 @@
 
     <h3>上传文件测试：1</h3>
     <button type="button" onclick="upload1()">上传文件</button>
+    <h3>上传文件测试：2</h3>
+    <button type="button" onclick="upload2()">上传文件</button>
 
 <script>
     function gg() {
         var file = $("#file")[0].files[0];
         var postData = new FormData();
-        postData.append("imageType", 12);
+        //postData.append("imageType", 12);
         postData.append("file", file);
         ajaxFormPost(postData, "/upload/image", function (result) {
             console.log(result)
@@ -44,6 +46,17 @@
         postData.append("file", file);
         postData.append("path", "other/");
         postData.append("type", 1);
+        //var url = "http://localhost:7179/upload/uploadOss";
+        var url = "http://api.lidifilm.com/tool/upload/uploadOss";
+        ajaxFormPost(postData, url, function (result) {
+            console.log(result)
+        });
+    }
+    function upload2() {
+        var file = $("#file")[0].files[0];
+        var postData = new FormData();
+        postData.append("file", file);
+        postData.append("path", "other/");
         //var url = "http://localhost:7179/upload/uploadOss";
         var url = "http://api.lidifilm.com/tool/upload/uploadOss";
         ajaxFormPost(postData, url, function (result) {
