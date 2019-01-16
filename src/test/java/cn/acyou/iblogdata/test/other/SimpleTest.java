@@ -5,7 +5,7 @@ import cn.acyou.iblog.entity.Teacher;
 import cn.acyou.iblog.utility.DateUtil;
 import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.test.entity.Animal;
-import cn.acyou.iblogdata.utils.AppConstant;
+import cn.acyou.iblogdata.constant.AppConstant;
 import cn.acyou.iblogdata.utils.JsonUtil;
 import cn.acyou.iblogdata.utils.RandomUtil;
 import cn.acyou.iblogdata.vo.StudentLogTestVo;

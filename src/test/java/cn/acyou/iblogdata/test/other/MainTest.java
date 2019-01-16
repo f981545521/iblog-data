@@ -1,8 +1,7 @@
 package cn.acyou.iblogdata.test.other;
 
-import cn.acyou.iblogdata.utils.AppConstant;
+import cn.acyou.iblogdata.constant.AppConstant;
 import cn.acyou.iblogdata.utils.ParamUtil;
-import com.google.common.collect.Maps;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -12,7 +11,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.util.Base64;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
