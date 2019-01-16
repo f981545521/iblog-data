@@ -3,6 +3,7 @@ package cn.acyou.iblogdata.controller;
 import cn.acyou.iblogdata.jmessage.JMessageHelper;
 import cn.acyou.iblogdata.utils.Md5Util;
 import cn.jmessage.api.common.model.RegisterInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class BaseController {
 
     @Autowired
@@ -34,6 +36,10 @@ public class BaseController {
      */
     protected void registerJiGuangAccount(final HttpServletRequest request, HttpSession session, String username){
 
+        //获取方法调用类名称，方法名称，调用行数
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[2];
+        log.info("Class Name：{} | method Name：{} | {}", element.getClassName(), element.getMethodName(), element.getLineNumber());
         //不能在多线程中直接使用request，request会在主线程完成后销毁。这里传递的是一个副本，无法通过它获取session
         threadExecutor.execute(new Runnable() {
 
