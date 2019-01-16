@@ -1,4 +1,4 @@
-package cn.acyou.iblogdata.utils;
+package cn.acyou.iblogdata.constant;
 
 /**
  * @author youfang

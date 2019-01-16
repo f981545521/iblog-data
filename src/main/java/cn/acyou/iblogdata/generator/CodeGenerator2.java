@@ -27,7 +27,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-import static cn.acyou.iblogdata.utils.AppConstant.*;
+import static cn.acyou.iblogdata.constant.AppConstant.*;
 
 /**
  * 只需3步骤

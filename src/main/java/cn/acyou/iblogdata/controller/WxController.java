@@ -2,7 +2,7 @@ package cn.acyou.iblogdata.controller;
 
 import cn.acyou.iblog.utility.HttpClientUtil;
 import cn.acyou.iblogdata.entity.*;
-import cn.acyou.iblogdata.utils.AppConstant;
+import cn.acyou.iblogdata.constant.AppConstant;
 import com.alibaba.fastjson.JSON;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

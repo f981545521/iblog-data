@@ -1,5 +1,6 @@
 package cn.acyou.iblogdata.utils;
 
+import cn.acyou.iblogdata.constant.AppConstant;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;

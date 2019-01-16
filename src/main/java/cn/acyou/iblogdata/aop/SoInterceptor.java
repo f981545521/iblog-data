@@ -1,7 +1,7 @@
 package cn.acyou.iblogdata.aop;
 
 import cn.acyou.iblogdata.commons.So;
-import cn.acyou.iblogdata.utils.AppConstant;
+import cn.acyou.iblogdata.constant.AppConstant;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.google.common.base.Joiner;
