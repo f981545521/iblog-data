@@ -270,6 +270,23 @@ public class SimpleTest {
         }
         System.out.println(studentList);
     }
+    @Test
+    public void test37() {
+        Student student = new Student();
+        List<Student> studentList = new ArrayList<>();
+        student.setName("小明Y");
+        studentList.add(student);
+        student.setName("小明U");
+        studentList.add(student);
+        Student student2 = new Student();
+        student2.setName("小明U");
+        for (Student stu: studentList){
+            System.out.println(stu == student2);
+            System.out.println(stu.equals(student2));
+        }
+        System.out.println(studentList);
+    }
+
 
 
 }
