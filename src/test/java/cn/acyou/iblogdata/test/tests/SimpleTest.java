@@ -4,6 +4,7 @@ import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.utils.BeanUtil;
 import cn.acyou.iblogdata.utils.ParamUtil;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.util.Maps;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
@@ -250,6 +251,24 @@ public class SimpleTest {
         Map<String, String> stringMap = new HashMap<>();
         stringMap.put("sa", "fdsff");
         System.out.println(stringMap);
+    }
+
+    @Test
+    public void test35(){
+        boolean b = StringUtils.equalsIgnoreCase("xx","xx");
+        System.out.println(b);
+    }
+
+    @Test
+    public void test36() {
+        //还有这种操作？？？
+        Student student = new Student();
+        List<Student> studentList = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            student.setName("小明" + i);
+            studentList.add(student);
+        }
+        System.out.println(studentList);
     }
 
 
