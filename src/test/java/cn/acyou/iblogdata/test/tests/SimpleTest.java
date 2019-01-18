@@ -288,5 +288,20 @@ public class SimpleTest {
     }
 
 
+    @Test
+    public void test39(){
+        System.out.println(365*24*60*60);
+        System.out.println(Integer.MAX_VALUE);
+    }
+
+    @Test
+    public void test40(){
+        String name = "1234";
+        System.out.println(name.getBytes().length);
+        Byte v = Byte.MAX_VALUE;
+        String s = String.valueOf(v);
+        Byte k = Byte.valueOf(s);
+
+    }
 
 }
