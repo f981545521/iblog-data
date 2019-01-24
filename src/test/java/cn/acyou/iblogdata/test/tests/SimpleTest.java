@@ -302,6 +302,9 @@ public class SimpleTest {
         String s = String.valueOf(v);
         Byte k = Byte.valueOf(s);
 
+
+        System.out.println(new Date().getTime());
+        System.out.println(new Date(System.currentTimeMillis()));
     }
 
 }

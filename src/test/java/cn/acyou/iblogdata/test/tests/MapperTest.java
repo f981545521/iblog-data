@@ -147,4 +147,13 @@ public class MapperTest extends BaseTest{
         so.setName("小");
         studentMapper.getStudentsByPage(so);
     }
+
+    @Test
+    public void teestM4(){
+        Student requestParam = new Student();
+        requestParam.setAge(34);
+        List<Student> studentList = studentMapper.select(requestParam);
+        System.out.println(studentList.size());
+        System.out.println(studentList);
+    }
 }
