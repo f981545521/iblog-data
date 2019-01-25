@@ -307,4 +307,10 @@ public class SimpleTest {
         System.out.println(new Date(System.currentTimeMillis()));
     }
 
+    @Test
+    public void test123(){
+        String s = "/mkt/bargain/BA201901241841030947713";
+        System.out.println(s.indexOf("/mkt/bargain/"));
+    }
+
 }
