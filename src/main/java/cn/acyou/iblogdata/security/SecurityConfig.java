@@ -58,6 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .tokenValiditySeconds(60)
                 .and()
                     .authorizeRequests()
+                        .antMatchers("/teacher/**").permitAll()
                         .antMatchers("/dist/**", "/dist").permitAll()//允许所有用户都有权限访问登录页面
                         .antMatchers("/h5plus/**", "/h5plus").permitAll()
                         .antMatchers("/static/**", "/static").permitAll()
