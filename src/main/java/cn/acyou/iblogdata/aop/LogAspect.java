@@ -1,5 +1,6 @@
 package cn.acyou.iblogdata.aop;
 
+import cn.acyou.iblogdata.commons.BaseReq;
 import cn.acyou.iblogdata.utils.ResultInfo;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
@@ -7,7 +8,11 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.CodeSignature;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 针对Controller 作日志记录，输入与输出
@@ -69,6 +74,9 @@ public class LogAspect {
 
     @Before("performance()")
     public void before(JoinPoint jp){
+        HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+        String logId = request.getParameter("logId");
+
         String clazzName = jp.getSignature().getDeclaringType().getSimpleName();
         String methodName = jp.getSignature().getName();
         Object[] paramValues = jp.getArgs();
@@ -78,6 +86,10 @@ public class LogAspect {
             for (int i = 0; i < paramNames.length; i++) {
                 if (paramValues[i] instanceof MultipartFile){
                     continue;
+                }
+                if (paramValues[i] instanceof BaseReq){
+                    BaseReq baseReq = (BaseReq)paramValues[i];
+                    baseReq.setLogId(logId);
                 }
                 sb.append("{").append(paramNames[i]).append(":").append(paramValues[i]).append("}");
             }

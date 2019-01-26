@@ -477,4 +477,10 @@ public class SimpleTest {
         System.out.println(price.multiply(bigDecimal, MathContext.DECIMAL128));
     }
 
+    @Test
+    public void test234(){
+        int code = 23;
+        System.out.println(String.format("%06d", code));
+    }
+
 }
