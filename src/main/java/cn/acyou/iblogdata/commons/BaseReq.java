@@ -18,4 +18,13 @@ public class BaseReq implements Serializable {
     public void setLogId(String logId) {
         this.logId = logId;
     }
+
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("BaseReq{");
+        sb.append("logId='").append(logId).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }
