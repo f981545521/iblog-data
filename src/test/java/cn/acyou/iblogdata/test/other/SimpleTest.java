@@ -10,8 +10,11 @@ import cn.acyou.iblogdata.utils.JsonUtil;
 import cn.acyou.iblogdata.utils.RandomUtil;
 import cn.acyou.iblogdata.vo.StudentLogTestVo;
 import cn.acyou.iblogdata.vo.StudentVo;
+import com.google.common.collect.Maps;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 import org.junit.Test;
@@ -23,6 +26,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
@@ -481,6 +485,35 @@ public class SimpleTest {
     public void test234(){
         int code = 23;
         System.out.println(String.format("%06d", code));
+    }
+
+    @Test
+    public void test245(){
+        String s = null;
+        s.isEmpty();
+        System.out.println(StringUtils.isEmpty(s));
+    }
+
+    @Test
+    public void test333(){
+        Map<Integer, List<String>> listMap = Maps.newHashMap();
+        List<String> stringList = new ArrayList<>();
+        stringList.add("111");
+        stringList.add("222");
+        listMap.put(1, stringList);
+        System.out.println(listMap);
+
+        List<String> strings = listMap.get(1);
+        strings.add("333");
+        System.out.println(listMap);
+    }
+
+    @Test
+    public void test5464(){
+        System.out.println(0%4==0);
+        for (int i=0;i<20;i++){
+            System.out.println((i%4==0) + "," + ((i+1)%4==0));
+        }
     }
 
 }

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>select2</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script src="../../static/js/jquery.1.9.1.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link href="https://select2.org/assets/7c647dd1b60ff2b17a493d7f00a18e26.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+</head>
+<body>
+<div class="input-div">
+    <h2>Select</h2>
+    <div class="container-fluid">
+        <select class="js-example-basic-single" name="state">
+            <option value="AL">Alabama</option>
+            <option value="WY">Wyoming</option>
+        </select>
+    </div>
+
+    <div class="container-fluid">
+        <select class="js-example-data-ajax" name="state">
+            <option>搜索仓库</option>
+        </select>
+    </div>
+    <p>————————————————————————————————————————————————————————————</p>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-lg-3">
+                <select class="form-control js-example-tokenizer" multiple="multiple">
+                    <option>橙子</option>
+                    <option>栗子</option>
+                    <option>梨子</option>
+                    <option>香蕉</option>
+                    <option>草莓</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+
+        $('#mySelect2').val(null).trigger('change');
+
+
+        $(".js-example-tokenizer").select2({
+            placeholder: '请选择你喜欢的水果',
+            tags: true,
+            tokenSeparators: [',', ' ']
+        })
+
+
+        $('.js-example-basic-single').select2({
+            placeholder: 'This is my placeholder',
+            allowClear: true,
+            width: '300px'
+        });
+        $(".js-example-data-ajax").select2({
+            width: '300px',
+            ajax: {
+                url: "https://api.github.com/search/repositories",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: data.items,
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+            placeholder: 'Search for a repository',
+            escapeMarkup: function (markup) { return markup; },
+            minimumInputLength: 2,
+            minimumResultsForSearch: 20,
+            templateResult: formatRepo,
+            templateSelection: formatRepoSelection
+        });
+
+        function formatRepo (repo) {
+            if (repo.loading) {
+                return repo.text;
+            }
+
+            var markup = "<div class='select2-result-repository clearfix'>" +
+                "<div class='select2-result-repository__avatar'><img src='" + repo.owner.avatar_url + "' /></div>" +
+                "<div class='select2-result-repository__meta'>" +
+                "<div class='select2-result-repository__title'>" + repo.full_name + "</div>";
+
+            if (repo.description) {
+                markup += "<div class='select2-result-repository__description'>" + repo.description + "</div>";
+            }
+
+            markup += "<div class='select2-result-repository__statistics'>" +
+                "<div class='select2-result-repository__forks'><i class='fa fa-flash'></i> " + repo.forks_count + " Forks</div>" +
+                "<div class='select2-result-repository__stargazers'><i class='fa fa-star'></i> " + repo.stargazers_count + " Stars</div>" +
+                "<div class='select2-result-repository__watchers'><i class='fa fa-eye'></i> " + repo.watchers_count + " Watchers</div>" +
+                "</div>" +
+                "</div></div>";
+
+            return markup;
+        }
+
+        function formatRepoSelection (repo) {
+            return repo.full_name || repo.text;
+        }
+    });
+</script>
+</body>
+</html>
