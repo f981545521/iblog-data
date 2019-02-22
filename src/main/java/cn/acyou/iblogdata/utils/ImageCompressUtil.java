@@ -131,9 +131,10 @@ public class ImageCompressUtil {
     }
 
     public static void main(String args[]) throws Exception {
-        File fromFile = new File("F:\\iotest\\images","1.jpeg");
-        File targetFile = new File("F:\\iotest\\images","target.jpeg");
-        File waterPic = new File("F:\\iotest\\images","water.png");//水印图片
+        File fromFile = new File("F:\\iotest\\images2","qrcode.jpg");
+        File targetFile = new File("F:\\iotest\\images2","target.jpeg");
+        //水印图片
+        File waterPic = new File("F:\\iotest\\images","water.png");
         if (targetFile.exists()){
             targetFile.delete();
         }
@@ -155,6 +156,12 @@ public class ImageCompressUtil {
 
         //用outputFormat(图像格式)转换图片格式，保持原尺寸不变
         Thumbnails.of(fromFile).scale(1f).outputFormat("png").toFile("F:\\iotest\\images\\png格式的图片.png");
+
+        //固定长宽 ： 100*100
+        Thumbnails.of(fromFile).size(100, 100).keepAspectRatio(false).toFile(targetFile);
+
+        //按指定大小把图片进行缩放（会遵循原图高宽比例）
+        Thumbnails.of(fromFile).size(400,500).toFile(targetFile);//变为400*300,遵循原图比例缩或放到400*某个高度
 
     }
 }
