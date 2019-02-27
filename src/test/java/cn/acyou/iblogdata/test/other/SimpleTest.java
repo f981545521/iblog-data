@@ -10,11 +10,13 @@ import cn.acyou.iblogdata.utils.JsonUtil;
 import cn.acyou.iblogdata.utils.RandomUtil;
 import cn.acyou.iblogdata.vo.StudentLogTestVo;
 import cn.acyou.iblogdata.vo.StudentVo;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 import org.junit.Test;
@@ -514,6 +516,24 @@ public class SimpleTest {
         for (int i=0;i<20;i++){
             System.out.println((i%4==0) + "," + ((i+1)%4==0));
         }
+    }
+
+    @Test
+    public void test456(){
+        String json = "{'key':['item1','item2'],'key2':['item3','item4']}";
+        Map<String, List<String>> listMap = JSON.parseObject(json, new TypeReference<Map<String, List<String>>>(){});
+        System.out.println(listMap);
+    }
+
+    @Test
+    public void test4564(){
+        Map<String, List<String>> listMap = new HashMap<>();
+        listMap.put("key1", Lists.newArrayList("item1","item2"));
+        listMap.put("key2", Lists.newArrayList("item3","item4"));
+        listMap.put("key3", Lists.newArrayList("item5","item6","item7"));
+        System.out.println(listMap);
+        System.out.println("————————————————————————————————");
+        System.out.println(JSON.toJSONString(listMap));
     }
 
 }

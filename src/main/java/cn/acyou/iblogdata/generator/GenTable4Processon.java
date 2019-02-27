@@ -24,7 +24,7 @@ public class GenTable4Processon {
      * 正常情况下读取表注释时，是取不出来的。
      * 需要增加useInformationSchema=true配置
      */
-    private static final String DB_NAME = "service_promotion";// 数据库名
+    private static final String DB_NAME = "er";// 数据库名
     private static final String FILE_NAME = DB_NAME + ".txt";
 
     private static final String url = "jdbc:mysql://localhost:3306/"+DB_NAME+"?useInformationSchema=true&useUnicode=true&characterEncoding=UTF-8";
