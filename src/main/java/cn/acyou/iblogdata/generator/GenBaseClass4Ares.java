@@ -17,7 +17,7 @@ import java.util.Random;
  * @author youfang
  * @version [1.0.0, 2018-06-11 下午 02:52]
  **/
-public class GenEntityFromTable2XPN {
+public class GenBaseClass4Ares {
 
     private static final String driver = "com.mysql.jdbc.Driver";
     private static final String user = "root";
@@ -27,9 +27,9 @@ public class GenEntityFromTable2XPN {
      * 需要增加useInformationSchema=true配置
      */
     private static final String url = "jdbc:mysql://localhost:3306/er?useInformationSchema=true&useUnicode=true&characterEncoding=UTF-8";
-    private static final String TABLE_NAME = "t_product_label";// 表名
+    private static final String TABLE_NAME = "t_product_gallery";// 表名
     private static final String PACKAGE = "com.suizhi.ares.commodity.entity.product";//你的实体类所在的包的位置
-    private static final String CLASS_NAME = convertCamelCase("product_label");// 类名文件名
+    private static final String CLASS_NAME = convertCamelCase("product_gallery");// 类名文件名
 
     private static Connection connection = null;
     private static final String MAPPER_PACKAGE = PACKAGE.replace("domain", "mapper");
@@ -119,7 +119,6 @@ public class GenEntityFromTable2XPN {
                     if (StringUtils.isEmpty(className)){
                         className = convertCamelCase(TABLE_NAME);
                     }
-                    javaPw.write("@Table(name = \"" + TABLE_NAME + "\")\r\n");
                     javaPw.write("public class " + className  + " implements Serializable{\r\n");
                     javaPw.write("\r\n    private static final long serialVersionUID = "+ String.valueOf(new Random().nextLong()) +"L;\r\n");
                     System.out.println();
@@ -204,11 +203,6 @@ public class GenEntityFromTable2XPN {
             pw.write("\t//" + name + "\r\n");
         }
 
-        if (!PK_NAME.equals("") && name.equals(PK_NAME)){
-            pw.write("    @Id\r\n");
-            pw.write("    @GeneratedValue(generator = \"JDBC\")\r\n");
-        }
-        pw.write("    @Column(name = \"" + name + "\")\r\n");
         if ("Date".equals(type)){
             pw.write("    @JsonFormat(pattern = \"yyyy-MM-dd HH:mm:ss\", timezone = \"GMT+8\")\r\n");
         }
@@ -301,3 +295,4 @@ public class GenEntityFromTable2XPN {
         return time;
     }
 }
+

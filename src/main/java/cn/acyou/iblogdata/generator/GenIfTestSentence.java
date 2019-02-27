@@ -15,8 +15,8 @@ public class GenIfTestSentence {
      * 正常情况下读取表注释时，是取不出来的。
      * 需要增加useInformationSchema=true配置
      */
-    private static final String url = "jdbc:mysql://localhost:3306/service_promotion?useInformationSchema=true&useUnicode=true&characterEncoding=UTF-8";
-    private static final String TABLE_NAME = "t_bargain_order_record";// 表名
+    private static final String url = "jdbc:mysql://localhost:3306/er?useInformationSchema=true&useUnicode=true&characterEncoding=UTF-8";
+    private static final String TABLE_NAME = "t_product_spu";// 表名
 
     private static Connection connection = null;
     public static void main(String[] args) {
