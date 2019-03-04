@@ -50,6 +50,7 @@ public class GenBaseClass4Ares {
         generateEntity(CLASS_NAME);
         outputField();
         generateIfTestSentence();
+        outPutAlisa();
     }
 
     /**
@@ -65,6 +66,18 @@ public class GenBaseClass4Ares {
         String[] targetArray = targetString.split(",");
         List<String> stringList = Arrays.stream(targetArray).map(GenBaseClass4Ares::convertcamelCase).collect(Collectors.toList());
         System.out.println("#{" + StringUtils.join(stringList, "}, #{") + "}");
+    }
+
+    private static void outPutAlisa(){
+        String alisa = "spu.";
+        String targetString = "spu_id,spu_code,product_no,category_id,brand_id,brand_name,brand_logo_url,origin,product_name,product_desc," +
+                "product_desc_ext,product_keywords,product_type,settlement_price,cost_price,price,tag_price,profit,style_num," +
+                "params_json,have_spec,spec_value,begin_time,end_time,online_status,volume,weight,unit,remark," +
+                "external_product_code,external_group_code,sort,grade,is_spec_images,is_pack,is_hide_stock,is_give_point," +
+                "is_point_deduction,buy_quota,seller_id,shop_id,shop_name,shop_cat_id,freight_template_id,bear_freight," +
+                "depot_id,status,auth_message,disabled,is_delete,ext,create_time,create_user,last_update_time,last_update_user";
+        String[] targetArray = targetString.split(",");
+        System.out.println(alisa + StringUtils.join(targetArray, ", " + alisa));
     }
 
 
