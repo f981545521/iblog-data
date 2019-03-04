@@ -1,7 +1,7 @@
 package cn.acyou.iblogdata.generator;
 
 import com.google.common.base.CaseFormat;
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
@@ -9,8 +9,9 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.Date;
-import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  *  使用MySQL，根据数据库表名，生成实体类
@@ -27,51 +28,75 @@ public class GenBaseClass4Ares {
      * 需要增加useInformationSchema=true配置
      */
     private static final String url = "jdbc:mysql://localhost:3306/er?useInformationSchema=true&useUnicode=true&characterEncoding=UTF-8";
-    private static final String TABLE_NAME = "t_product_gallery";// 表名
-    private static final String PACKAGE = "com.suizhi.ares.commodity.entity.product";//你的实体类所在的包的位置
-    private static final String CLASS_NAME = convertCamelCase("product_gallery");// 类名文件名
+    /** 表名 */
+    private static final String TABLE_NAME = "t_product_gallery";
+    /** 你的实体类所在的包的位置 */
+    private static final String PACKAGE = "com.suizhi.ares.commodity.entity.product";
+    /** 类名文件名 */
+    private static final String CLASS_NAME = convertCamelCase("product_gallery");
 
     private static Connection connection = null;
     private static final String MAPPER_PACKAGE = PACKAGE.replace("domain", "mapper");
+
+
     public static void main(String[] args) {
         generateEntity(CLASS_NAME);
+        outputField();
     }
 
-    private static String PK_NAME = "";
+    /**
+     * 输出字段
+     */
+    private static void outputField(){
+        String targetString = "spu_code,product_no,category_id,brand_id,brand_name,brand_logo_url,origin,product_name,product_desc," +
+                "product_desc_ext,product_keywords,product_type,settlement_price,cost_price,price,tag_price,profit,style_num," +
+                "params_json,have_spec,spec_value,begin_time,end_time,online_status,volume,weight,unit,remark," +
+                "external_product_code,external_group_code,sort,grade,is_spec_images,is_pack,is_hide_stock,is_give_point," +
+                "is_point_deduction,buy_quota,seller_id,shop_id,shop_name,shop_cat_id,freight_template_id,bear_freight," +
+                "depot_id,status,auth_message,disabled,is_delete,ext,create_time,create_user";
+        String[] targetArray = targetString.split(",");
+        List<String> stringList = Arrays.stream(targetArray).map(GenBaseClass4Ares::convertcamelCase).collect(Collectors.toList());
+        System.out.println("#{" + StringUtils.join(stringList, "}, #{") + "}");
+    }
+
+
     private static StringBuilder ALL_FILED = new StringBuilder();
 
     private static void generateEntity(String className){
         FileSystemView fsv = FileSystemView.getFileSystemView();
-        String path = fsv.getHomeDirectory().toString();//获取当前用户桌面路径
+        //获取当前用户桌面路径
+        String path = fsv.getHomeDirectory().toString();
         connection = getConnections();
         try {
             DatabaseMetaData dbmd = connection.getMetaData();
             //获取主键
             ResultSet pkRs = dbmd.getPrimaryKeys(null, null, TABLE_NAME);
-            while (pkRs.next()) {
-                PK_NAME = (String) pkRs.getObject(4);
-            }
-
             ResultSet resultSet = dbmd.getTables(null, "%", "%", new String[]{"TABLE"});
             while (resultSet.next()) {
                 String tableName = resultSet.getString("TABLE_NAME");
-                if (TABLE_NAME.equals(tableName)) {//这里干掉IF可对库里面所有表直接生成
+                //这里干掉IF可对库里面所有表直接生成
+                if (TABLE_NAME.equals(tableName)) {
                     ResultSet rs1 = dbmd.getColumns(null, "%", tableName, "%");
                     ResultSet rs2 = dbmd.getColumns(null, "%", tableName, "%");
                     //获取表信息
                     String tableRemark = "";
                     ResultSet rsTableInfo = dbmd.getTables(null, null, TABLE_NAME, new String[]{"TABLE"});
                     while(rsTableInfo.next()){
-                        String tableCat = rsTableInfo.getString("TABLE_CAT");  //表类别(可为null)
-                        String tableSchemaName = rsTableInfo.getString("TABLE_SCHEM");//表模式（可能为空）,在oracle中获取的是命名空间,其它数据库未知
-                        String tableName2 = rsTableInfo.getString("TABLE_NAME");  //表名
-                        String tableType = rsTableInfo.getString("TABLE_TYPE");  //表类型,典型的类型是 "TABLE"、"VIEW"、"SYSTEM TABLE"、"GLOBAL TEMPORARY"、"LOCAL TEMPORARY"、"ALIAS" 和 "SYNONYM"。
-                        String remarks = rsTableInfo.getString("REMARKS");       //表备注
+                        //表类别(可为null)
+                        String tableCat = rsTableInfo.getString("TABLE_CAT");
+                        //表模式（可能为空）,在oracle中获取的是命名空间,其它数据库未知
+                        String tableSchemaName = rsTableInfo.getString("TABLE_SCHEM");
+                        //表名
+                        String tableName2 = rsTableInfo.getString("TABLE_NAME");
+                        //表类型,典型的类型是 "TABLE"、"VIEW"、"SYSTEM TABLE"、"GLOBAL TEMPORARY"、"LOCAL TEMPORARY"、"ALIAS" 和 "SYNONYM"。
+                        String tableType = rsTableInfo.getString("TABLE_TYPE");
+                        //表备注
+                        String remarks = rsTableInfo.getString("REMARKS");
                         System.out.println(tableCat + " - " + tableSchemaName + " - " +tableName2 + " - " + tableType + " - " + remarks);
                         tableRemark = remarks;
                     }
                     String fileName;//文件名
-                    if (!StringUtils.isEmpty(className)){
+                    if (StringUtils.isNotEmpty(className)){
                         fileName = className;
                     }else {
                         fileName = convertCamelCase(TABLE_NAME);
@@ -126,7 +151,6 @@ public class GenBaseClass4Ares {
                     System.out.println();
                     xmlPw.write("\r\n    <resultMap id=\"Base_Result_Map\" type=\"" + PACKAGE + "." + CLASS_NAME + "\">");
                     while (rs1.next()) {
-                        //System.out.println("private " + sqlType2JavaType(rs1.getString("TYPE_NAME")) + "	" + rs1.getString("COLUMN_NAME") + ";");
                         if (javaDirectory.exists()) {
                         } else {
                             javaDirectory.createNewFile();
