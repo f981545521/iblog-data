@@ -15,6 +15,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.assertj.core.util.Lists;
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 import org.junit.Test;
@@ -514,6 +515,30 @@ public class SimpleTest {
         for (int i=0;i<20;i++){
             System.out.println((i%4==0) + "," + ((i+1)%4==0));
         }
+    }
+
+    @Test
+    public void test435345(){
+        List<String> stringList = Lists.newArrayList();
+        stringList.add("ss");
+        System.out.println(stringList);
+
+    }
+
+    @Test
+    public void test3242(){
+        System.out.println(RandomUtil.createRandomStr(5) + ".png");
+        String[] as = new String[5];
+        as[1] = "2";
+        System.out.println(as.length);
+    }
+
+    @Test
+    public void testre(){
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("颜色", "红色");
+        map.put("内存", "4G");
+        System.out.println(map.get(0));
     }
 
 }
