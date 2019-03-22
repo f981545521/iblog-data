@@ -42,7 +42,11 @@
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
         <!-- 指定数据库表 -->
-        <table schema="" tableName="druid_app"></table>
+        <!--<table schema="" tableName="druid_app"></table>-->
+        <!-- 指定数据库表 : 不带example -->
+        <table tableName="druid_app" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false"/>
 
     </context>
 </generatorConfiguration>
