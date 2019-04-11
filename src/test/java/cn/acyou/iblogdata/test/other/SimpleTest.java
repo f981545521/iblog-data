@@ -541,4 +541,11 @@ public class SimpleTest {
         System.out.println(map.get(0));
     }
 
+    @Test
+    public void test2356(){
+        String hql = " select o from MbTemplateVariables o where 1=1";
+        hql += " and o.bllx = " + 2;
+        System.out.println(hql);
+    }
+
 }
