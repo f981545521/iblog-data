@@ -137,7 +137,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
                 //响应Ajax请求
                 if("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))){
                     responseResult(response, resultInfo);
-                    return null;
+                    return mv;
                 }
                 mv.addObject("code", resultInfo.getCode());
                 mv.addObject("message", resultInfo.getMessage());

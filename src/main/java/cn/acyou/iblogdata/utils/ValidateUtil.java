@@ -41,7 +41,7 @@ public class ValidateUtil {
                 //重新设置会私有权限
                 field.setAccessible(false);
                 if (result != null && !("".equals(result))) {
-                    logger.warn("{}|{}", "valid failed", result);
+                    logger.warn("[验证结果：]|{}|{}", "valid failed", result);
                     return result;
                 }
             }
