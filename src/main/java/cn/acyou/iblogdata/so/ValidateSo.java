@@ -10,7 +10,7 @@ import java.util.Map;
  * @author youfang
  * @date 2018-04-25 下午 02:23
  **/
-public class ValidateSo implements Serializable {
+public class ValidateSo implements BaseValidateEntity, Serializable {
 
     private static final long serialVersionUID = -828326546547153332L;
 

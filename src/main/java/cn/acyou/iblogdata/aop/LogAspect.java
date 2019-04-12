@@ -112,7 +112,6 @@ public class LogAspect {
         String clazzName = jp.getSignature().getDeclaringType().getSimpleName();
         String methodName = jp.getSignature().getName();
         log.info("[{}]|{}|{}", "<---error\t",  clazzName + "." + methodName, t.getMessage());
-        t.printStackTrace();
     }
 
 }

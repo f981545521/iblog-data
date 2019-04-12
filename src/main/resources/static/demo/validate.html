@@ -10,7 +10,10 @@
 
     <h1>参数校验测试</h1>
     <button onclick="sendMessage()">发送请求</button>
-<script>
+    <br/>
+    <button onclick="sendMessage2()">发送请求2</button>
+
+    <script>
 
     var postData6 = {"id":1,"name":"消散","useNow":true};
     //var postData6 = {"id":1,"useNow":true};
@@ -26,8 +29,13 @@
 
 
     console.log(postData6);
-    function sendMessage(){
+    function sendMessage() {
         ajaxPost(postData6, "/valid/index", function (result) {
+            console.log(result)
+        })
+    }
+    function sendMessage2(){
+        ajaxPost(postData6, "/valid/validate2", function (result) {
             console.log(result)
         })
     }
