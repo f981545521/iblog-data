@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="/static/js/jquery.1.9.1.min.js"></script>
+<script src="/static/js/common.js"></script>
+<body>
+
+    <h1>参数校验测试</h1>
+    <button onclick="sendMessage()">发送请求</button>
+<script>
+
+    var postData6 = {"id":1,"name":"消散","useNow":true};
+    //var postData6 = {"id":1,"useNow":true};
+    var interestList = [];
+/*    for (var j = 0; j < 10; j++) {
+        postData6['interestList[' + j +']'] = "打球"+j;
+    }*/
+    var friendMap = new Map();
+    friendMap.set("1", "小明");
+    //postData6.friendMap = {"1":"小君"};
+    postData6['interestList'] = interestList;
+    postData6.friendMap = {};
+
+
+    console.log(postData6);
+    function sendMessage(){
+        ajaxPost(postData6, "/valid/index", function (result) {
+            console.log(result)
+        })
+    }
+
+
+</script>
+
+</body>
+</html>
