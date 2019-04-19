@@ -12,6 +12,8 @@
     <button onclick="sendMessage()">发送请求</button>
     <br/>
     <button onclick="sendMessage2()">发送请求2</button>
+    <br/>
+    <button onclick="multhPartParam()">多对象参数请求</button>
 
     <script>
 
@@ -36,6 +38,12 @@
     }
     function sendMessage2(){
         ajaxPost(postData6, "/valid/validate2", function (result) {
+            console.log(result)
+        })
+    }
+
+    function multhPartParam() {
+        ajaxPost({"id":"123w","name":"小张"}, "/demo/multiPartParam", function (result) {
             console.log(result)
         })
     }

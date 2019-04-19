@@ -1,8 +1,12 @@
 package cn.acyou.iblogdata.controller;
 
+import cn.acyou.iblogdata.constant.AppConstant;
 import cn.acyou.iblogdata.utils.ResultInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageBuilder;
+import org.springframework.amqp.core.MessageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +28,12 @@ public class MqController {
     @RequestMapping(value = "sendMessage", method = {RequestMethod.GET})
     @ResponseBody
     public ResultInfo addStudent(String message){
-        amqpTemplate.convertAndSend("hello", message);
+        Message mqMessage = MessageBuilder.withBody(message.getBytes())
+                .setContentType(MessageProperties.CONTENT_TYPE_TEXT_PLAIN)
+                .setMessageId("123")
+                .setHeader("bar", "baz")
+                .build();
+        amqpTemplate.send(AppConstant.MQ_CHANNEL_MAIN, mqMessage);
         return new ResultInfo("发送成功");
     }
 }
