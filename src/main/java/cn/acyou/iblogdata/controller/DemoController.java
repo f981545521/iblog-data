@@ -1,5 +1,7 @@
 package cn.acyou.iblogdata.controller;
 
+import cn.acyou.iblogdata.entity.Student;
+import cn.acyou.iblogdata.entity.Teacher;
 import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.spring.UniqueBean;
 import cn.acyou.iblogdata.utils.ResultInfo;
@@ -64,6 +66,13 @@ public class DemoController extends BaseController{
         return new ResultInfo(name);
     }
 
+
+    @RequestMapping(value = "multiPartParam", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public ResultInfo multiPartParam(Student student, Teacher teacher){
+        System.out.println(teacher);
+        return new ResultInfo(student);
+    }
 
 
 }
