@@ -548,4 +548,18 @@ public class SimpleTest {
         System.out.println(hql);
     }
 
+    @Test
+    public void testfgdg(){
+        DateTime cur = new DateTime();
+        for (int i=0; i<365; i++){
+            System.out.println( cur.toString("yyyy/MM/dd"));
+            cur = cur.minusDays(1);
+        }
+    }
+
+    @Test
+    public void testsfgdg(){
+        String s = "2018/04/23";
+        System.out.println(s.replaceAll("/", ""));
+    }
 }
