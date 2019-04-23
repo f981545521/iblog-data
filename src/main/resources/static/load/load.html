@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jquery load</title>
+</head>
+<script src="../../static/js/jquery.1.9.1.min.js"></script>
+<body>
+    <h3>Jquery load</h3>
+    <button type="button" onclick="loadMore()">加载更多</button>
+    <button type="button" onclick="loadMore2()">加载更多2</button>
+    <div id="page-content">
+
+    </div>
+<script>
+    $(function () {
+
+
+    });
+
+    function loadMore() {
+        $("#page-content").load("hello.txt", {"name":"小王"}, function (resp) {
+            console.log(resp)
+        });
+    }
+    function loadMore2() {
+        $("#page-content").load("h4.html");
+    }
+
+</script>
+</body>
+</html>
