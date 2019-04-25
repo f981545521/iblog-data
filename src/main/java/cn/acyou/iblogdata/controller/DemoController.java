@@ -5,6 +5,7 @@ import cn.acyou.iblogdata.entity.Teacher;
 import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.spring.UniqueBean;
 import cn.acyou.iblogdata.utils.ResultInfo;
+import cn.acyou.iblogdata.utils.StaticUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -73,6 +74,15 @@ public class DemoController extends BaseController{
         System.out.println(teacher);
         return new ResultInfo(student);
     }
+
+    @RequestMapping(value = "staticMethod", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public ResultInfo staticMethod(){
+        StaticUtil.staticMethod();
+        return new ResultInfo();
+    }
+
+
 
 
 }
