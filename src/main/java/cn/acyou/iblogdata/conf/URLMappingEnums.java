@@ -2,17 +2,21 @@ package cn.acyou.iblogdata.conf;
 
 /**
  * 通过本类实现RequestMapping到视图的免配
+ * View Controller 会找到对应的模板视图
  * @author youfang
  * @version [1.0.0, 2018-05-12]
  **/
 public enum  URLMappingEnums {
 
+    /** 首页 */
     IND_0001("/","index/index", "首页"),
     WEB2APP_INDEX("/web2app/index","web2app/index", "web2app首页"),
     WEB2APP_TAKE_VIDEO("/web2app/takeVideo","web2app/takeVideo", "web2app拍视频"),
 
     LOGIN_PAGE("/login","index/login", "登录页面"),
-    WS_CLIENT("/client","ws/client", "Web Socket 客户端");
+    WS_CLIENT("/client","ws/client", "Web Socket 客户端"),
+
+    ;
 
 
     private String path;
