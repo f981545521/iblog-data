@@ -1,5 +1,6 @@
 package cn.acyou.iblogdata.conf;
 
+import cn.acyou.iblogdata.aop.InterfacePermissionInterceptor;
 import cn.acyou.iblogdata.aop.SessionInterceptor;
 import cn.acyou.iblogdata.aop.SpringMvcInterceptor;
 import cn.acyou.iblogdata.exception.ServiceException;
@@ -19,6 +20,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.util.PathMatcher;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -48,7 +50,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        /* Session Interceptor */
         registry.addInterceptor(new SessionInterceptor()).addPathPatterns("/**");
+        /* 接口权限 Interceptor */
+        registry.addInterceptor(new InterfacePermissionInterceptor()).addPathPatterns("/**").excludePathPatterns("*.js");
         for (HandlerInterceptor handlerInterceptor : interceptorList){
             registry.addInterceptor(handlerInterceptor);
         }
