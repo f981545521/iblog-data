@@ -28,9 +28,10 @@ public @interface BaseValid {
     //最大值，针对数字类型
     int max() default 0;
 
-    //数字取值范围，针对数字类型
+    //取值范围，针对非数字类型
     String[] range() default {};
 
+    //取值范围，针对数字类型
     int[] numberRange() default {};
 
     //提供几种常用的正则验证
