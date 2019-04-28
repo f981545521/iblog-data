@@ -16,8 +16,14 @@ public class ValidateSo implements BaseValidateEntity, Serializable {
 
     private Integer id;
 
-    @BaseValid(message = "姓名不能为空！")
+    @BaseValid(nullable = false, message = "姓名不能为空！")
     private String name;
+
+    /**
+     * 性别
+     */
+    @BaseValid(range = {"1","2"}, message = "性别填写不正确")
+    private String sex;
 
     private Boolean useNow;
 
@@ -65,5 +71,13 @@ public class ValidateSo implements BaseValidateEntity, Serializable {
 
     public void setUseNow(Boolean useNow) {
         this.useNow = useNow;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 }
