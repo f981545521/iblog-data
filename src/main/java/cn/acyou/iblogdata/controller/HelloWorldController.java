@@ -76,6 +76,7 @@ public class HelloWorldController extends BaseController{
     @Value("${name:nothing found}")
     private String configName;//这个是Spring Cloud Config 中的值，默认值：nothing found
 
+    @CrossOrigin(origins = "http://localhost:8111")
     @RequestMapping(value = "/setSession",method = {RequestMethod.GET})
     @ResponseBody
     public String setSession(HttpSession session) {
