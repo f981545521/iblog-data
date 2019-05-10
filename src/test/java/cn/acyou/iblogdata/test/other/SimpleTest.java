@@ -562,4 +562,79 @@ public class SimpleTest {
         String s = "2018/04/23";
         System.out.println(s.replaceAll("/", ""));
     }
+
+    @Test
+    public void testConcatPerformance(){
+        cn.acyou.iblogdata.entity.Student student = new cn.acyou.iblogdata.entity.Student();
+        student.setName("小王");
+        student.setAge(22);
+        long start = System.currentTimeMillis();
+        String  hql = "update MbTemplateContent set " +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjmc = '" + student.getName() + "'" +
+                " wjlj = " + student.getName() +
+                " wjnr = " + student.getAge() +
+                " xzblId = " + student.getName() +
+                " where mbId = " + student.getName();
+        long end = System.currentTimeMillis();
+        System.out.println("执行时间：" + (end - start));
+
+    }
+
+    @Test
+    public void ttst3(){
+        Double d = 1.0;
+        System.out.println(String.format("%02d", d.intValue()));
+    }
+
+    @Test
+    public void tstt34() {
+        for (int i = 0; i < 50; i++) {
+            System.out.println(UUID.randomUUID().toString());
+        }
+    }
 }
