@@ -4,6 +4,7 @@ import cn.acyou.iblog.utility.DateUtil;
 import cn.acyou.iblogdata.controller.BaseController;
 import cn.acyou.iblogdata.entity.StudentExportEntity;
 import cn.acyou.iblogdata.entity.StudentExportEntityGroup;
+import cn.acyou.iblogdata.entity.poi.DataDictionary;
 import cn.acyou.iblogdata.export.StudentEntityExportServer;
 import cn.acyou.iblogdata.upload.OSSUploadUtil;
 import cn.acyou.iblogdata.utils.RandomUtil;
@@ -20,6 +21,12 @@ import cn.afterturn.easypoi.view.PoiBaseView;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,13 +38,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import javax.swing.filechooser.FileSystemView;
+import java.io.*;
+import java.util.*;
 
 /**
  * @author youfang
@@ -120,6 +123,81 @@ public class POIController extends BaseController {
         System.out.println(new Date().getTime() - start);
         System.out.println(list.size());
         System.out.println(ReflectionToStringBuilder.toString(list.get(0)));
+        return ResultInfoGenerate.generateSuccess();
+    }
+
+
+    @ApiOperation("easy poi  数据字典导入")
+    @RequestMapping(value = "importDictionary", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResultInfo importDictionary(MultipartFile file) throws Exception {
+        ImportParams params = new ImportParams();
+        params.setTitleRows(0);
+        params.setHeadRows(1);
+        POIFSFileSystem fs = new POIFSFileSystem(file.getInputStream());
+        HSSFWorkbook hs = new HSSFWorkbook(fs);
+        //hs.getSheetAt(3).getRow(3).cells[0].toString()
+        //输出到文件   --- 获取当前用户桌面路径
+        FileSystemView fsv = FileSystemView.getFileSystemView();
+        String path = fsv.getHomeDirectory().toString();
+        File directory = new File(path + "\\数据字典.sql");
+        FileWriter fw = new FileWriter(directory);
+        PrintWriter pw = new PrintWriter(fw);
+
+        for (int i = 2; i < hs.getNumberOfSheets(); i++) {
+            HSSFSheet sheetAt = hs.getSheetAt(i);
+            //表头
+            HSSFRow rowHead = sheetAt.getRow(0);
+            String categoryId = rowHead.getCell(4).toString();
+
+            for (int j = 1; j <= sheetAt.getLastRowNum(); j++) {
+                HSSFRow row = sheetAt.getRow(j);
+                HSSFCell cell0 = row.getCell(0);
+                if (cell0 == null){
+                    log.warn("null Point Exception");
+                    continue;
+                }
+                HSSFCell cell = row.getCell(2);
+                CellType numberType = cell.getCellTypeEnum();
+                log.info("类型：" + (CellType.NUMERIC == numberType));
+
+                String zdValue = "";
+                if (CellType.NUMERIC == numberType) {
+                    Double numericCellValue = cell.getNumericCellValue();
+                    zdValue = String.format("%02d", numericCellValue.intValue());
+                } else {
+                    zdValue = row.getCell(2).toString();
+                }
+                String zdmc = row.getCell(0).toString();
+                String zdCode = row.getCell(1).toString();
+                String desc = row.getCell(3).toString();
+                if (j == 1){
+                    String cataSql = "INSERT /*+ IGNORE_ROW_ON_DUPKEY_INDEX(SYS_CATEGORY(ID)) */ INTO \"SFGZ\".\"SYS_CATEGORY\" (\"ID\", \"CODE\", \"NAME\", \"ISSYS\", \"FOLDID\", \"CREATE_TIME\", \"CREATOR\", \"CREATOR_NAME\", \"MODIFY_TIME\", \"MODIFIOR\", \"MODIFY_NAME\", \"RECORD_SORT\", \"IS_USE\") VALUES ('"+categoryId+"', '"+zdCode+"', '"+zdmc+"', '1', 'df422ffe-eca8-4174-9c70-5c24220adecc', TO_DATE('2019-05-09 18:12:01', 'SYYYY-MM-DD HH24:MI:SS'), 'developer', 'developer', TO_DATE('2019-05-09 18:12:01', 'SYYYY-MM-DD HH24:MI:SS'), 'developer', 'developer', '93', '1');";
+                    pw.write(cataSql);
+                    pw.write("\r\n");
+                }
+                String sql = "INSERT /*+ IGNORE_ROW_ON_DUPKEY_INDEX(SYS_CATEGORY_VALUE, INDEX_SYS_CATEGORY_VALUE_CODE) */ INTO \"SFGZ\".\"SYS_CATEGORY_VALUE\" (\"ID\", \"NAME\", \"CODE\", \"EXT_VALUE\", \"PARENT_ID\", \"CATEGORY_ID\", \"CREATE_TIME\", \"CREATOR\", \"CREATOR_NAME\", \"MODIFY_TIME\", \"MODIFIOR\", \"MODIFY_NAME\", \"RECORD_SORT\", \"IS_USE\") VALUES ('"+UUID.randomUUID().toString()+"', '"+desc+"', '"+zdValue+"', NULL, NULL, '"+categoryId+"', TO_DATE('2019-05-09 18:13:31', 'SYYYY-MM-DD HH24:MI:SS'), 'developer', 'developer', TO_DATE('2019-05-09 18:13:31', 'SYYYY-MM-DD HH24:MI:SS'), 'developer', 'developer', '3861', '1');";
+                pw.write(sql);
+                pw.write("\r\n");
+                log.info(new DataDictionary(zdmc, zdCode, zdValue, desc).toString());
+            }
+        }
+        pw.flush();
+        fw.close();
+        pw.close();
+
+
+        //从第三开始
+        //for (int i = 3; i < hs.getNumberOfSheets(); i++) {
+        //    params.setStartSheetIndex(i);
+        //    List<DataDictionary> list = ExcelImportUtil.importExcel(file.getInputStream(), DataDictionary.class, params);
+        //    if (CollectionUtils.isNotEmpty(list)) {
+        //        log.info(list.get(0).toString());
+        //    }else {
+        //        break;
+        //    }
+        //}
+
         return ResultInfoGenerate.generateSuccess();
     }
 
