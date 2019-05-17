@@ -627,7 +627,7 @@ public class SimpleTest {
 
     @Test
     public void ttst3(){
-        Double d = 1.0;
+        Double d = 111.0;
         System.out.println(String.format("%02d", d.intValue()));
     }
 
@@ -636,5 +636,25 @@ public class SimpleTest {
         for (int i = 0; i < 50; i++) {
             System.out.println(UUID.randomUUID().toString());
         }
+    }
+
+    @Test
+    public void teest324(){
+        System.out.println("SFGZ_YWBL_DOSSIER_EVIDENCE_DET".length());
+    }
+
+    @Test
+    public void tesrtsrt(){
+        Map map = new HashMap();
+        System.out.println(map instanceof Collection);
+    }
+
+    @Test
+    public void trstttt(){
+        List<String> stringList = new ArrayList<>();
+        stringList.add("111");
+        stringList.add("222");
+        stringList.add("333");
+        System.out.println(StringUtils.join(stringList, ","));
     }
 }
