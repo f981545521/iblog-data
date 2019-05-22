@@ -436,6 +436,24 @@
             <artifactId>ojdbc</artifactId>
             <version>5</version>
         </dependency>
+
+        <!-- apache.poi 处理word -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-scratchpad</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+
     </dependencies>
 
     <!--依赖管理，用于管理spring-cloud的依赖，其中Camden.SR3是版本号-->
