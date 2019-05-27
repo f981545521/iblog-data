@@ -12,6 +12,8 @@ import cn.acyou.iblogdata.vo.StudentLogTestVo;
 import cn.acyou.iblogdata.vo.StudentVo;
 import com.google.common.collect.Maps;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.CharEncoding;
+import org.apache.commons.lang3.CharSet;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -656,5 +658,42 @@ public class SimpleTest {
         stringList.add("222");
         stringList.add("333");
         System.out.println(StringUtils.join(stringList, ","));
+    }
+
+    @Test
+    public void testsrt(){
+        String a = "01";
+        String b = "02";
+        String c = "02";
+        System.out.println(a.compareTo(b));
+        System.out.println(b.compareTo(a));
+        System.out.println(b.compareTo(c));
+    }
+    @Test
+    public void testsr2t(){
+        String a = "01";
+        String b = "02";
+        String s = StringUtils.isNotEmpty(a) ? "33":"23";
+        System.out.println(DigestUtils.md5Hex("1"));
+    }
+    @Test
+    public void testsr22t(){
+        String a = "01,";
+        if (a.endsWith(",")){
+            System.out.println(a.substring(0, a.lastIndexOf(",")));
+        }
+        System.out.println(StringUtils.stripEnd(a, ","));
+        System.out.println(StringUtils.trim(","));
+        String[] strings = new String[]{"aaa","bbb"};
+        System.out.println(StringUtils.join(strings, ","));
+        String b = ",xxx,xxxs,";
+        String c = StringUtils.strip(b, ",");
+        System.out.println(b);
+        System.out.println(c);
+    }
+
+    @Test
+    public void testCharacter(){
+        System.out.println(CharEncoding.UTF_8);
     }
 }
