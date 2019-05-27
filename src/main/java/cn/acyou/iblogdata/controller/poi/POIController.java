@@ -126,8 +126,9 @@ public class POIController extends BaseController {
         return ResultInfoGenerate.generateSuccess();
     }
 
+    private static final String SYS_CATEGORY_FOLDID = "df422ffe-eca8-4174-9c70-5c24220adecc";
 
-    @ApiOperation("easy poi  数据字典导入")
+    @ApiOperation(value = "easy poi  数据字典导入", notes = "只支持XLS格式，会覆盖所有记录")
     @RequestMapping(value = "importDictionary", method = {RequestMethod.POST})
     @ResponseBody
     public ResultInfo importDictionary(MultipartFile file) throws Exception {
@@ -143,12 +144,17 @@ public class POIController extends BaseController {
         File directory = new File(path + "\\数据字典.sql");
         FileWriter fw = new FileWriter(directory);
         PrintWriter pw = new PrintWriter(fw);
+        //清空之前的记录重新导入
+        pw.write("DELETE FROM SYS_CATEGORY WHERE FOLDID = '" + SYS_CATEGORY_FOLDID + "';");
+        pw.write("\r\n");
+        pw.write("DELETE FROM SYS_CATEGORY_VALUE WHERE CATEGORY_ID IN (SELECT ID FROM SYS_CATEGORY WHERE FOLDID = '" + SYS_CATEGORY_FOLDID + "');");
+        pw.write("\r\n");
 
         for (int i = 2; i < hs.getNumberOfSheets(); i++) {
             HSSFSheet sheetAt = hs.getSheetAt(i);
             //表头
             HSSFRow rowHead = sheetAt.getRow(0);
-            String categoryId = rowHead.getCell(4).toString();
+            String categoryId = UUID.randomUUID().toString();
 
             for (int j = 1; j <= sheetAt.getLastRowNum(); j++) {
                 HSSFRow row = sheetAt.getRow(j);
@@ -172,11 +178,11 @@ public class POIController extends BaseController {
                 String zdCode = row.getCell(1).toString();
                 String desc = row.getCell(3).toString();
                 if (j == 1){
-                    String cataSql = "INSERT /*+ IGNORE_ROW_ON_DUPKEY_INDEX(SYS_CATEGORY(ID)) */ INTO \"SFGZ\".\"SYS_CATEGORY\" (\"ID\", \"CODE\", \"NAME\", \"ISSYS\", \"FOLDID\", \"CREATE_TIME\", \"CREATOR\", \"CREATOR_NAME\", \"MODIFY_TIME\", \"MODIFIOR\", \"MODIFY_NAME\", \"RECORD_SORT\", \"IS_USE\") VALUES ('"+categoryId+"', '"+zdCode+"', '"+zdmc+"', '1', 'df422ffe-eca8-4174-9c70-5c24220adecc', TO_DATE('2019-05-09 18:12:01', 'SYYYY-MM-DD HH24:MI:SS'), 'developer', 'developer', TO_DATE('2019-05-09 18:12:01', 'SYYYY-MM-DD HH24:MI:SS'), 'developer', 'developer', '93', '1');";
+                    String cataSql = "INSERT INTO \"SFGZ\".\"SYS_CATEGORY\" (\"ID\", \"CODE\", \"NAME\", \"ISSYS\", \"FOLDID\", \"CREATE_TIME\", \"CREATOR\", \"CREATOR_NAME\", \"MODIFY_TIME\", \"MODIFIOR\", \"MODIFY_NAME\", \"RECORD_SORT\", \"IS_USE\") VALUES ('"+categoryId+"', '"+zdCode+"', '"+zdmc+"', '1', '"+SYS_CATEGORY_FOLDID+"', TO_DATE('2019-05-09 18:12:01', 'SYYYY-MM-DD HH24:MI:SS'), 'developer', 'developer', TO_DATE('2019-05-09 18:12:01', 'SYYYY-MM-DD HH24:MI:SS'), 'developer', 'developer', '93', '1');";
                     pw.write(cataSql);
                     pw.write("\r\n");
                 }
-                String sql = "INSERT /*+ IGNORE_ROW_ON_DUPKEY_INDEX(SYS_CATEGORY_VALUE, INDEX_SYS_CATEGORY_VALUE_CODE) */ INTO \"SFGZ\".\"SYS_CATEGORY_VALUE\" (\"ID\", \"NAME\", \"CODE\", \"EXT_VALUE\", \"PARENT_ID\", \"CATEGORY_ID\", \"CREATE_TIME\", \"CREATOR\", \"CREATOR_NAME\", \"MODIFY_TIME\", \"MODIFIOR\", \"MODIFY_NAME\", \"RECORD_SORT\", \"IS_USE\") VALUES ('"+UUID.randomUUID().toString()+"', '"+desc+"', '"+zdValue+"', NULL, NULL, '"+categoryId+"', TO_DATE('2019-05-09 18:13:31', 'SYYYY-MM-DD HH24:MI:SS'), 'developer', 'developer', TO_DATE('2019-05-09 18:13:31', 'SYYYY-MM-DD HH24:MI:SS'), 'developer', 'developer', '3861', '1');";
+                String sql = "INSERT INTO \"SFGZ\".\"SYS_CATEGORY_VALUE\" (\"ID\", \"NAME\", \"CODE\", \"EXT_VALUE\", \"PARENT_ID\", \"CATEGORY_ID\", \"CREATE_TIME\", \"CREATOR\", \"CREATOR_NAME\", \"MODIFY_TIME\", \"MODIFIOR\", \"MODIFY_NAME\", \"RECORD_SORT\", \"IS_USE\") VALUES ('"+UUID.randomUUID().toString()+"', '"+desc+"', '"+zdValue+"', NULL, NULL, '"+categoryId+"', TO_DATE('2019-05-09 18:13:31', 'SYYYY-MM-DD HH24:MI:SS'), 'developer', 'developer', TO_DATE('2019-05-09 18:13:31', 'SYYYY-MM-DD HH24:MI:SS'), 'developer', 'developer', '3861', '1');";
                 pw.write(sql);
                 pw.write("\r\n");
                 log.info(new DataDictionary(zdmc, zdCode, zdValue, desc).toString());
