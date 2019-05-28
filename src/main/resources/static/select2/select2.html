@@ -10,7 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 </head>
 <body>
-<div class="input-div">
+<div class="input-div" style="margin: 0 100px">
     <h2>Select</h2>
     <div class="container-fluid">
         <select class="js-example-basic-single" name="state">
@@ -18,10 +18,18 @@
             <option value="WY">Wyoming</option>
         </select>
     </div>
-
+    <p>————————————————————————————————————————————————————————————</p>
     <div class="container-fluid">
         <select class="js-example-data-ajax" name="state">
             <option>搜索仓库</option>
+        </select>
+    </div>
+    <p>————————————————————————————————————————————————————————————</p>
+    <div class="container-fluid">
+        <select class="multipart-select" name="state" multiple style="width: 500px;">
+            <option selected="selected">小爱</option>
+            <option> 小时</option>
+            <option selected="selected">小娥</option>
         </select>
     </div>
     <p>————————————————————————————————————————————————————————————</p>
@@ -51,7 +59,12 @@
             placeholder: '请选择你喜欢的水果',
             tags: true,
             tokenSeparators: [',', ' ']
-        })
+        });
+
+        $(".multipart-select").select2({
+            placeholder: '请选择',
+            multiple: true
+        });
 
 
         $('.js-example-basic-single').select2({

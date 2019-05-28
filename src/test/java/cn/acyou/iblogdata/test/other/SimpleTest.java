@@ -11,6 +11,7 @@ import cn.acyou.iblogdata.utils.RandomUtil;
 import cn.acyou.iblogdata.vo.StudentLogTestVo;
 import cn.acyou.iblogdata.vo.StudentVo;
 import com.google.common.collect.Maps;
+import com.google.common.primitives.Doubles;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.CharEncoding;
 import org.apache.commons.lang3.CharSet;
@@ -695,5 +696,25 @@ public class SimpleTest {
     @Test
     public void testCharacter(){
         System.out.println(CharEncoding.UTF_8);
+    }
+    @Test
+    public void testCddd(){
+        long id = 10;
+        DecimalFormat df = new DecimalFormat("0000");
+        System.out.println(df.format(id));
+    }
+    @Test
+    public void ffg(){
+        System.out.println(9999>9999);
+    }
+    @Test
+    public void test3ww(){
+        Integer a = 2235;
+        System.out.println(String.valueOf(a));
+        String b = "a23";
+        System.out.println(Integer.valueOf(b));
+        System.out.println(NumberUtils.isDigits("2.3F"));
+        System.out.println(NumberUtils.toInt(b, 2));
+        Double d = 2.33;
     }
 }
