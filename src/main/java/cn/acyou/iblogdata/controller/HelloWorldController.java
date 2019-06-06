@@ -219,6 +219,11 @@ public class HelloWorldController extends BaseController{
     public ResultInfo arrayParam2(@RequestBody List<String> ids){
         return new ResultInfo(ids);
     }
+    @RequestMapping(value = "arrayParam22", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResultInfo arrayParam22(List<String> ids){
+        return new ResultInfo(ids);
+    }
     @RequestMapping(value = "arrayParam3", method = {RequestMethod.POST})
     @ResponseBody
     public ResultInfo arrayParam3(@RequestBody ArrayParamReq req){

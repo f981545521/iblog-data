@@ -3,6 +3,7 @@ package cn.acyou.iblogdata.test.other;
 import cn.acyou.iblog.entity.Student;
 import cn.acyou.iblog.entity.Teacher;
 import cn.acyou.iblog.utility.DateUtil;
+import cn.acyou.iblog.utility.MathUtil;
 import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.test.entity.Animal;
 import cn.acyou.iblogdata.constant.AppConstant;
@@ -13,22 +14,27 @@ import cn.acyou.iblogdata.vo.StudentVo;
 import com.google.common.collect.Maps;
 import com.google.common.primitives.Doubles;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.CharEncoding;
 import org.apache.commons.lang3.CharSet;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.commons.math.util.MathUtils;
 import org.assertj.core.util.Lists;
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 import org.junit.Test;
+import org.mockito.internal.util.collections.Sets;
 import org.springframework.util.Assert;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
+import javax.print.PrintService;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.*;
@@ -717,4 +723,70 @@ public class SimpleTest {
         System.out.println(NumberUtils.toInt(b, 2));
         Double d = 2.33;
     }
+
+    @Test
+    public void testsrt2(){
+        String s = "09,10,08,03,05,02,06,07,11,12,14";
+        String[] s_ = s.split(",");
+        Arrays.sort(s_);
+        System.out.println(Arrays.toString(s_));
+    }
+
+    @Test
+    public void testsrt3(){
+        String s = "09,10,08,03,05,02,06,07,11,12,14";
+        String[] s_ = s.split(",");
+        List<String> stringList = Arrays.asList(s_);
+        Collections.sort(stringList);
+        System.out.println(stringList);
+    }
+
+
+    @Test
+    public void testsrt333(){
+        String s = "5.66";
+        System.out.println(NumberUtils.isNumber(s));
+        Double aDouble = 5.555;
+        System.out.println(MathUtil.roundHalfUp(aDouble, 3));
+        System.out.println(MathUtils.round(aDouble,2,BigDecimal.ROUND_HALF_UP));
+        BigDecimal decimal = new BigDecimal(aDouble);
+        System.out.println(decimal.setScale(2, RoundingMode.HALF_UP).doubleValue());
+        System.out.println(aDouble);
+    }
+
+    @Test
+    public void dfdsfs(){
+        String[] ass = new String[3];
+        ass[0] = "222";
+        ass[1] = "333";
+        ass[2] = "444";
+        System.out.println(StringUtils.join(ass, ","));
+        List<String> stringList = new ArrayList<>();
+        stringList.add("111");
+        stringList.add("222");
+        stringList.add("333");
+        System.out.println(StringUtils.join(stringList, ","));
+    }
+
+    @Test
+    public void tetteet(){
+        Set<String> aSet = Sets.newSet("2","3","4","5");
+        Set<String> bSet = Sets.newSet("3","4","5","6","7");
+        bSet.removeAll(aSet);
+        System.out.println(bSet);
+    }
+
+    @Test
+    public void tettee2t(){
+        String a = "01";
+        String b = "02";
+        System.out.println(a.compareTo(b));
+    }
+    @Test
+    public void tettee23t(){
+        String a = "1";
+        Integer b = 1;
+        System.out.println(a);
+    }
+
 }

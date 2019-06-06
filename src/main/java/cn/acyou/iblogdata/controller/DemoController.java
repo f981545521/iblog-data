@@ -90,8 +90,10 @@ public class DemoController extends BaseController{
 
     @RequestMapping(value = "sequence", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public ResultInfo sequence(){
+    public ResultInfo sequence(String jgjc){
         String id = sequenceUtils.getInceId();
+        String bh = sequenceUtils.getGzsbh(jgjc);
+        System.out.println(bh);
         return new ResultInfo(id);
     }
 
