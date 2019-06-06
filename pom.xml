@@ -486,10 +486,6 @@
                     <debug>false</debug>
                     <showDeprecation>false</showDeprecation>
                     <showWarnings>false</showWarnings>
-                    <compilerArguments>
-                        <!--<verbose />-->
-                        <bootclasspath>${java.home}/lib/rt.jar;${java.home}/lib/jce.jar</bootclasspath>
-                    </compilerArguments>
                 </configuration>
             </plugin>
             <!--spring-boot为了保护application.yml和application.properties，修改了默认的占位符${...}为@...@，然后发现resources插件有一个配置项-->

@@ -27,6 +27,9 @@
 /*    ajaxPost(JSON.stringify(postArray), "/hello/arrayParam2", function (result) {
         console.log(result)
     });*/
+    ajaxPost({"ids": ["22","33","44"]}, "/hello/arrayParam22", function (result) {
+        console.log(result)
+    });
 
     var postArray3 = new Array();
     postArray3.push({"ids":"1234"});
@@ -93,9 +96,9 @@
     if (studentList2.length > 0) {
         //postData6.studentList = studentList2;
     }
-    ajaxPost(postData6, "/hello/arrayParam6", function (result) {
+/*    ajaxPost(postData6, "/hello/arrayParam6", function (result) {
         console.log(result)
-    })
+    })*/
 
 
 </script>

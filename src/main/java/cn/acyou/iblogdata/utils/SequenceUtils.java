@@ -22,6 +22,21 @@ public class SequenceUtils {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
+    /**
+     * 获取公证书编号
+     * @return
+     */
+    public String getGzsbh(String jgjc){
+        String year = DateUtil.getCurrentDateFormat("yyyy");
+        String key = "SEQ:" + year + jgjc + ":key";
+        RedisAtomicLong entityIdCounter = new RedisAtomicLong(key, redisTemplate.getConnectionFactory());
+        long increment = entityIdCounter.getAndIncrement();
+        if (increment == 0){
+            increment = entityIdCounter.getAndIncrement();
+        }
+        return "(" + year + ")" + jgjc + "证字第" + increment + "号";
+    }
+
     public String getInceId() {
         String formatDate = DateUtil.getCurrentDateShortFormat();
         String key = "SEQ:" + formatDate + "key";
