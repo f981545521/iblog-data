@@ -788,5 +788,11 @@ public class SimpleTest {
         Integer b = 1;
         System.out.println(a);
     }
+    @Test
+    public void tettee2322t(){
+        String a = "2.1";
+        System.out.println(Double.valueOf(a).intValue());
+
+    }
 
 }

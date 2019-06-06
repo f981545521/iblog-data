@@ -149,6 +149,7 @@ public class POIController extends BaseController {
         pw.write("\r\n");
         pw.write("DELETE FROM SYS_CATEGORY_VALUE WHERE CATEGORY_ID IN (SELECT ID FROM SYS_CATEGORY WHERE FOLDID = '" + SYS_CATEGORY_FOLDID + "');");
         pw.write("\r\n");
+        pw.write("INSERT INTO \"SFGZ\".\"SYS_CATEGORY_FOLDER\" (\"ID\", \"CODE\", \"NAME\", \"ISSYS\", \"CREATE_TIME\", \"CREATOR\", \"CREATOR_NAME\", \"MODIFY_TIME\", \"MODIFIOR\", \"MODIFY_NAME\", \"RECORD_SORT\", \"IS_USE\") VALUES ('df422ffe-eca8-4174-9c70-5c24220adecc', 'SFGZ', '司法公正', '1', TO_DATE('2019-05-09 18:11:28', 'SYYYY-MM-DD HH24:MI:SS'), 'developer', 'developer', TO_DATE('2019-05-09 18:11:28', 'SYYYY-MM-DD HH24:MI:SS'), 'developer', 'developer', '7', '1');");
 
         for (int i = 2; i < hs.getNumberOfSheets(); i++) {
             HSSFSheet sheetAt = hs.getSheetAt(i);
@@ -203,6 +204,72 @@ public class POIController extends BaseController {
         //        break;
         //    }
         //}
+
+        return ResultInfoGenerate.generateSuccess();
+    }
+
+
+    @ApiOperation(value = "easy poi  公证事项导入", notes = "只支持XLS格式，会覆盖所有记录")
+    @RequestMapping(value = "importGzsx", method = {RequestMethod.POST})
+    @ResponseBody
+    public ResultInfo importGzsx(MultipartFile file) throws Exception {
+        ImportParams params = new ImportParams();
+        params.setTitleRows(0);
+        params.setHeadRows(1);
+        POIFSFileSystem fs = new POIFSFileSystem(file.getInputStream());
+        HSSFWorkbook hs = new HSSFWorkbook(fs);
+        //hs.getSheetAt(3).getRow(3).cells[0].toString()
+        //输出到文件   --- 获取当前用户桌面路径
+        FileSystemView fsv = FileSystemView.getFileSystemView();
+        String path = fsv.getHomeDirectory().toString();
+        File directory = new File(path + "\\公证事项.sql");
+        FileWriter fw = new FileWriter(directory);
+        PrintWriter pw = new PrintWriter(fw);
+        //清空之前的记录重新导入
+        pw.write("DELETE FROM SFGZ_JCSJ_MATTERS WHERE REMARK = 'sync';");
+        pw.write("\r\n");
+
+        for (int i = 2; i < hs.getNumberOfSheets(); i++) {
+            HSSFSheet sheetAt = hs.getSheetAt(i);
+            //表头
+            HSSFRow rowHead = sheetAt.getRow(0);
+            String categoryId = UUID.randomUUID().toString();
+
+            for (int j = 1; j <= sheetAt.getLastRowNum(); j++) {
+                HSSFRow row = sheetAt.getRow(j);
+                HSSFCell cell0 = row.getCell(0);
+                if (cell0 == null){
+                    log.warn("null Point Exception");
+                    continue;
+                }
+                HSSFCell cell = row.getCell(2);
+                CellType numberType = cell.getCellTypeEnum();
+                log.info("类型：" + (CellType.NUMERIC == numberType));
+
+                String zdValue = "";
+                if (CellType.NUMERIC == numberType) {
+                    Double numericCellValue = cell.getNumericCellValue();
+                    zdValue = String.format("%02d", numericCellValue.intValue());
+                } else {
+                    zdValue = row.getCell(2).toString();
+                }
+                String zdmc = row.getCell(0).toString();
+                String zdCode = row.getCell(1).toString();
+                String desc = row.getCell(3).toString();
+                if (j == 1){
+                    String cataSql = "INSERT INTO \"SFGZ\".\"SYS_CATEGORY\" (\"ID\", \"CODE\", \"NAME\", \"ISSYS\", \"FOLDID\", \"CREATE_TIME\", \"CREATOR\", \"CREATOR_NAME\", \"MODIFY_TIME\", \"MODIFIOR\", \"MODIFY_NAME\", \"RECORD_SORT\", \"IS_USE\") VALUES ('"+categoryId+"', '"+zdCode+"', '"+zdmc+"', '1', '"+SYS_CATEGORY_FOLDID+"', TO_DATE('2019-05-09 18:12:01', 'SYYYY-MM-DD HH24:MI:SS'), 'developer', 'developer', TO_DATE('2019-05-09 18:12:01', 'SYYYY-MM-DD HH24:MI:SS'), 'developer', 'developer', '93', '1');";
+                    pw.write(cataSql);
+                    pw.write("\r\n");
+                }
+                String sql = "INSERT INTO \"SFGZ\".\"SYS_CATEGORY_VALUE\" (\"ID\", \"NAME\", \"CODE\", \"EXT_VALUE\", \"PARENT_ID\", \"CATEGORY_ID\", \"CREATE_TIME\", \"CREATOR\", \"CREATOR_NAME\", \"MODIFY_TIME\", \"MODIFIOR\", \"MODIFY_NAME\", \"RECORD_SORT\", \"IS_USE\") VALUES ('"+UUID.randomUUID().toString()+"', '"+desc+"', '"+zdValue+"', NULL, NULL, '"+categoryId+"', TO_DATE('2019-05-09 18:13:31', 'SYYYY-MM-DD HH24:MI:SS'), 'developer', 'developer', TO_DATE('2019-05-09 18:13:31', 'SYYYY-MM-DD HH24:MI:SS'), 'developer', 'developer', '3861', '1');";
+                pw.write(sql);
+                pw.write("\r\n");
+                log.info(new DataDictionary(zdmc, zdCode, zdValue, desc).toString());
+            }
+        }
+        pw.flush();
+        fw.close();
+        pw.close();
 
         return ResultInfoGenerate.generateSuccess();
     }
