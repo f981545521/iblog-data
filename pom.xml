@@ -454,6 +454,12 @@
             <version>4.0.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>4.5.11</version>
+        </dependency>
+
     </dependencies>
 
     <!--依赖管理，用于管理spring-cloud的依赖，其中Camden.SR3是版本号-->
