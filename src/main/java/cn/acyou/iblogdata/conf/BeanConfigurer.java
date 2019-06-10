@@ -3,10 +3,12 @@ package cn.acyou.iblogdata.conf;
 import cn.acyou.iblog.orika.OrikaMapper;
 import cn.acyou.iblogdata.service.StudentService;
 import cn.acyou.iblogdata.spring.MyFactoryBean;
+import cn.acyou.iblogdata.spring.ScopeBean;
 import cn.acyou.iblogdata.spring.UniqueBean;
 import cn.acyou.iblogdata.utils.StudentConfig;
 import cn.acyou.iblogdata.utils.StudentConfig2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.*;
 import org.springframework.core.annotation.Order;
@@ -114,4 +116,16 @@ public class BeanConfigurer {
         return new UniqueBean("诸葛亮");
     }
 
+
+    /**
+     * Spring中默认是单例
+     * 通过Scope注解实现多例
+     * 单例，注入的是唯一的对象。多例时是不同的对象
+     * @return {@link ScopeBean}
+     */
+    @Bean
+    @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    public ScopeBean scopeBean(){
+        return new ScopeBean("出山...");
+    }
 }

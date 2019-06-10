@@ -3,6 +3,7 @@ package cn.acyou.iblogdata.controller;
 import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.entity.Teacher;
 import cn.acyou.iblogdata.exception.ServiceException;
+import cn.acyou.iblogdata.spring.ScopeBean;
 import cn.acyou.iblogdata.spring.UniqueBean;
 import cn.acyou.iblogdata.utils.ResultInfo;
 import cn.acyou.iblogdata.utils.SequenceUtils;
@@ -36,6 +37,9 @@ public class DemoController extends BaseController{
 
     @Autowired
     private SequenceUtils sequenceUtils;
+
+    @Autowired
+    private ScopeBean scopeBean;
 
     @RequestMapping(value = "toPreview", method = {RequestMethod.POST})
     public String toPreview(MultipartFile file){
@@ -95,6 +99,15 @@ public class DemoController extends BaseController{
         String bh = sequenceUtils.getGzsbh(jgjc);
         System.out.println(bh);
         return new ResultInfo(id);
+    }
+
+
+
+    @RequestMapping(value = "scopeBean", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public ResultInfo scopeBean(){
+        System.out.println(scopeBean);
+        return new ResultInfo(scopeBean);
     }
 
 
