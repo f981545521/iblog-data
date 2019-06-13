@@ -27,7 +27,7 @@ public class AreaPoi {
         //输出到文件   --- 获取当前用户桌面路径
         FileSystemView fsv = FileSystemView.getFileSystemView();
         String path = fsv.getHomeDirectory().toString();
-        File directory = new File(path + "\\ares.sql");
+        File directory = new File(path + "\\area.sql");
         FileWriter fw = new FileWriter(directory);
         PrintWriter pw = new PrintWriter(fw);
         //清空之前的记录重新导入
@@ -40,23 +40,23 @@ public class AreaPoi {
             //获取数据
             String currentId = row.getCell(0).toString();
             String pid = row.getCell(1).toString();
-            String name = row.getCell(2).toString();
-            String allName = row.getCell(3).toString();
-            String shortName = row.getCell(4).toString();
-            String dqjb = row.getCell(6).toString();
+            String name = row.getCell(2).toString().replaceAll("'","");
+            String allName = row.getCell(3).toString().replaceAll("'","");
+            String shortName = row.getCell(4).toString().replaceAll("'","");
+            String dqjb = row.getCell(6).toString().replaceAll("'","");
             String diququhao = "";
             if (row.getCell(7) != null){
-                diququhao = row.getCell(7).toString();
+                diququhao = row.getCell(7).toString().replaceAll("'","");
             }
             String diquyoubian = "";
             if (row.getCell(8) != null){
-                diququhao = row.getCell(8).toString();
+                diququhao = row.getCell(8).toString().replaceAll("'","");
             }
-            String diqupinyin = row.getCell(9).toString();
-            String diqujianpin = row.getCell(10).toString();
-            String diqushouzimu = row.getCell(11).toString();
-            String diqujingdu = row.getCell(12).toString();
-            String diquweidu = row.getCell(13).toString();
+            String diqupinyin = row.getCell(9).toString().replaceAll("'","");
+            String diqujianpin = row.getCell(10).toString().replaceAll("'","");
+            String diqushouzimu = row.getCell(11).toString().replaceAll("'","");
+            String diqujingdu = row.getCell(12).toString().replaceAll("'","");
+            String diquweidu = row.getCell(13).toString().replaceAll("'","");
 
 
             String sql2 = "INSERT INTO \"SFGZ\".\"SFGZ_JCSJ_AREA\" (\"ID\", \"FJID\", \"DQMC\", \"DQJHQC\", \"DQJC\", \"DQJB\", \"DQQH\", \"DQYB\", \"DQPY\", \"DQJP\", \"DQSZM\", \"DQJD\", \"DQWD\", \"IS_USE\", \"IS_DEL\", \"REMARK\", \"RECORD_SORT\", \"CREATE_TIME\", \"CREATOR\", \"CREATOR_NAME\", \"MODIFY_TIME\", \"MODIFIOR\", \"MODIFY_NAME\") VALUES " +
