@@ -29,6 +29,19 @@ public class ResultInfo {
         this.message = message;
     }
 
+    public static ResultInfo success(){
+        return new ResultInfo();
+    }
+    public static ResultInfo success(Object data){
+        return new ResultInfo(data);
+    }
+    public static ResultInfo error(String message){
+        return new ResultInfo(500, null, message);
+    }
+    public static ResultInfo error(String message, Object data){
+        return new ResultInfo(500, data, message);
+    }
+
     public int getCode() {
         return code;
     }
