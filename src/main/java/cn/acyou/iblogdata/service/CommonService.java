@@ -7,4 +7,6 @@ package cn.acyou.iblogdata.service;
 public interface CommonService {
 
     Long getSequence(String seqName);
+
+    Long getSequence2(String seqName);
 }

@@ -6,6 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * @author youfang
  * @version [1.0.0, 2019-06-24 14:34]
@@ -19,7 +22,16 @@ public class CommonServiceImpl implements CommonService {
     private BaseMapper baseMapper;
 
     @Override
-    public Long getSequence(String seqName) {
+    public synchronized Long getSequence(String seqName) {
+        Long buildOnlyNumber = baseMapper.getBuildOnlyNumber(seqName);
+        if (buildOnlyNumber != null){
+            return buildOnlyNumber;
+        }
+        baseMapper.createSequence(seqName);
+        return 1L;
+    }
+    @Override
+    public Long getSequence2(String seqName) {
         Long buildOnlyNumber = baseMapper.getBuildOnlyNumber(seqName);
         if (buildOnlyNumber != null){
             return buildOnlyNumber;
