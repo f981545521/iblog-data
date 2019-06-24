@@ -24,4 +24,10 @@ public interface BaseMapper {
      */
     String getBillNo(@Param("billType") String billType, @Param("billDate") String billDate);
 
+    /**
+     * 获得一个全局唯一的数作为订单号的追加
+     */
+    Long getBuildOnlyNumber(@Param("seq_name") String seq_name);
+
+    void createSequence(@Param("seq_name") String seqName);
 }
