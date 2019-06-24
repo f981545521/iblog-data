@@ -5,6 +5,7 @@ import cn.acyou.iblogdata.dao.StudentMapper;
 import cn.acyou.iblogdata.dao.TeacherMapper;
 import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.entity.Teacher;
+import cn.acyou.iblogdata.service.CommonService;
 import cn.acyou.iblogdata.so.StudentSo;
 import cn.acyou.iblogdata.test.base.BaseTest;
 import cn.acyou.iblogdata.utils.RandomUtil;
@@ -33,6 +34,8 @@ public class MapperTest extends BaseTest{
 
     @Autowired
     private BaseMapper baseMapper;
+    @Autowired
+    private CommonService commonService;
 
     @Test
     public void test1(){
@@ -137,6 +140,13 @@ public class MapperTest extends BaseTest{
     @Test
     public void testM1(){
         String uuid = baseMapper.getUUid();
+        System.out.println(uuid);
+    }
+    @Test
+    public void testM2(){
+        Long uuid = baseMapper.getBuildOnlyNumber("depot_number_seq");
+        Long ddddxxx_seq = commonService.getSequence("ddddxxx_seq");
+        System.out.println(ddddxxx_seq);
         System.out.println(uuid);
     }
 

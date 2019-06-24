@@ -72,6 +72,67 @@ CREATE TABLE `auditor` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='审计员';
 
+
+-- ----------------------------
+-- MySQL 中的序；列添加表tbl_sequence
+-- ----------------------------
+DROP TABLE IF EXISTS `tbl_sequence`;
+CREATE TABLE tbl_sequence (
+                              seq_name VARCHAR(50) NOT NULL COMMENT '序列名称',
+                              min_value bigint(20) NOT NULL COMMENT '最小值',
+                              max_value bigint(20) NOT NULL COMMENT '最大值',
+                              current_val bigint(20) NOT NULL COMMENT '当前值',
+                              increment_val INT DEFAULT '1' NOT NULL COMMENT '增长步数',
+                              remark VARCHAR(500) DEFAULT null COMMENT '备注',
+                              PRIMARY KEY (seq_name)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='sequence表';
+-- ----------------------------
+-- 添加表单据编号sequence
+-- 插入数据前判断，防止数据重复插入
+-- ----------------------------
+insert into tbl_sequence (seq_name, min_value, max_value, current_val, increment_val,remark)
+select 'depot_number_seq', 1, 999999999999999999, 1, 1,'单据编号sequence' from dual where not exists
+    (select * from tbl_sequence where seq_name='depot_number_seq');
+-- ----------------------------
+-- 创建function _nextval() 用于获取当前序列号
+-- ----------------------------
+DROP FUNCTION IF EXISTS `_nextval`;
+DELIMITER ;;
+CREATE FUNCTION `_nextval`(name varchar(50)) RETURNS mediumtext CHARSET utf8
+begin
+    declare _cur bigint;
+    declare _maxvalue bigint; -- 接收最大值
+    declare _increment int; -- 接收增长步数
+    set _increment = (select increment_val from tbl_sequence where seq_name = name);
+    set _maxvalue = (select max_value from tbl_sequence where seq_name = name);
+    set _cur = (select current_val from tbl_sequence where seq_name = name for update);
+    update tbl_sequence -- 更新当前值
+    set current_val = _cur + increment_val
+    where seq_name = name ;
+    if(_cur + _increment >= _maxvalue) then -- 判断是都达到最大值
+        update tbl_sequence
+        set current_val = minvalue
+        where seq_name = name ;
+    end if;
+    return _cur;
+end
+;;
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ####################### 使用Druid监控的时候需要创建以下的表信息  #######################
 ##### 参考：https://github.com/alibaba/druid/tree/53c3f98bb2be11eae603b71691317d31d45c2dcf/src/main/resources/support/monitor/mysql
 -- druid monitor 表开始

@@ -795,4 +795,12 @@ public class SimpleTest {
 
     }
 
+    @Test
+    public void testeee(){
+        String [] strings = new String[2];
+        System.out.println(strings[0]);
+        System.out.println(strings[2]);
+        System.out.println(strings.length);
+    }
+
 }
