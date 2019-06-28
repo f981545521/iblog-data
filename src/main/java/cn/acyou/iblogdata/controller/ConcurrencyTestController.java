@@ -1,7 +1,9 @@
 package cn.acyou.iblogdata.controller;
 
+import cn.acyou.iblogdata.runner.v.ClassLife;
 import cn.acyou.iblogdata.service.CommonService;
 import cn.acyou.iblogdata.utils.ResultInfo;
+import cn.acyou.iblogdata.utils.SpringHelper;
 import cn.hutool.core.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,6 +63,22 @@ public class ConcurrencyTestController extends BaseController {
         latch.countDown();
         System.out.println("主线程完成");
         executor.shutdown();
+        return ResultInfo.success();
+    }
+
+    @RequestMapping(value = "staticTest", method = {RequestMethod.GET})
+    @ResponseBody
+    public ResultInfo staticTest() {
+        String s = ClassLife.sayHello();
+        System.out.println(s);
+        SpringHelper.containsBean("classLife");
+        return ResultInfo.success();
+    }
+
+    @RequestMapping(value = "gc", method = {RequestMethod.GET})
+    @ResponseBody
+    public ResultInfo gc() {
+        System.gc();
         return ResultInfo.success();
     }
 

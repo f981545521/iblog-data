@@ -47,4 +47,13 @@ public class SpringHelper implements BeanFactoryPostProcessor {
     public static boolean containsBean(String name) {
         return beanFactory.containsBean(name);
     }
+
+    /**
+     * 判断以给定名字注册的bean定义是一个singleton还是一个prototype。 如果与给定名字相应的bean定义没有被找到，将会抛出一个异常（NoSuchBeanDefinitionException）
+     * @param name
+     * @return boolean
+     */
+    public static boolean isSingleton(String name) {
+        return beanFactory.isSingleton(name);
+    }
 }
