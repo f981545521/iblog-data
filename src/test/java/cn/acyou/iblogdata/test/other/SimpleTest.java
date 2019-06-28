@@ -9,6 +9,7 @@ import cn.acyou.iblogdata.test.entity.Animal;
 import cn.acyou.iblogdata.constant.AppConstant;
 import cn.acyou.iblogdata.utils.JsonUtil;
 import cn.acyou.iblogdata.utils.RandomUtil;
+import cn.acyou.iblogdata.utils.SpringHelper;
 import cn.acyou.iblogdata.vo.StudentLogTestVo;
 import cn.acyou.iblogdata.vo.StudentVo;
 import com.google.common.collect.Maps;
@@ -33,6 +34,7 @@ import sun.misc.BASE64Encoder;
 import javax.print.PrintService;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -801,6 +803,25 @@ public class SimpleTest {
         System.out.println(strings[0]);
         System.out.println(strings[2]);
         System.out.println(strings.length);
+    }
+
+    @Test
+    public void testAsList(){
+        List<String> stringList = Arrays.asList("a", "b", "c");
+        System.out.println(stringList);
+        String[] ss = new String[]{"a", "b", "c"};
+        List<String> strings = Lists.newArrayList(ss);
+        System.out.println(strings);
+        strings.add("d");
+        System.out.println(strings);
+    }
+
+    @Test
+    public void testDecimal(){
+        DecimalFormat decimalFormat = new DecimalFormat();
+        System.out.println(decimalFormat.format(3.33));
+        BigDecimal v = new BigDecimal("3.55");
+        System.out.println(v.longValue());
     }
 
 }
