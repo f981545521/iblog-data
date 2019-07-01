@@ -824,4 +824,15 @@ public class SimpleTest {
         System.out.println(v.longValue());
     }
 
+    @Test
+    public void testArray01(){
+        String[] ss = {"cc","ccv","fff",};
+        System.out.println(Arrays.toString(ss));
+        System.out.println(showString("ccc","fff", "eee"));
+    }
+
+    private String showString(String... ss){
+        return Arrays.toString(ss);
+    }
+
 }
