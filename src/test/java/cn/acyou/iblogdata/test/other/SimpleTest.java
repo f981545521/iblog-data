@@ -16,6 +16,7 @@ import com.google.common.collect.Maps;
 import com.google.common.primitives.Doubles;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.compress.utils.IOUtils;
 import org.apache.commons.lang3.CharEncoding;
 import org.apache.commons.lang3.CharSet;
 import org.apache.commons.lang3.StringUtils;
@@ -835,4 +836,10 @@ public class SimpleTest {
         return Arrays.toString(ss);
     }
 
+    @Test
+    public void testDecimal22(){
+        BigDecimal decimal1 = new BigDecimal("22.33");
+        BigDecimal decimal2 = new BigDecimal("23.33");
+        System.out.println(decimal1.compareTo(decimal2));
+    }
 }
