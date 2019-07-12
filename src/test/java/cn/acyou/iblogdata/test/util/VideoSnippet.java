@@ -2,6 +2,7 @@ package cn.acyou.iblogdata.test.util;
 
 import com.google.common.collect.Maps;
 import it.sauronsoftware.jave.*;
+import org.apache.commons.compress.utils.IOUtils;
 import org.junit.Test;
 
 import java.io.*;
@@ -94,5 +95,26 @@ public class VideoSnippet {
         attrs.setFormat("mp3");
         attrs.setAudioAttributes(audio);
         encoder.encode(source, target, attrs);
+
+        //IOUtils.copy()
+        OutputStream os = new ByteArrayOutputStream();
+    }
+
+    @Test
+    public void test222() throws Exception{
+        File fileIn = new File("D:\\temp\\123.jpg");
+        File fileOut = new File("D:\\temp\\1233.jpg");
+        FileInputStream inputStream = new FileInputStream(fileIn);
+        FileOutputStream outputStream = new FileOutputStream(fileOut);
+
+        IOUtils.copy(inputStream, outputStream);
+    }
+    @Test
+    public void test2232() throws Exception{
+        File fileIn = new File("D:\\temp\\123.txt");
+        FileInputStream inputStream = new FileInputStream(fileIn);
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        BufferedReader reader = new BufferedReader(inputStreamReader);
+        System.out.println(reader.readLine());
     }
 }
