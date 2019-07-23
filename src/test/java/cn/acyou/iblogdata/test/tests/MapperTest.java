@@ -112,7 +112,7 @@ public class MapperTest extends BaseTest{
         System.out.println(tea);
         Teacher teacher = new Teacher();
         teacher.setName(RandomUtil.randomUserName());
-        teacher.setAge(RandomUtil.getAge());
+        teacher.setAge(RandomUtil.randomAge());
         teacher.setStudentId(1);
         mapper.insertSelective(teacher);//执行insert操作
         //使用session1  查询
