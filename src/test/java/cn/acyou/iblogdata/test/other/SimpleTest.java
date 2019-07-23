@@ -8,17 +8,13 @@ import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.test.entity.Animal;
 import cn.acyou.iblogdata.constant.AppConstant;
 import cn.acyou.iblogdata.utils.JsonUtil;
+import cn.acyou.iblogdata.utils.Md5Util;
 import cn.acyou.iblogdata.utils.RandomUtil;
-import cn.acyou.iblogdata.utils.SpringHelper;
 import cn.acyou.iblogdata.vo.StudentLogTestVo;
 import cn.acyou.iblogdata.vo.StudentVo;
 import com.google.common.collect.Maps;
-import com.google.common.primitives.Doubles;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.compress.utils.IOUtils;
 import org.apache.commons.lang3.CharEncoding;
-import org.apache.commons.lang3.CharSet;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -32,17 +28,15 @@ import org.springframework.util.Assert;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
-import javax.print.PrintService;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * @author youfang
@@ -841,5 +835,78 @@ public class SimpleTest {
         BigDecimal decimal1 = new BigDecimal("22.33");
         BigDecimal decimal2 = new BigDecimal("23.33");
         System.out.println(decimal1.compareTo(decimal2));
+    }
+
+    @Test
+    public void test3233(){
+        int a = 222;
+        System.out.println(Integer.valueOf(a).equals(null));
+    }
+
+    @Test
+    public void test32233(){
+        List ss = Lists.newArrayList();
+        System.out.println(ss.get(0));
+    }
+
+    @Test
+    public void tettt(){
+        Date d1 = new Date();
+        Date d2 = DateUtil.parseDate("2019-07-18");
+        System.out.println(d1.compareTo(d2));
+    }
+
+    @Test
+    public void te22ttt(){
+        String s = "qiniu.bucket.erp-images";
+        System.out.println(s.lastIndexOf("."));
+        System.out.println(s.substring(s.lastIndexOf(".") + 1));
+    }
+    @Test
+    public void te2ee2ttt(){
+        List<Student> studentList = Lists.newArrayList();
+        for (int i = 0; i < 20; i++) {
+            Student student = new Student();
+            student.setId(i);
+            student.setUserName(RandomUtil.randomUserName());
+            student.setAge(RandomUtil.randomAge());
+            studentList.add(student);
+        }
+        System.out.println(studentList);
+        List<Student> collect = studentList.stream().sorted(Comparator.comparingInt(Student::getAge)).collect(Collectors.toList());
+        System.out.println(collect);
+    }
+    @Test
+    public void te2ee2t22tt(){
+        List<Student> studentList = Lists.newArrayList();
+        for (int i = 0; i < 5; i++) {
+            Student student = new Student();
+            student.setId(i);
+            student.setUserName(RandomUtil.randomUserName());
+            student.setAge(RandomUtil.randomAge());
+            studentList.add(student);
+        }
+        System.out.println(studentList);
+        Student student = studentList.stream().min(Comparator.comparingInt(Student::getAge)).get();
+        System.out.println(student);
+    }
+
+    @Test
+    public void testtt(){
+        String s = String.format(" {}.create_user = {} ", "t", "1000");
+        System.out.println(s);
+    }
+
+    @Test
+    public void teeer(){
+        System.out.println(Md5Util.getMD5("888888"));
+        System.out.println(DigestUtils.md5Hex("888888"));
+        System.out.println(Md5Util.String2Md5("888888"));
+        System.out.println(Md5Util.String2Md52("88888"));
+    }
+    @Test
+    public void teeer2(){
+        String s = "888888.0";
+        System.out.println(StringUtils.strip(s, ".0"));
     }
 }
