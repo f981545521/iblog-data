@@ -142,6 +142,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
                 //响应Ajax请求
                 if("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))){
                     responseResult(response, resultInfo);
+
+                    //这里无论如何都要抛出ModelAndView 的，否则报错：
+                    // getWriter() has already been called for this response
                     return mv;
                 }
                 mv.addObject("code", resultInfo.getCode());
