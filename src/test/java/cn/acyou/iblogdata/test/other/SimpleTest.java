@@ -7,11 +7,17 @@ import cn.acyou.iblog.utility.MathUtil;
 import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.test.entity.Animal;
 import cn.acyou.iblogdata.constant.AppConstant;
+import cn.acyou.iblogdata.test.entity.CatVo;
+import cn.acyou.iblogdata.test.entity.Result;
 import cn.acyou.iblogdata.utils.JsonUtil;
 import cn.acyou.iblogdata.utils.Md5Util;
 import cn.acyou.iblogdata.utils.RandomUtil;
 import cn.acyou.iblogdata.vo.StudentLogTestVo;
 import cn.acyou.iblogdata.vo.StudentVo;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -909,6 +915,51 @@ public class SimpleTest {
     public void teeer2(){
         String s = "888888.0";
         System.out.println(StringUtils.strip(s, ".0"));
+    }
+    @Test
+    public void teeer3(){
+        CatVo catVo = new CatVo();
+        catVo.setId(222L);
+        catVo.setName("小花喵");
+        catVo.setAge(3);
+        Result<CatVo> result = Result.success();
+        //result.setData(catVo);
+        System.out.println(JSON.toJSONString(result, SerializerFeature.WriteMapNullValue));
+
+        String s = "{\"code\":200,\"data\":{\"age\":3,\"id\":222,\"interest\":[],\"name\":\"小花喵\"},\"message\":\"请求成功\",\"success\":true}";
+        String ns = "{\"code\":200,\"data\":null,\"message\":\"请求成功\",\"success\":true}";
+        Result<CatVo> resul2t = JSON.parseObject(s, new TypeReference<Result<CatVo>>(){});
+        System.out.println(resul2t);
+        Result<CatVo> result3 = parse3(ns, CatVo.class);
+        CatVo data = result3.getData();
+        System.out.println(data.getName());
+        System.out.println(result3);
+
+        //Result<CatVo> parse = parse(s);
+
+
+    }
+
+    public static <E> E parse(String result){
+        E resul2t = JSON.parseObject(result, new TypeReference<E>(){});
+        return resul2t;
+    }
+
+
+
+    public static <E> Result<E> parse3(String result, Class<E> clz){
+        Result<E> resul2t = JSON.parseObject(result, new TypeReference<Result<E>>(){});
+        if (resul2t.getData() != null && resul2t.getData() instanceof JSONObject){
+            E e = ((JSONObject) resul2t.getData()).toJavaObject(clz);
+            resul2t.setData(e);
+        }
+        return resul2t;
+    }
+
+
+    public static <E> Result<E> parse2(String result){
+        Result<E> resul2t = JSON.parseObject(result, new TypeReference<Result<E>>(){});
+        return resul2t;
     }
     @Test
     public void teeer22(){
