@@ -12,6 +12,7 @@ import cn.acyou.iblogdata.utils.Md5Util;
 import cn.acyou.iblogdata.utils.RandomUtil;
 import cn.acyou.iblogdata.vo.StudentLogTestVo;
 import cn.acyou.iblogdata.vo.StudentVo;
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.CharEncoding;
@@ -908,5 +909,14 @@ public class SimpleTest {
     public void teeer2(){
         String s = "888888.0";
         System.out.println(StringUtils.strip(s, ".0"));
+    }
+    @Test
+    public void teeer22(){
+       String s = "{\"code\":\"999998\","+
+               "\"success\":false,"+
+               "\"message\":\"系统请求异常,请检查入参格式!\"," +
+               "\"data\":null}";
+        Object parse = JSON.parse(s);
+        System.out.println(parse);
     }
 }
