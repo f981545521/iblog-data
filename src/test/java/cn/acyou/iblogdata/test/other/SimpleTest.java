@@ -961,6 +961,9 @@ public class SimpleTest {
         Result<E> resul2t = JSON.parseObject(result, new TypeReference<Result<E>>(){});
         return resul2t;
     }
+    public static <E> E parse3(String result, TypeReference<E> reference){
+        return JSON.parseObject(result, reference);
+    }
     @Test
     public void teeer22(){
        String s = "{\"code\":\"999998\","+
