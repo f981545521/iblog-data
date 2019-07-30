@@ -4,9 +4,9 @@ import cn.acyou.iblog.entity.Student;
 import cn.acyou.iblog.entity.Teacher;
 import cn.acyou.iblog.utility.DateUtil;
 import cn.acyou.iblog.utility.MathUtil;
+import cn.acyou.iblogdata.constant.AppConstant;
 import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.test.entity.Animal;
-import cn.acyou.iblogdata.constant.AppConstant;
 import cn.acyou.iblogdata.test.entity.CatVo;
 import cn.acyou.iblogdata.test.entity.Result;
 import cn.acyou.iblogdata.utils.JsonUtil;
@@ -18,7 +18,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.CharEncoding;
@@ -972,5 +971,40 @@ public class SimpleTest {
                "\"data\":null}";
         Object parse = JSON.parse(s);
         System.out.println(parse);
+    }
+
+    @Test
+    public void test32(){
+        String s = "1010201";
+        String categoryOne = s.substring(0, 1);
+        String balance = s.substring(1);
+        int lev = (s.length() - 1)/2;
+        if (lev > 0){
+            for (int i = 0; i < lev; i++) {
+                int start = (lev * 2) + 1;
+                int end = start + 2;
+                System.out.println(s.substring(start, end));
+            }
+        }
+        System.out.println(s.substring(0, 1));
+    }
+
+    @Test
+    public void test33() {
+        String s = "1010201";
+        String balanceCode = s.substring(1);
+        String parentCategoryCode = s.substring(0, s.length() - 2);
+        System.out.println(parentCategoryCode);
+        List<String> stringList = new ArrayList<>();
+        char[] chars = balanceCode.toCharArray();
+        System.out.println(chars);
+        for (int i = 0; i < chars.length - 1; i+=2) {
+            char c1 = chars[i];
+            char c2 = chars[i + 1];
+            String s21 = c1 + "" + c2;
+            stringList.add(s21);
+        }
+        System.out.println(StringUtils.join(stringList, "|"));
+        System.out.println(parentCategoryCode);
     }
 }
