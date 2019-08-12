@@ -1007,4 +1007,22 @@ public class SimpleTest {
         System.out.println(StringUtils.join(stringList, "|"));
         System.out.println(parentCategoryCode);
     }
+
+    @Test
+    public void test2232(){
+        String s = "{'颜色':'红色','内存':'8G'}";
+        Map<String, String> map = JSON.parseObject(s, Map.class);
+        System.out.println(StringUtils.join(map.values(), ","));
+    }
+
+    @Test
+    public void test22342(){
+        String s = "{'颜色':'红色','内存':'8G'}";
+        String[] split = s.split(",");
+        List<String> values = new ArrayList<>();
+        for (int i = 0; i < split.length; i++) {
+            values.add(split[i].split(":")[1]);
+        }
+        System.out.println(StringUtils.join(values, ","));
+    }
 }
