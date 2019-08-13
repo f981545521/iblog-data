@@ -1,5 +1,7 @@
 package cn.acyou.iblogdata.utils;
 
+import cn.acyou.iblog.utility.DateUtil;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +14,9 @@ public class IdCardRegion {
 
     /** 省市区 */
     public static final Map<Integer, String> AREA_CODE = new HashMap<>();
+
+    /** 中国公民身份证号码最大长度。 */
+    private static final int CHINA_ID_MAX_LENGTH = 18;
 
     static {
         AREA_CODE.put(110000, "北京市");
@@ -3199,5 +3204,124 @@ public class IdCardRegion {
         AREA_CODE.put(810000, "香港特别行政区");
         AREA_CODE.put(820000, "澳门特别行政区");
     }
+
+    /**
+     * 从身份证号码中读取省份
+     * @param idCard 身份证号码
+     * @return 省份名称
+     */
+    public static String getProvinceByIdCard(String idCard){
+        if (idCard.length() == CHINA_ID_MAX_LENGTH){
+            String sProvinceNum = idCard.substring(0, 2) + "0000";
+            return AREA_CODE.get(Integer.parseInt(sProvinceNum));
+        }
+        return null;
+    }
+
+    /**
+     * 从身份证号码中读取地级市
+     * @param idCard 身份证号码
+     * @return 地级市名称
+     */
+    public static String getCityByIdCard(String idCard){
+        if (idCard.length() == CHINA_ID_MAX_LENGTH){
+            String sCityNum = idCard.substring(0, 4) + "00";
+            return AREA_CODE.get(Integer.parseInt(sCityNum));
+        }
+        return null;
+    }
+    /**
+     * 从身份证号码中读取区域（县级）
+     * @param idCard 身份证号码
+     * @return 区域名称
+     */
+    public static String getAreaByIdCard(String idCard){
+        if (idCard.length() == CHINA_ID_MAX_LENGTH){
+            String sAreaNum = idCard.substring(0, 6);
+            return AREA_CODE.get(Integer.parseInt(sAreaNum));
+        }
+        return null;
+    }
+
+    /**
+     * 从身份证号码中读取户籍地址（省市区）
+     * @param idCard 身份证号码
+     * @return 省市区
+     */
+    public static String getRegisterAddressByIdCard(String idCard){
+        return getProvinceByIdCard(idCard) + getCityByIdCard(idCard) + getAreaByIdCard(idCard);
+    }
+
+    /**
+     * 根据身份编号获取生日，只支持18位身份证号码
+     *
+     * @param idCard 身份编号
+     * @return 生日(yyyyMMdd)
+     */
+    public static String getBirth(String idCard) {
+        final Integer len = idCard.length();
+        if (len == CHINA_ID_MAX_LENGTH) {
+            return idCard.substring(6, 14);
+        }
+        return null;
+    }
+
+    /**
+     * 从身份证号码中获取生日日期，只支持15或18位身份证号码
+     *
+     * @param idCard 身份证号码
+     * @return 日期
+     */
+    public static Date getBirthDate(String idCard) {
+        final String birthByIdCard = getBirth(idCard);
+        return null == birthByIdCard ? null : DateUtil.parseDate(birthByIdCard, DateUtil.SHORT_DATE_PATTERN);
+    }
+
+    /**
+     * 根据身份编号获取指定日期当时的年龄年龄，只支持18位身份证号码
+     *
+     * @param idCard 身份编号
+     * @param dateToCompare 以此日期为界，计算年龄。
+     * @return 年龄
+     */
+    public static int getAgeByIdCard(String idCard, Date dateToCompare) {
+        Date birth = getBirthDate(idCard);
+        if (birth == null){
+            return 0;
+        }
+        return DateUtil.age(birth, dateToCompare);
+    }
+    /**
+     * 根据身份编号获取年龄，只支持18位身份证号码
+     *
+     * @param idCard 身份编号
+     * @return 年龄
+     */
+    public static int getAgeByIdCard(String idCard) {
+        return getAgeByIdCard(idCard, new Date());
+    }
+
+    /**
+     * 根据身份编号获取性别，只支持18位身份证号码
+     *
+     * @param idCard 身份编号
+     * @return 性别(1: 男，0: 女)
+     */
+    public static int getGenderByIdCard(String idCard) {
+        final int len = idCard.length();
+        int gender = -1;
+        if (len == CHINA_ID_MAX_LENGTH) {
+            char sCardChar = idCard.charAt(16);
+            if (Integer.parseInt(String.valueOf(sCardChar)) % 2 != 0) {
+                gender = 1;
+            } else {
+                gender = 0;
+            }
+            return gender;
+        }
+        return gender;
+    }
+
+
 
 }
