@@ -28,7 +28,7 @@ public class Generator4Oracle {
     private static final String PWD = "sfgz";
 
     private static final String URL = "jdbc:oracle:thin:@192.168.1.188:1521:orcl";
-    private static final String[] TABLE_NAME = ("SFGZ_YWBL_DOSSIER_PROCESS").split(",");
+    private static final String[] TABLE_NAME = ("SFGZ_YWBL_REMISSION_DETAIL").split(",");
 
 
     private static final List<String> IGNORE_FILED = Lists.newArrayList("REMARK", "CREATE_TIME", "CREATOR", "CREATOR_NAME", "MODIFY_TIME", "MODIFIOR", "MODIFIOR_NAME",

@@ -1025,4 +1025,10 @@ public class SimpleTest {
         }
         System.out.println(StringUtils.join(values, ","));
     }
+
+    @Test
+    public void testrst(){
+        BigDecimal bigDecimal = new BigDecimal("0.00");
+        System.out.println(BigDecimal.ZERO.compareTo(bigDecimal));
+    }
 }
