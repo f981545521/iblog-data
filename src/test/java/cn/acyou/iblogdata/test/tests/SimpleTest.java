@@ -1,16 +1,20 @@
 package cn.acyou.iblogdata.test.tests;
 
 import cn.acyou.iblogdata.entity.Student;
+import cn.acyou.iblogdata.test.entity.DossierEvidenceDetail;
 import cn.acyou.iblogdata.utils.BeanUtil;
 import cn.acyou.iblogdata.utils.ParamUtil;
+import cn.hutool.core.util.ReflectUtil;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.util.Maps;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.TimeoutUtils;
+import org.springframework.util.ReflectionUtils;
 
 import java.beans.IntrospectionException;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -313,4 +317,17 @@ public class SimpleTest {
         System.out.println(s.indexOf("/mkt/bargain/"));
     }
 
+    @Test
+    public void test333(){
+        StringBuilder sb = new StringBuilder();
+        String alisa = "ed.";
+        Field[] fields = ReflectUtil.getFields(DossierEvidenceDetail.class);
+        for (Field e: fields){
+            if ("serialVersionUID".equals(e.getName())){
+                continue;
+            }
+            sb.append(alisa).append(e.getName()).append(", ");
+        }
+        System.out.println(sb);
+    }
 }
