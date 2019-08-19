@@ -1,7 +1,9 @@
 package cn.acyou.iblogdata.aop;
 
+import cn.acyou.iblogdata.annotation.EntityValid;
 import cn.acyou.iblogdata.commons.BaseReq;
 import cn.acyou.iblogdata.utils.ResultInfo;
+import cn.acyou.iblogdata.utils.ValidateUtil2;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -92,6 +94,12 @@ public class LogAspect {
                     baseReq.setLogId(logId);
                 }
                 sb.append("{").append(paramNames[i]).append(":").append(paramValues[i]).append("}");
+
+                //获取类的注解
+                EntityValid annotation = paramValues[i].getClass().getAnnotation(EntityValid.class);
+                if (annotation != null){
+                    ValidateUtil2.valid(paramValues[i]);
+                }
             }
         }
         log.info("[{}]|{}|{}", " --->begin\t", clazzName + "." + methodName, sb.toString());
