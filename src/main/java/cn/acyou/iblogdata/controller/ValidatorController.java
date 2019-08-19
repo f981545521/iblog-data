@@ -3,6 +3,7 @@ package cn.acyou.iblogdata.controller;
 import cn.acyou.iblogdata.annotation.ParameterValid;
 import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.so.ValidateSo;
+import cn.acyou.iblogdata.so.ValidateSo2;
 import cn.acyou.iblogdata.utils.ValidateUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,6 +38,12 @@ public class ValidatorController {
     @ResponseBody
     @ParameterValid
     public String validate2(ValidateSo validateSo){
+        return "好的";
+    }
+
+    @RequestMapping(value = "validate3")
+    @ResponseBody
+    public String validate3(ValidateSo2 validateSo){
         return "好的";
     }
 }
