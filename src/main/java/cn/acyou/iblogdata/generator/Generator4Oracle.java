@@ -2,18 +2,10 @@ package cn.acyou.iblogdata.generator;
 
 import com.google.common.base.CaseFormat;
 import com.google.common.collect.Lists;
-import org.springframework.util.StringUtils;
 
-import javax.swing.filechooser.FileSystemView;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.sql.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
-import java.util.Random;
 
 /**
  * 使用MySQL，根据数据库表名，生成实体类
@@ -28,10 +20,10 @@ public class Generator4Oracle {
     private static final String PWD = "sfgz";
 
     private static final String URL = "jdbc:oracle:thin:@192.168.1.188:1521:orcl";
-    private static final String[] TABLE_NAME = ("SFGZ_YWBL_FILE_TRANSLATION").split(",");
+    private static final String[] TABLE_NAME = ("SFGZ_YWBL_DOSSIER_REMIND").split(",");
 
 
-    private static final List<String> IGNORE_FILED = Lists.newArrayList("REMARK", "CREATE_TIME", "CREATOR", "CREATOR_NAME", "MODIFY_TIME", "MODIFIOR", "MODIFIOR_NAME",
+    private static final List<String> IGNORE_FILED = Lists.newArrayList("REMARK", "CREATE_TIME", "CREATOR", "CREATOR_NAME", "MODIFY_TIME", "MODIFIOR", "MODIFY_NAME",
             "RECORD_SORT", "IS_USE", "IS_DEL");
 
     private static Connection connection = null;
