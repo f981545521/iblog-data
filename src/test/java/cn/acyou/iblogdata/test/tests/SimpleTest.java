@@ -11,7 +11,6 @@ import org.assertj.core.util.Maps;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.TimeoutUtils;
-import org.springframework.util.ReflectionUtils;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.Field;
@@ -329,5 +328,11 @@ public class SimpleTest {
             sb.append(alisa).append(e.getName()).append(", ");
         }
         System.out.println(sb);
+    }
+
+    @Test
+    public void test3334(){
+        String s = "{group=公证事项:公证事项名称 spliter=顿号}";
+        int i = s.indexOf("spliter=");
     }
 }
