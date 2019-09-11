@@ -1,7 +1,7 @@
 package cn.acyou.iblogdata.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.compress.utils.IOUtils;
+import org.apache.commons.io.IOUtils;
 import org.docx4j.dml.wordprocessingDrawing.Inline;
 import org.docx4j.jaxb.Context;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
