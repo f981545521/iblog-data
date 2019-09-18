@@ -1031,4 +1031,10 @@ public class SimpleTest {
         BigDecimal bigDecimal = new BigDecimal("0.00");
         System.out.println(BigDecimal.ZERO.compareTo(bigDecimal));
     }
+
+    @Test
+    public void testr2st(){
+        BigDecimal bigDecimal = new BigDecimal("1.00");
+        System.out.println(bigDecimal.compareTo(null) == -1);
+    }
 }
