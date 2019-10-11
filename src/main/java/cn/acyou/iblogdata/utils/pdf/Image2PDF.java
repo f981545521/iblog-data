@@ -1,4 +1,4 @@
-package cn.acyou.iblogdata.utils;
+package cn.acyou.iblogdata.utils.pdf;
 
 
 import com.lowagie.text.Document;
@@ -31,6 +31,7 @@ public class Image2PDF {
         createPic(document,text);
         document.close();
     }
+    //图片转PDF
     public static void main(String[] args) throws IOException, DocumentException {
         image2pdf("D:\\pdf\\images\\123.jpg","D:\\pdf\\images\\123.pdf");
     }

@@ -34,6 +34,9 @@ import org.springframework.util.Assert;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -1036,5 +1039,42 @@ public class SimpleTest {
     public void testr2st(){
         BigDecimal bigDecimal = new BigDecimal("1.00");
         System.out.println(bigDecimal.compareTo(null) == -1);
+
+        int a = 2;
+
+        //System.out.println(a == null);
+    }
+    @Test
+    public void testr2s3t(){
+/*        for (int i = 0; i < 10; i++) {
+            System.out.println("OOOOOO" + "\t\t\t" + "PPPPPPP" + "\t\t\t" + "XXXXXXXX");
+            System.out.println("00" + "\t\t\t" + "00" + "\t\t\t" + "00");
+            System.out.println("xx" + "\t\t\t" + "xxxxxxxxx" + "\t\t\t" + "xxxvvv");
+        }*/
+        System.out.printf("%-18s%-18s%s","OOOOOO","PPPPPPP 2","XXXXXXXX");
+        System.out.printf("%-18s%-18s%s","00","00000 2","XXXX00000XXXX");
+        System.out.printf("%-18s%-18s%s","m","mm 2","mmmmmmmm");
+    }
+
+    @Test
+    public void testttt(){
+        System.out.println(2*2+33);
+        System.out.println(4+2*2+33);
+        System.out.println(10/100);
+    }
+
+    @Test
+    public void testtt34(){
+        ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
+        ScriptEngine scriptEngine = scriptEngineManager.getEngineByName("nashorn");
+        String val = "11/2";
+        try {
+            String result = String.valueOf(scriptEngine.eval(val));
+            System.out.println(result);
+        } catch (ScriptException e) {
+            e.printStackTrace();
+        }
+        System.out.println(3*23+3000*0.001+200);
+
     }
 }

@@ -201,6 +201,7 @@ public class WordUtil {
         }
     }
 
+    //Word转PDF
     public static void main(String[] args) throws Exception {
         File file = new File("D:\\pdf\\word\\项目开发工作周报_2019.docx");
         WordUtil.convertDocxToPDF(file, "D:\\pdf\\word\\pdfword.pdf");

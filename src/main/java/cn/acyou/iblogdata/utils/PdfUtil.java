@@ -15,13 +15,6 @@ import java.io.IOException;
 
 public class PdfUtil {
 
-
-    /**
-     * @return
-     * @Author Ragty
-     * @Description 将图片转换为PDF
-     * @Date 15:27 2019/3/4
-     **/
     public static String Img2PDF(String imagePath, BufferedImage img, String descfolder) throws Exception {
         String pdfPath = "";
         try {
@@ -68,13 +61,6 @@ public class PdfUtil {
         return pdfPath;
     }
 
-
-    /**
-     * @return
-     * @Author Ragty
-     * @Description 获取文件夹下的PDF
-     * @Date 17:33 2019/3/7
-     **/
     private static String[] getFiles(String folder) throws IOException {
         File _folder = new File(folder);
         String[] filesInFolder;
@@ -149,7 +135,6 @@ public class PdfUtil {
             }
         }
         mergePDF(files, folder, mergeFileName);
-
 
     }
 
