@@ -30,12 +30,12 @@ public class CommodityPoi2 {
         //输出到文件   --- 获取当前用户桌面路径
         FileSystemView fsv = FileSystemView.getFileSystemView();
         String path = fsv.getHomeDirectory().toString();
-        File directory = new File(path + "\\sp2.sql");
+        File directory = new File(path + "\\sp2_3.sql");
         FileWriter fw = new FileWriter(directory);
         PrintWriter pw = new PrintWriter(fw);
         HSSFSheet hsSheetAt = hs.getSheetAt(0);
-        Long id = 100001L;
-        for (int j =2; j<= hsSheetAt.getLastRowNum(); j++){
+        Long id = 100000L;
+        for (int j =1; j<= hsSheetAt.getLastRowNum(); j++){
             HSSFRow row = hsSheetAt.getRow(j);
             //名称
             String mc = row.getCell(1).toString();
@@ -76,19 +76,21 @@ public class CommodityPoi2 {
                     "NULL, NULL, '"+jscs+"', NULL, '0', NULL, NULL, NULL, \n" +
                     "'1', '', '', '"+dw+"', '', NULL, NULL, '1', '1', '0', '', '0', '0', '0', '0', '"+reUse+"', '0', '10', '10', NULL, NULL, NULL,\n" +
                     " '0', NULL, '3', NULL, '0', '0', NULL, '2019-07-31 20:54:04', '7', NULL, NULL FROM t_commodity_brand cb WHERE cb.brand_name = '"+pp+"';";
-            id++;
+
             pw.write(sql);
             pw.write("\r\n");
-            pw.write("-- 资产标签");
-            pw.write("\r\n");
-            String labelSql = "INSERT INTO `service_commodity`.`t_product_spu_label` " +
-                    "(`label_id`, `spu_code`) SELECT label_id, '"+id+"' FROM t_product_label WHERE label_name = '"+yjbq+"';";
-            pw.write(labelSql);
-            pw.write("\r\n");
-            String labelSql2 = "INSERT INTO `service_commodity`.`t_product_spu_label` " +
-                    "(`label_id`, `spu_code`) SELECT label_id, '"+id+"' FROM t_product_label WHERE label_name = '"+ejbq+"';";
-            pw.write(labelSql2);
-            pw.write("\r\n");
+            //pw.write("-- 资产标签");
+            //pw.write("\r\n");
+            //String labelSql = "INSERT INTO `service_commodity`.`t_product_spu_label` " +
+            //        "(`label_id`, `spu_code`) SELECT label_id, '"+id+"' FROM t_product_label WHERE label_name = '"+yjbq+"';";
+            //pw.write(labelSql);
+            //pw.write("\r\n");
+            //String labelSql2 = "INSERT INTO `service_commodity`.`t_product_spu_label` " +
+            //        "(`label_id`, `spu_code`) SELECT label_id, '"+id+"' FROM t_product_label WHERE label_name = '"+ejbq+"';";
+            //pw.write(labelSql2);
+            //pw.write("\r\n");
+
+            id++;
 
         }
 

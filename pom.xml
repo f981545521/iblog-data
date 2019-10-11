@@ -484,7 +484,11 @@
             <artifactId>itext</artifactId>
             <version>2.1.7</version>
         </dependency>
-
+        <dependency>
+            <groupId>fr.opensagres.xdocreport</groupId>
+            <artifactId>org.apache.poi.xwpf.converter.pdf</artifactId>
+            <version>1.0.5</version>
+        </dependency>
 
 
     </dependencies>
