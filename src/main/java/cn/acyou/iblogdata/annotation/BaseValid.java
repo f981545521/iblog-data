@@ -13,13 +13,13 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 public @interface BaseValid {
-    //是否可以为空, 默认不可以为空
-    boolean nullable() default false;
+    //不可为空:(true:不可为空, false:可为空)
+    boolean notNull() default false;
 
-    //最大长度
+    //字符串最大长度:(每个字符/汉字的长度)
     int maxLength() default 0;
 
-    //最小长度
+    //字符串最小长度:(每个字符/汉字的长度)
     int minLength() default 0;
 
     //最小值，针对数字类型

@@ -1077,4 +1077,11 @@ public class SimpleTest {
         System.out.println(3*23+3000*0.001+200);
 
     }
+
+    @Test
+    public void tettes(){
+        Integer i1 = 1;
+        String s1 = "1";
+        System.out.println(s1.equals(i1.toString()));
+    }
 }

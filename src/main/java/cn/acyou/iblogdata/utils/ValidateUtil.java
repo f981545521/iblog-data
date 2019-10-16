@@ -79,7 +79,7 @@ public class ValidateUtil {
         String fieIdName = field.getName();
         description = baseValid.message();
         /* *********** 注解解析工作开始 ***************** */
-        if (!baseValid.nullable()) {
+        if (baseValid.notNull()) {
             if (null == value || StringUtils.isBlank(value.toString())) {
                 logger.warn("[数据校验]|{}|{}", "valid failed", "对象为空！");
                 description = "".equals(description) ? "参数错误" : description;

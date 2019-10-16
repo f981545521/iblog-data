@@ -70,7 +70,7 @@ public class ValidateUtil2 {
         String fieIdName = field.getName();
         description = baseValid.message();
         /* *********** 注解解析工作开始 ***************** */
-        if (!baseValid.nullable()) {
+        if (baseValid.notNull()) {
             if (null == value || StringUtils.isBlank(value.toString())) {
                 description = "".equals(description) ? "参数错误" : description;
                 throw new ServiceException(description);

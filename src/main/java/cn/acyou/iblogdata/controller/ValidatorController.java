@@ -4,6 +4,8 @@ import cn.acyou.iblogdata.annotation.ParameterValid;
 import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.so.ValidateSo;
 import cn.acyou.iblogdata.so.ValidateSo2;
+import cn.acyou.iblogdata.so.ValidateSo3;
+import cn.acyou.iblogdata.utils.EnhanceValidUtil;
 import cn.acyou.iblogdata.utils.ValidateUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,6 +46,13 @@ public class ValidatorController {
     @RequestMapping(value = "validate3")
     @ResponseBody
     public String validate3(ValidateSo2 validateSo){
+        return "好的";
+    }
+
+    @RequestMapping(value = "enhanceValidate")
+    @ResponseBody
+    public String enhanceValidate(ValidateSo3 validateSo){
+        EnhanceValidUtil.valid(validateSo);
         return "好的";
     }
 }
