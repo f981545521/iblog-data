@@ -18,7 +18,7 @@ public class ValidateSo2 implements Serializable {
 
     private Integer id;
 
-    @BaseValid(nullable = false, message = "姓名不能为空！")
+    @BaseValid(notNull = true, message = "姓名不能为空！")
     private String name;
 
     /**

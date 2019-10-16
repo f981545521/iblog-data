@@ -25,11 +25,11 @@ public class DossierEvidenceDetail {
     private String jzxxid;
 
     @Column(name = "ZJXXXID")
-    @BaseValid(nullable = false, message = "证据项信息ID不能为空")
+    @BaseValid(notNull = true, message = "证据项信息ID不能为空")
     private String zjxxxid;
 
     @Column(name = "ZJMC")
-    @BaseValid(nullable = false, message = "证据名称不能为空")
+    @BaseValid(notNull = true, message = "证据名称不能为空")
     private String zjmc;
 
     @Column(name = "YXQ")
