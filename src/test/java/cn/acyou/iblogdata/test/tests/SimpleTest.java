@@ -4,6 +4,7 @@ import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.test.entity.DossierEvidenceDetail;
 import cn.acyou.iblogdata.utils.BeanUtil;
 import cn.acyou.iblogdata.utils.ParamUtil;
+import cn.acyou.iblogdata.utils.QueueUtil;
 import cn.hutool.core.util.ReflectUtil;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -18,6 +19,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.TimeUnit;
 
 import static cn.acyou.iblogdata.utils.ParamUtil.replaceSpecialStr;
@@ -335,4 +337,23 @@ public class SimpleTest {
         String s = "{group=公证事项:公证事项名称 spliter=顿号}";
         int i = s.indexOf("spliter=");
     }
+
+    @Test
+    public void test334543(){
+        Deque<String> stringDeque = new ConcurrentLinkedDeque<>();
+        stringDeque.add("111");
+        stringDeque.add("112");
+        stringDeque.add("113");
+        stringDeque.add("114");
+        stringDeque.add("115");
+        stringDeque.add("116");
+        stringDeque.add("117");
+
+        List<String> strings = QueueUtil.dequePop(stringDeque, 5);
+
+        System.out.println(strings);
+        System.out.println(stringDeque);
+    }
+
+
 }
