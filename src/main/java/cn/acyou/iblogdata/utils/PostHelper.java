@@ -11,7 +11,11 @@ package cn.acyou.iblogdata.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -39,6 +43,26 @@ public class PostHelper {
         ResponseEntity<ResultInfo> response = httpClient.exchange(url, HttpMethod.POST,entity, ResultInfo.class);
         log.info("interface 耗时 --> "+(System.currentTimeMillis()-start));
         return response;
+    }
+
+    /**
+     * example：
+     * 		Result<List<Student>> post =  postHelper.post(request, "http://localhost:7074/pay/student/list", null,
+     * 				new ParameterizedTypeReference<Result<List<Student>>>() {
+     *                });
+     * @param request request
+     * @param url 请求路径
+     * @param params 请求参数
+     * @param responseType 响应类型
+     * @return 响应类型
+     */
+    public <R, T> R post(HttpServletRequest request, String url, T params, ParameterizedTypeReference<R> responseType) {
+        HttpEntity<T> entity = getHttpEntity(request, params);
+        ResponseEntity<R> responseEntity = httpClient
+                .exchange(url, HttpMethod.POST,
+                        entity,
+                        responseType);
+        return responseEntity.getBody();
     }
 
     public <T> HttpEntity<T> getHttpEntity(HttpServletRequest request,T t){
