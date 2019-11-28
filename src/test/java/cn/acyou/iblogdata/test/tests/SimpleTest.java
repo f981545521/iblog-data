@@ -354,6 +354,11 @@ public class SimpleTest {
         System.out.println(strings);
         System.out.println(stringDeque);
     }
+    @Test
+    public void test3345433(){
+        Deque<String> stringDeque = new ConcurrentLinkedDeque<>();
+
+    }
 
 
 }
