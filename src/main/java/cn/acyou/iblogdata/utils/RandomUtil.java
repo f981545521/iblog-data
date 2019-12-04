@@ -78,6 +78,16 @@ public class RandomUtil {
     public static int randomRangeNumber(int start, int end) {
         return (int) (Math.random() * (end - start + 1) + start);
     }
+    /**
+     * 获取范围内的值 [start, end] 左右包含
+     *
+     * @param start 开始
+     * @param end   结束
+     * @return 指定范围内的值
+     */
+    public static long randomRangeLong(long start, long end) {
+        return (long) (Math.random() * (end - start + 1) + start);
+    }
 
     private static String[] telFirst = "134,135,136,137,138,139,150,151,152,157,158,159,130,131,132,155,156,133,153".split(",");
 
