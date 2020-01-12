@@ -20,7 +20,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.util.PathMatcher;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -135,7 +134,15 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
                         }
                     }
                 }else{
-                    e.printStackTrace();
+                    try {
+                        //打印堆栈日志到日志文件中
+                        ByteArrayOutputStream buf = new ByteArrayOutputStream();
+                        e.printStackTrace(new java.io.PrintWriter(buf, true));
+                        buf.close();
+                        resultInfo.setData(buf.toString());
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                     resultInfo.setCode(400);
                     resultInfo.setMessage("喔呦，程序奔溃咯！");
                 }
