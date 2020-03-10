@@ -29,4 +29,6 @@ https://www.rabbitmq.com/download.html
 
 访问：http://localhost:15672/，并使用默认用户 guest 登录，密码也为 guest 。
 
+添加用户`admin`，密码`admin123`，赋予权限
+
 
