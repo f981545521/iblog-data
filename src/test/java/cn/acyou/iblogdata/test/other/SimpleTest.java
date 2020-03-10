@@ -14,12 +14,14 @@ import cn.acyou.iblogdata.utils.Md5Util;
 import cn.acyou.iblogdata.utils.RandomUtil;
 import cn.acyou.iblogdata.vo.StudentLogTestVo;
 import cn.acyou.iblogdata.vo.StudentVo;
+import cn.hutool.core.util.PinyinUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.google.common.collect.Maps;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.CharEncoding;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -45,6 +47,8 @@ import java.text.DecimalFormat;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -1084,4 +1088,187 @@ public class SimpleTest {
         String s1 = "1";
         System.out.println(s1.equals(i1.toString()));
     }
+
+    @Test
+    public void tette22s(){
+        String[] strings = new String[]{"111","222","333","444"};
+        System.out.println(strings);
+        List<String> stringList = Arrays.asList(strings);
+        stringList.remove("333");
+        System.out.println(strings);
+        stringList.remove("111");
+        System.out.println(strings);
+
+    }
+    @Test
+    public void tette2332s(){
+
+        List<String> stringList = Lists.newArrayList("111","222","333","444");
+        stringList.remove("333");
+        System.out.println(stringList);
+        stringList.remove("111");
+        System.out.println(stringList);
+
+    }
+
+    @Test
+    public void tette22s2(){
+        String[] strings = new String[]{"111","222","333","444"};
+        System.out.println(strings);
+        List<String> stringList = Lists.newArrayList(strings);
+        stringList.remove("333");
+        System.out.println(strings);
+        stringList.remove("111");
+        System.out.println(strings);
+
+    }
+
+    @Test
+    public void tette22s4(){
+        List<String> evidenceGzsxxxidList = Lists.newArrayList("111","222","333","444");
+        List<String> updateDossierEvidenceIds = Lists.newArrayList("111","222","444");
+
+        if (evidenceGzsxxxidList.containsAll(updateDossierEvidenceIds)){
+            System.out.println("包含所有");
+        }
+        evidenceGzsxxxidList.remove(updateDossierEvidenceIds);
+    }
+
+    @Test
+    public void tette22s5(){
+        Deque<String> stringList = new LinkedList<>();
+        stringList.addLast("xxx");
+        stringList.addLast("xxx");
+        stringList.addFirst("---");
+        stringList.addLast("ooo");
+        System.out.println(stringList.pollLast());
+        System.out.println(StringUtils.join(stringList, "|"));
+        for (String s: stringList){
+            System.out.println(s);
+        }
+    }
+
+    @Test
+    public void tette22s6(){
+        Set<String> stringList = new HashSet<>();
+        stringList.add("xxx");
+        stringList.add("ooo");
+        stringList.add("eee");
+        stringList.add("xxx");
+
+        System.out.println(StringUtils.join(stringList, "|"));
+        for (String s: stringList){
+            System.out.println(s);
+        }
+    }
+    @Test
+    public void tette22s7(){
+        Set<String> stringList = new HashSet<>();
+        System.out.println(stringList.contains("xxx"));
+    }
+
+    @Test
+    public void tette22s8(){
+        String s = "";
+        System.out.println(StringUtils.defaultIfEmpty(s, "fff"));
+    }
+    @Test
+    public void tette22s9(){
+        List<String> orginalList = Lists.newArrayList("111","222","333","444");
+        List<String> removeList = Lists.newArrayList("333","444","555");
+
+        //orginalList.removeAll(removeList);
+        //orginalList.retainAll(removeList);
+        //System.out.println("=====");
+        Collection<String> intersection = CollectionUtils.intersection(orginalList, removeList);
+        System.out.println(intersection);
+        orginalList.removeAll(removeList);
+        System.out.println(orginalList);
+    }
+    @Test
+    public void tette22s10(){
+        String slbh = "";
+        String s = StringUtils.substring(slbh, slbh.length() - 12);
+        System.out.println(s);
+
+        String hi = PinyinUtil.getPinYin("你好");
+        System.out.println(hi);
+
+    }
+
+    @Test
+    public void test334342(){
+        String s = "{group=单位代理人:姓名（证件类型：证件号码） spliter=换行},{group=单位代理人:姓名（证件类型：证件号码） spliter=换行},{group=单位代理人:姓名（证件类型：证件号码） spliter=换行 index=2}"
+                ;
+        //String regex = "^(-)?(([1-9]{1}\\d*)|([0]{1}))(\\.(\\d){" + count + "})?$";
+        //boolean matches = s.matches(regex);
+
+        Pattern p = Pattern.compile("^\\{.+\\}$");
+        Matcher matcher = p.matcher(s);
+        while (matcher.find()) {
+            System.out.println(matcher.group());
+        }
+
+    }
+
+    @Test
+    public void testrst22(){
+        List<String> oldMongoDbObjectIds = new ArrayList<>();
+        oldMongoDbObjectIds.add("sss");
+        oldMongoDbObjectIds.add(null);
+        oldMongoDbObjectIds.add("ggg");
+        oldMongoDbObjectIds.add(null);
+        oldMongoDbObjectIds.add("hhh");
+        System.out.println(oldMongoDbObjectIds);
+        for (String s:oldMongoDbObjectIds){
+            System.out.println(s);
+        }
+    }
+
+
+    @Test
+    public void testrst2332(){
+        //String as = "{受理日期(大写)  attr=index:2,name:姓名}";
+        String as = "{受理日期(大写)  attr=index:2,name:姓名}";
+        Map<String, String> attrMap = new HashMap<>();
+        if (as.contains("attr=")){
+            int i = as.indexOf("attr=");
+            int lastIndexOf = as.lastIndexOf("}");
+            String attr = as.substring(i + 5, lastIndexOf);
+            String[] attrSplitArray = attr.split(",");
+            for (String attrSplit: attrSplitArray){
+                String[] split = attrSplit.split(":");
+                attrMap.put(split[0], split[1]);
+            }
+            System.out.println(attrMap);
+        }
+
+    }
+
+
+    @Test
+    public void testrst23ewr32(){
+        String sss = "(2020)苏新证字第5号";
+        int yearStart = sss.indexOf("(");
+        int yearEnd = sss.indexOf(")");
+        System.out.println(sss.substring(yearStart, yearEnd + 1));
+
+        int ziHaoStart = sss.lastIndexOf("证字第");
+        int ziHaoEnd = sss.lastIndexOf("号");
+        System.out.println(sss.substring(ziHaoStart + 3, ziHaoEnd));
+
+        System.out.println(sss.substring(yearEnd + 1, ziHaoStart));
+
+    }
+
+
+    @Test
+    public void testrst23ewr332(){
+        String sss = "www,eee,rrr,ttt,yyy,uuu";
+
+    }
+
+
+
+
 }
