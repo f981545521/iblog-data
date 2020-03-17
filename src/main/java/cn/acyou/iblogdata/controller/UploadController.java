@@ -33,8 +33,43 @@ public class UploadController extends BaseController{
      */
     @PostMapping("image")
     @ApiOperation("上传一个文件")
-    public ResultInfo uploadFile(MultipartFile file, @RequestParam(required = false) Integer imageType){
+    public ResultInfo uploadimageFile(MultipartFile file, @RequestParam(required = false) Integer imageType){
         log.info("上传图片类型：" + imageType + "，大小：" + file.getSize() );
+        return new ResultInfo("上传成功");
+    }
+    /**
+     * 上传一个文件
+     * @param file 文件
+     * @return
+     */
+    @PostMapping("fileupload")
+    @ApiOperation("上传一个文件")
+    public ResultInfo uploadCommonFile(MultipartFile file){
+        log.info("上传文件：" + file.getOriginalFilename() + "，大小：" + file.getSize() );
+        try {
+            log.info("正在上传...");
+            Thread.sleep(50000);
+            log.info("上传结束");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return new ResultInfo("上传成功");
+    }
+    /**
+     * 上查看传一个文件的进度
+     * @param fileName 文件
+     * @return
+     */
+    @PostMapping("fileuploadProcess")
+    @ApiOperation("上传一个文件")
+    public ResultInfo uploadCommonFileProcess(String fileName){
+        try {
+            log.info("正在上传...");
+            Thread.sleep(50000);
+            log.info("上传结束");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return new ResultInfo("上传成功");
     }
 }
