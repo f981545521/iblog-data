@@ -1268,6 +1268,54 @@ public class SimpleTest {
 
     }
 
+    @Test
+    public void testrsRange(){
+        List<Integer> gzsbhNumberList = new ArrayList<>();
+        gzsbhNumberList.add(33);
+        gzsbhNumberList.add(55);
+        gzsbhNumberList.add(34);
+        gzsbhNumberList.add(35);
+        gzsbhNumberList.add(336);
+        gzsbhNumberList.add(420);
+        gzsbhNumberList.add(329);
+        Collections.sort(gzsbhNumberList);
+        System.out.println(gzsbhNumberList);
+
+        List<String> gzsbhRange = new ArrayList<>();
+
+        Integer start = gzsbhNumberList.get(0);
+        Integer nextEstimateNumber = start;
+        for (int i = 0; i< gzsbhNumberList.size(); i++){
+            Integer currentNum = gzsbhNumberList.get(i);
+            if (currentNum > nextEstimateNumber){
+                Integer beforeNum = gzsbhNumberList.get(i-1);
+                if (start == beforeNum){
+                    gzsbhRange.add(start.toString());
+                }else {
+                    gzsbhRange.add(start + "-" + beforeNum);
+                }
+                start = gzsbhNumberList.get(i);
+                nextEstimateNumber = gzsbhNumberList.get(i) + 1;
+            }
+            //准备结束
+            if (i == gzsbhNumberList.size() - 1){
+                if (gzsbhNumberList.size() == 1){
+                    gzsbhRange.add(currentNum + "");
+                }else {
+                    Integer beforeNum = gzsbhNumberList.get(i-1);
+                    if (currentNum == beforeNum + 1){
+                        gzsbhRange.add(start + "-" + currentNum);
+                    }else {
+                        gzsbhRange.add(currentNum + "");
+                    }
+                }
+            }
+            nextEstimateNumber ++;
+        }
+        System.out.println(gzsbhRange);
+
+    }
+
 
 
 
