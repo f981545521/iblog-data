@@ -4,6 +4,7 @@ import cn.acyou.iblogdata.annotation.BaseValid;
 import cn.acyou.iblogdata.annotation.EnhanceValid;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author youfang
@@ -23,6 +24,37 @@ public class ValidateSo3 implements Serializable {
     })
     private String name;
 
+    @EnhanceValid({
+            @BaseValid(notNull = true, message = "学生不能为空"),
+            @BaseValid(notEmpty = true, message = "学生不能为空"),
+            @BaseValid(entityCollectionValid = true)
+    })
+    private List<StudentSo> studentSoList;
+
+    @EnhanceValid({
+            @BaseValid(notNull = true, message = "validateSo不能为空"),
+            @BaseValid(entityValid = true)
+    })
+    private ValidateSo validateSo;
+
+
+
+
+    public ValidateSo getValidateSo() {
+        return validateSo;
+    }
+
+    public void setValidateSo(ValidateSo validateSo) {
+        this.validateSo = validateSo;
+    }
+
+    public List<StudentSo> getStudentSoList() {
+        return studentSoList;
+    }
+
+    public void setStudentSoList(List<StudentSo> studentSoList) {
+        this.studentSoList = studentSoList;
+    }
 
     public Integer getId() {
         return id;

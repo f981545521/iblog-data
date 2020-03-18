@@ -16,13 +16,13 @@ public class ValidateSo implements BaseValidateEntity, Serializable {
 
     private Integer id;
 
-    @BaseValid(notNull = true, message = "姓名不能为空！")
+    @BaseValid(notNull = true, message = "ValidateSo姓名不能为空！")
     private String name;
 
     /**
      * 性别
      */
-    @BaseValid(range = {"1","2"}, message = "性别填写不正确")
+    @BaseValid(range = {"1","2"}, message = "ValidateSo性别填写不正确")
     private String sex;
 
     private Boolean useNow;
@@ -30,7 +30,7 @@ public class ValidateSo implements BaseValidateEntity, Serializable {
     @BaseValid(notEmpty = true)
     private List<String> interestList;
 
-    @BaseValid(notEmpty = true, message = "朋友不能为空呦！")
+    @BaseValid(notEmpty = true, message = "ValidateSo朋友不能为空呦！")
     private Map<String, String> friendMap;
 
     public Map<String, String> getFriendMap() {
