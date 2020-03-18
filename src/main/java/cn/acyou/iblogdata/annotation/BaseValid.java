@@ -43,10 +43,17 @@ public @interface BaseValid {
     //参数或者字段描述,这样能够显示友好的异常信息
     String message() default "";
 
-    //返回错误码信息
+    //返回错误码信息 暂未使用
     String code() default "";
 
     //集合类型不能为空
     boolean notEmpty() default false;
+
+    //实体类型 继续校验
+    boolean entityValid() default false;
+
+    //实体集合实体 继续校验
+    boolean entityCollectionValid() default false;
+
 
 }

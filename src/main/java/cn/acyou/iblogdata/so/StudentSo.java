@@ -1,5 +1,7 @@
 package cn.acyou.iblogdata.so;
 
+import cn.acyou.iblogdata.annotation.BaseValid;
+import cn.acyou.iblogdata.annotation.EnhanceValid;
 import cn.acyou.iblogdata.commons.So;
 
 /**
@@ -11,6 +13,10 @@ public class StudentSo extends So {
     private static final long serialVersionUID = -828326546547153332L;
 
     private Integer id;
+
+    @EnhanceValid({
+            @BaseValid(notNull = true, message = "学生姓名不能为空")
+    })
     private String name;
 
     private Boolean useNow;

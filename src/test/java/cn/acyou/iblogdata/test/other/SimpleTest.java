@@ -6,9 +6,13 @@ import cn.acyou.iblog.utility.DateUtil;
 import cn.acyou.iblog.utility.MathUtil;
 import cn.acyou.iblogdata.constant.AppConstant;
 import cn.acyou.iblogdata.exception.ServiceException;
+import cn.acyou.iblogdata.so.StudentSo;
+import cn.acyou.iblogdata.so.ValidateSo;
+import cn.acyou.iblogdata.so.ValidateSo3;
 import cn.acyou.iblogdata.test.entity.Animal;
 import cn.acyou.iblogdata.test.entity.CatVo;
 import cn.acyou.iblogdata.test.entity.Result;
+import cn.acyou.iblogdata.utils.EnhanceValidUtil;
 import cn.acyou.iblogdata.utils.JsonUtil;
 import cn.acyou.iblogdata.utils.Md5Util;
 import cn.acyou.iblogdata.utils.RandomUtil;
@@ -1313,6 +1317,26 @@ public class SimpleTest {
             nextEstimateNumber ++;
         }
         System.out.println(gzsbhRange);
+
+    }
+
+
+    @Test
+    public void testEnhanceValidate(){
+        ValidateSo3 so3 = new ValidateSo3();
+        so3.setId(2);
+        so3.setName("张三");
+        List<StudentSo> studentSoList = new ArrayList<>();
+        StudentSo studentSo = new StudentSo();
+        studentSo.setId(3);
+        studentSo.setName("44");
+        studentSoList.add(studentSo);
+        so3.setStudentSoList(studentSoList);
+
+        ValidateSo validateSo = new ValidateSo();
+        so3.setValidateSo(validateSo);
+
+        EnhanceValidUtil.valid(so3);
 
     }
 
