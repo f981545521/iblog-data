@@ -1341,6 +1341,27 @@ public class SimpleTest {
     }
 
 
+    @Test
+    public void testDecima33l(){
+        BigDecimal bigDecimal = new BigDecimal("100");
+        BigDecimal precent = new BigDecimal("0.7755");
+        BigDecimal multiply = bigDecimal.multiply(precent);
+        BigDecimal bigDecimal1 = multiply.setScale(2, BigDecimal.ROUND_HALF_UP);
+        System.out.println(bigDecimal1);
+
+        System.out.println(bigDecimal.multiply(precent, MathContext.UNLIMITED));
+        System.out.println(bigDecimal.multiply(precent, MathContext.DECIMAL32));
+        System.out.println(bigDecimal.multiply(precent, MathContext.DECIMAL64));
+        System.out.println(bigDecimal.multiply(precent, MathContext.DECIMAL128));
+
+    }
+    @Test
+    public void testDecima333(){
+        BigDecimal bigDecimal = new BigDecimal("77.55");
+        System.out.println(bigDecimal.multiply(new BigDecimal("0.01")));
+
+    }
+
 
 
 }
