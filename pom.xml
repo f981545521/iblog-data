@@ -433,11 +433,11 @@
             <version>3.0.0</version>
         </dependency>
         <!-- Oracle 数据库驱动 -->
-        <dependency>
+<!--        <dependency>
             <groupId>ojdbc</groupId>
             <artifactId>ojdbc</artifactId>
             <version>5</version>
-        </dependency>
+        </dependency>-->
 
         <!-- apache.poi 处理word -->
         <dependency>

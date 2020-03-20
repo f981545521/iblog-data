@@ -1,5 +1,6 @@
 package cn.acyou.iblogdata.utils;
 
+import com.google.zxing.Result;
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -82,7 +83,7 @@ public class ZxingUtil {
         BufferedImage image = ImageIO.read(is);
         Binarizer binarizer = new HybridBinarizer(new BufferedImageLuminanceSource(image));
         BinaryBitmap binaryBitmap = new BinaryBitmap(binarizer);
-        Result res = read.decode(binaryBitmap);
-        return res.toString();
+        Result decode = read.decode(binaryBitmap);
+        return decode.toString();
     }
 }
