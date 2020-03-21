@@ -1,5 +1,6 @@
 package cn.acyou.iblogdata.commons;
 
+import cn.acyou.iblogdata.commons.tkmapper.CommonMapper;
 import tk.mybatis.mapper.common.BaseMapper;
 import tk.mybatis.mapper.common.ConditionMapper;
 import tk.mybatis.mapper.common.ExampleMapper;
@@ -21,5 +22,6 @@ public interface Mapper<T, PK extends Serializable>
         IdsMapper<T>,
         InsertListMapper<T>,
         ExampleMapper<T>,
+        CommonMapper<T>,
         ConditionMapper<T> {
 }

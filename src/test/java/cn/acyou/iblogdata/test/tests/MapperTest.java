@@ -39,6 +39,7 @@ public class MapperTest extends BaseTest{
 
     @Test
     public void test1(){
+        studentMapper.getNextSortNumber();
         List<Student> bossList = studentMapper.selectAll();
         System.out.println(bossList);
     }
