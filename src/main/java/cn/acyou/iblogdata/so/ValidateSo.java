@@ -1,8 +1,11 @@
 package cn.acyou.iblogdata.so;
 
-import cn.acyou.iblogdata.annotation.BaseValid;
+import cn.acyou.iblogdata.annotation.valid.BaseValid;
+import cn.acyou.iblogdata.annotation.valid.DateValidType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +35,31 @@ public class ValidateSo implements BaseValidateEntity, Serializable {
 
     @BaseValid(notEmpty = true, message = "ValidateSo朋友不能为空呦！")
     private Map<String, String> friendMap;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @BaseValid(dateValid = DateValidType.if_afterNow, message = "startDate不能大于当前日期")
+    private Date startDate;
+
+    @BaseValid(dateValid = DateValidType.if_beforeSpecifyDate,
+            specifyDateFieldName = "startDate", message = "endDate不能大于startDate")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date endDate;
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
 
     public Map<String, String> getFriendMap() {
         return friendMap;

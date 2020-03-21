@@ -1,7 +1,7 @@
 package cn.acyou.iblogdata.so;
 
-import cn.acyou.iblogdata.annotation.BaseValid;
 import cn.acyou.iblogdata.annotation.EntityValid;
+import cn.acyou.iblogdata.annotation.valid.BaseValid;
 
 import java.io.Serializable;
 import java.util.List;

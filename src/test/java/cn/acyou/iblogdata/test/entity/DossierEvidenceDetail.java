@@ -2,7 +2,7 @@ package cn.acyou.iblogdata.test.entity;
 
 
 
-import cn.acyou.iblogdata.annotation.BaseValid;
+import cn.acyou.iblogdata.annotation.valid.BaseValid;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
