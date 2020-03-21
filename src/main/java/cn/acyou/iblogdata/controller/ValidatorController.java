@@ -1,16 +1,19 @@
 package cn.acyou.iblogdata.controller;
 
+import cn.acyou.iblogdata.annotation.ParamValid;
 import cn.acyou.iblogdata.annotation.ParameterValid;
 import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.so.ValidateSo;
 import cn.acyou.iblogdata.so.ValidateSo2;
 import cn.acyou.iblogdata.so.ValidateSo3;
 import cn.acyou.iblogdata.utils.EnhanceValidUtil;
+import cn.acyou.iblogdata.utils.Result;
 import cn.acyou.iblogdata.utils.ValidateUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -41,6 +44,12 @@ public class ValidatorController {
     @ParameterValid
     public String validate2(ValidateSo validateSo){
         return "好的";
+    }
+
+    @RequestMapping(value = "validate5")
+    @ResponseBody
+    public Result<ValidateSo> validate5(@ParamValid @RequestBody ValidateSo validateSo){
+        return Result.success(validateSo);
     }
 
     @RequestMapping(value = "validate3")
