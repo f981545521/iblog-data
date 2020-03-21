@@ -81,7 +81,7 @@ public class EntityCodeGenerator {
      * @param className 类名
      */
     private static void generateAll(String className) {
-        if (className == null || "".equals(className.trim())) {
+        if (className == null || className.trim().length() == 0) {
             System.out.println("文件名不能为空");
             return;
         }
@@ -209,6 +209,9 @@ public class EntityCodeGenerator {
                     mapperXmlContentList.add("\r\n");
                     mapperXmlContentList.add("\r\n");
                     mapperXmlContentList.add("    <update id=\"updateListSelective\">\r\n");
+                    mapperXmlContentList.add("        <if test=\"list==null or list.size()==0\">\r\n");
+                    mapperXmlContentList.add("            select 0 from dual\r\n");
+                    mapperXmlContentList.add("        </if>\r\n");
                     mapperXmlContentList.add("        <foreach collection=\"list\" item=\"it\">\r\n");
                     mapperXmlContentList.add("           update " + TABLE_NAME + "\r\n");
                     mapperXmlContentList.add("           <set>\r\n");
@@ -255,7 +258,6 @@ public class EntityCodeGenerator {
         javaPw.flush();
         javaPw.close();
     }
-
     private static void writeMapperXmlFile(List<String> mapperXmlContentList) throws Exception {
         File xmlDirectory = new File(String.format("%s\\%sMapper.xml", MAPPER_XML_PATH, CLASS_NAME));
         FileWriter xmlFw = new FileWriter(xmlDirectory);
@@ -266,9 +268,8 @@ public class EntityCodeGenerator {
         xmlPw.flush();
         xmlPw.close();
     }
-
     private static void writeMapperInterfaceFile(List<String> mapperContentList) throws Exception {
-        File mapperDirectory = new File(MAPPER_INTERFACE_PATH + "\\" + CLASS_NAME + "Mapper" + ".java");
+        File mapperDirectory = new File(String.format("%s\\%sMapper.java", MAPPER_INTERFACE_PATH, CLASS_NAME));
         FileWriter mapperFw = new FileWriter(mapperDirectory);
         PrintWriter mapperPw = new PrintWriter(mapperFw);
         for (String mapperContent : mapperContentList) {
@@ -304,23 +305,24 @@ public class EntityCodeGenerator {
      */
     private static void createEntityField(List<String> entityContentList, String typeName, String name, String remark) {
         String type = sqlType2JavaType(typeName);
-        if (type.equalsIgnoreCase("BigDecimal")) {
-            if (!entityContentList.contains("import java.math.BigDecimal;\r\n")){
-                entityContentList.add(7, "import java.math.BigDecimal;\r\n");
-            }
-        }
-        if (remark != null && !"".equals(remark)) {
+        if (remark != null && remark.length() > 0) {
             entityContentList.add("\t/**\r\n");
             entityContentList.add("\t * " + remark + "\r\n");
             entityContentList.add("\t */\r\n");
         } else {
             entityContentList.add("\t//" + name + "\r\n");
         }
-        if (!PK_NAME.equals("") && PK_NAME.equals(name)) {
+        if (PK_NAME.length() > 0 && PK_NAME.equals(name)) {
             entityContentList.add("    @Id\r\n");
             entityContentList.add("    @GeneratedValue(generator = \"JDBC\")\r\n");
         }
         entityContentList.add("    @Column(name = \"" + name + "\")\r\n");
+        //Import Class
+        if (type.equalsIgnoreCase("BigDecimal")) {
+            if (!entityContentList.contains("import java.math.BigDecimal;\r\n")){
+                entityContentList.add(7, "import java.math.BigDecimal;\r\n");
+            }
+        }
         if ("Date".equals(type)) {
             if (!entityContentList.contains("import com.fasterxml.jackson.annotation.JsonFormat;\r\n")){
                 entityContentList.add(7, "import com.fasterxml.jackson.annotation.JsonFormat;\r\n");
@@ -444,7 +446,7 @@ public class EntityCodeGenerator {
                         //列名称
                         String name = rs1.getString("COLUMN_NAME");
 
-                        if (!"".equals(PK_NAME) && name.equals(PK_NAME)) {
+                        if (PK_NAME.length() > 0 && name.equals(PK_NAME)) {
                             //跳过主键
                             continue;
                         }
