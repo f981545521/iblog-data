@@ -1,4 +1,4 @@
-package cn.acyou.iblogdata.annotation;
+package cn.acyou.iblogdata.annotation.valid;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -55,5 +55,9 @@ public @interface BaseValid {
     //实体集合实体 继续校验
     boolean entityCollectionValid() default false;
 
+    //时间类型校验
+    DateValidType dateValid() default DateValidType.none;
+    //时间类型校验指定日期:   使用类型为if_beforeSpecifyDate,   if_afterSpecifyDate 时，要指定的字段名
+    String specifyDateFieldName() default "";
 
 }

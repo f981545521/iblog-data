@@ -1,8 +1,9 @@
 package cn.acyou.iblogdata.utils;
 
-import cn.acyou.iblogdata.annotation.BaseValid;
-import cn.acyou.iblogdata.annotation.EnhanceValid;
-import cn.acyou.iblogdata.annotation.RegexType;
+import cn.acyou.iblogdata.annotation.valid.BaseValid;
+import cn.acyou.iblogdata.annotation.valid.DateValidType;
+import cn.acyou.iblogdata.annotation.valid.EnhanceValid;
+import cn.acyou.iblogdata.annotation.valid.RegexType;
 import cn.acyou.iblogdata.exception.ServiceException;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -48,7 +50,7 @@ public class EnhanceValidUtil {
     /**
      * 验证注解
      *
-     * @param field 字段
+     * @param field  字段
      * @param object 值
      * @return result
      */
@@ -58,7 +60,7 @@ public class EnhanceValidUtil {
         //未加注解的字段直接返回
         if (enhanceValid != null) {
             BaseValid[] baseValid = enhanceValid.value();
-            for (BaseValid validField: baseValid){
+            for (BaseValid validField : baseValid) {
                 validateBaseValid(field, object, validField);
             }
         }
@@ -73,8 +75,9 @@ public class EnhanceValidUtil {
 
     /**
      * 验证基础类型
-     * @param field 字段
-     * @param object 值
+     *
+     * @param field     字段
+     * @param object    值
      * @param baseValid 验证注解
      */
     private static void validateBaseValid(Field field, Object object, BaseValid baseValid) {
@@ -92,7 +95,7 @@ public class EnhanceValidUtil {
         //字段名称
         String fieIdName = field.getName();
         //自定义描述
-        if (StringUtils.isNotEmpty(baseValid.message())){
+        if (StringUtils.isNotEmpty(baseValid.message())) {
             description = baseValid.message();
         }
 
@@ -106,15 +109,15 @@ public class EnhanceValidUtil {
 
         if (baseValid.notEmpty()) {
             if (validValue == null || StringUtils.isEmpty(validValue.toString())) {
-                logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName , "参数为NULL");
+                logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName, "参数为NULL");
                 throw new ServiceException(description);
             }
-            if (validValue instanceof Collection &&  ((Collection) validValue).isEmpty()){
-                logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName , "集合为空");
+            if (validValue instanceof Collection && ((Collection) validValue).isEmpty()) {
+                logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName, "集合为空");
                 throw new ServiceException(description);
             }
-            if (validValue instanceof Map &&  ((Map) validValue).isEmpty()){
-                logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName , "集合为空");
+            if (validValue instanceof Map && ((Map) validValue).isEmpty()) {
+                logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName, "集合为空");
                 throw new ServiceException(description);
             }
         }
@@ -123,37 +126,37 @@ public class EnhanceValidUtil {
         if (validValue != null) {
 
             if (validValue.toString().length() > baseValid.maxLength() && baseValid.maxLength() != 0) {
-                logger.warn("[数据校验]|{}|{}|{}|{}", "valid failed", fieIdName , "长度超过了" , baseValid.maxLength());
+                logger.warn("[数据校验]|{}|{}|{}|{}", "valid failed", fieIdName, "长度超过了", baseValid.maxLength());
                 throw new ServiceException(description);
             }
 
             if (validValue.toString().length() < baseValid.minLength() && baseValid.minLength() != 0) {
-                logger.warn("[数据校验]|{}|{}|{}|{}", "valid failed", fieIdName , "长度小于了" , baseValid.minLength());
+                logger.warn("[数据校验]|{}|{}|{}|{}", "valid failed", fieIdName, "长度小于了", baseValid.minLength());
                 throw new ServiceException(description);
             }
 
             if (NumberUtils.isNumber(validValue.toString()) && baseValid.min() != 0
                     && Integer.valueOf(validValue.toString()) < baseValid.min()) {
-                logger.warn("[数据校验]|{}|{}|{}|{}", "valid failed", fieIdName , "不能小于" , baseValid.min());
+                logger.warn("[数据校验]|{}|{}|{}|{}", "valid failed", fieIdName, "不能小于", baseValid.min());
                 throw new ServiceException(description);
             }
 
             if (NumberUtils.isNumber(validValue.toString()) && baseValid.max() != 0
                     && Integer.valueOf(validValue.toString()) > baseValid.max()) {
-                logger.warn("[数据校验]|{}|{}|{}|{}", "valid failed", fieIdName , "不能大于" , baseValid.max());
+                logger.warn("[数据校验]|{}|{}|{}|{}", "valid failed", fieIdName, "不能大于", baseValid.max());
                 throw new ServiceException(description);
             }
 
             if (baseValid.range().length > 0) {
                 if (!ArrayUtils.contains(baseValid.range(), validValue.toString())) {
-                    logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName , "取值不在范围内");
+                    logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName, "取值不在范围内");
                     throw new ServiceException(description);
                 }
             }
 
             if (baseValid.numberRange().length > 0) {
                 if (!ArrayUtils.contains(baseValid.numberRange(), Integer.parseInt(validValue.toString()))) {
-                    logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName , "取值不在范围内");
+                    logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName, "取值不在范围内");
                     throw new ServiceException(description);
                 }
             }
@@ -165,49 +168,49 @@ public class EnhanceValidUtil {
                         break;
                     case SPECIALCHAR:
                         if (RegexUtils.hasSpecialChar(validValue.toString())) {
-                            logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName , "不能含有特殊字符");
+                            logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName, "不能含有特殊字符");
                             result = description;
                         }
                         break;
                     case CHINESE:
                         if (RegexUtils.isChinese2(validValue.toString())) {
-                            logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName , "不能含有中文字符");
+                            logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName, "不能含有中文字符");
                             result = description;
                         }
                         break;
                     case EMAIL:
                         if (!RegexUtils.isEmail(validValue.toString())) {
-                            logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName , "邮箱地址格式不正确");
+                            logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName, "邮箱地址格式不正确");
                             result = description;
                         }
                         break;
                     case IP:
                         if (!RegexUtils.isIp(validValue.toString())) {
-                            logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName , "IP地址格式不正确");
+                            logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName, "IP地址格式不正确");
                             result = description;
                         }
                         break;
                     case NUMBER:
                         if (!RegexUtils.isNumber(validValue.toString())) {
-                            logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName , "不是数字");
+                            logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName, "不是数字");
                             result = description;
                         }
                         break;
                     case PHONENUMBER:
                         if (!RegexUtils.isPhoneNumber(validValue.toString())) {
-                            logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName , "不是手机号码");
+                            logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName, "不是手机号码");
                             result = description;
                         }
                         break;
                     case DATE:
                         if (!RegexUtils.isDateStr(validValue.toString())) {
-                            logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName , "日期格式出错");
+                            logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName, "日期格式出错");
                             result = description;
                         }
                         break;
                     case DATETIME:
                         if (!RegexUtils.isDateTime(validValue.toString())) {
-                            logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName , "时间格式出错");
+                            logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName, "时间格式出错");
                             result = description;
                         }
                         break;
@@ -219,23 +222,78 @@ public class EnhanceValidUtil {
                 }
             }
 
+            if (baseValid.dateValid() != DateValidType.none) {
+                String result = null;
+                if (validValue instanceof Date) {
+                    Date validValueDate = (Date) validValue;
+                    switch (baseValid.dateValid()) {
+                        case none:
+                            break;
+                        case if_afterNow:
+                            if (validValueDate.after(new Date())) {
+                                logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName, "不能大于当前时间！");
+                                result = description;
+                            }
+                            break;
+                        case if_beforeNow:
+                            if (validValueDate.before(new Date())) {
+                                logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName, "不能小于当前时间！");
+                                result = description;
+                            }
+                            break;
+                        case if_afterSpecifyDate:
+                            String afterDateFieldName = baseValid.specifyDateFieldName();
+                            if (afterDateFieldName.trim().length() > 0) {
+                                Object fieldValue = ReflectUtils.getFieldValue(object, afterDateFieldName);
+                                if (fieldValue instanceof Date) {
+                                    Date filedDate = (Date) fieldValue;
+                                    if (validValueDate.before(filedDate)) {
+                                        logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName, "不能大于" + afterDateFieldName + "！");
+                                        result = description;
+                                    }
+                                }
+                            }
+                            break;
+                        case if_beforeSpecifyDate:
+                            String beforeDateFieldName = baseValid.specifyDateFieldName();
+                            if (beforeDateFieldName.trim().length() > 0) {
+                                Object fieldValue = ReflectUtils.getFieldValue(object, beforeDateFieldName);
+                                if (fieldValue instanceof Date) {
+                                    Date filedDate = (Date) fieldValue;
+                                    if (validValueDate.before(filedDate)) {
+                                        logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName, "不能小于" + beforeDateFieldName + "！");
+                                        result = description;
+                                    }
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    if (null != result) {
+                        throw new ServiceException(result);
+                    }
+
+                }
+            }
+
             if (StringUtils.isNotEmpty(baseValid.regexExpression())) {
                 if (validValue.toString().matches(baseValid.regexExpression())) {
-                    logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName , "格式不正确");
+                    logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName, "格式不正确");
                     throw new ServiceException(description);
                 }
             }
 
             //实体类型 继续校验
-            if (baseValid.entityValid()){
+            if (baseValid.entityValid()) {
                 valid(validValue);
             }
 
             //实体集合实体 继续校验
-            if (baseValid.entityCollectionValid()){
-                if (validValue instanceof Collection){
+            if (baseValid.entityCollectionValid()) {
+                if (validValue instanceof Collection) {
                     Collection valueList = (Collection) validValue;
-                    for (Object o: valueList){
+                    for (Object o : valueList) {
                         valid(o);
                     }
                 }
@@ -243,4 +301,6 @@ public class EnhanceValidUtil {
         }
         /* ***********注解解析工作结束***************** */
     }
+
+
 }

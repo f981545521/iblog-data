@@ -1,7 +1,7 @@
 package cn.acyou.iblogdata.utils;
 
-import cn.acyou.iblogdata.annotation.BaseValid;
-import cn.acyou.iblogdata.annotation.RegexType;
+import cn.acyou.iblogdata.annotation.valid.BaseValid;
+import cn.acyou.iblogdata.annotation.valid.RegexType;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;

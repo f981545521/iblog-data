@@ -1,7 +1,7 @@
 package cn.acyou.iblogdata.so;
 
-import cn.acyou.iblogdata.annotation.BaseValid;
-import cn.acyou.iblogdata.annotation.EnhanceValid;
+import cn.acyou.iblogdata.annotation.valid.BaseValid;
+import cn.acyou.iblogdata.annotation.valid.EnhanceValid;
 import cn.acyou.iblogdata.commons.So;
 
 /**

@@ -1,4 +1,4 @@
-package cn.acyou.iblogdata.annotation;
+package cn.acyou.iblogdata.annotation.valid;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

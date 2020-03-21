@@ -1,4 +1,4 @@
-package cn.acyou.iblogdata.annotation;
+package cn.acyou.iblogdata.annotation.valid;
 
 /**
  * 校验的正则表达式类型
