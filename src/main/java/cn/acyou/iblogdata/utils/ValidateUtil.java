@@ -115,16 +115,16 @@ public class ValidateUtil {
                 return description;
             }
 
-            if (baseValid.range().length > 0) {
-                if (!ArrayUtils.contains(baseValid.range(), value.toString())) {
+            if (baseValid.notInRange().length > 0) {
+                if (!ArrayUtils.contains(baseValid.notInRange(), value.toString())) {
                     logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName , "取值不在范围内");
                     description = "".equals(description) ? "参数错误" : description;
                     return description;
                 }
             }
 
-            if (baseValid.numberRange().length > 0) {
-                if (!ArrayUtils.contains(baseValid.numberRange(), Integer.parseInt(value.toString()))) {
+            if (baseValid.numberNotInRange().length > 0) {
+                if (!ArrayUtils.contains(baseValid.numberNotInRange(), Integer.parseInt(value.toString()))) {
                     logger.warn("[数据校验]|{}|{}|{}", "valid failed", fieIdName , "取值不在范围内");
                     description = "".equals(description) ? "参数错误" : description;
                     return description;

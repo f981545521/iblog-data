@@ -25,7 +25,7 @@ public class ValidateSo implements BaseValidateEntity, Serializable {
     /**
      * 性别
      */
-    @BaseValid(range = {"1","2"}, message = "ValidateSo性别填写不正确")
+    @BaseValid(notInRange = {"1","2"}, message = "ValidateSo性别填写不正确")
     private String sex;
 
     private Boolean useNow;

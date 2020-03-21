@@ -20,7 +20,7 @@ public class ValidateSo3 implements Serializable {
         @BaseValid(notNull = true, message = "姓名不能为空"),
         @BaseValid(maxLength = 10, message = "姓名过长"),
         @BaseValid(minLength = 2, message = "姓名过短"),
-        @BaseValid(range = {"张三", "李四"}, message = "姓名不在范围内")
+        @BaseValid(notInRange = {"张三", "李四"}, message = "姓名不在范围内")
     })
     private String name;
 

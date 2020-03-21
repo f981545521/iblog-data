@@ -29,10 +29,10 @@ public @interface BaseValid {
     int max() default 0;
 
     //取值范围，针对非数字类型
-    String[] range() default {};
+    String[] notInRange() default {};
 
     //取值范围，针对数字类型
-    int[] numberRange() default {};
+    int[] numberNotInRange() default {};
 
     //提供几种常用的正则验证
     RegexType regexType() default RegexType.NONE;
@@ -40,7 +40,7 @@ public @interface BaseValid {
     //自定义正则验证
     String regexExpression() default "";
 
-    //参数或者字段描述,这样能够显示友好的异常信息
+    //参数或者字段描述, 这样能够显示友好的异常信息
     String message() default "";
 
     //返回错误码信息 暂未使用
@@ -57,6 +57,7 @@ public @interface BaseValid {
 
     //时间类型校验
     DateValidType dateValid() default DateValidType.none;
+
     //时间类型校验指定日期:   使用类型为if_beforeSpecifyDate,   if_afterSpecifyDate 时，要指定的字段名
     String specifyDateFieldName() default "";
 
