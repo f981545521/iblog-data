@@ -1,12 +1,14 @@
 package cn.acyou.iblogdata.conf;
 
 import cn.acyou.iblog.orika.OrikaMapper;
+import cn.acyou.iblogdata.entity.SeckillProducts;
 import cn.acyou.iblogdata.service.StudentService;
 import cn.acyou.iblogdata.spring.MyFactoryBean;
 import cn.acyou.iblogdata.spring.ScopeBean;
 import cn.acyou.iblogdata.spring.UniqueBean;
 import cn.acyou.iblogdata.utils.StudentConfig;
 import cn.acyou.iblogdata.utils.StudentConfig2;
+import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
@@ -14,6 +16,7 @@ import org.springframework.context.annotation.*;
 import org.springframework.core.annotation.Order;
 
 import javax.servlet.MultipartConfigElement;
+import java.util.Map;
 
 /**
  * @author youfang
@@ -59,19 +62,30 @@ public class BeanConfigurer {
     @Primary
     @DependsOn(value = "studentConfig2")
     @Order(value = 12)
-    public StudentConfig studentConfig(){
+    public StudentConfig studentConfig() {
         return new StudentConfig(1, "看家的", 23);
+    }
+
+    @Bean(name = "seckillProducts")
+    public Map<Long, SeckillProducts> initSeckillProducts() {
+        SeckillProducts products = new SeckillProducts();
+        products.setProductsId(10000L);
+        products.setProductsName("小米手机10 Pro");
+        products.setProductsStock(10L);
+        Map<Long, SeckillProducts> productsMap = Maps.newHashMap();
+        productsMap.put(products.getProductsId(), products);
+        return productsMap;
     }
 
     @Bean(name = "studentConfig2")
     @Lazy(true)
     @Order(value = 1)
-    public StudentConfig2 studentConfig2(){
+    public StudentConfig2 studentConfig2() {
         return new StudentConfig2(1, "看家的", 23);
     }
 
     @Bean
-    public OrikaMapper orikaMapper(){
+    public OrikaMapper orikaMapper() {
         return new OrikaMapper();
     }
 
