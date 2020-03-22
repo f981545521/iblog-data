@@ -687,6 +687,13 @@ public class RedisUtils {
         return result;
     }
 
+    /**
+     * 自增 / 自减
+     *
+     * @param key   key
+     * @param value 1自增1 -1减少1
+     * @return
+     */
     public Long increment(String key, long value) {
         if (logger.isDebugEnabled()) {
             logger.debug("{}|{}|{}", "increment接口开始调用：", "key:" + key, "value:" + value);
