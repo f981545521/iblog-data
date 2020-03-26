@@ -1362,6 +1362,15 @@ public class SimpleTest {
 
     }
 
+    @Test
+    public void testDecima3435(){
+        Integer a = -2;
+        Integer b = 10;
+
+        System.out.println(b+a);
+
+    }
+
 
 
 }
