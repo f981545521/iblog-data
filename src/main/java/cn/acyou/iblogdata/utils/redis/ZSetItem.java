@@ -8,15 +8,15 @@ import java.io.Serializable;
  **/
 public class ZSetItem implements Serializable {
     private static final long serialVersionUID = 2932598815261168647L;
-    private String member;
+    private String value;
     private Double score;
 
-    public String getMember() {
-        return member;
+    public String getValue() {
+        return value;
     }
 
-    public void setMember(String member) {
-        this.member = member;
+    public void setValue(String value) {
+        this.value = value;
     }
 
     public Double getScore() {

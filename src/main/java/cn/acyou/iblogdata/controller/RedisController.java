@@ -45,19 +45,19 @@ public class RedisController {
     @GetMapping(value = "zSetadd")
     @ResponseBody
     public Result zSetadd(String cityCode) {
-        redisUtils.zadd(HOT_CITY, cityCode, score);
+        redisUtils.zSetAdd(HOT_CITY, cityCode, score);
         return Result.success();
     }
     @GetMapping(value = "zSetincrementScore")
     @ResponseBody
     public Result zSetincrementScore(String cityCode, Double deal) {
-        redisUtils.zincrementScore(HOT_CITY, cityCode, deal);
+        redisUtils.zSetIncrementScore(HOT_CITY, cityCode, deal);
         return Result.success();
     }
     @GetMapping(value = "zSetRandeScorre")
     @ResponseBody
     public Result rangeByScoreWithScores() {
-        List<ZSetItem> zSetItems = redisUtils.zrangeByScoreWithScores(HOT_CITY);
+        List<ZSetItem> zSetItems = redisUtils.zSetReverseRangeWithScores(HOT_CITY, 0, 6);
         return Result.success(zSetItems);
     }
 
