@@ -397,6 +397,35 @@ public class RedisUtils {
             logger.debug("接口调用详情：参数K： " + key + "值： " + value + "");
         return redisTemplate.opsForZSet().add(key, value, score);
     }
+    /**
+     * ZSET incrementScore
+     *
+     * @param key
+     * @param value
+     * @param deal
+     * @return
+     */
+    public Double zincrementScore(String key, String value, double deal) {
+        if (logger.isDebugEnabled())
+            logger.debug("接口调用详情：参数K： " + key + "值： " + value + "");
+        return redisTemplate.opsForZSet().incrementScore(key, value, deal);
+    }
+    /**
+     * zrangeByScoreWithScores
+     *
+     * @param key key
+     * @return
+     */
+    public List<ZSetItem> zrangeByScoreWithScores(String key) {
+        if (logger.isDebugEnabled())
+            logger.debug("接口调用详情：参数K： " + key);
+        Set<TypedTuple<String>> sset = redisTemplate.opsForZSet().
+                reverseRangeByScoreWithScores(key, Double.MIN_VALUE, Double.MAX_VALUE, 0, 8);
+        List<ZSetItem> result = new ArrayList<>();
+        Iterator<TypedTuple<String>> it = sset.iterator();
+        result = this.buildZSetList(result, it);
+        return result;
+    }
 
     /**
      * ZREM操作

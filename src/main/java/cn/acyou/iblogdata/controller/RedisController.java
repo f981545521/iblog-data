@@ -4,10 +4,13 @@ import cn.acyou.iblogdata.annotation.ParamValid;
 import cn.acyou.iblogdata.so.ValidateSo;
 import cn.acyou.iblogdata.utils.Result;
 import cn.acyou.iblogdata.utils.redis.RedisUtils;
+import cn.acyou.iblogdata.utils.redis.ZSetItem;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author youfang
@@ -18,6 +21,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/valid")
 @Api(description = "RedisController操作演示")
 public class RedisController {
+
+    private final static String HOT_CITY = "hotCity:";
+    private final static Double score = 1D;
 
     @Autowired
     private RedisUtils redisUtils;
@@ -34,6 +40,25 @@ public class RedisController {
     public Result<ValidateSo> validate6() {
         ValidateSo so = redisUtils.hGet("SO:TEST", "validateSo", ValidateSo.class);
         return Result.success(so);
+    }
+
+    @GetMapping(value = "zSetadd")
+    @ResponseBody
+    public Result zSetadd(String cityCode) {
+        redisUtils.zadd(HOT_CITY, cityCode, score);
+        return Result.success();
+    }
+    @GetMapping(value = "zSetincrementScore")
+    @ResponseBody
+    public Result zSetincrementScore(String cityCode, Double deal) {
+        redisUtils.zincrementScore(HOT_CITY, cityCode, deal);
+        return Result.success();
+    }
+    @GetMapping(value = "zSetRandeScorre")
+    @ResponseBody
+    public Result rangeByScoreWithScores() {
+        List<ZSetItem> zSetItems = redisUtils.zrangeByScoreWithScores(HOT_CITY);
+        return Result.success(zSetItems);
     }
 
 }
