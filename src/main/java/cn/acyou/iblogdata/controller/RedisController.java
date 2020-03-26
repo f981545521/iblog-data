@@ -38,7 +38,7 @@ public class RedisController {
     @GetMapping(value = "validate6")
     @ResponseBody
     public Result<ValidateSo> validate6() {
-        ValidateSo so = redisUtils.hGet("SO:TEST", "validateSo", ValidateSo.class);
+        ValidateSo so = redisUtils.hashGet("SO:TEST", "validateSo", ValidateSo.class);
         return Result.success(so);
     }
 
