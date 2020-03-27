@@ -733,12 +733,12 @@ public class RedisUtils {
      * 自增 / 自减
      *
      * @param key   key
-     * @param value 1自增1 -1减少1
-     * @return
+     * @param delta 1自增1 -1减少1
+     * @return 执行 INCR 命令之后 key 的值。
      */
-    public Long increment(String key, long value) {
-        logger.debug("{}|{}|{}", "increment接口开始调用：", "key:" + key, "value:" + value);
-        return redisTemplate.opsForValue().increment(key, value);
+    public Long increment(String key, long delta) {
+        logger.debug("{}|{}|{}", "increment接口开始调用：", "key:" + key, "delta:" + delta);
+        return redisTemplate.opsForValue().increment(key, delta);
     }
 
     public Boolean expire(String key, long timeout, TimeUnit timeUnit) {
