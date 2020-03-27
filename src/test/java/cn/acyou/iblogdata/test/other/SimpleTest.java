@@ -1370,6 +1370,17 @@ public class SimpleTest {
         System.out.println(b+a);
 
     }
+    @Test
+    public void testDecima3435333(){
+        char daxie = 'A';
+        for (int i = 0; i < 26; i++) {
+            System.out.println(daxie);
+            daxie++;
+            String.valueOf(daxie);
+        }
+
+
+    }
 
 
 

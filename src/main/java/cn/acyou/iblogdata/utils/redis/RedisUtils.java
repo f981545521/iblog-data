@@ -62,16 +62,12 @@ public class RedisUtils {
      */
     public String get(String key) {
         String strValue = redisTemplate.opsForValue().get(key);
-        if (logger.isDebugEnabled()) {
-            logger.debug("接口调用详情：参数K-V： " + key + "=" + strValue);
-        }
+        logger.debug("接口调用详情：参数K-V： " + key + "=" + strValue);
         return strValue;
     }
 
     public void set(String key, String value, Long timeout, TimeUnit unit) {
-        if (logger.isDebugEnabled()) {
-            logger.debug("{}|{}|{}|{}|{}", "set方法入参：", "键:" + key, "值:" + value, "存活时间:" + timeout, "时间单位:" + unit);
-        }
+        logger.debug("{}|{}|{}|{}|{}", "set方法入参：", "键:" + key, "值:" + value, "存活时间:" + timeout, "时间单位:" + unit);
         if (timeout != null) {
             redisTemplate.opsForValue().set(key, value, timeout, unit != null ? unit : TimeUnit.SECONDS);
         } else {
@@ -80,9 +76,7 @@ public class RedisUtils {
     }
 
     public void set(String key, String value, long timeout) {
-        if (logger.isDebugEnabled()) {
-            logger.debug("接口调用详情：参数K-V： " + key + "=" + value);
-        }
+        logger.debug("接口调用详情：参数K-V： " + key + "=" + value);
         redisTemplate.opsForValue().set(key, value, timeout, TimeUnit.SECONDS);
     }
 
@@ -90,14 +84,13 @@ public class RedisUtils {
      * 通过key插入缓存中对应的String类型value
      */
     public void set(String key, String value) {
-        if (logger.isDebugEnabled()) {
-            logger.debug("接口调用详情：参数K-V： " + key + "=" + value);
-        }
+        logger.debug("接口调用详情：参数K-V： " + key + "=" + value);
         redisTemplate.opsForValue().set(key, value);
     }
 
     /**
      * 根据key删除缓存中的记录
+     * @param key key
      */
     public void delete(String key) {
         redisTemplate.delete(key);
@@ -105,80 +98,70 @@ public class RedisUtils {
 
     /**
      * 根据多个key批量删除缓存中的value
+     * @param keys keys
      */
     public void delete(Collection<String> keys) {
         redisTemplate.delete(keys);
     }
 
     /**
-     * 出栈
+     * 将一个或多个值 value 插入到列表 key 的表头
      *
      * @param key     key
      * @param timeout 出栈操作的连接阻塞保护时间,时间单位为秒
-     * @return 返回的是承载执行结果和数据的对象
+     * @return v
      */
-    public String leftPop(String key, long timeout) {
-        if (logger.isDebugEnabled()) {
-            logger.debug("接口调用详情：参数K： " + key);
-        }
+    public String listLeftPop(String key, long timeout) {
+        logger.debug("接口调用详情：参数K： " + key);
         return redisTemplate.opsForList().leftPop(key, timeout, TimeUnit.SECONDS);
     }
 
     /**
-     * 压栈
+     * 将一个或多个值 value 插入到列表 key 的表头
      *
-     * @return 返回的是承载执行结果和数据的对象
+     * @return 执行 LPUSH 命令后，列表的长度。
      */
-    public Long leftPush(String key, String value) {
-        if (logger.isDebugEnabled()) {
-            logger.debug("接口调用详情：参数K： " + key);
-        }
+    public Long listLeftPush(String key, String value) {
+        logger.debug("接口调用详情：参数K： " + key);
         return redisTemplate.opsForList().leftPush(key, value);
     }
 
     /**
-     * 批量压栈
+     * 将一个或多个值 value 插入到列表 key 的表头
      *
-     * @return 返回的是承载执行结果和数据的对象
+     * @return 执行 LPUSH 命令后，列表的长度。
      */
-    public Long leftPushAll(String key, Collection<String> values) {
-        if (logger.isDebugEnabled()) {
-            logger.debug("接口调用详情：参数K： " + key);
-        }
+    public Long listLeftPushAll(String key, Collection<String> values) {
+        logger.debug("接口调用详情：参数K： " + key);
         return redisTemplate.opsForList().leftPushAll(key, values);
     }
 
     /**
-     * 出队
+     * 移除并返回列表 key 的尾元素。
+
      *
      * @param key     key
      * @param timeout 出队操作的连接阻塞保护时间,时间单位为秒
-     * @return 返回的是承载执行结果和数据的对象
+     * @return v
      */
-    public String rightPop(String key, long timeout) {
-        if (logger.isDebugEnabled()) {
-            logger.debug("接口调用详情：参数K： " + key);
-        }
+    public String listRightPop(String key, long timeout) {
+        logger.debug("接口调用详情：参数K： " + key);
         return redisTemplate.opsForList().rightPop(key, timeout, TimeUnit.SECONDS);
     }
 
     /**
-     * 出队
+     * 移除并返回列表 key 的尾元素。
      *
      * @param key key
-     * @return 返回的是承载执行结果和数据的对象
+     * @return 列表的尾元素。
      */
-    public String rightPop(String key) {
-        if (logger.isDebugEnabled()) {
-            logger.debug("接口调用详情：参数K： " + key);
-        }
+    public String listRightPop(String key) {
+        logger.debug("接口调用详情：参数K： " + key);
         return redisTemplate.opsForList().rightPop(key);
     }
 
-    public <T> T rightPop2Object(String key, Class<T> clazz) {
-        if (logger.isDebugEnabled()) {
-            logger.debug("接口调用详情：参数K： " + key);
-        }
+    public <T> T listRightPop2Object(String key, Class<T> clazz) {
+        logger.debug("接口调用详情：参数K： " + key);
         try {
             String strValue = redisTemplate.opsForList().rightPop(key);
             if (StringUtils.isNotEmpty(strValue)) {
@@ -193,58 +176,47 @@ public class RedisUtils {
     }
 
     /**
-     * 压队
+     * 将一个 value 插入到列表 key 的表尾(最右边)。
      *
-     * @return 返回的是承载执行结果和数据的对象
+     * @param key 键
+     * @return 执行 RPUSH 操作后，表的长度。
      */
-    public Long rightPush(String key, String value) {
-        if (logger.isDebugEnabled()) {
-            logger.debug("接口调用详情：参数K-V： " + key + "=" + value);
-        }
+    public Long listRightPush(String key, String value) {
+        logger.debug("接口调用详情：参数K-V： " + key + "=" + value);
         return redisTemplate.opsForList().rightPush(key, value);
     }
 
     /**
-     * 批量压队
+     * 将一个或多个值 value 插入到列表 key 的表尾(最右边)。
      *
-     * @return 返回的是承载执行结果和数据的对象
+     * @param key 键
+     * @return 执行 RPUSH 操作后，表的长度。
      */
-    public Long rightPushAll(String key, Collection<String> values) {
-        if (logger.isDebugEnabled())
-            logger.debug("接口调用详情：参数K： " + key);
+    public Long listRightPushAll(String key, Collection<String> values) {
+        logger.debug("接口调用详情：参数K： " + key);
         return redisTemplate.opsForList().rightPushAll(key, values);
     }
 
     /**
-     * 获取大小
+     * 移除并返回集合中的一个随机元素。
      *
-     * @param key
-     * @return
-     */
-    public Long getListSize(String key) {
-        if (logger.isDebugEnabled())
-            logger.debug("接口调用详情：参数K： " + key);
-        return redisTemplate.opsForList().size(key);
-    }
-
-    /**
-     * 对Set的pop操作
      *
      * @param key 键
-     * @return 返回的是承载执行结果和数据的对象
+     * @return 被移除的随机元素。
+     *         当 key 不存在或 key 是空集时，返回 nil 。
      */
-    public String pop(String key) {
+    public String setPop(String key) {
         return redisTemplate.opsForSet().pop(key);
     }
 
     /**
      * 对Set的添加操作
      *
-     * @param key
+     * @param key 键
      * @param values 插入Set的String数组
      * @return Long
      */
-    public Long sadd(String key, String... values) {
+    public Long setAdd(String key, String... values) {
         return redisTemplate.opsForSet().add(key, values);
     }
 
@@ -254,18 +226,19 @@ public class RedisUtils {
      * @param key    键
      * @param values 值
      */
-    public Long sRemove(String key, Object... values) {
+    public Long setRemove(String key, Object... values) {
         return redisTemplate.opsForSet().remove(key, values);
     }
 
     /**
      * 随机获取多个key无序集合中的元素（去重），count表示个数
      *
-     * @param key
-     * @param count
-     * @return
+     * @param key  键
+     * @param count 数量
+     * @return 只提供 key 参数时，返回一个元素；如果集合为空，返回 nil 。
+     *         如果提供了 count 参数，那么返回一个数组；如果集合为空，返回空数组。
      */
-    public Set<String> setGets(String key, long count) {
+    public Set<String> setDistinctRandomMembers(String key, long count) {
         return redisTemplate.opsForSet().distinctRandomMembers(key, count);
     }
 
@@ -309,7 +282,7 @@ public class RedisUtils {
      * @param hashKey 对应的HashMap中的Key
      * @param value 值
      */
-    public void hPut(String key, Object hashKey, Object value) {
+    public void hashPut(String key, Object hashKey, Object value) {
         logger.debug("接口调用详情：参数K： " + key + " HashMap中的key： " + hashKey);
         redisTemplate.opsForHash().put(key, hashKey, JSON.toJSONString(value));
     }
@@ -335,8 +308,7 @@ public class RedisUtils {
     public Long hashDelete(String key, String... hashKeys) {
         Long counts = 0L;
         if (hashKeys.length > 1) {
-            Object[] objKeys = new Object[hashKeys.length];
-            objKeys = hashKeys.clone();
+            Object[] objKeys = hashKeys.clone();
             counts = redisTemplate.opsForHash().delete(key, objKeys);
         } else {
             counts = redisTemplate.opsForHash().delete(key, (Object) hashKeys[0]);
@@ -765,32 +737,28 @@ public class RedisUtils {
      * @return
      */
     public Long increment(String key, long value) {
-        if (logger.isDebugEnabled()) {
-            logger.debug("{}|{}|{}", "increment接口开始调用：", "key:" + key, "value:" + value);
-        }
+        logger.debug("{}|{}|{}", "increment接口开始调用：", "key:" + key, "value:" + value);
         return redisTemplate.opsForValue().increment(key, value);
     }
 
     public Boolean expire(String key, long timeout, TimeUnit timeUnit) {
-        if (logger.isDebugEnabled()) {
-            logger.debug("{}|{}|{}|{}", "expire接口开始调用：", "key:" + key, "timeout:" + timeout, "timeUnit:" + timeUnit);
-        }
+        logger.debug("{}|{}|{}|{}", "expire接口开始调用：", "key:" + key, "timeout:" + timeout, "timeUnit:" + timeUnit);
         return redisTemplate.expire(key, timeout, timeUnit);
     }
 
-    public Set<String> smembers(String key) {
+    public Set<String> setMembers(String key) {
         return redisTemplate.opsForSet().members(key);
     }
 
-    public Long zadd(String key, Set<TypedTuple<String>> typedTuples) {
+    public Long zSetAdd(String key, Set<TypedTuple<String>> typedTuples) {
         return redisTemplate.opsForZSet().add(key, typedTuples);
     }
 
-    public Long zRemRangeByScore(String key, double min, double max) {
+    public Long zSetRemoveRangeByScore(String key, double min, double max) {
         return redisTemplate.opsForZSet().removeRangeByScore(key, min, max);
     }
 
-    public Long zRemRange(String key, Long start, Long end) {
+    public Long zSetRemoveRange(String key, Long start, Long end) {
         long startValue = start != null ? start : 0;
         long endValue = end != null ? end : -1;
         return redisTemplate.opsForZSet().removeRange(key, startValue, endValue);
@@ -802,9 +770,7 @@ public class RedisUtils {
      * @return key Set
      */
     public Set<String> keys(String pattern) {
-        if (logger.isDebugEnabled()) {
-            logger.debug("接口调用详情：参数K： " + pattern);
-        }
+        logger.debug("接口调用详情：参数K： " + pattern);
         return redisTemplate.keys(pattern);
 
     }

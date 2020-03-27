@@ -31,7 +31,7 @@ public class RedisController {
     @PostMapping(value = "validate5")
     @ResponseBody
     public Result<ValidateSo> validate5(@ParamValid @RequestBody ValidateSo validateSo) {
-        redisUtils.hPut("SO:TEST", "validateSo", validateSo);
+        redisUtils.hashPut("SO:TEST", "validateSo", validateSo);
         return Result.success(validateSo);
     }
 
