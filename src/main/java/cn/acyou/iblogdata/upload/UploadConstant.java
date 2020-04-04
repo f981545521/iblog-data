@@ -2,6 +2,7 @@ package cn.acyou.iblogdata.upload;
 
 /**
  * 阿里云上传
+ *
  * @author youfang
  * @version [1.0.0, 2018-06-19 下午 03:03]
  **/
@@ -10,8 +11,8 @@ public class UploadConstant {
     /**
      * 注： accessKeyId和accessKeySecret是全局配置参数，需要按实际值填写。
      */
-    public static final String ACCESS_KEY_ID = "LTAIT5SwOfWsF2a7";
-    public static final String ACCESS_KEY_SECRET = "reSSVABBqf8dprEbnuB2WGpFELrl4g";
+    public static final String ACCESS_KEY_ID = "***";
+    public static final String ACCESS_KEY_SECRET = "***";
 
     /**
      * 最大上传大小 ： 30Mb

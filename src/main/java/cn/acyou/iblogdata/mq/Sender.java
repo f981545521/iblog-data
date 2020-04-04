@@ -1,5 +1,6 @@
 package cn.acyou.iblogdata.mq;
 
+import cn.acyou.iblogdata.conf.RabbitMqConfig2;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,5 +22,7 @@ public class Sender {
         String msg = "hello rabbitmq:" + new Date();
         System.out.println("Sender:" + msg);
         this.rabbitTemplate.convertAndSend("hello", msg);
+        rabbitTemplate.convertAndSend(RabbitMqConfig2.PER_QUEUE_TTL_EXCHANGE_NAME, RabbitMqConfig2.DELAY_QUEUE_PER_QUEUE_TTL_NAME, "aa");
+
     }
 }
