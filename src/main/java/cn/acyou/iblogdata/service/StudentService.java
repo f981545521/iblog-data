@@ -33,4 +33,6 @@ public interface StudentService extends Service<Student, Integer> {
     int updateStudentWithTransaction2(Student student);
 
     String sayThanks();
+
+    void testTranslation();
 }

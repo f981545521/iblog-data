@@ -9,6 +9,7 @@ import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.service.StudentService;
 import cn.acyou.iblogdata.so.StudentSo;
+import cn.acyou.iblogdata.utils.RandomUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -177,5 +178,17 @@ public class StudentServiceImpl extends AbstractService<Student, Integer> implem
     public String sayThanks() {
         log.info("调用StudentService 的sayThanks方法");
         return "Thank You !!!";
+    }
+
+    @Override
+    public void testTranslation() {
+        String name = RandomUtil.randomUserName();
+        log.info("添加:" + name);
+        Student student = new Student();
+        student.setAge(1);
+        student.setName(name);
+        studentMapper.insertSelective(student);
+        int i = 1/0;
+
     }
 }
