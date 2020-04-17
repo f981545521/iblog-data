@@ -4,6 +4,7 @@ import cn.acyou.iblog.utility.DateUtil;
 import cn.acyou.iblogdata.dao.StudentMapper;
 import cn.acyou.iblogdata.entity.Student;
 import cn.acyou.iblogdata.service.StudentService;
+import cn.acyou.iblogdata.service.impl.StudentService2;
 import cn.acyou.iblogdata.so.StudentSo;
 import cn.acyou.iblogdata.utils.RandomUtil;
 import cn.acyou.iblogdata.utils.ResultInfo;
@@ -41,7 +42,8 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
-
+    @Autowired
+    private StudentService2 studentService2;
     @Autowired
     private StudentMapper studentMapper;
 
@@ -179,6 +181,13 @@ public class StudentController {
         Student student = studentService.getStudentById(1);
         logger.info("日志测试：" + logTestVo.getName());
         return ResultInfoGenerate.generateSuccess(student);
+    }
+
+    @RequestMapping(value = "testTranslation", method = {RequestMethod.GET})
+    @ResponseBody
+    public ResultInfo testTranslation(){
+        studentService2.testTranslation();
+        return ResultInfoGenerate.generateSuccess();
     }
 
 
