@@ -2,6 +2,7 @@ package cn.acyou.iblogdata.service.impl;
 
 import cn.acyou.iblogdata.dao.StudentMapper;
 import cn.acyou.iblogdata.entity.Student;
+import cn.acyou.iblogdata.service.SeckillService;
 import cn.acyou.iblogdata.utils.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,16 @@ public class StudentService2 {
 
     @Autowired
     StudentService2 studentService2;
+    @Autowired
+    private SeckillService seckillService;
 
     @Autowired
     private StudentMapper studentMapper;
 
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void testTranslation() {
         String name = RandomUtil.randomUserName();
-        log.info("添加:" + name);
+        log.info("testTranslation添加:" + name);
         Student student = new Student();
         student.setAge(1);
         student.setName(name);
@@ -43,10 +47,10 @@ public class StudentService2 {
 
     }
 
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+
     public void doOption(){
         String name = RandomUtil.randomUserName();
-        log.info("添加:" + name);
+        log.info("doOption添加:" + name);
         Student student = new Student();
         student.setAge(1);
         student.setName(name);
