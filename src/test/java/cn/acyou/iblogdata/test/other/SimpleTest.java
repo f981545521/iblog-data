@@ -1370,8 +1370,9 @@ public class SimpleTest {
         System.out.println(b+a);
 
     }
+
     @Test
-    public void testDecima3435333(){
+    public void testDecima3435333() {
         char daxie = 'A';
         for (int i = 0; i < 26; i++) {
             System.out.println(daxie);
@@ -1381,6 +1382,23 @@ public class SimpleTest {
 
     }
 
+    @Test
+    public void testDecimassd333() {
+        List<String> id = testMoreArgs("id", "1", "ss");
+        System.out.println(id);
+    }
+
+
+    private List<String> testMoreArgs(String propertyName, Object value, Object... args) {
+
+        if (StringUtils.isEmpty(propertyName) || value == null) {
+            return new ArrayList<>();
+        }
+        if (args != null && args.length % 2 == 0) {
+            System.out.println("ok");
+        }
+        return new ArrayList<>();
+    }
 
 
 }

@@ -186,7 +186,10 @@ public class StudentController {
     @RequestMapping(value = "testTranslation", method = {RequestMethod.GET})
     @ResponseBody
     public ResultInfo testTranslation(){
+        StudentService2 studentService2New = new StudentService2();
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         studentService2.testTranslation();
+        studentService2New.testTranslation();
         return ResultInfoGenerate.generateSuccess();
     }
 
