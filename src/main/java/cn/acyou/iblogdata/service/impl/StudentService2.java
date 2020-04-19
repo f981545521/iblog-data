@@ -26,7 +26,7 @@ public class StudentService2 {
     @Autowired
     private StudentMapper studentMapper;
 
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+
     public void testTranslation() {
         String name = RandomUtil.randomUserName();
         log.info("testTranslation添加:" + name);
@@ -43,19 +43,30 @@ public class StudentService2 {
          * AOP使用的是动态代理的机制，它会给类生成一个代理类，事务的相关操作都在代理类上完成。
          * 内部方式使用this调用方式时，使用的是实例调用，并没有通过代理类调用方法，所以会导致事务失效。
          */
+        this.doOptionNoE();
         studentService2.doOption();
 
     }
 
 
-    public void doOption(){
+    public void doOptionNoE() {
+        String name = RandomUtil.randomUserName();
+        log.info("doOptionNoE添加:" + name);
+        Student student = new Student();
+        student.setAge(1);
+        student.setName(name);
+        studentMapper.insertSelective(student);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public void doOption() {
         String name = RandomUtil.randomUserName();
         log.info("doOption添加:" + name);
         Student student = new Student();
         student.setAge(1);
         student.setName(name);
         studentMapper.insertSelective(student);
-        int i = 1/0;
+        int i = 1 / 0;
     }
 
 }
