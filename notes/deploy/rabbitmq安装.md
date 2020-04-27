@@ -31,4 +31,20 @@ https://www.rabbitmq.com/download.html
 
 添加用户`admin`，密码`admin123`，赋予权限
 
+### 延时队列
 
+1. 下载地址：
+https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases/tag/v3.8.0
+2. 安装插件：
+`PS D:\Program Files\RabbitMQ Server\rabbitmq_server-3.7.7\sbin> .\rabbitmq-plugins.bat enable rabbitmq_delayed_message_exchange`
+3. 最大延迟时间（毫秒）：
+Integer.MAX_VALUE：2147483647
+- 2147483.647	    秒(s)
+- 35791.3941882	    分(min)
+- 596.5232358	    时(h)
+- 3.5507332	        周(week)
+- 24.8551346	    天(d)
+- 0.0680963	        年(yr)
+- 2.1475e+15	    纳秒(ns)
+
+> 参考： https://www.cnblogs.com/mfrank/p/11260355.html#autoid-0-4-0
