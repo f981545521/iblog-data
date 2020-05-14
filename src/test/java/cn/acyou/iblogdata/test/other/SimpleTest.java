@@ -18,7 +18,6 @@ import cn.acyou.iblogdata.utils.Md5Util;
 import cn.acyou.iblogdata.utils.RandomUtil;
 import cn.acyou.iblogdata.vo.StudentLogTestVo;
 import cn.acyou.iblogdata.vo.StudentVo;
-import cn.hutool.core.util.PinyinUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
@@ -1194,10 +1193,6 @@ public class SimpleTest {
         String slbh = "";
         String s = StringUtils.substring(slbh, slbh.length() - 12);
         System.out.println(s);
-
-        String hi = PinyinUtil.getPinYin("你好");
-        System.out.println(hi);
-
     }
 
     @Test

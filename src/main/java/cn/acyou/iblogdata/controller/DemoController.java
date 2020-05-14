@@ -5,11 +5,13 @@ import cn.acyou.iblogdata.entity.Teacher;
 import cn.acyou.iblogdata.exception.ServiceException;
 import cn.acyou.iblogdata.spring.ScopeBean;
 import cn.acyou.iblogdata.spring.UniqueBean;
+import cn.acyou.iblogdata.utils.FlowableUtil;
 import cn.acyou.iblogdata.utils.ResultInfo;
 import cn.acyou.iblogdata.utils.SequenceUtils;
 import cn.acyou.iblogdata.utils.StaticUtil;
 import com.alibaba.dubbo.common.utils.IOUtils;
 import com.google.common.io.Resources;
+import io.swagger.annotations.ApiOperation;
 import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -159,7 +161,13 @@ public class DemoController extends BaseController{
 
 
 
-
+    @RequestMapping(value = "testUtilMethod", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    @ApiOperation(value = "测试静态类方法")
+    public ResultInfo testUtilMethod(){
+        FlowableUtil.getName();
+        return new ResultInfo();
+    }
 
 
 }
