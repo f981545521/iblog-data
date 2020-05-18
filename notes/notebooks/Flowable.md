@@ -64,6 +64,7 @@ Flowable 使用 Mybatis3 做持久化工作,可以在配置中设置流程引擎
 
 
 ##### 工作流表删除顺序
+1. 删除Flowable表
 drop table act_evt_log; 
 drop table act_hi_actinst; 
 drop table act_hi_attachment; 
@@ -79,9 +80,9 @@ drop table act_id_user;
 drop table act_re_model; 
 drop table act_ru_event_subscr; 
 drop table act_ru_identitylink; 
-DROP TABLE ACT_RU_DEADLETTER_JOB; 
-DROP TABLE ACT_RU_SUSPENDED_JOB; 
-DROP TABLE ACT_RU_TIMER_JOB; 
+drop table ACT_RU_DEADLETTER_JOB; 
+drop table ACT_RU_SUSPENDED_JOB; 
+drop table ACT_RU_TIMER_JOB; 
 drop table act_ru_job; 
 drop table act_ru_task; 
 drop table act_id_group; 
@@ -91,8 +92,58 @@ drop table ACT_GE_PROPERTY;
 drop table ACT_PROCDEF_INFO; 
 drop table act_ge_bytearray; 
 drop table act_re_deployment; 
-drop table ACT_RE_PROCDEF; 
-DROP SEQUENCE  ACT_EVT_LOG_SEQ;
+drop table ACT_RE_PROCDEF;
+drop table act_hi_entitylink;
+drop table act_hi_tsk_log;
+drop table act_id_bytearray;
+drop table act_id_priv_mapping;
+drop table act_id_property;
+drop table act_id_token;
+drop table act_ru_actinst;
+drop table act_ru_entitylink;
+drop table act_ru_history_job;
+drop table act_id_priv;
+-- DROP SEQUENCE  ACT_EVT_LOG_SEQ;
+1. 清空Flowable表
+set foreign_key_checks=0;
+truncate table act_evt_log; 
+truncate table act_hi_actinst; 
+truncate table act_hi_attachment; 
+truncate table act_hi_comment; 
+truncate table act_hi_detail; 
+truncate table act_hi_identitylink; 
+truncate table act_hi_procinst; 
+truncate table act_hi_taskinst; 
+truncate table act_hi_varinst; 
+truncate table act_id_info; 
+truncate table act_id_membership; 
+truncate table act_id_user; 
+truncate table act_re_model; 
+truncate table act_ru_event_subscr; 
+truncate table act_ru_identitylink; 
+truncate table ACT_RU_DEADLETTER_JOB; 
+truncate table ACT_RU_SUSPENDED_JOB; 
+truncate table ACT_RU_TIMER_JOB; 
+truncate table act_ru_job; 
+truncate table act_ru_task; 
+truncate table act_id_group; 
+truncate table act_ru_variable; 
+truncate table act_ru_execution; 
+truncate table ACT_GE_PROPERTY; 
+truncate table ACT_PROCDEF_INFO; 
+truncate table act_ge_bytearray; 
+truncate table act_re_deployment; 
+truncate table ACT_RE_PROCDEF;
+truncate table act_hi_entitylink;
+truncate table act_hi_tsk_log;
+truncate table act_id_bytearray;
+truncate table act_id_priv_mapping;
+truncate table act_id_property;
+truncate table act_id_token;
+truncate table act_ru_actinst;
+truncate table act_ru_entitylink;
+truncate table act_ru_history_job;
+truncate table act_id_priv;
 
 
 #### 参考文档
