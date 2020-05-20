@@ -103,6 +103,13 @@ drop table act_ru_actinst;
 drop table act_ru_entitylink;
 drop table act_ru_history_job;
 drop table act_id_priv;
+# form相关的表
+drop table if EXISTS act_fo_databasechangelog;
+drop table if EXISTS act_fo_databasechangeloglock;
+drop table if EXISTS act_fo_form_definition;
+drop table if EXISTS act_fo_form_deployment;
+drop table if EXISTS act_fo_form_instance;
+drop table if EXISTS act_fo_form_resource;
 -- DROP SEQUENCE  ACT_EVT_LOG_SEQ;
 1. 清空Flowable表
 set foreign_key_checks=0;
@@ -145,6 +152,33 @@ truncate table act_ru_entitylink;
 truncate table act_ru_history_job;
 truncate table act_id_priv;
 
+### 表单Support
+1. Maven中增加
+        <!-- Form Engine Support -->
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-form-spring-configurator</artifactId>
+            <version>6.4.1</version>
+        </dependency>
+2. application.properties
+```
+    # 是否启用Form引擎。
+    flowable.form.enabled=true
+    # Form资源的路径。
+    flowable.form.resource-location=classpath*:/forms/
+    # 是否部署资源。默认为'true'。
+    #flowable.form.deploy-resources=true
+    # Form资源部署的名字。
+    #flowable.form.deployment-name=SpringBootAutoDeployment
+    # 需要扫描的资源后缀名。
+    flowable.form.resource-suffixes=*.form
+    # 启动时加载Form servlet。
+    #flowable.form.servlet.load-on-startup=-1
+    # Form servlet的名字。
+    #flowable.form.servlet.name=Flowable Form Rest API
+    # Form servlet的context path。
+    #flowable.form.servlet.path=/form-api
+```
 
 #### 参考文档
 Flowable 演示 Demo, 用来熟悉 Flowable 工作流：https://gitee.com/foolish93/flowable_demo
