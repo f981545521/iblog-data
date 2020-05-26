@@ -33,7 +33,7 @@ public class HashMapTest {
          * 1. 对key的hashCode()做hash，然后再计算index;
          * 2. 如果没碰撞直接放到bucket里；
          * 3. 如果碰撞了，以链表的形式存在buckets后；
-         * 4. 如果碰撞导致链表过长(大于等于TREEIFY_THRESHOLD)，就把链表转换成红黑树；
+         * 4. 如果碰撞导致链表过长(大于等于8)，就把链表转换成红黑树；
          * 5. 如果节点已经存在就替换old value(保证key的唯一性)
          * 6. 如果bucket满了(超过load factor*current capacity)，就要resize。
          */
@@ -133,6 +133,30 @@ public class HashMapTest {
     public void test123(){
         AtomicInteger atomicInteger = new AtomicInteger();
         atomicInteger.getAndIncrement();
+
+
+    }
+
+
+    @Test
+    public void testTreeMap(){
+        TreeMap<String, String> treeMap = new TreeMap<>();
+        treeMap.put("1", "111");
+        treeMap.put("2", "222");
+        treeMap.put("3", "333");
+        treeMap.put("1", "111");
+
+        NavigableSet<String> strings = treeMap.descendingKeySet();
+        System.out.println(strings);
+        System.out.println(treeMap);
+
+        //弹出并删除第一个节点
+        treeMap.pollFirstEntry();
+        //返回的键值映射与最关键的大于或等于给定的键，或 null如果没有这样的关键。
+        Map.Entry<String, String> entry = treeMap.ceilingEntry("1");
+        System.out.println(entry);
+
+        System.out.println(treeMap);
 
 
     }
