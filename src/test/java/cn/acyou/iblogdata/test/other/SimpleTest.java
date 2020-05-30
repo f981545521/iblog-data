@@ -1395,5 +1395,16 @@ public class SimpleTest {
         return new ArrayList<>();
     }
 
+    @Test
+    public void test22321313() {
+        System.out.println(17 >> 1);
+        System.out.println(17 / 2);
+        System.out.println(15 >> 1);
+        System.out.println(15 / 2);
+        System.out.println(10 >> 1);
+        System.out.println(10 / 2);
+        System.out.println(23 >> 1);
+        System.out.println(23 / 2);
+    }
 
 }
