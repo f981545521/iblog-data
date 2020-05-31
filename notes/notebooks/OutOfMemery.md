@@ -41,7 +41,7 @@ JVM的Perm区主要用于存放Class和Meta信息的,Class在被Loader时就会�
 https://blog.csdn.net/toward_south/article/details/103024109
 https://github.com/TangBean/understanding-the-jvm
 
-testgggg
+testxxxx
 
 
 
