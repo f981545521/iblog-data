@@ -4,6 +4,8 @@ import cn.hutool.core.util.ZipUtil;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -158,6 +160,24 @@ public class HashMapTest {
 
         System.out.println(treeMap);
 
+
+    }
+
+    @Test
+    public void testBig(){
+        BigDecimal price = new BigDecimal("100");
+        BigDecimal precent = new BigDecimal("30");
+        BigDecimal divide = price.divide(precent, RoundingMode.HALF_DOWN);
+
+        Integer con = 28;
+        TreeMap<Integer, String> treeMap = new TreeMap<>();
+        treeMap.put(11, "111");
+        treeMap.put(22, "222");
+        treeMap.put(33, "333");
+        treeMap.put(44, "111");
+        String value = treeMap.floorEntry(11).getValue();
+        System.out.println(value);
+        //System.out.println(treeMap.get(treeMap.lowerKey(10)));
 
     }
 
