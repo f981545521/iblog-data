@@ -1407,4 +1407,11 @@ public class SimpleTest {
         System.out.println(23 / 2);
     }
 
+    @Test
+    public void test223213123() {
+        Double divide = MathUtil.divide(10132, 10000000);
+        System.out.println(divide);
+    }
+
+
 }
