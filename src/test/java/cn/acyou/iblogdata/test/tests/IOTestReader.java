@@ -1,10 +1,13 @@
 package cn.acyou.iblogdata.test.tests;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.*;
 import java.net.URI;
 import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,7 +18,7 @@ import java.nio.file.Paths;
  **/
 public class IOTestReader {
 
-    public static void main(String[] args) throws Exception {
+    public static void main2223(String[] args) throws Exception {
         FileReader fileReader = new FileReader("F:\\temp_areasql\\222.sql");
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         String s = bufferedReader.readLine();
@@ -26,11 +29,12 @@ public class IOTestReader {
     }
 
 
+    private static String sqlPrefix = "INSERT INTO `t_tool_area` (`id`, `level`, `parent_code`, `area_code`, `zip_code`, `city_code`, `name`, `short_name`, `merger_name`, `pinyin`, `lng`, `lat`) VALUES ";
 
 
-
-    public static void main11111(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
         int partIndex = 0;
+        String partsurplus = "";
         FileInputStream fin = new FileInputStream("F:\\temp_areasql\\222.sql");
         FileChannel fcin = fin.getChannel();
         ByteBuffer buffer = ByteBuffer.allocate(1024 * 1024 * 2);
@@ -43,12 +47,30 @@ public class IOTestReader {
             }
             buffer.flip();
             byte[] bytes = buffer.array();
-            String str = new String(bytes);
+            String sql = new String(bytes);
+
+            int i = sql.lastIndexOf(",(");
+            String currentSql = sql.substring(0, i);
+            String currentSqlSurplus = sql.substring(i + 1);
+
+            StringBuilder currentSqlBuilder = new StringBuilder();
+            currentSqlBuilder.append(sqlPrefix);
+            if (StringUtils.isNotEmpty(partsurplus)){
+                currentSqlBuilder.append(partsurplus);
+            }
+            currentSqlBuilder.append(currentSql);
+
+            if (StringUtils.isNotEmpty(currentSqlSurplus)){
+                partsurplus = currentSqlSurplus;
+            }else {
+                partsurplus = "";
+            }
 
 
+            ByteBuffer buffer2 = ByteBuffer.wrap(currentSqlBuilder.toString().getBytes(StandardCharsets.UTF_8));
             FileOutputStream fout = new FileOutputStream("F:\\temp_areasql\\target\\sqlPart"+partIndex+".sql");
             FileChannel fcout = fout.getChannel();
-            fcout.write(buffer);
+            fcout.write(buffer2);
             partIndex++;
         }
 
