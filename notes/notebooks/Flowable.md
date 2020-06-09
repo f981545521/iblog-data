@@ -2,7 +2,7 @@
 
 参考地址:https://blog.csdn.net/whatlookingfor/category_6454621.html
 
-
+[Flowable BPMN 用户手册 (v 6.3.0)](https://tkjohn.github.io/flowable-userguide/#uiAppInstallation)
 #### 七大service接口
 - RepositoryService
 
@@ -186,3 +186,71 @@ Flowable 演示 Demo, 用来熟悉 Flowable 工作流：https://gitee.com/foolis
 JSite 快速开发框架，内置Flowable工作流引擎 · 五大基础模块 · 前后端基础代码自动生成 · 权限精确控制：https://gitee.com/baseweb/JSite
 
 https://gitee.com/quickd/quickd
+
+#### 开发文档
+
+
+> [Flowable 专栏](https://blog.csdn.net/whatlookingfor/category_6454621.html)
+
+
+
+
+https://gitee.com/foolish93/flowable_demo?_from=gitee_search
+repositoryService： 主要用于管理流程部署的数据
+runtimeService: 主要用于管理流程在运行时产生的数据(流程参数，事件，流程实例，以及执行流)以及对正在运行的流程进行操作的API
+流程撤回与回退
+https://blog.csdn.net/weixin_33895475/article/details/85475372?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-12.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-12.nonecase
+
+//查看指定用户的待办列表
+taskService.createTaskQuery().taskAssignee("1011").orderByTaskCreateTime().desc().list()
+//根据单个taskID查询任务
+taskService.createTaskQuery().taskId("458679520908558336").singleResult()
+//完成单个任务
+HashMap<String, Object> map = new HashMap<>();
+map.put("day", 1);
+taskService.complete("458688261934563328", map);
+
+--- conditionExpression中取的是这个Map中的值
+HashMap<String, Object> map = new HashMap<>();
+map.put("outcome", "通过");
+taskService.complete("458690174822400000", map);
+
+//每次任务流转后的taskID都不一样
+//重复
+taskService.createTaskQuery().taskAssignee("mg").orderByTaskCreateTime().desc().list();
+taskService.createTaskQuery().taskId("458682457378537472").singleResult()
+
+//根据processInstanceId查询任务
+taskService.createTaskQuery().processInstanceId("458679520342327296").list();
+//如果查找结果为null，则该流程实例已经走完，如果不为空，则查出来的activity，就是流程实例的下一环节。到此，流程状态(流程下一步环节)顺利找到
+historyService.createHistoricActivityInstanceQuery().processInstanceId("458679520342327296").unfinished().singleResult();
+
+//通过任务发起人 分页 获取未完成的流程实例，根据流程实例的开始时间降序排序
+historyService.createHistoricProcessInstanceQuery().unfinished().processDefinitionKey(process_Name).startedBy("1011").orderByProcessInstanceStartTime().desc().list();
+historyService.createHistoricProcessInstanceQuery().unfinished().processDefinitionKey(processDefinitionKey).startedBy("1011").orderByProcessInstanceStartTime().desc().list()
+//查询历史发起的流程
+historyService.createHistoricProcessInstanceQuery().startedBy("1012").list();
+historyService.createHistoricProcessInstanceQuery().startedBy("1012").orderByProcessInstanceStartTime().desc().list()
+//startedBy需要：
+Authentication.setAuthenticatedUserId("1012");
+
+historyService.createHistoricDetailQuery().processInstanceId("458688261355749376").singleResult();
+
+historyService.createHistoricActivityInstanceQuery()
+	.processInstanceId("458679520342327296")
+	.unfinished()
+	.singleResult()
+
+
+#### Flowable开发--Modeler集成(六)
+提供可视化编辑器，编辑BPMN流程，编辑CASE模型，编辑Form表单，编辑App应用，编辑决策表
+https://www.jianshu.com/p/8f311013409b
+
+flowable学堂
+https://blog.csdn.net/zhongzk69/category_9288971.html
+
+http://localhost:8080/flowable-modeler/#/processes
+
+https://blog.csdn.net/puhaiyang/article/details/79845248
+
+

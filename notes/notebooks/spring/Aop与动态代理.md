@@ -20,3 +20,19 @@ ConcurrentHashMap使用分段锁技术，将数据分成一段一段的存储，
 ，ConcurrentHashMap定位一个元素的过程需要进行两次Hash操作。
 
 第一次Hash定位到Segment，第二次Hash定位到元素所在的链表的头部。
+
+### 什么时候会触发依赖注入？
+1. Spring 容器启动初始化的时候(所有单例非懒加载的bean)
+2. 懒加载(lazy-init)的bean 第一次进行getBean的时候
+
+
+> [JVM知识](https://zhuanlan.zhihu.com/p/34426768)
+
+
+### GC
+
+JVM中的Class只有满足以下三个条件，才能被GC回收，也就是该Class被卸载（unload）：
+
+- 该类所有的实例都已经被GC，也就是JVM中不存在该Class的任何实例。
+- 加载该类的ClassLoader已经被GC。
+- 该类的java.lang.Class 对象没有在任何地方被引用，如不能在任何地方通过反射访问该类的方法.
