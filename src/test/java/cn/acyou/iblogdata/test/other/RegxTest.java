@@ -16,6 +16,45 @@ import java.util.regex.Pattern;
 public class RegxTest {
 
     @Test
+    public void test22322313123() {
+        String s = "Duplicate entry '我是试试水' for key 'idx_param_config_code'";
+        Pattern p = Pattern.compile("'([^']+)'", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = p.matcher(s);
+        matcher.find();
+        System.out.println(matcher.groupCount());
+        System.out.println(matcher.group());
+        System.out.println(matcher.group(0));
+        System.out.println(matcher.group(1));
+        matcher.find();
+        System.out.println(matcher.groupCount());
+        System.out.println(matcher.group());
+        System.out.println(matcher.group(0));
+        System.out.println(matcher.group(1));
+    }
+    @Test
+    public void test2232231w3123() {
+        String s = "Duplicate entry 'DEMO:KEY' for key 'idx_param_config_code'";
+        String regex = "'([^']+)'";
+
+        //String[] split = s.split(regex);
+        //System.out.println(split);
+        //System.out.println();
+        // 创建 Pattern 对象
+        System.out.println(s.matches("Duplicate entry(.*)"));
+        Pattern r = Pattern.compile(regex);
+        // 现在创建 matcher 对象
+        Matcher m = r.matcher(s);
+        System.out.println(m.groupCount());
+        if (m.find()) {
+            System.out.println("Found value: " + m.group(1) );
+        } else {
+            System.out.println("NO MATCH");
+        }
+
+    }
+
+
+    @Test
     public void test(){
         Pattern p2 = Pattern.compile(
                 "^\\s*Duration: (\\d\\d):(\\d\\d):(\\d\\d)\\.(\\d).*$",
