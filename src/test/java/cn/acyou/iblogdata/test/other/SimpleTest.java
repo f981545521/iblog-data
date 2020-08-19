@@ -18,6 +18,7 @@ import cn.acyou.iblogdata.utils.Md5Util;
 import cn.acyou.iblogdata.utils.RandomUtil;
 import cn.acyou.iblogdata.vo.StudentLogTestVo;
 import cn.acyou.iblogdata.vo.StudentVo;
+import cn.hutool.core.io.FileUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
@@ -74,6 +75,7 @@ public class SimpleTest {
         String ss = "aaa";
         ss += 1234;
         System.out.println(ss);
+
     }
 
     @Test
@@ -1411,6 +1413,13 @@ public class SimpleTest {
     public void test223213123() {
         Double divide = MathUtil.divide(10132, 10000000);
         System.out.println(divide);
+    }
+
+    @Test
+    public void test223213122223() {
+        double v = Math.random() * 100;
+        System.out.println(v);
+        System.out.println((int) v);
     }
 
 
