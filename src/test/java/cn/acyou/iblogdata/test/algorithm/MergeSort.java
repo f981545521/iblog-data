@@ -19,7 +19,6 @@ public class MergeSort implements IArraySort {
     public int[] sort(int[] sourceArray) {
         // 对 arr 进行拷贝，不改变参数内容
         int[] arr = Arrays.copyOf(sourceArray, sourceArray.length);
-
         if (arr.length < 2) {
             return arr;
         }
